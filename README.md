@@ -1,4 +1,4 @@
-# ZAB - A coroutine-enabled asynchronous framework.
+# ZAB - A coroutine driven asynchronous framework.
 
 ![example workflow](https://github.com/Donald-Rupin/zab/actions/workflows/cmake.yml/badge.svg)
 
