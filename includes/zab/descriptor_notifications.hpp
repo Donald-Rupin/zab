@@ -38,10 +38,13 @@
 #define ZAB_DESCRIPTOR_NOTIFCATIONS_HPP_
 
 #include <algorithm>
+#include <coroutine>
+#include <cstdint>
 #include <deque>
 #include <iostream>
 #include <mutex>
 #include <optional>
+#include <set>
 #include <sys/epoll.h>
 #include <thread>
 
@@ -58,9 +61,24 @@ namespace zab {
      */
     class descriptor_notification {
 
+        public:
+
+            struct waiting_coroutine {
+                    std::coroutine_handle<> handle_;
+                    thread_t                thread_;
+            };
+
+        private:
+
+            struct timer_event {
+                    std::uintptr_t context_        = 0;
+                    std::int64_t   time_to_expiry_ = -1;
+                    timer_event*   next_           = nullptr;
+            };
+
             /**
-             * @brief      This class is a for a descriptor, related information and the callback
-             * information.
+             * @brief      This class is a for a descriptor, related information and the
+             * callback information.
              */
             class descriptor {
                     friend class descriptor_notification;
@@ -80,10 +98,10 @@ namespace zab {
                     /**
                      * @brief      Cannot be copied.
                      *
-                     * @param[in]  <unnamed>  
+                     * @param[in]  <unnamed>
                      */
                     descriptor(const descriptor&) = delete;
-                    
+
                     /**
                      * @brief      The flags set by the service.
                      *
@@ -103,24 +121,21 @@ namespace zab {
                     void
                     set_handle(std::coroutine_handle<> _handle) noexcept;
 
-                    /**
-                     * @brief      Sets the timeout.
-                     *
-                     * @param[in]  _timeout  The timeout.
-                     */
-                    inline void
-                    set_timeout(int32_t _timeout) noexcept
+
+                    inline timer_event*
+                    get_timeout() noexcept
                     {
-                        timeout_ = _timeout;
+                        return &timeout_;
                     }
 
                 private:
 
+                    timer_event        timeout_;
                     std::atomic<void*> awaiter_;
+                    descriptor*        dead_chain_;
+                    descriptor*        live_chain_;
                     int                return_flags_ = 0;
-                    int32_t            timeout_      = -1;
                     thread_t           thread_;
-                    std::atomic<bool>  dead_;
             };
 
         public:
@@ -333,19 +348,19 @@ namespace zab {
              * @return     A descriptor_waiter on success, otherwise nullopt.
              */
             [[nodiscard]] std::optional<descriptor_waiter>
-            subscribe(int _fd);
+            subscribe(int _fd) noexcept;
 
             /**
              * @brief      Runs the internal service thread.
              */
             void
-            run();
+            run() noexcept;
 
             /**
              * @brief      Stops the internal service thread.
              */
             void
-            stop();
+            stop() noexcept;
 
         private:
 
@@ -356,17 +371,66 @@ namespace zab {
              * @param[in]  _flags     The flags to set.
              */
             void
-            notify(descriptor* _awaiting, int _flags);
+            notify(descriptor* _awaiting, int _flags) noexcept;
+
+            /**
+             * @brief      Runs the notification loop.
+             *
+             * @param[in]  _token  The token
+             *
+             */
+            void
+            notification_loop(std::stop_token _token) noexcept;
+
+            void
+            add_timer(timer_event* _timer) noexcept;
+
+            void
+            add_wakeup(descriptor* _timer) noexcept;
+
+            void
+            handle_timers() noexcept;
+
+            void
+            handle_event() noexcept;
+
+            void
+            add_deleted(descriptor* _desc) noexcept;
+
+            void
+            process_deleted() noexcept;
+
+            void
+            process_wakeups() noexcept;
+
+            void
+            add_in_action(descriptor* _desc) noexcept;
+
+            void
+            process_pending_actions();
+
+            void
+            transfer_timers(bool _always_update) noexcept;
+
+            static constexpr uint64_t kNanoInSeconds = 1000000000;
+            static constexpr uint64_t kDecriptorFlag = 0b1;
+            static constexpr uint64_t kAddressMask   = ~kDecriptorFlag;
 
             std::jthread notification_loop_;
 
-            std::unique_ptr<std::mutex>             awaiting_mtx_;
-            std::deque<std::unique_ptr<descriptor>> awaiting_;
+            std::atomic<descriptor*>  pending_in_action_;
+            std::atomic<timer_event*> awaiting_timer_;
+            std::atomic<descriptor*>  for_wake_up_;
+            std::atomic<descriptor*>  for_deletion_;
+
+            std::set<descriptor*> in_action_;
+            timer_event* timers_;
 
             engine* engine_;
 
             int poll_descriptor_;
             int event_fd_;
+            int timer_fd_;
     };
 
 }   // namespace zab
