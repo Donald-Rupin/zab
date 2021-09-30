@@ -92,7 +92,6 @@ namespace zab::test {
 
                 for (size_t go = 0; go < threads_; ++go)
                 {
-
                     if (expected(count_, 0u)) { co_return false; }
 
                     aquire();

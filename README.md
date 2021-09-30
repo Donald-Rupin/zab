@@ -288,7 +288,7 @@ public:
     /**
      * What thread to run the `initialise()` function in.
      *
-     * Defaults to kDefaultThread.
+     * Defaults to `event_loop::kAnyThread`.
      */
     static constexpr zab::thread_t kInitialiseThread = kDefaultThread;
 
@@ -309,7 +309,7 @@ public:
     /**
      * What thread to run the `main()` function in.
      *
-     * Defaults to kDefaultThread.
+     * Defaults to `event_loop::kAnyThread`.
      */
     static constexpr zab::thread_t kMainThread = kDefaultThread;
         
