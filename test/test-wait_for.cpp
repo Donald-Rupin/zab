@@ -120,7 +120,7 @@ namespace zab::test {
                     co_return false;
                 }
 
-                if (expected(a_count_, 0u) || expected(b_count_, 0u) || expected(c_count_, 0u))
+                if (expected(a_count_.load(), 0u) || expected(b_count_.load(), 0u) || expected(c_count_.load(), 0u))
                 {
                     co_return false;
                 }
@@ -164,8 +164,8 @@ namespace zab::test {
                     co_return false;
                 }
 
-                if (expected(a_count_, _number_loops * 2) ||
-                    expected(b_count_, _number_loops * 2) || expected(c_count_, _number_loops * 3))
+                if (expected(a_count_.load(), _number_loops * 2) ||
+                    expected(b_count_.load(), _number_loops * 2) || expected(c_count_.load(), _number_loops * 3))
                 {
                     co_return false;
                 }
@@ -196,9 +196,9 @@ namespace zab::test {
                     co_return false;
                 }
 
-                if (expected(a_count_, _number_loops / 4) ||
-                    expected(b_count_, _number_loops - 1) ||
-                    expected(c_count_, _number_loops * 2 + _number_loops / 3))
+                if (expected(a_count_.load(), _number_loops / 4) ||
+                    expected(b_count_.load(), _number_loops - 1) ||
+                    expected(c_count_.load(), _number_loops * 2 + _number_loops / 3))
                 {
                     co_return false;
                 }
@@ -241,9 +241,9 @@ namespace zab::test {
                     co_return false;
                 }
 
-                if (expected(a_count_, _number_loops / 2 + _number_loops * 4) ||
-                    expected(b_count_, _number_loops * 2) ||
-                    expected(c_count_, _number_loops * 2 + _number_loops / 3 + _number_loops - 1))
+                if (expected(a_count_.load(), _number_loops / 2 + _number_loops * 4) ||
+                    expected(b_count_.load(), _number_loops * 2) ||
+                    expected(c_count_.load(), _number_loops * 2 + _number_loops / 3 + _number_loops - 1))
                 {
                     co_return false;
                 }
@@ -303,11 +303,11 @@ namespace zab::test {
 
         private:
 
-            size_t a_count_ = 0;
+            std::atomic<size_t> a_count_ = 0;
 
-            size_t b_count_ = 0;
+            std::atomic<size_t> b_count_ = 0;
 
-            size_t c_count_ = 0;
+            std::atomic<size_t> c_count_ = 0;
 
             bool failed_ = true;
     };

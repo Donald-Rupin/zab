@@ -195,6 +195,7 @@ namespace zab {
                     size                   = amount;
                     _thread_number.thread_ = count;
                 }
+                count++;
             }
         }
 
