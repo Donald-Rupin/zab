@@ -73,10 +73,10 @@ namespace zab {
                 static constexpr auto kDefaultThread = event_loop::kAnyThread;
 
                 /* Which thread to use for initialisation */
-                static constexpr auto kInitialiseThread = kDefaultThread;
+                static constexpr auto kInitialiseThread = event_loop::kAnyThread;
 
                 /* Which thread to use for the main */
-                static constexpr auto kMainThread = kDefaultThread;
+                static constexpr auto kMainThread = event_loop::kAnyThread;
 
                 /* Which slot to use for API's */
                 static constexpr auto kSlotToUse = std::numeric_limits<size_t>::max();
@@ -192,10 +192,17 @@ namespace zab {
                 engine_ = &_engine;
                 if constexpr (details::HasInitialise<F>)
                 {
+                    thread_t thread{};
+
+                    if constexpr (thread_t{Base::kInitialiseThread} == event_loop::kAnyThread)
+                    {
+                        thread = thread_t{Base::kDefaultThread};
+                    }
+
                     code_block(
                         [this](auto) noexcept { underlying().initialise(); },
                         next(),
-                        thread_t(Base::kInitialiseThread));
+                        thread);
                 }
                 if constexpr (details::HasMain<F>) { do_main<F>(); }
 
@@ -298,9 +305,9 @@ namespace zab {
                 requires(std::is_nothrow_invocable_v<Functor, thread_t>)
             inline void
             code_block(
-                Functor&&  _cb,
-                order_t _ordering = now(),
-                thread_t   _thread   = default_thread()) const noexcept
+                Functor&& _cb,
+                order_t   _ordering = now(),
+                thread_t  _thread   = default_thread()) const noexcept
             {
                 get_engine()->execute(
                     zab::code_block{.cb_ = std::forward<Functor>(_cb)},
@@ -317,6 +324,7 @@ namespace zab {
             [[nodiscard]] inline auto
             yield(order_t _order = now(), thread_t _thread = default_thread()) const noexcept
             {
+                // std::cout << "thread is: " << _thread << "\n";
                 return zab::yield(get_engine(), _order, _thread);
             }
 
@@ -325,8 +333,6 @@ namespace zab {
             {
                 return zab::yield(get_engine(), now(), _thread);
             }
-
-
 
             inline void
             unpause(pause_pack& _pause, order_t _order = now()) const
@@ -540,6 +546,13 @@ namespace zab {
             void
             do_main() noexcept
             {
+                thread_t thread{};
+
+                if constexpr (thread_t{Base::kMainThread} == event_loop::kAnyThread)
+                {
+                    thread = thread_t{Base::kDefaultThread};
+                }
+
                 code_block(
                     [this](auto) noexcept
                     {
@@ -547,7 +560,7 @@ namespace zab {
                         do_main();
                     },
                     order_t(order::seconds(Base::kMainCadence)),
-                    thread_t(Base::kMainThread));
+                    thread);
             }
 
             engine* engine_;

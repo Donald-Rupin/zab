@@ -74,6 +74,7 @@ namespace zab::test {
         public:
 
             static constexpr auto kDefaultThread = 0;
+            
             static constexpr auto kRounds        = 1000;
 
             test_single_thread_class(std::uint16_t _threads) : threads_(_threads) { }
