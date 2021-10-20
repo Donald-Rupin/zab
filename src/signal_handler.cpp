@@ -135,10 +135,6 @@ namespace zab {
             }
             else
             {
-                if (rc == descriptor_notification::kDestruction)
-                {
-                    std::cerr << "signal_handler -> descriptor waiting failed.\n";
-                }
                 running_ = false;
             }
         }

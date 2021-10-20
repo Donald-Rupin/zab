@@ -182,13 +182,10 @@ namespace zab {
                             [this](auto _handle) noexcept
                             {
                                 _handle->thread_ = engine_->get_event_loop().current_id();
-                                auto old_handle = state_->cancel_handle_.exchange(
+                                auto old_handle  = state_->cancel_handle_.exchange(
                                     _handle,
                                     std::memory_order_release);
-                                if (old_handle)
-                                {
-                                    old_handle->handle_.destroy();
-                                }
+                                if (old_handle) { old_handle->handle_.destroy(); }
                             }),
                         AwaitWrapper(*state_->socket_));
 
@@ -204,13 +201,10 @@ namespace zab {
                             [this](auto _handle) noexcept
                             {
                                 _handle->thread_ = engine_->get_event_loop().current_id();
-                                auto old_handle = state_->cancel_handle_.exchange(
+                                auto old_handle  = state_->cancel_handle_.exchange(
                                     _handle,
                                     std::memory_order_release);
-                                if (old_handle)
-                                {
-                                    old_handle->handle_.destroy();
-                                }
+                                if (old_handle) { old_handle->handle_.destroy(); }
                             }),
                         AwaitWrapper(*state_->socket_),
                         engine_->get_timer().wait_proxy(_timeout));
@@ -220,7 +214,7 @@ namespace zab {
                     if (index == 1) { flags = std::get<int>(result); }
                 }
 
-                if (!flags || flags == descriptor_notification::kDestruction)
+                if (!flags)
                 {
                     /* must of been cancelled...*/
                     state_->last_error_ = 0;
@@ -318,6 +312,7 @@ namespace zab {
     void
     tcp_stream::cancel_read() noexcept
     {
+
         auto old_handle = state_->cancel_handle_.exchange(nullptr, std::memory_order_acquire);
         if (old_handle) { unpause(*old_handle, order::now()); }
     }

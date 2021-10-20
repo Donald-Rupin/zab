@@ -363,10 +363,6 @@ if (desc_awaiter) {
     /* If you are not in an engine thread, this will return you in an engine thread. */
     auto return_flags = co_await *desc_awaiter;
 
-    /* zab specific flag that indicates the notification service was shut down. This most likely
-     * indicates the engine has been stopped. */
-    if (return_flags == kDestruction) { /* clean up */ }
-
     /* Both flags are not necessarily exclusive... */
     if (return_flags | descriptor_notification::kRead) { /* read data */ }
 

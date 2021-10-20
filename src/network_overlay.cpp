@@ -240,7 +240,7 @@ namespace zab {
 
                     if (index == 0) { flags = std::get<int>(result); }
 
-                    if (!flags || flags == descriptor_notification::kDestruction)
+                    if (!flags)
                     {
                         /* must of timed out...*/
                         last_error_ = 0;
@@ -315,7 +315,7 @@ namespace zab {
 
                 if (index == 0) { flags = std::get<int>(result); }
 
-                if (!flags || flags == descriptor_notification::kDestruction)
+                if (!flags)
                 {
                     /* must of timed out...*/
                     last_error_ = 0;

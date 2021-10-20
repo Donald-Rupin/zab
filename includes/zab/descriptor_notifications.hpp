@@ -89,8 +89,7 @@ namespace zab {
                 kRead      = EPOLLIN,
                 kWrite     = EPOLLOUT,
                 kException = EPOLLPRI,
-                kClosed    = EPOLLRDHUP,
-                kDestruction,
+                kClosed    = EPOLLRDHUP
             };
 
             /**
