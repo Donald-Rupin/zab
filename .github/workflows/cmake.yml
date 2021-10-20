@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      CXX: g++-10
+      CXX: g++-11
       
     steps:
     - uses: actions/checkout@v2
