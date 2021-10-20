@@ -124,13 +124,11 @@ namespace zab {
                     for (const auto& [thread, functor] : it->second)
                     {
                         engine_->execute(
-                            code_block{
-                                .cb_ =
-                                    [functor = functor, signal](thread_t _thread) noexcept
+                            [functor = functor, signal]() noexcept
                                 {
-                                    functor(_thread, signal);
-                                }},
-                            order_t{0}, /* Signal handlers go first */
+                                    functor(signal);
+                                },
+                            order_t{}, /* Signal handlers go first */
                             thread);
                     }
                 }

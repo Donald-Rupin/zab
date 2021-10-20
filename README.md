@@ -57,7 +57,7 @@ Portability has not been the primary focus in the creation of **ZAB**. Any and a
 
 
 Built Tested on:
-- x86 g++ 10.2.0 and 10.3.0
+- x86 g++ 11.0.1
 
 ```bash
 mkdir build
@@ -126,6 +126,12 @@ your_class::example()
     while (auto f = baz(); !f.complete()) {
         auto value_2 = co_await f;
     }
+
+    //or inbuilt for_each;
+    co_await zab::for_each(
+            baz(),
+            [](auto _value_2){ /* ... */ }
+        );
 
     /* Async behavior */
 
@@ -251,9 +257,7 @@ The amount of threads that can be made is bounded by `2^16 - 2` (although I don'
 
 ### Ordering and Threads
 
-An `order_t` is a strongly typed `std::size_t`. This specifies the delay to apply in the event loop. The class represents a timestamp for when it is expected to be executed. Each event loop for every thread will execute events in ascending order. 
-
-It defaults to `order::now()` which means on the next available time. This is a neutral ordering. It is possible to select positive ordering such as `order::now() + order::seconds(10)`. This specifies to execute on the next available time *after* 10 seconds has passed. It also possible to specify negative ordering such as `order::now() - order::seconds(10)`.  This specifies that this event should have execute priority over events that were added up until 10 seconds ago. Negative ordering can be useful if you have certain events that must be done quickly. For example, negative ordering is used for [Signal Handling](#Signal-Handling) to ensure a quick notification. 
+An `order_t` is a strongly typed `std::size_t`. This specifies the delay to apply in the event loop in nanoseconds (0 for no delay).
 
 A `thread_t` is a strongly typed `std::uint16_t` which is used to select a thread to be used. This can have different meaning in different contexts.  Typically `event_loop::kAnyThread` can be used to select which thread currently has the least amount of work to do. Thread bounds are not checked, so specifying an index larger than the number of threads in the `engine` is undefined behavior. 
 
@@ -288,7 +292,7 @@ public:
     /**
      * What thread to run the `initialise()` function in.
      *
-     * Defaults to kDefaultThread.
+     * Defaults to `event_loop::kAnyThread`.
      */
     static constexpr zab::thread_t kInitialiseThread = kDefaultThread;
 
@@ -309,7 +313,7 @@ public:
     /**
      * What thread to run the `main()` function in.
      *
-     * Defaults to kDefaultThread.
+     * Defaults to `event_loop::kAnyThread`.
      */
     static constexpr zab::thread_t kMainThread = kDefaultThread;
         

@@ -38,19 +38,26 @@
 
 #include <algorithm>
 #include <atomic>
+#include <cassert>
 #include <cstdint>
 #include <fstream>
 #include <iostream>
+#include <latch>
 #include <limits>
 #include <mutex>
 #include <sched.h>
 #include <thread>
-// TODO(donald) use latch when widely avaible. Just uncomment the code.
-//#include <latch>
 
 namespace zab {
 
-    event_loop::event_loop(configs _configs) : workers_(validate(_configs)), configs_(_configs) { }
+    event_loop::event_loop(configs _configs) : configs_(_configs)
+    {
+        auto number_of_workers = validate(_configs);
+        while (workers_.size() != number_of_workers)
+        {
+            workers_.emplace_back(std::make_pair(safe_queue{}, std::jthread{}));
+        }
+    }
 
     event_loop::~event_loop() { }
 
@@ -116,35 +123,27 @@ namespace zab {
     void
     event_loop::start() noexcept
     {
-        /* TODO: use latch instead of this rubish... */
-        // std::latch wait_for_init{static_cast<std::ptrdiff_t>(workers_.size())};
-
+        std::latch wait_for_init{static_cast<std::ptrdiff_t>(workers_.size() + 1)};
         ids_.resize(workers_.size());
 
-        std::mutex latchy;
+        for (std::uint16_t count = 0; auto& [work, thread] : workers_)
         {
-            std::scoped_lock lck(latchy);
-            for (std::uint16_t count = 0; auto& [work, thread] : workers_)
-            {
+            thread = std::jthread(
+                [this, count, &wait_for_init](std::stop_token _stop_token)
+                {
+                    wait_for_init.arrive_and_wait();
 
-                thread = std::jthread(
-                    [this, count, /* &wait_for_init */ &latchy](std::stop_token _stop_token)
-                    {
-                        // wait_for_init.arrive_and_wait();
-                        {
-                            std::scoped_lock lck(latchy);
-                        }
+                    if (configs_.affinity_set_) { set_affinity(thread_t{count}); }
 
-                        if (configs_.affinity_set_) { set_affinity(thread_t{count}); }
+                    run_loop(_stop_token, thread_t{count});
+                });
 
-                        run_loop(_stop_token, thread_t{count});
-                    });
+            ids_[count] = thread.get_id();
 
-                ids_[count] = thread.get_id();
-
-                ++count;
-            }
+            ++count;
         }
+
+        wait_for_init.arrive_and_wait();
 
         for (auto& [work, thread] : workers_)
         {
@@ -175,129 +174,75 @@ namespace zab {
     }
 
     void
-    event_loop::send_event(event&& _event, order_t ordering_, thread_t _thread_number) noexcept
+    event_loop::send_event(event _event, thread_t _thread_number) noexcept
     {
         if (_thread_number == kAnyThread)
         {
-            /* Pick the one with the lowest load */
-            _thread_number.thread_ = 0;
-            size_t size            = std::numeric_limits<size_t>::max();
-            for (size_t count = 0; auto& [work, thread] : workers_)
+            std::size_t min = std::numeric_limits<std::size_t>::max();
+            for (std::uint16_t count = 0; const auto& [w, _] : workers_)
             {
-                size_t amount = work.size_.load(std::memory_order_acquire);
-                if (!amount)
+                auto current_size = w.size_.load(std::memory_order_relaxed);
+                if (current_size < min)
                 {
                     _thread_number.thread_ = count;
-                    break;
+
+                    if (!current_size) { break; }
                 }
-                if (size > amount)
-                {
-                    size                   = amount;
-                    _thread_number.thread_ = count;
-                }
+                ++count;
             }
         }
 
-        auto& worker = workers_[_thread_number.thread_].first;
+        assert(_thread_number.thread_ < workers_.size());
 
-        std::unique_lock lck(worker.events_mtx_);
+        auto& [w, _] = workers_[_thread_number.thread_];
 
-        worker.size_.fetch_add(1, std::memory_order_acquire);
-        worker.events_.emplace(
-            std::upper_bound(
-                worker.events_.begin(),
-                worker.events_.end(),
-                ordering_,
-                [](order_t _order, const std::pair<event, order_t>& _event) -> bool
-                { return _order < _event.second; }),
-            std::make_pair(std::move(_event), ordering_));
-
-        worker.events_cv_.notify_one();
+        {
+            std::unique_lock lck(w.mtx_);
+            w.events_.push_back(_event);
+            w.size_.fetch_add(1, std::memory_order_relaxed);
+            if (w.events_.size() == 1) { w.cv_.notify_one(); }
+        }
     }
 
     void
     event_loop::run_loop(std::stop_token _stop_token, thread_t _thread_number) noexcept
     {
-        auto& worker = workers_[_thread_number.thread_].first;
+        auto& [w, _] = workers_[_thread_number.thread_];
 
         std::stop_callback callback(
             _stop_token,
-            [&worker]
-            {
-                std::unique_lock lck(worker.events_mtx_);
-                worker.events_.emplace_back(event{}, order_t{});
-                worker.events_cv_.notify_all();
-            });
+            [this, _thread_number] { send_event(nullptr, _thread_number); });
 
         while (!_stop_token.stop_requested())
         {
-            if (worker.size_.load(std::memory_order_acquire))
+            event e;
             {
-
-                std::unique_lock lck(worker.events_mtx_);
-
-                auto time = std::chrono::time_point<std::chrono::high_resolution_clock>(
-                    std::chrono::duration<std::uint64_t, std::nano>(
-                        worker.events_.front().second.order_));
-
-                worker.events_cv_.wait_for(
-                    lck,
-                    time - std::chrono::high_resolution_clock::now(),
-                    [&worker]()
-                    {
-                        auto time = std::chrono::time_point<std::chrono::high_resolution_clock>(
-                            std::chrono::duration<std::uint64_t, std::nano>(
-                                worker.events_.front().second.order_));
-
-                        return std::chrono::high_resolution_clock::now() >= time;
-                    });
-            }
-            else
-            {
-
-                std::unique_lock lck(worker.events_mtx_);
-
-                worker.events_cv_.wait(lck, [&worker]() { return worker.events_.size(); });
-            }
-
-            while (!_stop_token.stop_requested())
-            {
-
-                event event;
+                std::unique_lock lck(w.mtx_);
+                if (!w.events_.size())
                 {
-                    if (worker.size_.load(std::memory_order_acquire))
-                    {
-
-                        std::unique_lock lck(worker.events_mtx_);
-
-                        auto time = std::chrono::time_point<std::chrono::high_resolution_clock>(
-                            std::chrono::duration<std::uint64_t, std::nano>(
-                                worker.events_.front().second.order_));
-
-                        if (std::chrono::high_resolution_clock::now() >= time)
-                        {
-
-                            std::swap(event, worker.events_.front().first);
-                            worker.events_.pop_front();
-                            worker.size_.fetch_sub(1, std::memory_order_release);
-                        }
-                        else
-                        {
-
-                            break;
-                        }
-                    }
-                    else
-                    {
-
-                        break;
-                    }
+                    w.cv_.wait(lck, [&w = w]() { return w.events_.size(); });
                 }
 
-                std::visit(
-                    [this, _thread_number](auto& _type) { process_event(_thread_number, _type); },
-                    event.type_);
+                e = w.events_.front();
+                w.events_.pop_front();
+                w.size_.fetch_sub(1, std::memory_order_relaxed);
             }
+
+            if (e) { e.resume(); }
+        }
+    }
+
+    event_loop::safe_queue::safe_queue() : size_(0) { }
+
+    event_loop::safe_queue::safe_queue(safe_queue&& _que)
+        : size_(_que.size_.load()), events_(std::move(_que.events_))
+    { }
+
+    event_loop::safe_queue::~safe_queue()
+    {
+        for (const auto e : events_)
+        {
+            if (e) { e.destroy(); }
         }
     }
 

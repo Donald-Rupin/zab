@@ -48,21 +48,9 @@
 #include <thread>
 
 #include "zab/event.hpp"
+#include "zab/hardware_interface_size.hpp"
 #include "zab/strong_types.hpp"
-
-/* Shamelssly takend from
- * https://en.cppreference.com/w/cpp/thread/hardware_destructive_interference_size
- * as in some c++ libraries it doesn't exists
- */
-#ifdef __cpp_lib_hardware_interference_size
-using std::hardware_constructive_interference_size;
-using std::hardware_destructive_interference_size;
-#else
-// 64 bytes on x86-64 │ L1_CACHE_BYTES │ L1_CACHE_SHIFT │ __cacheline_aligned │
-// ...
-constexpr std::size_t hardware_constructive_interference_size = 2 * sizeof(std::max_align_t);
-constexpr std::size_t hardware_destructive_interference_size  = 2 * sizeof(std::max_align_t);
-#endif
+#include "zab/spin_lock.hpp"
 
 namespace zab {
 
@@ -157,7 +145,22 @@ namespace zab {
              *D
              */
             void
-            send_event(event&& _event, order_t ordering_, thread_t _thread_number) noexcept;
+            send_event(event _event, thread_t _thread_number) noexcept;
+
+            /**
+             * @brief      Sends an event to be executed by a event loop processor.
+             *
+             * @details    If _thread_number is large then ThreadCount this will
+             * cause undefined behavior.
+             *
+             *             This is with the exception of being passed kAnyThread
+             * which will select which thread to use.
+             *
+             * @param[in]  _event          The event
+             *
+             */
+            void
+            system_event(event _event) noexcept;
 
             /**
              * @brief      Get the ID of the thread running this function.
@@ -200,71 +203,32 @@ namespace zab {
             void
             run_loop(std::stop_token _stop_token, thread_t _thread_number) noexcept;
 
-            /**
-             * @brief      Process a 'code_block' event.
-             *
-             * @param[in]  _thread  The thread that is executing.
-             * @param      _yield   The code_block event.
-             */
-            inline void
-            process_event(thread_t _thread, code_block& _yield) const noexcept
-            {
-                _yield.cb_(_thread);
-            }
+           
 
-            /**
-             * @brief      Process a 'code_block' event.
-             *
-             * @param[in]  _thread  The thread that is executing.
-             * @param      _yield   The code_block event.
-             */
-            inline void
-            process_event(thread_t, coroutine& _coro) const noexcept
-            {
-                _coro.awaiter_.resume();
-            }
+            /* Todo: look at spin lock since ME zone is incredibly small */
+            struct alignas(hardware_constructive_interference_size) safe_queue {
 
-            /**
-             * @brief      A worker for processing events in the event loop.
-             *
-             * @details    Workers are aligned to fit on seperate cache lines
-             *             to avoid "cache synchronization" after thread-writes
-             */
-            struct alignas(hardware_constructive_interference_size) worker {
+                    safe_queue();
 
-                    /**
-                     * @brief      Ensure to initialise the atomic to 0.
-                     */
-                    worker() : size_(0) { }
+                    safe_queue(safe_queue&& _que);
 
-                    /**
-                     * @brief      Destroys the object and waiting coroutine handles
-                     *             in an attempt to clean up all memory.
-                     */
-                    ~worker()
-                    {
-                        for (const auto& [e, o] : events_)
-                        {
-                            if (std::holds_alternative<coroutine>(e.type_) &&
-                                std::get<coroutine>(e.type_).awaiter_.address())
-                            {
-                                std::get<coroutine>(e.type_).awaiter_.destroy();
-                                ;
-                            }
-                        }
-                    }
+                    ~safe_queue();
 
-                    std::mutex                               events_mtx_;
-                    std::condition_variable                  events_cv_;
-                    std::atomic<size_t>                      size_;
-                    std::deque<std::pair<event, order_t>> events_;
+                    std::atomic<std::size_t> size_ alignas(hardware_constructive_interference_size);
+
+                    spin_lock mtx_ alignas(hardware_constructive_interference_size);
+
+                    std::condition_variable_any cv_;
+
+                    std::deque<event> events_;
             };
 
-            std::vector<std::pair<worker, std::jthread>> workers_;
+            std::vector<std::pair<safe_queue, std::jthread>>
+                workers_ alignas(hardware_constructive_interference_size);
 
-            std::vector<std::thread::id> ids_;
+            std::vector<std::thread::id> ids_ alignas(hardware_constructive_interference_size);
 
-            configs configs_;
+            configs configs_ alignas(hardware_constructive_interference_size);
     };
 
 }   // namespace zab

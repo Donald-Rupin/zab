@@ -58,8 +58,10 @@ namespace zab_example {
         public:
 
             static constexpr std::uint16_t kDefaultThread = 0;
+            static constexpr std::uint16_t kPrintThread   = kDefaultThread;
 
-            echo_server(zab::engine* _e, std::uint16_t _port) : acceptor_(_e), port_(_port)
+            echo_server(zab::engine* _e, std::uint16_t _port)
+                : acceptor_(_e), active_streams_mtx_(_e), port_(_port)
             {
                 register_engine(*_e);
             }
@@ -69,13 +71,37 @@ namespace zab_example {
             {
                 run_acceptor();
 
-                /* Since we will run in an infinite loop use ctr-c to cancel program */
+                /* Since we will run in an infinite loop use ctr-c to cleanly cancel program */
                 engine_->get_signal_handler().handle(
                     SIGINT,
-                    zab::thread_t{kDefaultThread},
-                    [this](int) { engine_->stop(); }
+                    zab::thread_t{kPrintThread},
+                    [this]
+                    (int)
+                        {
+                            wake_connections();
+                        }
 
-                );
+                    );
+            }
+
+            zab::async_function<>
+            wake_connections()
+            {
+                std::cout << "Waking all connection" << "\n";
+
+                {
+                    auto lck = co_await active_streams_mtx_;
+
+                    for (const auto i : active_streams_) {
+                        i->cancel_read();
+                    }
+                }
+                    
+                /* Give 1 second to do so... */
+                co_await yield(zab::order::in_seconds(1));
+
+                std::cout << "Stopping Engine" << "\n";
+                engine_->stop();
             }
 
             zab::async_function<>
@@ -84,15 +110,23 @@ namespace zab_example {
                 int connection_count = 0;
                 if (acceptor_.listen(AF_INET, port_, 10))
                 {
+
+                    std::cout << "Starting acceptor on port " << port_ << "\n";
+
                     std::optional<zab::tcp_stream> stream;
                     while (stream = co_await acceptor_.accept())
                     {
                         run_stream(connection_count++, std::move(*stream));
                         stream.reset();
                     }
+
+                    std::cout << "Stopping acceptor with errno " << acceptor_.last_error() << "\n";
                 }
                 else
                 {
+
+                    std::cout << "Failed to start acceptor with errno " << acceptor_.last_error()
+                              << "\n";
                     engine_->stop();
                 }
             }
@@ -100,10 +134,23 @@ namespace zab_example {
             zab::async_function<>
             run_stream(int _connection_count, zab::tcp_stream _stream)
             {
-                zab::thread_t thread{(std::uint16_t)(
-                    _connection_count % engine_->get_event_loop().number_of_workers())};
+                zab::thread_t thread{
+                    (std::uint16_t) (_connection_count % engine_->get_event_loop().number_of_workers())};
                 /* Lets load balance connections between available threads... */
                 co_await yield(thread);
+
+                { /* Insert stream so we can wake it up... */
+                    auto lck = co_await active_streams_mtx_;
+                    active_streams_.emplace(&_stream);
+                }
+
+                print(thread, _connection_count, "Got connection.");
+
+                /* Log received data to file. */
+                zab::async_file log_file(
+                    engine_,
+                    "./connection_log." + std::to_string(_connection_count) + ".txt",
+                    zab::async_file::Options::kTrunc);
 
                 while (!_stream.last_error())
                 {
@@ -111,6 +158,9 @@ namespace zab_example {
 
                     if (data)
                     {
+
+                        print(thread, _connection_count, "Read ", data->size(), " bytes.");
+
                         /* echo the data back */
                         size_t data_to_write = 0;
                         while (data_to_write != data->size() && !_stream.last_error())
@@ -120,6 +170,10 @@ namespace zab_example {
                                 data->data() + data_to_write,
                                 data->size() - data_to_write));
                         }
+
+                        /* log data to file */
+                        auto s = co_await log_file.write_to_file(*data);
+                        if (!s) { print(thread, _connection_count, "Failed to log to file."); }
                     }
                     else
                     {
@@ -128,13 +182,43 @@ namespace zab_example {
                     }
                 }
 
+                print(thread, _connection_count, "Shutting down connection.");
+
                 /* Wait for the stream to shutdown */
                 co_await _stream.shutdown();
+
+                /* Remove stream... */
+                auto lck = co_await active_streams_mtx_;
+                active_streams_.erase(&_stream);
+            }
+
+            template <typename... Args>
+            zab::async_function<>
+            print(zab::thread_t _thread, int _connection_count, Args... _message)
+            {
+                /* We are always going to cout from the same thread to prevent clobbering... */
+                co_await yield(zab::thread_t{kPrintThread});
+
+                std::cout << _thread << ", Connection[" << _connection_count << "]: ";
+
+                inner_print(_message...);
+
+                std::cout << "\n";
+            }
+
+            template <typename... Args>
+            void
+            inner_print(Args&... _message)
+            {
+                (std::cout << ... << _message);
             }
 
         private:
 
             zab::tcp_acceptor acceptor_;
+
+            zab::async_mutex           active_streams_mtx_;
+            std::set<zab::tcp_stream*> active_streams_;
 
             std::uint16_t port_;
     };

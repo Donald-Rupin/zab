@@ -66,7 +66,7 @@ namespace zab {
                             await_suspend(std::coroutine_handle<> _awaiter) noexcept
                             {
                                 yield_->engine_->resume(
-                                    coroutine{_awaiter},
+                                    _awaiter,
                                     yield_->order_,
                                     yield_->thread_);
                             }
@@ -165,7 +165,7 @@ namespace zab {
     inline void
     unpause(engine* _engine, pause_pack& _pause, order_t _order) noexcept
     {
-        _engine->resume(coroutine{_pause.handle_}, _order, _pause.thread_);
+        _engine->resume(_pause.handle_, _order, _pause.thread_);
     }
 
 }   // namespace zab

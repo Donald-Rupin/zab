@@ -93,6 +93,7 @@ namespace zab::test {
 
                 co_await yield(now(), thread_t{kInitialiseThread + 1});
 
+
                 auto thread_number = get_engine()->get_event_loop().current_id();
 
                 if (expected(thread_number.thread_, kInitialiseThread + 1))
@@ -136,7 +137,7 @@ namespace zab::test {
     int
     test_async_function()
     {
-        engine engine(event_loop::configs{2});
+        engine engine(event_loop::configs{2, event_loop::configs::kExact});
 
         test_async_class test;
 
@@ -245,7 +246,7 @@ namespace zab::test {
     int
     test_promise_function()
     {
-        engine engine(event_loop::configs{2});
+        engine engine(event_loop::configs{2, event_loop::configs::kExact});
 
         test_promise_class test;
 
@@ -333,7 +334,7 @@ namespace zab::test {
     int
     test_recursive_promise_function()
     {
-        engine engine(event_loop::configs{2});
+        engine engine(event_loop::configs{2, event_loop::configs::kExact});
 
         test_recursive_promise_class test;
 
@@ -365,9 +366,9 @@ namespace zab::test {
                 /* Explictly yield some code for later */
                 /* Should execute in the kDefaultThread */
                 code_block(
-                    [this, &pack](auto _thread) noexcept
+                    [this, &pack]() noexcept
                     {
-                        if (expected(_thread.thread_, kDefaultThread))
+                        if (expected(get_engine()->current_id().thread_, kDefaultThread))
                         {
                             get_engine()->stop();
                             return;
@@ -403,7 +404,7 @@ namespace zab::test {
     int
     test_pause_function()
     {
-        engine engine(event_loop::configs{2});
+        engine engine(event_loop::configs{2, event_loop::configs::kExact});
 
         test_pause_class test;
 
@@ -492,6 +493,8 @@ namespace zab::test {
 
                 failed_ = false;
                 get_engine()->stop();
+
+
             }
 
             reusable_future<size_t>
@@ -545,7 +548,7 @@ namespace zab::test {
     int
     test_reusuable_promise_function()
     {
-        engine engine(event_loop::configs{2});
+        engine engine(event_loop::configs{2, event_loop::configs::kExact});
 
         test_reusuable_promise_class test;
 

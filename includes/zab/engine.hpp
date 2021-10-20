@@ -46,6 +46,8 @@
 
 namespace zab {
 
+    class timer_service;
+
     /**
      * @brief      This class describes an engine for enabling access to an
      *             interface and providing an event loop to execute requests.
@@ -66,7 +68,6 @@ namespace zab {
              */
             engine(engine&& _move) = default;
 
-            
             /**
              * @brief      Destroys the engine.
              */
@@ -86,7 +87,7 @@ namespace zab {
             inline descriptor_notification&
             get_notification_handler() noexcept
             {
-                return *notifcations_;
+                return notifcations_;
             }
 
             /**
@@ -100,16 +101,36 @@ namespace zab {
                 return event_loop_;
             }
 
-            void
-            execute(code_block&& _yielder, order_t _order, thread_t _thread) noexcept;
+            inline timer_service&
+            get_timer() noexcept
+            {
+                return *timer_;
+            }
+
+            /**
+             * @brief      Get the ID of the thread running this function.
+             *
+             * @details    Returns kAnyThread if this thread is not an engine
+             * thread.
+             *
+             * @return     The thread id.
+             */
+            thread_t
+            current_id() const noexcept
+            {
+                return event_loop_.current_id();
+            }
 
             void
-            resume(coroutine _handle, order_t _order, thread_t _thread) noexcept;
+            execute(std::function<void()> _yielder, order_t _order, thread_t _thread) noexcept;
+
+            void
+            resume(event _handle, order_t _order, thread_t _thread) noexcept;
 
             inline void
             start() noexcept
             {
-                notifcations_->run();
+                notifcations_.run();
                 handler_.run();
                 event_loop_.start();
             }
@@ -119,14 +140,15 @@ namespace zab {
             {
                 event_loop_.stop();
                 handler_.stop();
-                notifcations_->stop();
+                notifcations_.stop();
             }
 
         private:
 
-            event_loop                               event_loop_;
-            signal_handler                           handler_;
-            std::unique_ptr<descriptor_notification> notifcations_;
+            event_loop              event_loop_ alignas(hardware_constructive_interference_size);
+            signal_handler          handler_ alignas(hardware_constructive_interference_size);
+            descriptor_notification notifcations_ alignas(hardware_constructive_interference_size);
+            std::unique_ptr<timer_service> timer_ alignas(hardware_constructive_interference_size);
     };
 
 }   // namespace zab

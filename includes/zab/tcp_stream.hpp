@@ -172,10 +172,10 @@ namespace zab {
              *             by itself does not guaranty that the stream can be safely deconstructed.
              *             It guaranties that the stream is no longer alive, and any readers will be
              *             returning. To be safe, its easier to have the logical thread that is
-             *             reading to do the deconstruction itself.
+             * reading to do the deconstruction itself.
              *
              *             For applications that require reliable delivery of data, the tcp_stream
-             *             tries its best to ensure that all data is delivered. It is highly
+             * tries its best to ensure that all data is delivered. It is highly
              * unlikely that some data is not sent during shutdown. Although, like that of any
              * socket programming, we cannot garrenty delivery to the client side application (only
              * that we tried to send it and try to ensure write buffers are flushed). Most
@@ -210,12 +210,12 @@ namespace zab {
              * deconstruction.
              *
              * @param[in]  _amount  The amount to read.
-             * @param[in]  _timout  The timout to used.
+             * @param[in]  _timout  The timeout to used.
              *
              * @return     The data read if successful, std::nullopt if an error.
              */
             [[nodiscard]] simple_future<std::vector<char>>
-            read(size_t _amount = 0, int64_t _timout = -1) noexcept;
+            read(size_t _amount = 0, int64_t _timeout = -1) noexcept;
 
             /**
              * @brief     Immediately times out the reader if there is one.
@@ -239,7 +239,7 @@ namespace zab {
              *             Atomicity is always guarantied, and ordering is guaranteed by the current
              *             implementation of async_mutex.
              *
-             *             The life time of the data help by the span must last longer then the call
+             *             The life time of the data held by the span must last longer then the call
              *             to this function.
              *
              *             The data actually written may be different to the amount given due to
@@ -318,6 +318,8 @@ namespace zab {
                     async_mutex mtx_;
 
                     std::optional<descriptor_notification::descriptor_waiter> socket_;
+
+                    std::atomic<pause_pack*> cancel_handle_;
 
                     int last_error_;
             };

@@ -39,6 +39,8 @@
 
 #include <arpa/inet.h>
 #include <asm-generic/errno-base.h>
+#include <atomic>
+#include <coroutine>
 #include <errno.h>
 #include <ifaddrs.h>
 #include <mutex>
@@ -51,7 +53,9 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#include "zab/first_of.hpp"
 #include "zab/strong_types.hpp"
+#include "zab/timer_service.hpp"
 
 namespace zab {
 
@@ -129,10 +133,10 @@ namespace zab {
     }
 
     simple_future<std::vector<char>>
-    tcp_stream::read(size_t _amount, int64_t _timout) noexcept
+    tcp_stream::read(size_t _amount, int64_t _timeout) noexcept
     {
         thread_t rejoin_thread{engine_->get_event_loop().current_id()};
-        state_->socket_->set_timeout(_timout);
+        // state_->socket_->set_timeout(_timout);
 
         std::vector<char> buffer;
         buffer.reserve(_amount);
@@ -165,11 +169,61 @@ namespace zab {
             else if (errno == EAGAIN || errno == EWOULDBLOCK)
             {
                 buffer.resize(old_size);
-                auto flags = co_await *state_->socket_;
 
-                /* Timed out */
-                if (!flags)
+                std::uint32_t flags = 0;
+
+                auto finished = std::make_shared<bool>();
+
+                if (_timeout < 1)
                 {
+                    auto result = co_await first_of(
+                        engine_,
+                        pause(
+                            [this](auto _handle) noexcept
+                            {
+                                _handle->thread_ = engine_->get_event_loop().current_id();
+                                auto old_handle = state_->cancel_handle_.exchange(
+                                    _handle,
+                                    std::memory_order_release);
+                                if (old_handle)
+                                {
+                                    old_handle->handle_.destroy();
+                                }
+                            }),
+                        AwaitWrapper(*state_->socket_));
+
+                    auto index = result.index();
+
+                    if (index == 1) { flags = std::get<int>(result); }
+                }
+                else
+                {
+                    auto result = co_await first_of(
+                        engine_,
+                        pause(
+                            [this](auto _handle) noexcept
+                            {
+                                _handle->thread_ = engine_->get_event_loop().current_id();
+                                auto old_handle = state_->cancel_handle_.exchange(
+                                    _handle,
+                                    std::memory_order_release);
+                                if (old_handle)
+                                {
+                                    old_handle->handle_.destroy();
+                                }
+                            }),
+                        AwaitWrapper(*state_->socket_),
+                        engine_->get_timer().wait_proxy(_timeout));
+
+                    auto index = result.index();
+
+                    if (index == 1) { flags = std::get<int>(result); }
+                }
+
+                if (!flags || flags == descriptor_notification::kDestruction)
+                {
+                    /* must of been cancelled...*/
+                    state_->last_error_ = 0;
                     if (buffer.size()) { co_return buffer; }
                     else
                     {
@@ -201,7 +255,7 @@ namespace zab {
         /* Mutex will resume in order of suspension  */
         auto   lock     = co_await state_->mtx_;
         size_t written  = 0;
-        auto back_off = order::milli(1);
+        auto   back_off = order::milli(1);
         while (written < _data.size())
         {
             auto to_send = std::min(_data.size() - written, kBufferSize);
@@ -264,7 +318,8 @@ namespace zab {
     void
     tcp_stream::cancel_read() noexcept
     {
-        state_->socket_->wake_up();
+        auto old_handle = state_->cancel_handle_.exchange(nullptr, std::memory_order_acquire);
+        if (old_handle) { unpause(*old_handle, order::now()); }
     }
 
     simple_future<>
@@ -321,7 +376,7 @@ namespace zab {
                 else if (errno == EAGAIN || errno == EWOULDBLOCK)
                 {
                     ++i;
-                    _state->socket_->set_timeout(100);
+                    //_state->socket_->set_timeout(100);
 
                     co_await *_state->socket_;
                 }
