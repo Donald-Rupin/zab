@@ -30,56 +30,49 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  *
- *  @file engine.cpp
+ *  @file spin_lock.cpp
  *
  */
 
-#include "zab/engine.hpp"
+#ifndef ZAB_SPIN_LOCK_HPP_
+#define ZAB_SPIN_LOCK_HPP_
 
-#include "zab/async_function.hpp"
-#include "zab/async_primitives.hpp"
-#include "zab/signal_handler.hpp"
-#include "zab/timer_service.hpp"
+#include <atomic>
+
+#include "zab/hardware_interface_size.hpp"
 
 namespace zab {
 
-    namespace {
+    struct alignas(hardware_constructive_interference_size) spin_lock {
 
-        async_function<>
-        do_function(engine* _this, std::function<void()> _func, order_t _order, thread_t _thread)
-        {
-            co_await yield(_this, _order, _thread);
+            inline void
+            lock() noexcept
+            {
+                while (true)
+                {
+                    if (!lock_.exchange(true, std::memory_order_acquire)) { return; }
 
-            _func();
-        }
-    }   // namespace
+                    while (lock_.load(std::memory_order_relaxed))
+                        ;
+                }
+            }
 
-    engine::engine(event_loop::configs _configs)
-        : event_loop_(_configs), handler_(this), notifcations_(this),
-          timer_(std::make_unique<timer_service>(this))
-    { }
+            inline bool
+            try_lock() noexcept
+            {
+                return !lock_.load(std::memory_order_relaxed) &&
+                       !lock_.exchange(true, std::memory_order_acquire);
+            }
 
-    engine::~engine()
-    {
-        /* Destroy the timer first so it can clean up. */
-        timer_ = nullptr;
-        event_loop_.purge();
-    }
+            inline void
+            unlock() noexcept
+            {
+                lock_.store(false, std::memory_order_release);
+            }
 
-    void
-    engine::execute(std::function<void()> _yielder, order_t _order, thread_t _thread) noexcept
-    {
-        do_function(this, std::move(_yielder), _order, _thread);
-    }
-
-    void
-    engine::resume(event _handle, order_t _order, thread_t _thread) noexcept
-    {
-        if (!_order.order_) { event_loop_.send_event(_handle, _thread); }
-        else
-        {
-            timer_->wait(_handle, _order.order_, _thread);
-        }
-    }
+            std::atomic<bool> lock_ alignas(hardware_constructive_interference_size) = {false};
+    };
 
 }   // namespace zab
+
+#endif /* ZAB_SPIN_LOCK_HPP_ */

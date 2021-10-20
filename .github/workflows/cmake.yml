@@ -19,10 +19,13 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      CXX: g++-10
+      CXX: g++-11
       
     steps:
     - uses: actions/checkout@v2
+
+    - name: Install g++-11
+      run: sudo apt update && sudo apt install g++-11
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.

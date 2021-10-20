@@ -155,7 +155,7 @@ namespace zab {
              * @brief      Await for a connection to come in.
              *
              *             The timeout can be used to resume the suspended coroutine
-             *             early. The number is in milliseconds and -1 means no timeout.
+             *             early. The number is in nanoseconds and -1 means no timeout.
              *
              *             last_error is set on failure.
              *
@@ -266,7 +266,7 @@ namespace zab {
              *             passing in the `ai_addr` result member.
              *
              *             The timeout can be used to resume the suspended coroutine
-             *             early. The number is in milliseconds and -1 means no timeout.
+             *             early. The number is in nanoseconds and -1 means no timeout.
              *
              *             On success, the state of the connected is reset and can be reused.
              *

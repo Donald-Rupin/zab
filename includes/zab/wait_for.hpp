@@ -34,8 +34,8 @@
  *
  */
 
-#ifndef ZAB_COMBINE_OVERLAY_HPP_
-#define ZAB_COMBINE_OVERLAY_HPP_
+#ifndef ZAB_WAIT_FOR_HPP_
+#define ZAB_WAIT_FOR_HPP_
 
 #include <atomic>
 #include <functional>
@@ -56,6 +56,26 @@ namespace zab {
 
     namespace details {
 
+
+        template <typename Base>
+        concept AwaitableVoid = requires(Base a)
+        {
+            {
+                a.operator co_await().await_resume()
+            }
+            noexcept->std::same_as<void>;
+        };
+
+        template <typename Base>
+        concept AwaitableProxy = !AwaitableVoid<Base> && requires(Base a)
+        {
+            {
+                a.operator co_await()
+            }
+            noexcept;
+        };
+
+
         /**
          * Helper for getting the type of concatanated tuples.
          */
@@ -71,6 +91,33 @@ namespace zab {
          */
         template <typename... Promises>
         struct extract_promise_types;
+
+        template <AwaitableProxy Awaitable, typename... Promises>
+        struct extract_promise_types<Awaitable, Promises...> {
+
+                using type = std::decay_t<
+                    decltype(std::declval<Awaitable>().operator co_await().await_resume())>;
+
+                /**
+                 * The concanated types of the font reusable_future and the remaining
+                 * Futures.
+                 */
+                using types = tuple_cat_t<
+                    std::tuple<type>,
+                    typename extract_promise_types<Promises...>::types>;
+        };
+
+        template <AwaitableVoid Awaitable, typename... Promises>
+        struct extract_promise_types<Awaitable, Promises...> {
+
+                /**
+                 * The concanated types of the font reusable_future and the remaining
+                 * Futures.
+                 */
+                using types = tuple_cat_t<
+                    std::tuple<promise_void>,
+                    typename extract_promise_types<Promises...>::types>;
+        };
 
         /**
          * @brief      Speicialisation for extract_promise_types for simple_futures.
@@ -279,4 +326,4 @@ namespace zab {
 
 }   // namespace zab
 
-#endif /* ZAB_COMBINE_OVERLAY_HPP_ */
+#endif /* ZAB_WAIT_FOR_HPP_ */

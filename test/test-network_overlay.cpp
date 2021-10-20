@@ -98,6 +98,7 @@ namespace zab::test {
 
                         if (expected(strlen(kBuffer), amount)) { get_engine()->stop(); }
 
+
                         co_await stream_opt->shutdown();
                     }
                     else
@@ -154,8 +155,9 @@ namespace zab::test {
                                 std::string_view ng(buffer->data());
 
                                 if (!expected(og, ng)) { failed_ = false; }
-                            }
-                        }
+
+                            } 
+                        } 
 
                         co_await stream_opt->shutdown();
                     }

@@ -64,7 +64,7 @@ namespace zab {
 
         public:
 
-            using handler = std::function<void(thread_t, int)>;
+            using handler = std::function<void(int)>;
 
             /**
              * @brief      initialise the handler with an engine to re-enter into.

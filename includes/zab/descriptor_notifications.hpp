@@ -38,15 +38,20 @@
 #define ZAB_DESCRIPTOR_NOTIFCATIONS_HPP_
 
 #include <algorithm>
+#include <atomic>
+#include <coroutine>
+#include <cstdint>
 #include <deque>
 #include <iostream>
 #include <mutex>
 #include <optional>
+#include <set>
 #include <sys/epoll.h>
 #include <thread>
 
 #include "zab/event.hpp"
 #include "zab/strong_types.hpp"
+#include "zab/spin_lock.hpp"
 
 namespace zab {
 
@@ -58,72 +63,9 @@ namespace zab {
      */
     class descriptor_notification {
 
-            /**
-             * @brief      This class is a for a descriptor, related information and the callback
-             * information.
-             */
-            class descriptor {
-                    friend class descriptor_notification;
-
-                public:
-
-                    /**
-                     * @brief      Construct in an empty state.
-                     */
-                    descriptor();
-
-                    /**
-                     * @brief      Destroys the object. This is a non-owning object.
-                     */
-                    ~descriptor() = default;
-
-                    /**
-                     * @brief      Cannot be copied.
-                     *
-                     * @param[in]  <unnamed>  
-                     */
-                    descriptor(const descriptor&) = delete;
-                    
-                    /**
-                     * @brief      The flags set by the service.
-                     *
-                     * @return     The flags.
-                     */
-                    inline int
-                    return_flags() const noexcept
-                    {
-                        return return_flags_;
-                    }
-
-                    /**
-                     * @brief      Sets the coroutine handle.
-                     *
-                     * @param[in]  _handle  The coroutine handle.
-                     */
-                    void
-                    set_handle(std::coroutine_handle<> _handle) noexcept;
-
-                    /**
-                     * @brief      Sets the timeout.
-                     *
-                     * @param[in]  _timeout  The timeout.
-                     */
-                    inline void
-                    set_timeout(int32_t _timeout) noexcept
-                    {
-                        timeout_ = _timeout;
-                    }
-
-                private:
-
-                    std::atomic<void*> awaiter_;
-                    int                return_flags_ = 0;
-                    int32_t            timeout_      = -1;
-                    thread_t           thread_;
-                    std::atomic<bool>  dead_;
-            };
-
         public:
+
+            class descriptor;
 
             /**
              * @brief      Constructs a new instance that will register to this engine.
@@ -147,8 +89,7 @@ namespace zab {
                 kRead      = EPOLLIN,
                 kWrite     = EPOLLOUT,
                 kException = EPOLLPRI,
-                kClosed    = EPOLLRDHUP,
-                kDestruction,
+                kClosed    = EPOLLRDHUP
             };
 
             /**
@@ -247,10 +188,13 @@ namespace zab {
                             int
                             await_resume() const noexcept
                             {
-                                return this_->return_flags();
+                                return return_flags_;
                             };
 
-                            descriptor_waiter* this_;
+                            descriptor_waiter*      self_;
+                            std::coroutine_handle<> handle_;
+                            int                     return_flags_;
+                            thread_t                thread_;
                     };
 
                     /**
@@ -265,17 +209,6 @@ namespace zab {
                     }
 
                     /**
-                     * @brief      Returns flags set by the service.
-                     *
-                     * @return     The return flags.
-                     */
-                    inline int
-                    return_flags() const noexcept
-                    {
-                        return desc_->return_flags();
-                    }
-
-                    /**
                      * @brief      Gets the file descriptor.
                      *
                      * @return     The file descriptor.
@@ -287,28 +220,11 @@ namespace zab {
                     }
 
                     /**
-                     * @brief      Sets the timeout.
-                     *
-                     * @param[in]  _timeout  The timeout
-                     */
-                    inline void
-                    set_timeout(int32_t _timeout) noexcept
-                    {
-                        timeout_ = _timeout;
-                    }
-
-                    /**
-                     * @brief      Wakes any co_waiting instances that have finished suspending.
-                     */
-                    void
-                    wake_up() noexcept;
-
-                    /**
                      * @brief      Co_await conversion operator.
                      *
                      * @return     Returns an Await Proxy.
                      */
-                    await_proxy operator co_await() noexcept { return await_proxy{.this_ = this}; }
+                    await_proxy operator co_await() noexcept;
 
                 private:
 
@@ -318,7 +234,6 @@ namespace zab {
                     descriptor*              desc_;
                     int                      flags_;
                     int                      fd_;
-                    int32_t                  timeout_ = -1;
             };
 
             /**
@@ -333,19 +248,59 @@ namespace zab {
              * @return     A descriptor_waiter on success, otherwise nullopt.
              */
             [[nodiscard]] std::optional<descriptor_waiter>
-            subscribe(int _fd);
+            subscribe(int _fd) noexcept;
 
             /**
              * @brief      Runs the internal service thread.
              */
             void
-            run();
+            run() noexcept;
 
             /**
              * @brief      Stops the internal service thread.
              */
             void
-            stop();
+            stop() noexcept;
+
+            /**
+             * @brief      This class is a for a descriptor, related information and the
+             * callback information.
+             */
+            class descriptor {
+                    friend class descriptor_notification;
+                    friend struct descriptor_waiter::await_proxy;
+
+                public:
+
+                    /**
+                     * @brief      Construct in an empty state.
+                     */
+                    descriptor();
+
+                    /**
+                     * @brief      Destroys the object. This is a non-owning object.
+                     */
+                    ~descriptor() = default;
+
+                    /**
+                     * @brief      Cannot be copied.
+                     *
+                     * @param[in]  <unnamed>
+                     */
+                    descriptor(const descriptor&) = delete;
+
+                    /**
+                     * @brief      Sets the coroutine handle.
+                     *
+                     * @param[in]  _handle  The coroutine handle.
+                     */
+                    void
+                    set_handle(engine* _engine, descriptor_waiter::await_proxy* _handle) noexcept;
+
+                private:
+
+                    std::atomic<descriptor_waiter::await_proxy*> awaiter_;
+            };
 
         private:
 
@@ -356,12 +311,37 @@ namespace zab {
              * @param[in]  _flags     The flags to set.
              */
             void
-            notify(descriptor* _awaiting, int _flags);
+            notify(descriptor* _awaiting, int _flags) noexcept;
+
+            /**
+             * @brief      Runs the notification loop.
+             *
+             * @param[in]  _token  The token
+             *
+             */
+            void
+            notification_loop(std::stop_token _token) noexcept;
+
+            void
+            handle_event() noexcept;
+
+            void
+            destroy(descriptor* _to_delete) const noexcept;
 
             std::jthread notification_loop_;
 
-            std::unique_ptr<std::mutex>             awaiting_mtx_;
-            std::deque<std::unique_ptr<descriptor>> awaiting_;
+            struct safe_queue {
+
+                    spin_lock mtx_;
+
+                    std::deque<descriptor*> decs_;
+            };
+
+            safe_queue for_deletion_;
+
+            safe_queue pending_action_;
+
+            std::set<descriptor*> in_action_;
 
             engine* engine_;
 

@@ -37,9 +37,13 @@
 
 #include "zab/network_overlay.hpp"
 
+#include <cstdint>
 #include <cstring>
 #include <netinet/in.h>
 #include <unistd.h>
+
+#include "zab/first_of.hpp"
+#include "zab/timer_service.hpp"
 
 namespace zab {
 
@@ -63,7 +67,6 @@ namespace zab {
 
     tcp_acceptor::~tcp_acceptor()
     {
-
         if (waiter_)
         {
             auto desc = waiter_->file_descriptor();
@@ -221,17 +224,28 @@ namespace zab {
             }
             else if (errno == EAGAIN || errno == EWOULDBLOCK)
             {
-                waiter_->set_timeout(_timeout);
-
                 /* We do not care if its an error */
                 /* Next call to accept will reveal! */
-                auto flags = co_await *waiter_;
+                std::uint32_t flags = 0;
 
-                if (!flags || flags == descriptor_notification::kDestruction)
+                if (_timeout < 1) { flags = co_await *waiter_; }
+                else
                 {
-                    /* must of timed out...*/
-                    last_error_ = 0;
-                    co_return std::nullopt;
+                    auto result = co_await first_of(
+                        engine_,
+                        AwaitWrapper(*waiter_),
+                        engine_->get_timer().wait_proxy(_timeout));
+
+                    auto index = result.index();
+
+                    if (index == 0) { flags = std::get<int>(result); }
+
+                    if (!flags)
+                    {
+                        /* must of timed out...*/
+                        last_error_ = 0;
+                        co_return std::nullopt;
+                    }
                 }
             }
             else
@@ -279,14 +293,35 @@ namespace zab {
         {
             /* We have EALREADY in case they call connect again after a time out... */
             /* In that case, we wait for writabilty or an error. */
-            waiter_->set_timeout(_timeout);
+            // waiter_->set_timeout(_timeout);
 
             waiter_->set_flags(
                 descriptor_notification::kClosed | descriptor_notification::kException |
                 descriptor_notification::kError | descriptor_notification::kWrite);
 
+            /* We do not care if its an error */
+            /* Next call to accept will reveal! */
+            std::uint32_t flags = 0;
 
-            auto flags = co_await *waiter_;
+            if (_timeout < 1) { flags = co_await *waiter_; }
+            else
+            {
+                auto result = co_await first_of(
+                    engine_,
+                    AwaitWrapper(*waiter_),
+                    engine_->get_timer().wait_proxy(_timeout));
+
+                auto index = result.index();
+
+                if (index == 0) { flags = std::get<int>(result); }
+
+                if (!flags)
+                {
+                    /* must of timed out...*/
+                    last_error_ = 0;
+                    co_return std::nullopt;
+                }
+            }
 
             if (flags & descriptor_notification::kWrite)
             {
@@ -311,18 +346,12 @@ namespace zab {
                     last_error_ = errno;
                 }
             }
-            else if (!flags || flags == descriptor_notification::kDestruction)
-            {
-                /* must of timed out... (or deconstruction) */
-                last_error_ = 0;
-                co_return std::nullopt;
-            }
             else
             {
                 /* Get error from error spillage... */
                 char ch;
                 auto rc = ::read(waiter_->file_descriptor(), &ch, 1);
-                (void)rc;
+                (void) rc;
                 last_error_ = errno;
                 co_return std::nullopt;
             }
