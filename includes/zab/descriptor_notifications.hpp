@@ -248,7 +248,7 @@ namespace zab {
                             await_resume() const noexcept
                             {
                                 return this_->return_flags();
-                            };
+                            }
 
                             descriptor_waiter* this_;
                     };

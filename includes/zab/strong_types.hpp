@@ -144,7 +144,7 @@ namespace zab {
         inline order_t
         in_milli(int64_t _number) noexcept
         {
-            return  now() + order_t{_number * 1000000000};
+            return  now() + order_t{_number * 1000000};
         }
 
     }   // namespace order
