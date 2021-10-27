@@ -178,7 +178,7 @@ namespace zab {
 
                             /* resume them */
                             engine_->resume(
-                                coroutine{resume->handle_},
+                                resume->handle_,
                                 order_t{order::now()},
                                 resume->thread_);
                         }
@@ -196,7 +196,7 @@ namespace zab {
 
                         /* resume them */
                         engine_->resume(
-                            coroutine{resume->handle_},
+                            resume->handle_,
                             order_t{order::now()},
                             resume->thread_);
 
@@ -377,7 +377,7 @@ namespace zab {
                 {
 
                     engine_->resume(
-                        coroutine{head->handle_},
+                        head->handle_,
                         order_t{order::now()},
                         head->thread_);
                 }

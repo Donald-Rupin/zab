@@ -167,7 +167,7 @@ namespace zab {
                     waiter(waiter&& _move) = default;
 
                     async_barrier&          barrier_;
-                    std::uintptr_t               next_;
+                    std::uintptr_t          next_;
                     std::coroutine_handle<> handle_;
                     thread_t                thread_;
             };
@@ -452,7 +452,7 @@ namespace zab {
             aquire_window()
             {
                 std::ptrdiff_t count = 0;
-                std::uintptr_t      head  = 0;
+                std::uintptr_t head  = 0;
 
                 while (!head)
                 {
@@ -597,10 +597,7 @@ namespace zab {
                         if (to_resume)
                         {
 
-                            engine_->resume(
-                                coroutine{to_resume},
-                                order_t{order::now()},
-                                to_execute_in);
+                            engine_->resume(to_resume, order_t{order::now()}, to_execute_in);
                         }
 
                         return true;
@@ -610,12 +607,7 @@ namespace zab {
                 if (count <= -expected_)
                 {
                     engine_->execute(
-                        code_block{
-                            .cb_ =
-                                [this](auto) noexcept
-                            {
-                                complete_phase();
-                            }},
+                        [this]() noexcept { complete_phase(); },
                         order_t{order::now()},
                         thread_);
                 }
@@ -632,7 +624,7 @@ namespace zab {
 
             std::ptrdiff_t expected_;
 
-            std::atomic<std::uintptr_t>      working_set_ = 0;
+            std::atomic<std::uintptr_t> working_set_ = 0;
             std::atomic<std::ptrdiff_t> count_       = 0;
 
             CompletionFunction function_;

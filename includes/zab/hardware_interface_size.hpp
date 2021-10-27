@@ -30,56 +30,28 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  *
- *  @file engine.cpp
+ *
+ *  @file hardware_interface_size.hpp
  *
  */
 
-#include "zab/engine.hpp"
+#include <cstddef>
 
-#include "zab/async_function.hpp"
-#include "zab/async_primitives.hpp"
-#include "zab/signal_handler.hpp"
-#include "zab/timer_service.hpp"
+#ifndef ZAB_HARDWARE_INTERFACE_SIZE_HPP
+#define ZAB_HARDWARE_INTERFACE_SIZE_HPP
 
-namespace zab {
+/* Shamelssly takend from
+ * https://en.cppreference.com/w/cpp/thread/hardware_destructive_interference_size
+ * as in some c++ libraries it doesn't exists
+ */
+#ifdef __cpp_lib_hardware_interference_size
+using std::hardware_constructive_interference_size;
+using std::hardware_destructive_interference_size;
+#else
+// 64 bytes on x86-64 │ L1_CACHE_BYTES │ L1_CACHE_SHIFT │ __cacheline_aligned │
+// ...
+constexpr std::size_t hardware_constructive_interference_size = 2 * sizeof(std::max_align_t);
+constexpr std::size_t hardware_destructive_interference_size  = 2 * sizeof(std::max_align_t);
+#endif
 
-    namespace {
-
-        async_function<>
-        do_function(engine* _this, std::function<void()> _func, order_t _order, thread_t _thread)
-        {
-            co_await yield(_this, _order, _thread);
-
-            _func();
-        }
-    }   // namespace
-
-    engine::engine(event_loop::configs _configs)
-        : event_loop_(_configs), handler_(this), notifcations_(this),
-          timer_(std::make_unique<timer_service>(this))
-    { }
-
-    engine::~engine()
-    {
-        /* Destroy the timer first so it can clean up. */
-        timer_ = nullptr;
-        event_loop_.purge();
-    }
-
-    void
-    engine::execute(std::function<void()> _yielder, order_t _order, thread_t _thread) noexcept
-    {
-        do_function(this, std::move(_yielder), _order, _thread);
-    }
-
-    void
-    engine::resume(event _handle, order_t _order, thread_t _thread) noexcept
-    {
-        if (!_order.order_) { event_loop_.send_event(_handle, _thread); }
-        else
-        {
-            timer_->wait(_handle, _order.order_, _thread);
-        }
-    }
-
-}   // namespace zab
+#endif

@@ -242,7 +242,7 @@ namespace zab {
                                 auto tmp   = o->handle_;
                                 o->handle_ = nullptr;
                                 super::engine_->resume(
-                                    coroutine{tmp},
+                                    tmp,
                                     order_t{order::now()},
                                     o->thread_);
                             }

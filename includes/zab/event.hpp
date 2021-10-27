@@ -46,26 +46,7 @@
 
 namespace zab {
 
-    /**
-     * @brief      Used to defer computation.
-     */
-    struct code_block {
-            /** callback for the response */
-            using callback = std::function<void(thread_t _thread)>;
-
-            callback cb_;
-    };
-
-    struct coroutine {
-            std::coroutine_handle<> awaiter_;
-    };
-
-    /**
-     * @brief      An event for the event loop to execute.
-     */
-    struct event {
-            std::variant<coroutine, code_block> type_;
-    };
+    using event = std::coroutine_handle<>;
 
 }   // namespace zab
 

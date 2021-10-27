@@ -10,7 +10,7 @@ cmake_minimum_required(VERSION 3.7...3.18 FATAL_ERROR)
 
 project(ZAB, CXX)
 
-set(CMAKE_CXX_FLAGS_DEBUG "-DDEBUG -Og -g")
+set(CMAKE_CXX_FLAGS_DEBUG "-DDEBUG -O0 -g")
 set(CMAKE_CXX_FLAGS_RELEASE "-DRELEASE -O3 -g")
 
 set(CMAKE_CXX_STANDARD 20)
@@ -27,6 +27,7 @@ add_library(zab STATIC
     src/file_io_overlay.cpp
     src/network_overlay.cpp
     src/tcp_stream.cpp
+    src/timer_service.cpp
     )
 
 target_compile_options(zab PUBLIC
@@ -38,6 +39,7 @@ target_compile_options(zab PUBLIC
 
 target_include_directories(zab PUBLIC
     includes
+    libs
   )
 
 
@@ -57,6 +59,7 @@ macro(add_zab_test test)
 
     target_include_directories(${test} PUBLIC
         includes
+        libs
     )
 
     target_link_libraries(
@@ -71,7 +74,6 @@ macro(add_zab_test test)
 
 endmacro()
 
-add_zab_test(test-event_loop)
 add_zab_test(test-engine_enabled)
 add_zab_test(test-engine_awaitable)
 add_zab_test(test-signal_handler)
@@ -79,6 +81,7 @@ add_zab_test(test-pause_token)
 add_zab_test(test-async_latch)
 add_zab_test(test-wait_for)
 add_zab_test(test-for_each)
+add_zab_test(test-first_of)
 add_zab_test(test-async_mutex)
 add_zab_test(test-async_semaphore)
 add_zab_test(test-async_barrier)
@@ -104,6 +107,7 @@ macro(add_zab_example example)
 
     target_include_directories(${example} PUBLIC
         includes
+        libs
     )
 
     target_link_libraries(
@@ -115,3 +119,4 @@ endmacro()
 
 
 add_zab_example(echo_server)
+add_zab_example(logging_echo_server)

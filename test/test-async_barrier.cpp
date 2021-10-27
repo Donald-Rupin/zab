@@ -32,7 +32,7 @@
  *
  *  TODO(donald): Test when number of threads is greatly larger then  expected.
  *
- *  @file test-async_latch.cpp
+ *  @file test-async_barrier.cpp
  *
  */
 
@@ -471,7 +471,7 @@ namespace zab::test {
             return test.failed();
         };
 
-        return test_lam(3) || test_lam(5) || test_lam(8) || test_lam(12) || test_lam(24);
+        return test_lam(3) || test_lam(5) || test_lam(8) || test_lam(12);
     }
 
 }   // namespace zab::test

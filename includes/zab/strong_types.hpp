@@ -49,7 +49,7 @@ namespace zab {
      * @brief      A struct for providing strict typing of thread ids'.
      */
     struct thread_t {
-            std::uint16_t thread_ = std::numeric_limits<std::uint16_t>::max();
+            std::uint16_t thread_ = std::numeric_limits<std::uint16_t>::max() - 1;
 
             constexpr auto
             operator<=>(const thread_t& _other) const = default;
@@ -63,7 +63,7 @@ namespace zab {
     };
 
     namespace thread {
-        
+
         constexpr auto
         in(std::uint16_t _thread) noexcept
         {
@@ -75,7 +75,7 @@ namespace zab {
         {
             return thread_t{};
         }
-    }
+    }   // namespace thread
 
     inline std::ostream&
     operator<<(std::ostream& os, const thread_t _thread)
@@ -89,7 +89,7 @@ namespace zab {
      */
     struct order_t {
 
-            int64_t order_ = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+            std::uint64_t order_ = 0;
 
             constexpr auto
             operator<=>(const order_t& _other) const = default;
@@ -102,49 +102,48 @@ namespace zab {
             }
 
             friend constexpr auto
-            operator +(order_t _lhs, order_t _rhs) noexcept 
+            operator+(order_t _lhs, order_t _rhs) noexcept
             {
                 return order_t{_lhs.order_ + _rhs.order_};
             }
 
             friend constexpr auto
-            operator -(order_t _lhs, order_t _rhs) noexcept 
+            operator-(order_t _lhs, order_t _rhs) noexcept
             {
                 return order_t{_lhs.order_ - _rhs.order_};
             }
     };
 
-
     namespace order {
 
         inline constexpr order_t
-        seconds(int64_t _number) noexcept
+        seconds(std::uint64_t _number) noexcept
         {
             return order_t{_number * 1000000000};
         }
 
         inline constexpr order_t
-        milli(int64_t _number) noexcept
+        milli(std::uint64_t _number) noexcept
         {
             return order_t{_number * 1000000};
         }
 
-        inline order_t
+        inline constexpr order_t
         now() noexcept
         {
             return order_t{};
         }
 
         inline order_t
-        in_seconds(int64_t _number) noexcept
+        in_seconds(std::uint64_t _number) noexcept
         {
-            return  now() + order_t{_number * 1000000000};
+            return seconds(_number);
         }
 
         inline order_t
-        in_milli(int64_t _number) noexcept
+        in_milli(std::uint64_t _number) noexcept
         {
-            return  now() + order_t{_number * 1000000};
+            return milli(_number);
         }
 
     }   // namespace order

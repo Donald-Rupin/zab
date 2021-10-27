@@ -119,7 +119,7 @@ namespace zab {
                     auto tmp = old_pause->next_waiting_;
 
                     engine_->resume(
-                        coroutine{old_pause->handle_},
+                        old_pause->handle_,
                         order_t{order::now()},
                         old_pause->thread_);
 

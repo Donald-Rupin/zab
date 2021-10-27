@@ -192,17 +192,16 @@ namespace zab {
                 engine_ = &_engine;
                 if constexpr (details::HasInitialise<F>)
                 {
-                    thread_t thread{};
+                    thread_t thread{Base::kInitialiseThread};
 
                     if constexpr (thread_t{Base::kInitialiseThread} == event_loop::kAnyThread)
                     {
+
                         thread = thread_t{Base::kDefaultThread};
                     }
 
-                    code_block(
-                        [this](auto) noexcept { underlying().initialise(); },
-                        next(),
-                        thread);
+                    code_block([this]() noexcept { underlying().initialise(); }, next(), thread);
+
                 }
                 if constexpr (details::HasMain<F>) { do_main<F>(); }
 
@@ -302,17 +301,14 @@ namespace zab {
              * @param[in]  _thread    The thread to use.
              */
             template <typename Functor>
-                requires(std::is_nothrow_invocable_v<Functor, thread_t>)
+                requires(std::is_nothrow_invocable_v<Functor>)
             inline void
             code_block(
                 Functor&& _cb,
                 order_t   _ordering = now(),
                 thread_t  _thread   = default_thread()) const noexcept
             {
-                get_engine()->execute(
-                    zab::code_block{.cb_ = std::forward<Functor>(_cb)},
-                    _ordering,
-                    _thread);
+                get_engine()->execute(std::forward<Functor>(_cb), _ordering, _thread);
             }
 
             /**
@@ -546,7 +542,7 @@ namespace zab {
             void
             do_main() noexcept
             {
-                thread_t thread{};
+                thread_t thread{Base::kMainThread};
 
                 if constexpr (thread_t{Base::kMainThread} == event_loop::kAnyThread)
                 {
@@ -554,7 +550,7 @@ namespace zab {
                 }
 
                 code_block(
-                    [this](auto) noexcept
+                    [this]() noexcept
                     {
                         underlying().main();
                         do_main();
