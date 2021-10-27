@@ -48,6 +48,7 @@ Contact: donald.rupin@pm.me
     + [`async_latch`](#async_latch)
     + [`async_barrier`](#async_barrier)
 - [Asynchronous Overlays](#Asynchronous-Overlays)
+    + [`Observable` (pub/sub](Observable)
     + [`File IO`](#File-IO)
     + [`Networking`](#Networking)
 
@@ -158,6 +159,30 @@ your_class::example()
             bar(),
             baz()
         );
+
+    /* Observable */
+
+    zab::observable<std::string, int> ob(get_engine());
+
+    auto con = ob.connect();
+
+    /* emit a value asynchronously */
+    ob.async_emit("hello", 4);
+
+    /* or emit and wait for all observers to receive */
+    co_await ob.emit("world", 2);
+
+    {   
+        /* Emits are 0 copy, all observers will get the same object  */
+        auto e = co_await con;
+
+        const auto&[e_string, e_int] = e.event();
+
+        /* Deconstruction of objects is guarded by e. Once all     */
+        /* observer destroy e, the event objects are deconstructed */
+        /* An observable waiting on an emit will wake once all e's */
+        /* are deconstructed. */
+    }
 
     /* We can do some non-blocking synchronisation */
 
@@ -1191,6 +1216,52 @@ The use of `arrive_and_drop()` seemingly adheres to the standard, but in the pre
 
 ## Overlays
 Overlays represent some functionality built by using the above asynchronous primitives that represent complex operations. Zab includes some basic overlays to give the expected functionality of an event loop framework.
+
+### Observable
+
+An `observable<Args...>` represents a thread safe publish/subscribe system. The to main operations are `emit` and `connect`.
+
+`emit` is a `simple_future<>` that safely resumes all waiting subscribers allowing them access to the given parameters. For safety the parameters of emit and forwarded into a safe location. As to ensure no copies are made, move objects in as arguments. `emit` will resume the caller only once _all_ observers have received the publish, and have finished with the data. There is a `async_emit` for pushing ab `emit` in the background. Deconstruction of the `observable<Args...>` when `async_emit` are running is undefined behavior. 
+
+`connect` is a `simple_future<>` that safely subscribes to an `observable<Args...>` and returns an `observer` that can be used to await for publishes. `co_await observer` on resumption will return an `observer_guard` that ensures the lifetime of the published values. The published values can be accessed through `const std::tuple<Args...>& observer_guard::event()`.
+
+Example:
+```c++
+
+using string_observable = observable<std::string, std::string>;
+
+async_function<> 
+your_class::subscriber(string_observable& _ob)
+{
+    auto con = co_wait _ob.connect();
+
+    while (true) {
+
+        auto guard = co_await con;
+
+        const auto&[s1, s2] = guard.event();
+
+        /* On guard deconstruct the publisher is notified that all    */
+        /* observers have finished and the strings are deconstructed  */
+    }
+
+}
+
+async_function<> 
+your_class::publisher()
+{
+    string_observable ob(get_engine());
+
+    subscriber(ob);
+
+    while (true) {
+        co_await ob.emit("hello", "world"); 
+    }
+}
+
+```
+
+
 
 ### File IO
 

@@ -87,6 +87,7 @@ add_zab_test(test-async_semaphore)
 add_zab_test(test-async_barrier)
 add_zab_test(test-defer_block_promise)
 add_zab_test(test-visitor_promise)
+add_zab_test(test-observable)
 add_zab_test(test-file_io_overlay)
 add_zab_test(test-network_overlay)
 

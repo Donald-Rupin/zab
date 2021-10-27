@@ -189,7 +189,8 @@ namespace zab {
                             await_resume() const noexcept
                             {
                                 return return_flags_;
-                            };
+                            }
+
 
                             descriptor_waiter*      self_;
                             std::coroutine_handle<> handle_;
