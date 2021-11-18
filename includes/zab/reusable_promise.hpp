@@ -55,10 +55,7 @@ namespace zab {
 
             ~reusable_promise()
             {
-                if (underlying_)
-                {
-                    underlying_.destroy();
-                }
+                if (underlying_) { underlying_.destroy(); }
             }
 
             bool

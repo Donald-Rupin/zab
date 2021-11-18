@@ -78,7 +78,7 @@ namespace zab::details {
             }                                                                                      \
         }(_expected, _got)
 
-#    define not_expected(_expected, _got)                                                           \
+#    define not_expected(_expected, _got)                                                          \
         [](auto x, auto y)                                                                         \
         {                                                                                          \
             if (x == y)                                                                            \

@@ -75,32 +75,31 @@ namespace zab_example {
                 engine_->get_signal_handler().handle(
                     SIGINT,
                     zab::thread_t{kPrintThread},
-                    [this]
-                    (int)
-                        {
-                            wake_connections();
-                        }
+                    [this](int) { wake_connections(); }
 
-                    );
+                );
             }
 
             zab::async_function<>
             wake_connections()
             {
-                std::cout << "Waking all connection" << "\n";
+                std::cout << "Waking all connection"
+                          << "\n";
 
                 {
                     auto lck = co_await active_streams_mtx_;
 
-                    for (const auto i : active_streams_) {
+                    for (const auto i : active_streams_)
+                    {
                         i->cancel_read();
                     }
                 }
-                    
+
                 /* Give 1 second to do so... */
                 co_await yield(zab::order::in_seconds(1));
 
-                std::cout << "Stopping Engine" << "\n";
+                std::cout << "Stopping Engine"
+                          << "\n";
                 engine_->stop();
             }
 
@@ -134,8 +133,8 @@ namespace zab_example {
             zab::async_function<>
             run_stream(int _connection_count, zab::tcp_stream _stream)
             {
-                zab::thread_t thread{
-                    (std::uint16_t) (_connection_count % engine_->get_event_loop().number_of_workers())};
+                zab::thread_t thread{(std::uint16_t)(
+                    _connection_count % engine_->get_event_loop().number_of_workers())};
                 /* Lets load balance connections between available threads... */
                 co_await yield(thread);
 

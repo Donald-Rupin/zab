@@ -169,6 +169,6 @@ namespace zab {
             std::function<void(void)> defer_;
     };
 
-}   // namespace zab::
+}   // namespace zab
 
 #endif

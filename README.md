@@ -48,7 +48,7 @@ Contact: donald.rupin@pm.me
     + [`async_latch`](#async_latch)
     + [`async_barrier`](#async_barrier)
 - [Asynchronous Overlays](#Asynchronous-Overlays)
-    + [`Observable` (pub/sub](Observable)
+    + [`Observable` (pub/sub)](#Observable)
     + [`File IO`](#File-IO)
     + [`Networking`](#Networking)
 

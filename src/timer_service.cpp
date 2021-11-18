@@ -94,7 +94,7 @@ namespace zab {
         while (true)
         {
             auto flags = co_await waiter_;
-            
+
             if (flags | descriptor_notification::kRead)
             {
                 std::lock_guard lck(mtx_);

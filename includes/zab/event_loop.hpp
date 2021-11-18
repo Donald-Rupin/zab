@@ -49,8 +49,8 @@
 
 #include "zab/event.hpp"
 #include "zab/hardware_interface_size.hpp"
-#include "zab/strong_types.hpp"
 #include "zab/spin_lock.hpp"
+#include "zab/strong_types.hpp"
 
 namespace zab {
 
@@ -67,8 +67,7 @@ namespace zab {
 
             struct configs {
 
-                    enum thread_option
-                    {
+                    enum thread_option {
                         kAny,
                         kAtLeast,
                         kExact
@@ -202,8 +201,6 @@ namespace zab {
              */
             void
             run_loop(std::stop_token _stop_token, thread_t _thread_number) noexcept;
-
-           
 
             /* Todo: look at spin lock since ME zone is incredibly small */
             struct alignas(hardware_constructive_interference_size) safe_queue {

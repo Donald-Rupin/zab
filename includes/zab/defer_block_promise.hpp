@@ -155,6 +155,6 @@ namespace zab {
             std::function<void(void)> defer_;
     };
 
-}   // namespace zab::
+}   // namespace zab
 
 #endif /* ZAB_DEFER_BLOCK_PROMISE */

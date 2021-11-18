@@ -56,7 +56,6 @@ namespace zab {
 
     namespace details {
 
-
         template <typename Base>
         concept AwaitableVoid = requires(Base a)
         {
@@ -74,7 +73,6 @@ namespace zab {
             }
             noexcept;
         };
-
 
         /**
          * Helper for getting the type of concatanated tuples.

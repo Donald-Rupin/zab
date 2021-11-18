@@ -195,10 +195,7 @@ namespace zab {
                         active_count_.fetch_add(1, std::memory_order_release);
 
                         /* resume them */
-                        engine_->resume(
-                            resume->handle_,
-                            order_t{order::now()},
-                            resume->thread_);
+                        engine_->resume(resume->handle_, order_t{order::now()}, resume->thread_);
 
                         auto waiting = release_count_.fetch_sub(1, std::memory_order_release);
 
@@ -376,10 +373,7 @@ namespace zab {
                 if (head->handle_)
                 {
 
-                    engine_->resume(
-                        head->handle_,
-                        order_t{order::now()},
-                        head->thread_);
+                    engine_->resume(head->handle_, order_t{order::now()}, head->thread_);
                 }
             }
 
@@ -443,7 +437,7 @@ namespace zab {
             engine* engine_;
 
             std::atomic<std::uintptr_t> resuming_ = 0;
-            waiter*                transfer_ = nullptr;
+            waiter*                     transfer_ = nullptr;
     };
 
     using async_binary_semaphore = async_counting_semaphore<1>;

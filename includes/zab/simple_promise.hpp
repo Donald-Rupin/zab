@@ -60,10 +60,7 @@ namespace zab {
 
             ~simple_promise()
             {
-                if (underlying_)
-                {
-                    underlying_.destroy();
-                }
+                if (underlying_) { underlying_.destroy(); }
             }
 
             bool
@@ -232,10 +229,7 @@ namespace zab {
 
             ~simple_promise()
             {
-                if (underlying_)
-                {
-                    underlying_.destroy();
-                }
+                if (underlying_) { underlying_.destroy(); }
             }
 
             bool
@@ -359,10 +353,7 @@ namespace zab {
 
             ~simple_promise()
             {
-                if (underlying_)
-                {
-                    underlying_.destroy();
-                }
+                if (underlying_) { underlying_.destroy(); }
             }
 
             using returns = void;
@@ -475,10 +466,7 @@ namespace zab {
 
             ~simple_promise()
             {
-                if (underlying_)
-                {
-                    underlying_.destroy();
-                }
+                if (underlying_) { underlying_.destroy(); }
             }
 
             bool

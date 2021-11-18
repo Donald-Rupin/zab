@@ -69,8 +69,8 @@ namespace zab::test {
     int
     run_test()
     {
-        return test_binary_not_pause() || test_binary_multi_thread_mutex() || test_counting_single_thread() ||
-               test_counting_multi_thread();
+        return test_binary_not_pause() || test_binary_multi_thread_mutex() ||
+               test_counting_single_thread() || test_counting_multi_thread();
     }
 
     class test_binary_not_pause_class : public engine_enabled<test_binary_not_pause_class> {
@@ -229,7 +229,7 @@ namespace zab::test {
             static constexpr auto kDefaultThread = 0;
 
             static constexpr std::uint16_t kNumberThreads = 10;
-            static constexpr size_t   kNumberOpps    = 500;
+            static constexpr size_t        kNumberOpps    = 500;
 
             void
             initialise() noexcept
@@ -323,7 +323,8 @@ namespace zab::test {
         return test.failed();
     }
 
-    class test_counting_single_thread_class : public engine_enabled<test_counting_single_thread_class> {
+    class test_counting_single_thread_class
+        : public engine_enabled<test_counting_single_thread_class> {
 
         public:
 
@@ -342,7 +343,8 @@ namespace zab::test {
             {
                 sem_ = std::make_shared<async_counting_semaphore<>>(get_engine(), 0);
 
-                failed_ = !(co_await simple_wind() && co_await no_block() && co_await full_release());
+                failed_ =
+                    !(co_await simple_wind() && co_await no_block() && co_await full_release());
 
                 if (!--test_count_) { get_engine()->stop(); }
             }
@@ -501,7 +503,8 @@ namespace zab::test {
                test21.failed();
     }
 
-    class test_counting_multi_thread_class : public engine_enabled<test_counting_multi_thread_class> {
+    class test_counting_multi_thread_class
+        : public engine_enabled<test_counting_multi_thread_class> {
 
         public:
 
@@ -630,7 +633,7 @@ namespace zab::test {
         auto lam = [](std::uint16_t _thread)
         {
             engine engine(event_loop::configs{
-                .threads_         = (std::uint16_t) (_thread + 1),
+                .threads_         = (std::uint16_t)(_thread + 1),
                 .opt_             = event_loop::configs::kAtLeast,
                 .affinity_set_    = false,
                 .affinity_offset_ = 0});

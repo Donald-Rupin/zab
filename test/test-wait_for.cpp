@@ -120,7 +120,8 @@ namespace zab::test {
                     co_return false;
                 }
 
-                if (expected(a_count_.load(), 0u) || expected(b_count_.load(), 0u) || expected(c_count_.load(), 0u))
+                if (expected(a_count_.load(), 0u) || expected(b_count_.load(), 0u) ||
+                    expected(c_count_.load(), 0u))
                 {
                     co_return false;
                 }
@@ -165,7 +166,8 @@ namespace zab::test {
                 }
 
                 if (expected(a_count_.load(), _number_loops * 2) ||
-                    expected(b_count_.load(), _number_loops * 2) || expected(c_count_.load(), _number_loops * 3))
+                    expected(b_count_.load(), _number_loops * 2) ||
+                    expected(c_count_.load(), _number_loops * 3))
                 {
                     co_return false;
                 }
@@ -243,7 +245,9 @@ namespace zab::test {
 
                 if (expected(a_count_.load(), _number_loops / 2 + _number_loops * 4) ||
                     expected(b_count_.load(), _number_loops * 2) ||
-                    expected(c_count_.load(), _number_loops * 2 + _number_loops / 3 + _number_loops - 1))
+                    expected(
+                        c_count_.load(),
+                        _number_loops * 2 + _number_loops / 3 + _number_loops - 1))
                 {
                     co_return false;
                 }

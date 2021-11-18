@@ -50,8 +50,8 @@
 #include <thread>
 
 #include "zab/event.hpp"
-#include "zab/strong_types.hpp"
 #include "zab/spin_lock.hpp"
+#include "zab/strong_types.hpp"
 
 namespace zab {
 
@@ -83,8 +83,7 @@ namespace zab {
             /**
              * @brief      Convince types for the epoll macro equivalent.
              */
-            enum NoticationType
-            {
+            enum NoticationType {
                 kError     = EPOLLERR,
                 kRead      = EPOLLIN,
                 kWrite     = EPOLLOUT,
@@ -190,7 +189,6 @@ namespace zab {
                             {
                                 return return_flags_;
                             }
-
 
                             descriptor_waiter*      self_;
                             std::coroutine_handle<> handle_;
