@@ -74,7 +74,10 @@ namespace zab::test {
                     default_thread(),
                     [this](auto _s) noexcept
                     {
-                        if (expected(get_engine()->current_id().thread_, kDefaultThread)) { return; }
+                        if (expected(get_engine()->current_id().thread_, kDefaultThread))
+                        {
+                            return;
+                        }
 
                         if (expected(_s, SIGUSR1)) { return; }
 

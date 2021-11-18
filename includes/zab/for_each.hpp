@@ -48,15 +48,15 @@ namespace zab {
     /**
      * @brief      Controls for the for_each method, used to continue or break.
      */
-    enum class for_ctl
-    {
+    enum class for_ctl {
         kBreak,
         kContinue
     };
 
     /**
-     * @brief      Iterate through results of the resuable_future giving the results to the callback.
-     * 
+     * @brief      Iterate through results of the resuable_future giving the results to the
+     * callback.
+     *
      * @details    Resumes when the function signals completion.
      *
      * @param[in]  _reusable  The reusable future.
@@ -68,24 +68,32 @@ namespace zab {
      */
     template <typename T, typename P, typename Functor>
         requires(
-            (std::is_same_v<std::result_of_t<Functor(typename reusable_future<T, P>::return_value)>, void> ||
-             std::is_same_v<std::result_of_t<Functor(typename reusable_future<T, P>::return_value)>, for_ctl>) )
+            (std::is_same_v<
+                 std::result_of_t<Functor(typename reusable_future<T, P>::return_value)>,
+                 void> ||
+             std::is_same_v<
+                 std::result_of_t<Functor(typename reusable_future<T, P>::return_value)>,
+                 for_ctl>) )
     simple_future<>
-    for_each(reusable_future<T, P>&& _reusable,  Functor&& _functor)
-    { 
-        while (!_reusable.complete()) {
-                
-            if constexpr (std::is_same_v<std::result_of_t<Functor(typename reusable_future<T, P>::return_value)>, void>) {
+    for_each(reusable_future<T, P>&& _reusable, Functor&& _functor)
+    {
+        while (!_reusable.complete())
+        {
+
+            if constexpr (std::is_same_v<
+                              std::result_of_t<Functor(
+                                  typename reusable_future<T, P>::return_value)>,
+                              void>)
+            {
 
                 _functor(co_await _reusable);
-
-            } else {
+            }
+            else
+            {
 
                 auto result = std::forward<Functor>(_functor)(co_await _reusable);
 
-                if (result == for_ctl::kBreak) {
-                    break;
-                }
+                if (result == for_ctl::kBreak) { break; }
             }
         }
     }

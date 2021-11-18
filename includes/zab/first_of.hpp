@@ -88,10 +88,7 @@ namespace zab {
 
             AwaitWrapper(T& _wrapper) : wrapper_(_wrapper) { }
 
-            auto operator co_await () const noexcept 
-            {
-                return wrapper_.operator co_await();
-            }
+            auto operator co_await() const noexcept { return wrapper_.operator co_await(); }
 
             T& wrapper_;
     };

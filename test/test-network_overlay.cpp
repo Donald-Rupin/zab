@@ -98,7 +98,6 @@ namespace zab::test {
 
                         if (expected(strlen(kBuffer), amount)) { get_engine()->stop(); }
 
-
                         co_await stream_opt->shutdown();
                     }
                     else
@@ -155,9 +154,8 @@ namespace zab::test {
                                 std::string_view ng(buffer->data());
 
                                 if (!expected(og, ng)) { failed_ = false; }
-
-                            } 
-                        } 
+                            }
+                        }
 
                         co_await stream_opt->shutdown();
                     }
@@ -208,15 +206,11 @@ namespace zab::test {
             static constexpr auto kBuffer = "01234";
 
             static constexpr std::uint16_t kPorts[]             = {7000, 7001};
-            static constexpr size_t   kNumberOfConnections = 500;
-            static constexpr size_t   kDataToSend = 1028 * 257;
+            static constexpr size_t        kNumberOfConnections = 500;
+            static constexpr size_t        kDataToSend          = 1028 * 257;
             static const std::vector<char> kData;
 
-            test_stress_class()
-                : connections_(0)
-                {
-
-                }
+            test_stress_class() : connections_(0) { }
 
             void
             initialise() noexcept
@@ -235,7 +229,7 @@ namespace zab::test {
             {
                 tcp_acceptor acceptor(get_engine());
 
-                if (acceptor.listen(AF_INET, _port, kNumberOfConnections/2))
+                if (acceptor.listen(AF_INET, _port, kNumberOfConnections / 2))
                 {
                     while (true)
                     {
@@ -305,7 +299,8 @@ namespace zab::test {
 
                 auto stream_opt = co_await _stream.read(kDataToSend);
 
-                if (!stream_opt || *stream_opt != kData) {
+                if (!stream_opt || *stream_opt != kData)
+                {
                     engine_->stop();
                     co_return;
                 }
@@ -314,7 +309,8 @@ namespace zab::test {
 
                 co_await _stream.shutdown();
 
-                if (cons == (2*kNumberOfConnections) - 1) {
+                if (cons == (2 * kNumberOfConnections) - 1)
+                {
                     failed_ = false;
                     engine_->stop();
                 }
@@ -335,7 +331,8 @@ namespace zab::test {
             std::atomic<size_t> connections_;
     };
 
-    const std::vector<char> test_stress_class::kData = std::vector<char>(test_stress_class::kDataToSend, 42);
+    const std::vector<char> test_stress_class::kData =
+        std::vector<char>(test_stress_class::kDataToSend, 42);
 
     int
     test_stress()

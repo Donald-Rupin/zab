@@ -201,7 +201,6 @@ namespace zab {
                     }
 
                     code_block([this]() noexcept { underlying().initialise(); }, next(), thread);
-
                 }
                 if constexpr (details::HasMain<F>) { do_main<F>(); }
 

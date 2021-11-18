@@ -110,7 +110,7 @@ namespace zab {
                 /* something exceptional must of happened and is causing the coroutine to */
                 /* unwind in the wrong direction. This is most likely the engines attempt */
                 /* to clean up the event loops on shutdown... */
-                if (handle_ && handle_.promise().complete() ) { handle_.destroy(); }
+                if (handle_ && handle_.promise().complete()) { handle_.destroy(); }
             }
 
             /**

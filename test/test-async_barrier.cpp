@@ -74,8 +74,8 @@ namespace zab::test {
         public:
 
             static constexpr auto kDefaultThread = 0;
-            
-            static constexpr auto kRounds        = 1000;
+
+            static constexpr auto kRounds = 1000;
 
             test_single_thread_class(std::uint16_t _threads) : threads_(_threads) { }
 
@@ -133,7 +133,7 @@ namespace zab::test {
             worker_thread(
                 async_barrier<T>&    _barrier,
                 std::atomic<size_t>& _count,
-                std::uint16_t             _id) noexcept
+                std::uint16_t        _id) noexcept
             {
                 int64_t reducer        = _id + 1;
                 size_t  internal_count = 1;
@@ -318,7 +318,7 @@ namespace zab::test {
             worker_thread(
                 async_barrier<T>&    _barrier,
                 std::atomic<size_t>& _count,
-                std::uint16_t             _id) noexcept
+                std::uint16_t        _id) noexcept
             {
                 co_await yield(now(), thread_t{_id});
 
@@ -460,7 +460,7 @@ namespace zab::test {
     {
         auto test_lam = [](std::uint16_t _thread_count)
         {
-            engine engine(event_loop::configs{(std::uint16_t) (_thread_count + (std::uint16_t) 1u)});
+            engine engine(event_loop::configs{(std::uint16_t)(_thread_count + (std::uint16_t) 1u)});
 
             test_multi_thread_class test(_thread_count);
 

@@ -221,7 +221,7 @@ namespace zab::test {
             static constexpr auto kDefaultThread = 0;
 
             static constexpr std::uint16_t kNumberThreads = 10;
-            static constexpr size_t   kNumberOpps    = 1000;
+            static constexpr size_t        kNumberOpps    = 1000;
 
             void
             initialise() noexcept

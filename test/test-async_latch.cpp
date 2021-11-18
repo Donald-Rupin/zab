@@ -244,7 +244,7 @@ namespace zab::test {
         auto lam = [](std::uint16_t _thread)
         {
             engine engine(event_loop::configs{
-                .threads_         = (std::uint16_t) (_thread + 1),
+                .threads_         = (std::uint16_t)(_thread + 1),
                 .opt_             = event_loop::configs::kAtLeast,
                 .affinity_set_    = false,
                 .affinity_offset_ = 0});

@@ -51,7 +51,8 @@ namespace zab {
         public:
 
             async_latch(engine* _engine, std::ptrdiff_t _amount)
-                : count_(_amount), complete_(_engine) { }
+                : count_(_amount), complete_(_engine)
+            { }
 
             ~async_latch() = default;
 

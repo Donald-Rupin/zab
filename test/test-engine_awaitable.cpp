@@ -70,8 +70,9 @@ namespace zab::test {
     int
     run_test()
     {
-        return test_async_function() || test_promise_function() || test_recursive_promise_function() ||
-               test_pause_function() || test_reusuable_promise_function() || test_proxy();
+        return test_async_function() || test_promise_function() ||
+               test_recursive_promise_function() || test_pause_function() ||
+               test_reusuable_promise_function() || test_proxy();
     }
 
     class test_async_class : public engine_enabled<test_async_class> {
@@ -92,7 +93,6 @@ namespace zab::test {
                 auto thread_id_1 = std::this_thread::get_id();
 
                 co_await yield(now(), thread_t{kInitialiseThread + 1});
-
 
                 auto thread_number = get_engine()->get_event_loop().current_id();
 
@@ -493,8 +493,6 @@ namespace zab::test {
 
                 failed_ = false;
                 get_engine()->stop();
-
-
             }
 
             reusable_future<size_t>

@@ -44,9 +44,9 @@
 #include <string>
 #include <vector>
 
+#include "zab/engine.hpp"
 #include "zab/simple_future.hpp"
 #include "zab/strong_types.hpp"
-#include "zab/engine.hpp"
 
 namespace zab {
 
@@ -85,8 +85,7 @@ namespace zab {
             /**
              * @brief      File options used to open the file.
              */
-            enum class Options
-            {
+            enum class Options {
                 kRead,
                 kTrunc,
                 kAppend,
@@ -98,8 +97,7 @@ namespace zab {
             /**
              * @brief      Offests for repositioning the file cursor position.
              */
-            enum class Offset
-            {
+            enum class Offset {
                 kBegin   = SEEK_SET,
                 kCurrent = SEEK_CUR,
                 kEnd     = SEEK_END

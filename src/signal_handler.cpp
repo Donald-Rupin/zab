@@ -63,7 +63,8 @@ namespace zab {
 
         if (int error = ::pipe2(fds_, O_NONBLOCK); error == -1)
         {
-            std::cerr << "signal_handler ->  signal_handler -> Failed to create pipe. errno:" << errno;
+            std::cerr << "signal_handler ->  signal_handler -> Failed to create pipe. errno:"
+                      << errno;
             abort();
         }
     }
@@ -76,7 +77,9 @@ namespace zab {
         if (close(fds_[0]) || close(fds_[1]))
         {
 
-            std::cerr << "signal_handler -> Failed to close Notifier pipe during deconstruction. errno:" << errno;
+            std::cerr
+                << "signal_handler -> Failed to close Notifier pipe during deconstruction. errno:"
+                << errno;
             abort();
         }
     }
@@ -110,7 +113,8 @@ namespace zab {
             {
 
                 char buffer;
-                if (int rc = ::read(fds_[0], &buffer, 1); rc < 0 && errno != EAGAIN && errno != EWOULDBLOCK)
+                if (int rc = ::read(fds_[0], &buffer, 1);
+                    rc < 0 && errno != EAGAIN && errno != EWOULDBLOCK)
                 {
                     std::cerr << "signal_handler -> read failed. errno:" << errno << "\n";
                     co_return;
@@ -124,10 +128,7 @@ namespace zab {
                     for (const auto& [thread, functor] : it->second)
                     {
                         engine_->execute(
-                            [functor = functor, signal]() noexcept
-                                {
-                                    functor(signal);
-                                },
+                            [functor = functor, signal]() noexcept { functor(signal); },
                             order_t{}, /* Signal handlers go first */
                             thread);
                     }
@@ -161,7 +162,8 @@ namespace zab {
         char sig = SIGKILL;
         if (int error = ::write(fds_[1], &sig, 1); error < 0)
         {
-            std::cerr << "signal_handler -> Failed to write to pipe on stop. errno:" <<  errno << "\n";
+            std::cerr << "signal_handler -> Failed to write to pipe on stop. errno:" << errno
+                      << "\n";
         }
     }
 
@@ -188,8 +190,8 @@ namespace zab {
                     if (errno != EAGAIN && errno != EWOULDBLOCK)
                     {
                         std::cerr << "signal_handler -> Failed to write to "
-                                     "pipe. signal: " << _signal << ", errno: "
-                                  << errno << "\n";
+                                     "pipe. signal: "
+                                  << _signal << ", errno: " << errno << "\n";
                     }
                 }
             };

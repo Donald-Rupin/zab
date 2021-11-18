@@ -118,10 +118,7 @@ namespace zab {
                     /* get deleted before we dereference...  */
                     auto tmp = old_pause->next_waiting_;
 
-                    engine_->resume(
-                        old_pause->handle_,
-                        order_t{order::now()},
-                        old_pause->thread_);
+                    engine_->resume(old_pause->handle_, order_t{order::now()}, old_pause->thread_);
 
                     old_pause = tmp;
                 }

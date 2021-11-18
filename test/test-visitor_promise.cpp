@@ -221,7 +221,7 @@ namespace zab::test {
 
                 private:
 
-                    size_t                code_ = 0;
+                    size_t                     code_ = 0;
                     std::vector<std::uint16_t> data_;
             };
 

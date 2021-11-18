@@ -38,20 +38,20 @@
 #include <cstddef>
 
 #ifndef ZAB_HARDWARE_INTERFACE_SIZE_HPP
-#define ZAB_HARDWARE_INTERFACE_SIZE_HPP
+#    define ZAB_HARDWARE_INTERFACE_SIZE_HPP
 
 /* Shamelssly takend from
  * https://en.cppreference.com/w/cpp/thread/hardware_destructive_interference_size
  * as in some c++ libraries it doesn't exists
  */
-#ifdef __cpp_lib_hardware_interference_size
+#    ifdef __cpp_lib_hardware_interference_size
 using std::hardware_constructive_interference_size;
 using std::hardware_destructive_interference_size;
-#else
+#    else
 // 64 bytes on x86-64 │ L1_CACHE_BYTES │ L1_CACHE_SHIFT │ __cacheline_aligned │
 // ...
 constexpr std::size_t hardware_constructive_interference_size = 2 * sizeof(std::max_align_t);
 constexpr std::size_t hardware_destructive_interference_size  = 2 * sizeof(std::max_align_t);
-#endif
+#    endif
 
 #endif

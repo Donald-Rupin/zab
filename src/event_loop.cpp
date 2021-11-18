@@ -188,7 +188,7 @@ namespace zab {
 
                     if (!current_size) { break; }
                 }
-                
+
                 ++count;
             }
         }

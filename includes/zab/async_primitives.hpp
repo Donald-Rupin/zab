@@ -65,10 +65,7 @@ namespace zab {
                             void
                             await_suspend(std::coroutine_handle<> _awaiter) noexcept
                             {
-                                yield_->engine_->resume(
-                                    _awaiter,
-                                    yield_->order_,
-                                    yield_->thread_);
+                                yield_->engine_->resume(_awaiter, yield_->order_, yield_->thread_);
                             }
 
                             bool
@@ -88,9 +85,9 @@ namespace zab {
                     return yield_awaitable;
                 }
 
-                engine*    engine_;
-                order_t order_;
-                thread_t   thread_;
+                engine*  engine_;
+                order_t  order_;
+                thread_t thread_;
 
         } yield{.engine_ = _engine, .order_ = _order, .thread_ = _thread};
 
@@ -107,7 +104,7 @@ namespace zab {
      */
     struct pause_pack {
             thread_t                thread_ = thread_t{};
-            std::uintptr_t               data_   = 0;
+            std::uintptr_t          data_   = 0;
             std::coroutine_handle<> handle_ = nullptr;
     };
 
