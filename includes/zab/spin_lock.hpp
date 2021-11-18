@@ -53,7 +53,9 @@ namespace zab {
                     if (!lock_.exchange(true, std::memory_order_acquire)) { return; }
 
                     while (lock_.load(std::memory_order_relaxed))
-                        ;
+                    {
+                        __builtin_ia32_pause();
+                    }
                 }
             }
 
