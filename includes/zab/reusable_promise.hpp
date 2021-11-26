@@ -61,13 +61,13 @@ namespace zab {
             bool
             complete() const noexcept
             {
-                return complete_;
+                return state_ == kComplete;
             }
 
             bool
             value_ready() const noexcept
             {
-                return complete_;
+                return state_ != kEmpty;
             }
 
             returns&&
@@ -79,19 +79,21 @@ namespace zab {
             void
             set_underlying(std::coroutine_handle<> _under) noexcept
             {
-
                 underlying_ = _under;
             }
 
             void
             prepare() noexcept
             {
+                if (state_ == kItem) { state_ = kEmpty; }
                 data_.reset();
             }
 
             void
-            force_completion() const noexcept
-            { }
+            force_completion() noexcept
+            {
+                state_ = kComplete;
+            }
 
             /**
              * @brief      Gets the coroutine handle from `this`.
@@ -168,7 +170,7 @@ namespace zab {
             void
             return_value(Args&&... _args) noexcept
             {
-                complete_ = true;
+                state_ = kComplete;
                 data_.emplace(std::forward<Args>(_args)...);
             }
 
@@ -180,8 +182,8 @@ namespace zab {
             void
             return_value(std::optional<T>&& _move) noexcept
             {
+                state_ = kComplete;
                 data_.swap(_move);
-                complete_ = true;
             }
 
             /**
@@ -192,8 +194,8 @@ namespace zab {
             void
             return_value(std::optional<T>& _move) noexcept
             {
+                state_ = kComplete;
                 data_.swap(_move);
-                complete_ = true;
             }
 
             /**
@@ -209,8 +211,8 @@ namespace zab {
             auto
             yield_value(Args&&... _args) noexcept
             {
+                state_ = kItem;
                 data_.emplace(std::forward<Args>(_args)...);
-
                 return final_suspend();
             }
 
@@ -222,8 +224,8 @@ namespace zab {
             auto
             yield_value(std::optional<T>&& _move) noexcept
             {
+                state_ = kItem;
                 data_.swap(_move);
-
                 return final_suspend();
             }
 
@@ -235,8 +237,8 @@ namespace zab {
             auto
             yield_value(std::optional<T>& _move) noexcept
             {
+                state_ = kItem;
                 data_.swap(_move);
-
                 return final_suspend();
             }
 
@@ -248,7 +250,7 @@ namespace zab {
             void
             return_value(std::nullopt_t) noexcept
             {
-                complete_ = true;
+                state_ = kComplete;
             }
 
             /**
@@ -259,6 +261,7 @@ namespace zab {
             auto
             yield_value(std::nullopt_t) noexcept
             {
+                state_ = kItem;
                 return final_suspend();
             }
 
@@ -268,9 +271,15 @@ namespace zab {
                 // TODO(donald) abort?
             }
 
+            enum State {
+                kEmpty,
+                kItem,
+                kComplete
+            };
+
             std::coroutine_handle<> underlying_;
             returns                 data_;
-            bool                    complete_ = false;
+            State                   state_ = kEmpty;
     };
 
     template <>
@@ -283,13 +292,13 @@ namespace zab {
             bool
             complete() const noexcept
             {
-                return complete_;
+                return state_ == kComplete;
             }
 
             bool
             value_ready() const noexcept
             {
-                return complete_;
+                return state_ != kEmpty;
             }
 
             void
@@ -305,11 +314,15 @@ namespace zab {
 
             void
             prepare() noexcept
-            { }
+            {
+                if (state_ == kItem) { state_ = kEmpty; }
+            }
 
             void
-            force_completion() const noexcept
-            { }
+            force_completion() noexcept
+            {
+                state_ = kComplete;
+            }
 
             /**
              * @brief      Gets the coroutine handle from `this`.
@@ -381,7 +394,7 @@ namespace zab {
             void
             return_void() noexcept
             {
-                complete_ = true;
+                state_ = kComplete;
             }
 
             /**
@@ -392,6 +405,7 @@ namespace zab {
             auto
             yield_value(promise_void) noexcept
             {
+                state_ = kItem;
                 return final_suspend();
             }
 
@@ -401,8 +415,14 @@ namespace zab {
                 // TODO(donald) abort?
             }
 
+            enum State {
+                kEmpty,
+                kItem,
+                kComplete
+            };
+
             std::coroutine_handle<> underlying_;
-            bool                    complete_ = false;
+            State                   state_ = kEmpty;
     };
 
 }   // namespace zab
