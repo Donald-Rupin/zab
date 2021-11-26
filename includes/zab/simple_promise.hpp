@@ -121,7 +121,6 @@ namespace zab {
                             if (next_) { return next_; }
                             else
                             {
-
                                 return std::noop_coroutine();
                             }
                         }

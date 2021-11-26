@@ -200,17 +200,23 @@ namespace zab {
             auto operator co_await() const noexcept
             {
                 struct {
-                        auto
+                        bool
                         await_suspend(erased_coro_handle _remsumptor) noexcept
                         {
-                            handle_.promise().set_underlying(_remsumptor);
-                            return handle_;
+                            handle_.resume();
+
+                            if (handle_.promise().complete()) { return false; }
+                            else
+                            {
+                                handle_.promise().set_underlying(_remsumptor);
+                                return true;
+                            }
                         }
 
                         bool
                         await_ready() const noexcept
                         {
-                            return handle_.promise().complete();
+                            return false;
                         }
 
                         decltype(auto)
@@ -219,12 +225,10 @@ namespace zab {
                             // regards to perfect forwarding...
                             if constexpr (!std::is_same_v<return_value, promise_void>)
                             {
-
                                 return handle_.promise().data();
                             }
                             else
                             {
-
                                 return;
                             }
                         }
