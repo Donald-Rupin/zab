@@ -48,17 +48,11 @@ namespace zab {
 
             struct pauser {
 
-                    std::coroutine_handle<>
+                    bool
                     await_suspend(std::coroutine_handle<> _awaiter) noexcept
                     {
                         handle_ = _awaiter;
-
-                        if (token_.pause(this)) { return std::noop_coroutine(); }
-                        else
-                        {
-
-                            return _awaiter;
-                        }
+                        return token_.pause(this);
                     }
 
                     bool
@@ -84,35 +78,34 @@ namespace zab {
             [[nodiscard]] bool
             paused() const noexcept
             {
-                return !(resuming_.load() & kunpausedFlag);
+                return !(resuming_.load(std::memory_order_acquire) & kUnpausedFlag);
             }
 
             void
             pause() noexcept
             {
                 auto current_state = resuming_.load(std::memory_order_acquire);
-                if (current_state != kunpausedFlag) { return; }
+                if (current_state != kUnpausedFlag) { return; }
                 while (!resuming_.compare_exchange_weak(
                            current_state,
                            0,
                            std::memory_order_acquire,
                            std::memory_order_relaxed) &&
-                       current_state == kunpausedFlag)
+                       current_state == kUnpausedFlag)
                 { };
             }
 
             void
             unpause() noexcept
             {
-                auto old_value = resuming_.exchange(kunpausedFlag, std::memory_order_release);
+                auto old_value = resuming_.exchange(kUnpausedFlag, std::memory_order_release);
 
-                if (old_value == kunpausedFlag) { return; }
+                if (old_value == kUnpausedFlag) { return; }
 
                 auto old_pause = reinterpret_cast<pauser*>(old_value);
 
                 while (old_pause)
                 {
-
                     /* Save it here because if the yield is  */
                     /* In a different thread, the memory may */
                     /* get deleted before we dereference...  */
@@ -143,7 +136,7 @@ namespace zab {
                 do
                 {
 
-                    if (previous == kunpausedFlag) { return false; }
+                    if (previous == kUnpausedFlag) { return false; }
 
                     pauser_->next_waiting_ = reinterpret_cast<pauser*>(previous);
                     if (resuming_.compare_exchange_weak(
@@ -163,7 +156,7 @@ namespace zab {
 
         private:
 
-            static constexpr std::uintptr_t kunpausedFlag = 0b1;
+            static constexpr std::uintptr_t kUnpausedFlag = 0b1;
 
             friend struct pauser;
 
