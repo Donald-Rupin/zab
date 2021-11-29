@@ -56,10 +56,10 @@ namespace zab {
 
             struct waiter {
 
-                    std::coroutine_handle<>
+                    bool
                     await_suspend(std::coroutine_handle<> _awaiter) noexcept
                     {
-                        auto result = semaphore_.active_count_.load(std::memory_order_acquire);
+                        auto result = semaphore_.active_count_.load(std::memory_order_relaxed);
 
                         while (result > 0)
                         {
@@ -70,8 +70,7 @@ namespace zab {
                                     std::memory_order_acquire,
                                     std::memory_order_relaxed))
                             {
-
-                                return _awaiter;
+                                return false;
                             }
                         }
 
@@ -81,7 +80,7 @@ namespace zab {
 
                         semaphore_.suspend(this);
 
-                        return std::noop_coroutine();
+                        return true;
                     }
 
                     bool
@@ -111,7 +110,7 @@ namespace zab {
             bool
             try_aquire() noexcept
             {
-                auto result = active_count_.load(std::memory_order_acquire);
+                auto result = active_count_.load(std::memory_order_relaxed);
 
                 while (result > 0)
                 {
@@ -219,7 +218,7 @@ namespace zab {
             {
                 /* Unlike binary semaphore, if we get here we must add our self to the list */
                 /* There may be thread spinning waiting for us to be added.... */
-                auto previous = resuming_.load(std::memory_order_acquire);
+                auto previous = resuming_.load(std::memory_order_relaxed);
                 do
                 {
 
@@ -285,16 +284,14 @@ namespace zab {
 
             struct waiter {
 
-                    std::coroutine_handle<>
+                    bool
                     await_suspend(std::coroutine_handle<> _awaiter) noexcept
                     {
                         handle_ = _awaiter;
-
-                        if (semaphore_.suspend(this)) { return std::noop_coroutine(); }
+                        if (semaphore_.suspend(this)) { return true; }
                         else
                         {
-
-                            return _awaiter;
+                            return false;
                         }
                     }
 
@@ -338,7 +335,6 @@ namespace zab {
 
                 if (!head)
                 {
-
                     /* Is the state just locked? */
                     std::uintptr_t previous = kLockFlag;
                     if (resuming_.compare_exchange_strong(
@@ -347,7 +343,6 @@ namespace zab {
                             std::memory_order_release,
                             std::memory_order_relaxed))
                     {
-
                         return;
                     }
 
@@ -399,17 +394,16 @@ namespace zab {
             {
                 /* If we get here... it was locked when we came */
                 /* This now may not be the case...              */
-                std::uintptr_t previous = resuming_.load(std::memory_order_acquire);
+                std::uintptr_t previous = resuming_.load(std::memory_order_relaxed);
                 do
                 {
-
                     if (!previous)
                     {
 
                         if (resuming_.compare_exchange_weak(
                                 previous,
                                 kLockFlag,
-                                std::memory_order_acquire,
+                                std::memory_order_release,
                                 std::memory_order_relaxed))
                         {
 

@@ -189,25 +189,15 @@ namespace zab {
                     arrival_token() : phase_complete_(std::make_unique<std::atomic<void*>>(nullptr))
                     { }
 
-                    std::coroutine_handle<>
+                    bool
                     await_suspend(std::coroutine_handle<> _awaiter) noexcept
                     {
                         void* expected = nullptr;
-
-                        if (phase_complete_->handle_.compare_exchange_strong(
-                                expected,
-                                _awaiter.address(),
-                                std::memory_order_release,
-                                std::memory_order_relaxed))
-                        {
-
-                            return std::noop_coroutine();
-                        }
-                        else
-                        {
-
-                            return _awaiter;
-                        }
+                        return !phase_complete_->handle_.compare_exchange_strong(
+                            expected,
+                            _awaiter.address(),
+                            std::memory_order_release,
+                            std::memory_order_relaxed);
                     }
 
                     bool
@@ -328,7 +318,7 @@ namespace zab {
             void
             add_to_working_set(T* _ptr)
             {
-                std::uintptr_t previous = working_set_.load(std::memory_order_acquire);
+                std::uintptr_t previous = working_set_.load(std::memory_order_relaxed);
 
                 bool flag = 0;
 
@@ -351,7 +341,7 @@ namespace zab {
             {
                 drop_token* ptr = new drop_token{};
 
-                std::uintptr_t previous = working_set_.load(std::memory_order_acquire);
+                std::uintptr_t previous = working_set_.load(std::memory_order_relaxed);
 
                 do
                 {
@@ -580,7 +570,7 @@ namespace zab {
                                     internals,
                                     reinterpret_cast<void*>(kFlagMask),
                                     std::memory_order_release,
-                                    std::memory_order_release))
+                                    std::memory_order_relaxed))
                             {
 
                                 /* If it wasnt null, it means there is a coroutine there...*/
