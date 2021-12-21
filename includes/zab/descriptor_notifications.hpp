@@ -39,6 +39,7 @@
 
 #include <algorithm>
 #include <atomic>
+#include <cassert>
 #include <coroutine>
 #include <cstdint>
 #include <deque>
@@ -50,6 +51,7 @@
 #include <thread>
 
 #include "zab/event.hpp"
+#include "zab/simple_future.hpp"
 #include "zab/spin_lock.hpp"
 #include "zab/strong_types.hpp"
 
@@ -81,6 +83,12 @@ namespace zab {
             ~descriptor_notification();
 
             /**
+             * @brief     Cleans up the resources.
+             */
+            void
+            purge();
+
+            /**
              * @brief      Convince types for the epoll macro equivalent.
              */
             enum NoticationType {
@@ -90,164 +98,6 @@ namespace zab {
                 kException = EPOLLPRI,
                 kClosed    = EPOLLRDHUP
             };
-
-            /**
-             * @brief      This class describes a descriptor waiter used of co_waiting descriptor
-             * events.
-             *
-             */
-            class descriptor_waiter {
-
-                public:
-
-                    /**
-                     * @brief      Constructs a new instance in an empty state.
-                     */
-                    descriptor_waiter();
-
-                    /**
-                     * @brief      Constructs a new instance registered to the
-                     * descriptor_notification service and subscribed to _fd..
-                     *
-                     * @param      _self  The self
-                     * @param      _desc  The description
-                     * @param[in]  _fd    The file descriptor.
-                     */
-                    descriptor_waiter(descriptor_notification* _self, descriptor* _desc, int _fd);
-
-                    /**
-                     * @brief      Cannot copy this object.
-                     *
-                     * @param[in]  _copy  The copy
-                     */
-                    descriptor_waiter(const descriptor_waiter& _copy) = delete;
-
-                    /**
-                     * @brief      Constructs a new instance leave the old instance in an empty
-                     * state.
-                     *
-                     * @param      _move  The move
-                     */
-                    descriptor_waiter(descriptor_waiter&& _move);
-
-                    /**
-                     * @brief      Swap two descriptor_waiter's.
-                     *
-                     * @param      _first   The first
-                     * @param      _second  The second
-                     */
-                    friend void
-                    swap(descriptor_waiter& _first, descriptor_waiter& _second) noexcept;
-
-                    /**
-                     * @brief      Destroys the object and unsubscribes the file descriptor from the
-                     *             notification service.
-                     */
-                    ~descriptor_waiter();
-
-                    /**
-                     * @brief      Move assignment operator.
-                     *
-                     * @param      _move  The descriptor_waiter to move
-                     *
-                     * @return     The result of the assignment
-                     */
-                    descriptor_waiter&
-                    operator=(descriptor_waiter&& _move);
-
-                    /**
-                     * @brief      The Awaitable Proxy used to co_await for events.
-                     */
-                    struct await_proxy {
-
-                            /**
-                             * @brief      Suspend an wait for the service to deliver an event.
-                             *
-                             * @param[in]  _awaiter  The coroutine handle.
-                             */
-                            void
-                            await_suspend(std::coroutine_handle<> _awaiter) noexcept;
-
-                            /**
-                             * @brief      Always suspend.
-                             *
-                             * @return     false;
-                             */
-                            bool
-                            await_ready() const noexcept
-                            {
-                                return false;
-                            }
-
-                            /**
-                             * @brief      Return the return flags on resumption.
-                             *
-                             * @return     The return flags.
-                             */
-                            int
-                            await_resume() const noexcept
-                            {
-                                return return_flags_;
-                            }
-
-                            descriptor_waiter*      self_;
-                            std::coroutine_handle<> handle_;
-                            int                     return_flags_;
-                            thread_t                thread_;
-                    };
-
-                    /**
-                     * @brief      Sets the flags to watch for.
-                     *
-                     * @param[in]  _flags  The flags.
-                     */
-                    inline void
-                    set_flags(int _flags) noexcept
-                    {
-                        flags_ = _flags;
-                    }
-
-                    /**
-                     * @brief      Gets the file descriptor.
-                     *
-                     * @return     The file descriptor.
-                     */
-                    inline int
-                    file_descriptor() const noexcept
-                    {
-                        return fd_;
-                    }
-
-                    /**
-                     * @brief      Co_await conversion operator.
-                     *
-                     * @return     Returns an Await Proxy.
-                     */
-                    await_proxy operator co_await() noexcept;
-
-                private:
-
-                    friend struct await_proxy;
-
-                    descriptor_notification* self_;
-                    descriptor*              desc_;
-                    int                      flags_;
-                    int                      fd_;
-            };
-
-            /**
-             * @brief      Subscribe to events on a given file descriptor.
-             *
-             * @details    This function is not thread safe and can only be called once at a time.
-             *             Multiple concurrent call will most likely fail, but is dependent on the
-             *             epoll implementation.
-             *
-             * @param[in]  _fd   The file descriptor to subscribe to.
-             *
-             * @return     A descriptor_waiter on success, otherwise nullopt.
-             */
-            [[nodiscard]] std::optional<descriptor_waiter>
-            subscribe(int _fd) noexcept;
 
             /**
              * @brief      Runs the internal service thread.
@@ -261,25 +111,168 @@ namespace zab {
             void
             stop() noexcept;
 
+            class descriptor_op {
+
+                    friend class descriptor_notification;
+                    friend struct awaiter;
+
+                public:
+
+                    enum class type {
+                        kWrite,
+                        kRead,
+                        kReadWrite
+                    };
+
+                    descriptor_op(descriptor* _desc, type _type, std::coroutine_handle<> _handle);
+
+                    descriptor_op(const descriptor_op&) = delete;
+
+                    ~descriptor_op();
+
+                    struct awaiter {
+
+                            bool
+                            await_suspend(std::coroutine_handle<> _awaiter) noexcept
+                            {
+                                assert(result_);
+                                assert(!result_->handle_);
+
+                                result_->handle_ = _awaiter;
+                                result_->flags_  = 0;
+
+                                if (result_->desc_->re_arm(result_->type_)) { return true; }
+                                else
+                                {
+                                    result_->handle_ = nullptr;
+                                    return false;
+                                }
+                            }
+
+                            bool
+                            await_ready() const noexcept
+                            {
+                                return !result_->desc_;
+                            }
+
+                            int
+                            await_resume() const noexcept
+                            {
+                                return result_->flags_;
+                            }
+
+                            descriptor_op* result_;
+                    };
+
+                    awaiter operator co_await() noexcept { return awaiter{this}; }
+
+                    int
+                    flags() const noexcept
+                    {
+                        return flags_;
+                    }
+
+                    type
+                    op_type() const noexcept
+                    {
+                        return type_;
+                    }
+
+                private:
+
+                    descriptor*    desc_;
+                    descriptor_op* next_;
+
+                    std::coroutine_handle<> handle_;
+                    int                     flags_;
+
+                    type type_;
+            };
+
+            class notifier {
+
+                    friend class descriptor_notification;
+
+                public:
+
+                    ~notifier();
+
+                    notifier(notifier&& _move);
+
+                    notifier&
+                    operator=(notifier&&);
+
+                    notifier(const notifier&) = delete;
+
+                    [[nodiscard]] inline guaranteed_future<std::unique_ptr<descriptor_op>>
+                    start_write_operation() noexcept
+                    {
+                        return start_operation(descriptor_op::type::kWrite);
+                    }
+
+                    [[nodiscard]] inline guaranteed_future<std::unique_ptr<descriptor_op>>
+                    start_read_operation() noexcept
+                    {
+                        return start_operation(descriptor_op::type::kRead);
+                    }
+
+                    [[nodiscard]] inline guaranteed_future<std::unique_ptr<descriptor_op>>
+                    start_read_write_operation() noexcept
+                    {
+                        return start_operation(descriptor_op::type::kReadWrite);
+                    }
+
+                    [[nodiscard]] guaranteed_future<std::unique_ptr<descriptor_op>>
+                    start_operation(descriptor_op::type _type) noexcept;
+
+                    int
+                    file_descriptor() const noexcept
+                    {
+                        return desc_->file_descriptor();
+                    }
+
+                    inline void
+                    cancel()
+                    {
+                        desc_->cancel();
+                    }
+
+                private:
+
+                    notifier(descriptor* _desc, descriptor_notification* _notif);
+
+                    void
+                    remove();
+
+                    descriptor*              desc_;
+                    descriptor_notification* notif_;
+            };
+
+            [[nodiscard]] std::optional<notifier>
+            subscribe(int _fd) noexcept;
+
+            void
+            remove(notifier& _notifier) noexcept;
+
             /**
              * @brief      This class is a for a descriptor, related information and the
              * callback information.
              */
             class descriptor {
+
                     friend class descriptor_notification;
-                    friend struct descriptor_waiter::await_proxy;
 
                 public:
 
                     /**
                      * @brief      Construct in an empty state.
                      */
-                    descriptor();
+                    descriptor(int _fd, int _poll);
 
                     /**
                      * @brief      Destroys the object. This is a non-owning object.
                      */
-                    ~descriptor() = default;
+                    ~descriptor();
 
                     /**
                      * @brief      Cannot be copied.
@@ -288,17 +281,40 @@ namespace zab {
                      */
                     descriptor(const descriptor&) = delete;
 
-                    /**
-                     * @brief      Sets the coroutine handle.
-                     *
-                     * @param[in]  _handle  The coroutine handle.
-                     */
+                    std::unique_ptr<descriptor_op>
+                    add_operation(
+                        descriptor_op::type     _type,
+                        std::coroutine_handle<> _handle) noexcept;
+
+                    bool
+                    re_arm(descriptor_op::type _type) noexcept;
+
+                    bool
+                    set_epol() noexcept;
+
                     void
-                    set_handle(engine* _engine, descriptor_waiter::await_proxy* _handle) noexcept;
+                    remove(descriptor_op* _to_remove);
+
+                    int
+                    file_descriptor() const noexcept
+                    {
+                        return fd_;
+                    }
+
+                    void
+                    cancel();
 
                 private:
 
-                    std::atomic<descriptor_waiter::await_proxy*> awaiter_;
+                    bool
+                    re_arm_internal(descriptor_op::type _type) noexcept;
+
+                    std::mutex     mtx_;
+                    descriptor_op* ops_head_;
+                    descriptor_op* ops_tail_;
+                    int            fd_;
+                    int            poll_descriptor_;
+                    int            flags_;
             };
 
         private:

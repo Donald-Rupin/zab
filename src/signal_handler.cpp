@@ -99,19 +99,27 @@ namespace zab {
             abort();
         }
 
-        descriptor->set_flags(
-            descriptor_notification::kRead | descriptor_notification::kError |
-            descriptor_notification::kException | descriptor_notification::kClosed);
-
+        std::unique_ptr<descriptor_notification::descriptor_op> read_op;
         running_ = true;
-
         while (running_)
         {
-            auto rc = co_await *descriptor;
+            int rc;
+            if (read_op) { rc = co_await *read_op; }
+            else
+            {
+                read_op = co_await descriptor->start_read_operation();
+
+                if (!read_op)
+                {
+                    std::cerr << "signal_handler ->  Failed to start read_operation \n";
+                    abort();
+                }
+
+                rc = read_op->flags();
+            }
 
             if (rc | descriptor_notification::kRead)
             {
-
                 char buffer;
                 if (int rc = ::read(fds_[0], &buffer, 1);
                     rc < 0 && errno != EAGAIN && errno != EWOULDBLOCK)

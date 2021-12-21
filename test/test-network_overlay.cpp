@@ -90,7 +90,6 @@ namespace zab::test {
                 if (acceptor_.listen(AF_INET, 6998, 10))
                 {
                     auto stream_opt = co_await acceptor_.accept();
-
                     if (stream_opt)
                     {
                         auto amount = co_await stream_opt->write(
@@ -148,7 +147,6 @@ namespace zab::test {
                         {
                             if (!expected(strlen(kBuffer), buffer->size()))
                             {
-
                                 std::string_view og(kBuffer);
                                 buffer->emplace_back(0);
                                 std::string_view ng(buffer->data());
@@ -295,7 +293,7 @@ namespace zab::test {
             async_function<>
             run_stream(tcp_stream _stream)
             {
-                _stream.write_and_forget(std::vector<char>(kData));
+                co_await _stream.write(std::vector<char>(kData));
 
                 auto stream_opt = co_await _stream.read(kDataToSend);
 

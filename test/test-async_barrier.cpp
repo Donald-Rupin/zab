@@ -108,8 +108,6 @@ namespace zab::test {
                     {
                         ++rounds;
 
-                        // //std::cout << "Done round: " << rounds << " out of " << threads_ *
-                        // kRounds << "\n";
                         if (rounds == threads_ * kRounds) { sem.release(); }
                     },
                     thread_t{0});
@@ -289,8 +287,6 @@ namespace zab::test {
                     {
                         ++rounds;
 
-                        // std::cout << "Done round: " << rounds << " out of " << threads_ * kRounds
-                        // << "\n";
                         if (rounds == threads_ * kRounds) { sem.release(); }
                     },
                     thread_t{0});
@@ -309,7 +305,6 @@ namespace zab::test {
                     co_await yield(now(), thread_t{t});
                 }
 
-                // std::cout << count.load() << " == " << compute_cycles() << "\n";
                 co_return count.load() == compute_cycles();
             }
 
@@ -333,7 +328,6 @@ namespace zab::test {
 
                 while (reducer)
                 {
-                    // std::cout <<  "DOING WORK " << reducer << "\n";
                     if (expected(get_engine()->get_event_loop().current_id(), thread_t{_id}))
                     {
                         get_engine()->stop();
@@ -341,8 +335,6 @@ namespace zab::test {
                     }
 
                     co_await _barrier.arrive_and_wait();
-
-                    // std::cout <<  "WAKIGN WORK"<< "\n";
 
                     if (expected(get_engine()->get_event_loop().current_id(), thread_t{_id}))
                     {
@@ -359,7 +351,6 @@ namespace zab::test {
                     ++internal_count;
                 }
 
-                // std::cout <<  "WORK IS OVER!"<< "\n";
                 if (_id != threads_ - 1) { _barrier.arrive_and_drop(); }
                 else
                 {
@@ -388,7 +379,6 @@ namespace zab::test {
             reusable_future<>
             do_sync_phase(async_binary_semaphore& sem)
             {
-                // std::cout <<  "SYN PHASE!"<< "\n";
                 size_t rounds = 0;
 
                 while (rounds != threads_ * kRounds)
@@ -401,8 +391,6 @@ namespace zab::test {
 
                     if (rounds != threads_ * kRounds) { co_yield promise_void{}; }
 
-                    // std::cout <<  "SYN PHASE AWAKE" << rounds << "\n";
-
                     if (expected(get_engine()->get_event_loop().current_id(), thread_t{0}))
                     {
                         get_engine()->stop();
@@ -410,7 +398,6 @@ namespace zab::test {
                     }
                 }
 
-                // std::cout <<  "SYN OVER"<< "\n";
                 sem.release();
 
                 co_return;
@@ -438,7 +425,6 @@ namespace zab::test {
                     co_await yield(now(), thread_t{t});
                 }
 
-                // std::cout << count.load() << " =1= " << compute_cycles() << "\n";
                 co_return count.load() == compute_cycles();
             }
 

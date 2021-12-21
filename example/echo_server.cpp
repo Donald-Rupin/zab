@@ -47,6 +47,7 @@
 #include "zab/engine_enabled.hpp"
 #include "zab/event_loop.hpp"
 #include "zab/file_io_overlay.hpp"
+#include "zab/for_each.hpp"
 #include "zab/network_overlay.hpp"
 #include "zab/strong_types.hpp"
 #include "zab/tcp_stream.hpp"
@@ -109,18 +110,7 @@ namespace zab_example {
                 {
                     auto data = co_await _stream.read();
 
-                    if (data)
-                    {
-                        /* echo the data back */
-                        size_t data_to_write = 0;
-                        while (data_to_write != data->size() && !_stream.last_error())
-                        {
-                            /* Write may return less then we wanted to */
-                            data_to_write = co_await _stream.write(std::span<const char>(
-                                data->data() + data_to_write,
-                                data->size() - data_to_write));
-                        }
-                    }
+                    if (data) { co_await _stream.write(*data); }
                     else
                     {
 

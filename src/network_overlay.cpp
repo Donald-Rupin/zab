@@ -59,8 +59,7 @@ namespace zab {
             if (::close(_socket) && errno != EBADF)
             {
 
-                std::cerr << "zab: A network overlay socket failed to close. "
-                          << "\n";
+                std::cerr << "zab: A network overlay socket failed to close.\n";
             }
         }
     }   // namespace
@@ -190,19 +189,21 @@ namespace zab {
             return false;
         }
 
-        waiter_->set_flags(
-            descriptor_notification::kError | descriptor_notification::kException |
-            descriptor_notification::kRead);
-
         return true;
     }
 
     simple_future<tcp_stream>
-    tcp_acceptor::accept(int _timeout) noexcept
+    tcp_acceptor::accept() noexcept
     {
+        bool     swapped_threads = false;
+        thread_t rejoin_thread{engine_->get_event_loop().current_id()};
+
         struct sockaddr_storage address;
         socklen_t               addlen = sizeof(address);
         ::memset(&address, 0, sizeof(address));
+
+        std::unique_ptr<descriptor_notification::descriptor_op> read_op;
+        std::optional<tcp_stream>                               stream;
         while (true)
         {
             if (int sd = ::accept4(
@@ -212,57 +213,120 @@ namespace zab {
                     SOCK_NONBLOCK | SOCK_CLOEXEC);
                 sd >= 0)
             {
-                tcp_stream stream(get_engine(), sd);
+                stream.emplace(get_engine(), sd);
 
-                if (!stream.last_error()) { co_return stream; }
-                else
+                if (stream->last_error())
                 {
-
-                    last_error_ = stream.last_error();
-                    co_return std::nullopt;
+                    stream      = std::nullopt;
+                    last_error_ = stream->last_error();
                 }
+
+                break;
             }
             else if (errno == EAGAIN || errno == EWOULDBLOCK)
             {
-                /* We do not care if its an error */
-                /* Next call to accept will reveal! */
                 std::uint32_t flags = 0;
 
-                if (_timeout < 1) { flags = co_await *waiter_; }
-                else
+                if (!swapped_threads)
                 {
-                    auto result = co_await first_of(
-                        engine_,
-                        AwaitWrapper(*waiter_),
-                        engine_->get_timer().wait_proxy(_timeout));
+                    read_op = co_await join_io_thread();
 
-                    auto index = result.index();
-
-                    if (index == 0) { flags = std::get<int>(result); }
-
-                    if (!flags)
+                    if (read_op)
                     {
-                        /* must of timed out...*/
-                        last_error_ = 0;
-                        co_return std::nullopt;
+                        swapped_threads = true;
+                        flags           = read_op->flags();
+                    }
+                    else
+                    {
+                        break;
                     }
                 }
+                else
+                {
+                    if (!read_op)
+                    {
+                        last_error_ = errno;
+                        break;
+                    }
+
+                    flags = co_await *read_op;
+                }
+
+                /* No flags means something happened internally */
+                /* Like a cancel or deconstruction              */
+                if (!flags) { break; }
             }
             else
             {
 
                 last_error_ = errno;
-                co_return std::nullopt;
+                break;
             }
         }
+
+        if (swapped_threads) { co_await yield(rejoin_thread); }
+
+        co_return stream;
+    }
+
+    [[nodiscard]] guaranteed_future<std::unique_ptr<descriptor_notification::descriptor_op>>
+    tcp_acceptor::join_io_thread() noexcept
+    {
+        return waiter_->start_read_operation();
+    }
+
+    simple_future<tcp_stream>
+    tcp_acceptor::accept_io(descriptor_notification::descriptor_op& _op) noexcept
+    {
+        struct sockaddr_storage address;
+        socklen_t               addlen = sizeof(address);
+        ::memset(&address, 0, sizeof(address));
+
+        std::optional<tcp_stream> stream;
+        while (true)
+        {
+            if (int sd = ::accept4(
+                    waiter_->file_descriptor(),
+                    (struct sockaddr*) &address,
+                    &addlen,
+                    SOCK_NONBLOCK | SOCK_CLOEXEC);
+                sd >= 0)
+            {
+                stream.emplace(get_engine(), sd);
+
+                if (stream->last_error())
+                {
+                    stream      = std::nullopt;
+                    last_error_ = stream->last_error();
+                }
+
+                break;
+            }
+            else if (errno == EAGAIN || errno == EWOULDBLOCK)
+            {
+                co_await _op;
+            }
+            else
+            {
+                last_error_ = errno;
+                break;
+            }
+        }
+
+        co_return stream;
     }
 
     simple_future<tcp_stream>
     tcp_connector::connect(
         struct sockaddr_storage* _details,
         socklen_t                _size,
-        int                      _timeout) noexcept
+        bool                     _return_thread) noexcept
     {
+        bool     swapped_threads = false;
+        thread_t rejoin_thread{engine_->get_event_loop().current_id()};
+
+        std::optional<tcp_stream> stream;
+
         if (!waiter_)
         {
             int socket;
@@ -286,57 +350,29 @@ namespace zab {
         if (::connect(waiter_->file_descriptor(), (const sockaddr*) _details, _size) == 0 ||
             errno == EISCONN)
         {
-            co_return tcp_stream(get_engine(), std::move(waiter_));
-        }
-        else if (
-            errno == EINPROGRESS || errno == EAGAIN || errno == EWOULDBLOCK || errno == EALREADY)
-        {
-            /* We have EALREADY in case they call connect again after a time out... */
-            /* In that case, we wait for writabilty or an error. */
-            // waiter_->set_timeout(_timeout);
+            stream.emplace(get_engine(), std::move(waiter_));
 
-            waiter_->set_flags(
-                descriptor_notification::kClosed | descriptor_notification::kException |
-                descriptor_notification::kError | descriptor_notification::kWrite);
+            waiter_ = std::nullopt;
+        }
+        else if (errno == EINPROGRESS || errno == EAGAIN || errno == EWOULDBLOCK)
+        {
+            swapped_threads = true;
 
             /* We do not care if its an error */
             /* Next call to accept will reveal! */
-            std::uint32_t flags = 0;
+            auto write_op = co_await waiter_->start_write_operation();
 
-            if (_timeout < 1) { flags = co_await *waiter_; }
-            else
-            {
-                auto result = co_await first_of(
-                    engine_,
-                    AwaitWrapper(*waiter_),
-                    engine_->get_timer().wait_proxy(_timeout));
-
-                auto index = result.index();
-
-                if (index == 0) { flags = std::get<int>(result); }
-
-                if (!flags)
-                {
-                    /* must of timed out...*/
-                    last_error_ = 0;
-                    co_return std::nullopt;
-                }
-            }
-
-            if (flags & descriptor_notification::kWrite)
+            if (write_op && write_op->flags() & descriptor_notification::kWrite)
             {
                 /* I think its odd that a failed connect socket can be writable... */
                 /* but we will handle this case anyways...                         */
                 struct sockaddr addr;
                 socklen_t       addrlen = sizeof(addr);
                 auto            rc = ::getpeername(waiter_->file_descriptor(), &addr, &addrlen);
-
                 if (!rc)
                 {
-                    auto tmp = tcp_stream(get_engine(), std::move(waiter_));
+                    stream.emplace(get_engine(), std::move(waiter_));
                     waiter_.reset();
-
-                    co_return tmp;
                 }
                 else
                 {
@@ -353,14 +389,16 @@ namespace zab {
                 auto rc = ::read(waiter_->file_descriptor(), &ch, 1);
                 (void) rc;
                 last_error_ = errno;
-                co_return std::nullopt;
             }
         }
         else
         {
             last_error_ = errno;
-            co_return std::nullopt;
         }
+
+        if (_return_thread && swapped_threads) { co_await yield(rejoin_thread); }
+
+        co_return stream;
     }
 
 }   // namespace zab

@@ -81,6 +81,25 @@ namespace zab {
                 _function,
                 std::make_index_sequence<sizeof...(Results)>{});
         }
+
+        struct unwinder {
+
+                unwinder(std::shared_ptr<std::atomic<zab::pause_pack*>> _data)
+                    : data_(std::move(_data))
+                { }
+
+                ~unwinder()
+                {
+                    if (data_)
+                    {
+                        auto handle = data_->exchange(nullptr, std::memory_order_acquire);
+                        if (handle) { handle->handle_.destroy(); }
+                    }
+                }
+
+                std::shared_ptr<std::atomic<zab::pause_pack*>> data_;
+        };
+
     }   // namespace details
 
     template <typename T>
@@ -122,11 +141,16 @@ namespace zab {
                             [](auto _handle, auto& _result, auto _future, auto _engine) noexcept
                                 -> async_function<>
                             {
+                                /* This is here to ensure cleanup in case of coroutine unwinding */
+                                details::unwinder clean_up(_handle);
+
                                 if constexpr (std::is_same_v<
                                                   void,
                                                   std::decay_t<decltype(co_await _future)>>)
                                 {
                                     co_await _future;
+
+                                    clean_up.data_ = nullptr;
 
                                     auto handle =
                                         _handle->exchange(nullptr, std::memory_order_acquire);
@@ -138,8 +162,9 @@ namespace zab {
                                 }
                                 else
                                 {
-
                                     auto res = co_await _future;
+
+                                    clean_up.data_ = nullptr;
 
                                     auto handle =
                                         _handle->exchange(nullptr, std::memory_order_acquire);

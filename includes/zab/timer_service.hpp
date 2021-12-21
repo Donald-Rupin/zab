@@ -119,7 +119,9 @@ namespace zab {
 
             engine* engine_;
 
-            descriptor_notification::descriptor_waiter waiter_;
+            int timer_fd_;
+
+            std::optional<descriptor_notification::notifier> waiter_;
 
             std::uint64_t current_;
 

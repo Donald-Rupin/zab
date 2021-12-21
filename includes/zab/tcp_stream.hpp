@@ -65,9 +65,6 @@ namespace zab {
 
         public:
 
-            /* Max data to read/write every async iteration. */
-            static constexpr size_t kBufferSize = 32 * 1028;
-
             /**
              * @brief      Constructs the stream an empty state. Use of any member functions
              *             except assignment is undefined behavior.
@@ -106,8 +103,8 @@ namespace zab {
              *
              */
             tcp_stream(
-                engine*                                                     _engine,
-                std::optional<descriptor_notification::descriptor_waiter>&& _awaiter);
+                engine*                                            _engine,
+                std::optional<descriptor_notification::notifier>&& _awaiter);
 
             /**
              * @brief      Cannot copy a stream.
@@ -191,16 +188,14 @@ namespace zab {
              * @brief      Attempt to read some data from the stream.
              *
              * @details    This function will suspend the calling coroutine until _amount data is
-             * read, the timeout becomes expired, or an error occurs.
+             * read or an error occurs.
              *
              *             If the user is interested in any amount of data, specifying
              *             _amount is 0 (the default) will return when an amount of data has bee
              * read.
              *
-             *             This function can return less then _amount when specified under the
-             * following conditions:
-             *             - An error also occurred in conjunction to the read; or
-             *             - A time out occurs.
+             *             This function can return less then _amount when an error also occurred in
+             * conjunction to the read.
              *
              *             If the user wants no timeout, specifying _timout is -1 (default) will
              * indicate no timeout. Although, a call to `CancelRead()` will immediately timeout the
@@ -210,23 +205,26 @@ namespace zab {
              * deconstruction.
              *
              * @param[in]  _amount  The amount to read.
-             * @param[in]  _timout  The timeout to used.
              *
              * @return     The data read if successful, std::nullopt if an error.
              */
             [[nodiscard]] simple_future<std::vector<char>>
-            read(size_t _amount = 0, int64_t _timeout = -1) noexcept;
+            read(
+                size_t                                  _amount = 0,
+                descriptor_notification::descriptor_op* _op     = nullptr) noexcept;
 
-            /**
-             * @brief     Immediately times out the reader if there is one.
-             *
-             *            There is a race condition between `Read` and `CancelRead` if used in
-             *            different threads. `CancelRead` will only affect the reader iff it is,
-             *            called after the call to `Read` has suspended. Otherwise, the `Read`
-             *            will not be cancelled.
-             */
-            void
-            cancel_read() noexcept;
+            [[nodiscard]] guaranteed_future<std::size_t>
+            read(
+                std::span<char>                         _data,
+                descriptor_notification::descriptor_op* _op = nullptr) noexcept;
+
+            [[nodiscard]] simple_future<std::vector<char>>
+            read_some(size_t _max, descriptor_notification::descriptor_op* _op = nullptr) noexcept;
+
+            [[nodiscard]] guaranteed_future<std::size_t>
+            read_some(
+                std::span<char>                         _data,
+                descriptor_notification::descriptor_op* _op = nullptr) noexcept;
 
             /**
              * @brief      Write some data to the stream waiting for the data to make it to the
@@ -251,34 +249,26 @@ namespace zab {
              * @return     The amount of data written.
              */
             [[nodiscard]] guaranteed_future<size_t>
-            write(std::span<const char> _data) noexcept;
+            write(
+                std::span<const char>                   _data,
+                descriptor_notification::descriptor_op* _op = nullptr) noexcept;
+
+            [[nodiscard]] guaranteed_future<std::unique_ptr<descriptor_notification::descriptor_op>>
+            start_write_operation() noexcept;
+
+            [[nodiscard]] guaranteed_future<std::unique_ptr<descriptor_notification::descriptor_op>>
+            start_read_operation() noexcept;
 
             /**
-             * @brief      Writes some data and spawns a background process to await for it to be
-             * written.
+             * @brief     Immediately cancles all operations.
              *
-             * @brief      See `Write` for more details about the write process.
-             *
-             *             A user can use `WaitForWrites` to determine if all background processes
-             *             have finished writing.
-             *
-             * @param[in]  _data  The data to write. This is taken by copy, since the background
-             *                    process will take ownership of the data.
-             *
-             * @return     Nothing.
+             *            There is a race condition between `read`/`write` and `cancel` if used in
+             *            different threads. `cancel` will only affect the operations iff it is,
+             *            called after the call to `read`/`write` has suspended. Otherwise, those
+             * operations will not be cancelled.
              */
-            async_function<>
-            write_and_forget(std::vector<char> _data) noexcept;
-
-            /**
-             * @brief      wait for all writes performed before this call to complete.
-             *
-             * @details    Writes performed after this call are not waited on.
-             *
-             * @return     An awaitable that returns after all writes are complete.
-             */
-            [[nodiscard]] simple_future<>
-            wait_for_writes() noexcept;
+            void
+            cancel() noexcept;
 
             /**
              * @brief      Get the last error from an operation.
@@ -300,6 +290,19 @@ namespace zab {
             }
 
             /**
+             * @brief      Clears the last error.
+             *
+             * @details    This function is not thread safe, so the last error cant be written to
+             *             reliably in the presence of function use across multiple threads.
+             *
+             */
+            inline void
+            clear_last_error() const noexcept
+            {
+                state_->last_error_ = 0;
+            }
+
+            /**
              * @brief      The internal state of the steam.
              */
             struct internal_state {
@@ -308,30 +311,18 @@ namespace zab {
                      * @brief      Constructs the state with an engine to use and a
                      * descriptor_waiter.
                      *
-                     * @param      _engine  The engine
                      * @param      _desc    The description
                      */
-                    internal_state(
-                        engine*                                                     _engine,
-                        std::optional<descriptor_notification::descriptor_waiter>&& _desc);
+                    internal_state(std::optional<descriptor_notification::notifier>&& _desc);
 
-                    async_mutex mtx_;
+                    ~internal_state();
 
-                    std::optional<descriptor_notification::descriptor_waiter> socket_;
-
-                    std::atomic<pause_pack*> cancel_handle_;
+                    std::optional<descriptor_notification::notifier> socket_;
 
                     int last_error_;
             };
 
         private:
-
-            /**
-             * @brief      Sets the flags on the stream for notification.
-             *
-             */
-            void
-            set_flags() noexcept;
 
             /**
              * @brief      Flushes the state to a background process to await shutdown.
@@ -353,7 +344,7 @@ namespace zab {
              * @return     An awaitable that returns after the shutdown attempt is complete.
              */
             [[nodiscard]] static simple_future<>
-            clean_up(engine* _engine, std::unique_ptr<internal_state>& _state) noexcept;
+            clean_up(engine* _engine, std::unique_ptr<internal_state>&& _state) noexcept;
 
             std::unique_ptr<internal_state> state_;
     };

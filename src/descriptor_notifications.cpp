@@ -52,6 +52,7 @@
 #include <unordered_set>
 #include <utility>
 
+#include "zab/async_primitives.hpp"
 #include "zab/engine.hpp"
 #include "zab/strong_types.hpp"
 
@@ -84,6 +85,26 @@ namespace zab {
 
     descriptor_notification::~descriptor_notification()
     {
+        purge();
+        if (poll_descriptor_)
+        {
+            ::epoll_ctl(poll_descriptor_, EPOLL_CTL_DEL, event_fd_, nullptr);
+
+            if (close(event_fd_) || close(poll_descriptor_))
+            {
+                std::cerr << "Failed to close event or epoll during deconstruction. errno:" << errno
+                          << "\n";
+                abort();
+            }
+
+            poll_descriptor_ = 0;
+            event_fd_        = 0;
+        }
+    }
+
+    void
+    descriptor_notification::purge()
+    {
         if (!notification_loop_.get_stop_token().stop_requested())
         {
             notification_loop_.request_stop();
@@ -91,25 +112,12 @@ namespace zab {
 
         if (notification_loop_.joinable()) { notification_loop_.join(); }
 
-        ::epoll_ctl(poll_descriptor_, EPOLL_CTL_DEL, event_fd_, nullptr);
-
-        if (close(event_fd_) || close(poll_descriptor_))
-        {
-            std::cerr << "Failed to close event or epoll during deconstruction. errno:" << errno
-                      << "\n";
-            abort();
-        }
-
         for (const auto d : pending_action_.decs_)
         {
             in_action_.emplace(d);
         }
         pending_action_.decs_.clear();
 
-        for (const auto d : for_deletion_.decs_)
-        {
-            in_action_.emplace(d);
-        }
         for_deletion_.decs_.clear();
 
         /* delete those in action */
@@ -117,22 +125,19 @@ namespace zab {
         {
             destroy(i);
         }
+        in_action_.clear();
     }
 
     void
     descriptor_notification::destroy(descriptor* _to_delete) const noexcept
     {
-        auto handle = _to_delete->awaiter_.exchange(nullptr);
-        if (handle) { handle->handle_.destroy(); }
-
         delete _to_delete;
     }
 
     auto
-    descriptor_notification::subscribe(int _fd) noexcept -> std::optional<descriptor_waiter>
+    descriptor_notification::subscribe(int _fd) noexcept -> std::optional<notifier>
     {
-
-        auto desc = new descriptor;
+        auto desc = new descriptor(_fd, poll_descriptor_);
 
         struct epoll_event events {
                 .events = 0, .data = epoll_data { .ptr = desc }
@@ -151,110 +156,416 @@ namespace zab {
             pending_action_.decs_.push_back(desc);
         }
 
-        return descriptor_waiter(this, desc, _fd);
-    }
-
-    descriptor_notification::descriptor::descriptor() : awaiter_(nullptr) { }
-
-    descriptor_notification::descriptor_waiter::descriptor_waiter(
-        descriptor_notification* _self,
-        descriptor*              _desc,
-        int                      _fd)
-        : self_(_self), desc_(_desc), fd_(_fd)
-    { }
-
-    descriptor_notification::descriptor_waiter::descriptor_waiter()
-        : self_(nullptr), desc_(nullptr), fd_(-1)
-    { }
-
-    descriptor_notification::descriptor_waiter::descriptor_waiter(descriptor_waiter&& _move)
-        : descriptor_waiter()
-    {
-        swap(*this, _move);
-    }
-
-    auto
-    descriptor_notification::descriptor_waiter::operator=(descriptor_waiter&& _move)
-        -> descriptor_waiter&
-    {
-        swap(*this, _move);
-        return *this;
+        return notifier(desc, this);
     }
 
     void
-    swap(
-        descriptor_notification::descriptor_waiter& _first,
-        descriptor_notification::descriptor_waiter& _second) noexcept
+    descriptor_notification::remove(notifier& _notifier) noexcept
     {
-        using std::swap;
-        swap(_first.self_, _second.self_);
-        swap(_first.desc_, _second.desc_);
-        swap(_first.fd_, _second.fd_);
-    }
-
-    descriptor_notification::descriptor_waiter::~descriptor_waiter()
-    {
-        if (desc_)
+        if (_notifier.desc_)
         {
-            self_->notify(desc_, 0);
-
-            epoll_ctl(self_->poll_descriptor_, EPOLL_CTL_DEL, fd_, nullptr);
+            if (int error = ::epoll_ctl(
+                    poll_descriptor_,
+                    EPOLL_CTL_DEL,
+                    _notifier.desc_->file_descriptor(),
+                    nullptr);
+                error < 0)
+            {
+                std::cerr << "Failed to EPOLL_CTL_DEL an fd. errno:" << errno << "\n";
+            }
 
             {
-                std::scoped_lock lck(self_->for_deletion_.mtx_);
-                self_->for_deletion_.decs_.push_back(desc_);
+                std::scoped_lock lck(for_deletion_.mtx_);
+                for_deletion_.decs_.push_back(_notifier.desc_);
+            }
+
+            std::uint64_t wake_up = 1;
+            if (int error = ::write(event_fd_, &wake_up, sizeof(wake_up)); error < 0)
+            {
+                std::cerr << "Failed to write to event_fd_. errno:" << errno << "\n";
+            }
+
+            _notifier.desc_ = nullptr;
+        }
+    }
+
+    descriptor_notification::descriptor::descriptor(int _fd, int _poll)
+        : ops_head_(nullptr), ops_tail_(nullptr), fd_(_fd), poll_descriptor_(_poll),
+          flags_(
+              descriptor_notification::kError | descriptor_notification::kException |
+              descriptor_notification::kClosed)
+    { }
+
+    descriptor_notification::descriptor::~descriptor()
+    {
+        for (auto tmp = ops_head_; tmp;)
+        {
+            tmp->desc_ = nullptr;
+
+            if (tmp->handle_)
+            {
+                tmp->flags_ = descriptor_notification::kError | descriptor_notification::kException;
+
+                auto to_resume = tmp->handle_;
+                tmp->handle_   = nullptr;
+                tmp            = tmp->next_;
+
+                to_resume.destroy();
+            }
+            else
+            {
+                tmp = tmp->next_;
             }
         }
     }
 
-    auto descriptor_notification::descriptor_waiter::operator co_await() noexcept -> await_proxy
+    descriptor_notification::notifier::notifier(descriptor* _desc, descriptor_notification* _notif)
+        : desc_(_desc), notif_(_notif)
+    { }
+
+    descriptor_notification::notifier::notifier(notifier&& _move) : desc_(_move.desc_)
     {
-        return await_proxy{
-            .self_         = this,
-            .handle_       = nullptr,
-            .return_flags_ = 0,
-            .thread_       = self_->engine_->current_id()};
+        std::swap(desc_, _move.desc_);
+        std::swap(notif_, _move.notif_);
+
+        _move.desc_ = nullptr;
     }
 
-    void
-    descriptor_notification::descriptor_waiter::await_proxy::await_suspend(
-        std::coroutine_handle<> _awaiter) noexcept
+    auto
+    descriptor_notification::notifier::operator=(notifier&& _move) -> notifier&
     {
-        handle_ = _awaiter;
+        remove();
+        std::swap(desc_, _move.desc_);
+        std::swap(notif_, _move.notif_);
+        return *this;
+    }
 
-        self_->desc_->set_handle(self_->self_->engine_, this);
+    descriptor_notification::notifier::~notifier() { remove(); }
 
+    void
+    descriptor_notification::notifier::remove()
+    {
+        if (desc_) { notif_->remove(*this); }
+    }
+
+    descriptor_notification::descriptor_op::descriptor_op(
+        descriptor*             _desc,
+        type                    _type,
+        std::coroutine_handle<> _handle)
+        : desc_(_desc), next_(nullptr), handle_(_handle), flags_(0), type_(_type)
+    { }
+
+    descriptor_notification::descriptor_op::~descriptor_op()
+    {
+        if (desc_) { desc_->remove(this); }
+
+        if (handle_)
+        {
+            auto tmp = handle_;
+            handle_  = nullptr;
+            tmp.destroy();
+        }
+    }
+
+    auto
+    descriptor_notification::notifier::start_operation(descriptor_op::type _type) noexcept
+        -> guaranteed_future<std::unique_ptr<descriptor_op>>
+    {
+        std::unique_ptr<descriptor_op> op;
+        co_await zab::pause([this, &op, _type](auto* _pause_pack) noexcept
+                            { op = desc_->add_operation(_type, _pause_pack->handle_); });
+
+        co_return op;
+    }
+
+    auto
+    descriptor_notification::descriptor::add_operation(
+        descriptor_op::type     _type,
+        std::coroutine_handle<> _handle) noexcept -> std::unique_ptr<descriptor_op>
+    {
+        std::unique_ptr<descriptor_notification::descriptor_op> op          = nullptr;
+        bool                                                    reset_flags = false;
+        {
+            std::scoped_lock lck(mtx_);
+
+            op = std::make_unique<descriptor_notification::descriptor_op>(this, _type, _handle);
+            if (ops_tail_)
+            {
+                ops_tail_->next_ = op.get();
+                ops_tail_        = op.get();
+            }
+            else
+            {
+                ops_head_ = op.get();
+                ops_tail_ = op.get();
+            }
+
+            reset_flags = re_arm_internal(_type);
+        }
+
+        if (reset_flags)
+        {
+            if (!set_epol())
+            {
+                /* The deconstructor will remove it */
+                op = nullptr;
+            }
+        }
+
+        return op;
+    }
+
+    bool
+    descriptor_notification::descriptor::set_epol() noexcept
+    {
         struct epoll_event events {
-                .events = self_->flags_ | EPOLLONESHOT, .data = epoll_data { .ptr = self_->desc_ }
+                .events = flags_ | EPOLLONESHOT, .data = epoll_data { .ptr = this }
         };
 
-        epoll_ctl(self_->self_->poll_descriptor_, EPOLL_CTL_MOD, self_->fd_, &events);
+        return !epoll_ctl(poll_descriptor_, EPOLL_CTL_MOD, fd_, &events);
+    }
+
+    bool
+    descriptor_notification::descriptor::re_arm(descriptor_op::type _type) noexcept
+    {
+        bool reset_flags = false;
+
+        {
+            std::scoped_lock lck(mtx_);
+            reset_flags = re_arm_internal(_type);
+        }
+
+        if (reset_flags) { return set_epol(); }
+
+        return true;
+    }
+
+    bool
+    descriptor_notification::descriptor::re_arm_internal(descriptor_op::type _type) noexcept
+    {
+        bool reset_flags = false;
+
+        if (_type == descriptor_op::type::kWrite)
+        {
+            if (!(flags_ & descriptor_notification::kWrite))
+            {
+                reset_flags = true;
+                flags_ |= descriptor_notification::kWrite;
+            }
+        }
+        else if (_type == descriptor_op::type::kRead)
+        {
+            if (!(flags_ & descriptor_notification::kRead))
+            {
+                reset_flags = true;
+                flags_ |= descriptor_notification::kRead;
+            }
+        }
+        else
+        {
+            if (!(flags_ & descriptor_notification::kWrite))
+            {
+                reset_flags = true;
+                flags_ |= descriptor_notification::kWrite;
+            }
+            if (!(flags_ & descriptor_notification::kRead))
+            {
+                reset_flags = true;
+                flags_ |= descriptor_notification::kRead;
+            }
+        }
+
+        return reset_flags;
     }
 
     void
-    descriptor_notification::descriptor::set_handle(
-        engine*                         _engine,
-        descriptor_waiter::await_proxy* _handle) noexcept
+    descriptor_notification::descriptor::remove(descriptor_op* _to_remove)
     {
+        std::scoped_lock lck(mtx_);
 
-        auto tmp = awaiter_.exchange(_handle, std::memory_order_acquire);
-
-        if (tmp)
+        if (_to_remove == ops_head_)
         {
-            tmp->return_flags_ = 0;
-            _engine->resume(tmp->handle_, order_t{order::now()}, tmp->thread_);
+            ops_head_ = ops_head_->next_;
+            if (_to_remove == ops_tail_) { ops_tail_ = nullptr; }
+        }
+        else
+        {
+            auto prev = ops_head_;
+            for (auto tmp = ops_head_->next_; tmp; tmp = tmp->next_)
+            {
+                if (tmp == _to_remove)
+                {
+                    prev->next_ = tmp->next_;
+                    if (_to_remove == ops_tail_) { ops_tail_ = prev; }
+                    break;
+                }
+
+                prev = tmp;
+            }
+        }
+    }
+
+    void
+    descriptor_notification::descriptor::cancel()
+    {
+        std::scoped_lock lck(mtx_);
+
+        for (auto tmp = ops_head_; tmp;)
+        {
+            auto to_cancel = tmp;
+
+            tmp = tmp->next_;
+
+            if (to_cancel->handle_)
+            {
+                to_cancel->flags_  = 0;
+                auto to_resume     = to_cancel->handle_;
+                to_cancel->handle_ = nullptr;
+                to_resume.resume();
+            }
         }
     }
 
     void
     descriptor_notification::notify(descriptor* _awaiting, int _flags) noexcept
     {
-        if (auto handle = _awaiting->awaiter_.exchange(nullptr, std::memory_order_release); handle)
+        descriptor_op*          read = nullptr;
+        std::coroutine_handle<> read_handle_;
+
+        descriptor_op*          write = nullptr;
+        std::coroutine_handle<> write_handle_;
+
         {
-            handle->return_flags_ = _flags;
-            auto tmp              = handle->handle_;
-            handle->handle_       = nullptr;
-            engine_->resume(tmp, order_t{order::now()}, handle->thread_);
+            std::scoped_lock lck(_awaiting->mtx_);
+
+            /* Can we successfully notify someone? */
+            if (_flags & (descriptor_notification::kRead | descriptor_notification::kWrite))
+            {
+                for (auto tmp = _awaiting->ops_head_; tmp; tmp = tmp->next_)
+                {
+                    if (tmp->handle_)
+                    {
+                        if (!read && _flags & descriptor_notification::kRead)
+                        {
+                            if (tmp->type_ == descriptor_op::type::kRead ||
+                                tmp->type_ == descriptor_op::type::kReadWrite)
+                            {
+                                read         = tmp;
+                                read_handle_ = tmp->handle_;
+                                tmp->handle_ = nullptr;
+                            }
+                        }
+
+                        if (!write && _flags & descriptor_notification::kWrite)
+                        {
+                            if (tmp->type_ == descriptor_op::type::kWrite ||
+                                tmp->type_ == descriptor_op::type::kReadWrite)
+                            {
+                                write         = tmp;
+                                write_handle_ = tmp->handle_;
+                                tmp->handle_  = nullptr;
+                            }
+                        }
+
+                        if ((read || !(_flags & descriptor_notification::kRead)) &&
+                            (write || !(_flags & descriptor_notification::kWrite)))
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                /* Just notify the first one of error */
+                for (auto tmp = _awaiting->ops_head_; tmp; tmp = tmp->next_)
+                {
+                    if (tmp->handle_)
+                    {
+                        read         = tmp;
+                        read_handle_ = tmp->handle_;
+                        tmp->handle_ = nullptr;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (read)
+        {
+            /* Resume the waiter... */
+            read->flags_ = _flags;
+            read_handle_.resume();
+        }
+
+        if (read != write && write)
+        {
+            /* Resume the waiter... */
+            write->flags_ = _flags;
+            write_handle_.resume();
+        }
+
+        /* Recompute the flags... */
+        {
+            std::scoped_lock lck(_awaiting->mtx_);
+
+            _awaiting->flags_ = descriptor_notification::kError |
+                                descriptor_notification::kException |
+                                descriptor_notification::kClosed;
+
+            for (auto tmp = _awaiting->ops_head_; tmp; tmp = tmp->next_)
+            {
+                if (tmp->handle_)
+                {
+                    if (tmp->type_ == descriptor_op::type::kWrite)
+                    {
+                        _awaiting->flags_ |= descriptor_notification::kWrite;
+                        if (_awaiting->flags_ & descriptor_notification::kRead) { break; }
+                    }
+                    else if (tmp->type_ == descriptor_op::type::kRead)
+                    {
+                        _awaiting->flags_ |= descriptor_notification::kRead;
+                        if (_awaiting->flags_ & descriptor_notification::kWrite) { break; }
+                    }
+                    else
+                    {
+                        _awaiting->flags_ |=
+                            descriptor_notification::kWrite | descriptor_notification::kRead;
+                        break;
+                    }
+                }
+            }
+        }
+
+        /* Reset if something is waiting */
+        if (_awaiting->flags_ & (descriptor_notification::kWrite | descriptor_notification::kRead))
+        {
+            struct epoll_event events {
+                    .events = _awaiting->flags_ | EPOLLONESHOT, .data = epoll_data
+                    {
+                        .ptr = _awaiting
+                    }
+            };
+
+            if (epoll_ctl(poll_descriptor_, EPOLL_CTL_MOD, _awaiting->fd_, &events)) [[unlikely]]
+            {
+                for (auto tmp = _awaiting->ops_head_; tmp;)
+                {
+                    if (tmp->handle_)
+                    {
+                        tmp->flags_ =
+                            descriptor_notification::kError | descriptor_notification::kException;
+
+                        auto to_resume = tmp;
+                        tmp            = tmp->next_;
+                        to_resume->handle_.resume();
+                    }
+                    else
+                    {
+                        tmp = tmp->next_;
+                    }
+                }
+            }
         }
     }
 
@@ -296,7 +607,7 @@ namespace zab {
                 if (events[i].data.fd == event_fd_) { do_event = true; }
                 else
                 {
-                    descriptor* awaiting = reinterpret_cast<descriptor*>(events[i].data.ptr);
+                    descriptor* awaiting = static_cast<descriptor*>(events[i].data.ptr);
 
                     notify(awaiting, events[i].events);
                 }
@@ -354,7 +665,6 @@ namespace zab {
 
         if (re_insert.size())
         {
-
             std::scoped_lock lck(for_deletion_.mtx_);
 
             if (!for_deletion_.decs_.size()) { for_deletion_.decs_.swap(re_insert); }

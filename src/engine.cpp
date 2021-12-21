@@ -61,8 +61,10 @@ namespace zab {
 
     engine::~engine()
     {
-        /* Destroy the timer first so it can clean up. */
         timer_ = nullptr;
+
+        event_loop_.purge();
+        notifcations_.purge();
         event_loop_.purge();
     }
 
@@ -76,9 +78,13 @@ namespace zab {
     engine::resume(event _handle, order_t _order, thread_t _thread) noexcept
     {
         if (!_order.order_) { event_loop_.send_event(_handle, _thread); }
-        else
+        else if (timer_)
         {
             timer_->wait(_handle, _order.order_, _thread);
+        }
+        else
+        {
+            _handle.destroy();
         }
     }
 
