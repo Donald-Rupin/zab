@@ -198,13 +198,17 @@ namespace zab {
 
     descriptor_notification::descriptor::~descriptor()
     {
-        for (auto tmp = ops_head_; tmp;)
+        auto tmp  = ops_head_;
+        ops_head_ = nullptr;
+        ops_tail_ = nullptr;
+
+        while (tmp)
         {
             tmp->desc_ = nullptr;
 
             if (tmp->handle_)
             {
-                tmp->flags_ = descriptor_notification::kError | descriptor_notification::kException;
+                tmp->flags_ = 0;
 
                 auto to_resume = tmp->handle_;
                 tmp->handle_   = nullptr;

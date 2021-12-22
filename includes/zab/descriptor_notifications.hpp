@@ -234,7 +234,7 @@ namespace zab {
                     inline void
                     cancel()
                     {
-                        desc_->cancel();
+                        if (desc_) { desc_->cancel(); }
                     }
 
                 private:

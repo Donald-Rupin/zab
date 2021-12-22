@@ -353,7 +353,9 @@ namespace zab {
 
     void
     tcp_stream::cancel() noexcept
-    { }
+    {
+        if (state_) { state_->socket_->cancel(); }
+    }
 
     simple_future<>
     tcp_stream::clean_up(engine* _engine, std::unique_ptr<internal_state>&& _state) noexcept

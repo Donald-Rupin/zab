@@ -258,7 +258,6 @@ namespace zab {
             }
             else
             {
-
                 last_error_ = errno;
                 break;
             }
