@@ -90,7 +90,7 @@ namespace zab::test {
 
                 if (duration >= order::in_seconds(2))
                 {
-                    std::cout << "Timer failed."
+                    std::cerr << "Timer failed."
                               << "\n";
                     engine_->stop();
                 }
@@ -193,7 +193,7 @@ namespace zab::test {
 
                 if (duration >= order::in_seconds(2))
                 {
-                    std::cout << "Timer failed."
+                    std::cerr << "Timer failed."
                               << "\n";
                     engine_->stop();
                 }

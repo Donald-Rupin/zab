@@ -47,10 +47,10 @@
 #include "zab/engine_enabled.hpp"
 #include "zab/event_loop.hpp"
 #include "zab/file_io_overlay.hpp"
+#include "zab/for_each.hpp"
 #include "zab/network_overlay.hpp"
 #include "zab/strong_types.hpp"
 #include "zab/tcp_stream.hpp"
-
 namespace zab_example {
 
     class echo_server : public zab::engine_enabled<echo_server> {
@@ -91,7 +91,7 @@ namespace zab_example {
 
                     for (const auto i : active_streams_)
                     {
-                        i->cancel_read();
+                        i->cancel();
                     }
                 }
 
@@ -153,7 +153,7 @@ namespace zab_example {
 
                 while (!_stream.last_error())
                 {
-                    auto data = co_await _stream.read();
+                    auto data = co_await _stream.read_some(1028 * 1028);
 
                     if (data)
                     {
@@ -161,14 +161,7 @@ namespace zab_example {
                         print(thread, _connection_count, "Read ", data->size(), " bytes.");
 
                         /* echo the data back */
-                        size_t data_to_write = 0;
-                        while (data_to_write != data->size() && !_stream.last_error())
-                        {
-                            /* Write may return less then we wanted to */
-                            data_to_write = co_await _stream.write(std::span<const char>(
-                                data->data() + data_to_write,
-                                data->size() - data_to_write));
-                        }
+                        co_await _stream.write(*data);
 
                         /* log data to file */
                         auto s = co_await log_file.write_to_file(*data);

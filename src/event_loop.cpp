@@ -170,7 +170,35 @@ namespace zab {
             if (thread.joinable()) { thread.join(); }
         }
 
-        workers_.clear();
+        std::size_t spin_count = 0;
+        bool        stil_events_;
+        do
+        {
+            std::vector<std::pair<safe_queue, std::jthread>> workers_tmp(workers_.size());
+
+            stil_events_ = false;
+            workers_tmp.swap(workers_);
+            workers_tmp.clear();
+
+            for (const auto& [w, _] : workers_)
+            {
+                if (w.events_.size())
+                {
+                    stil_events_ = true;
+                    break;
+                }
+            }
+
+        } while (stil_events_ && spin_count++ < 50);
+
+        if (stil_events_)
+        {
+            std::cerr << "Recursive deletion of coroutines detected. "
+                         "Expect memory leak at best, but now in undefined behavour land.\n"
+                         "This usually occurs when a deconstructor has some recursive element "
+                         "that attempts to use the event loop on deconstruction."
+                         "\n";
+        }
     }
 
     void
@@ -187,6 +215,8 @@ namespace zab {
                     _thread_number.thread_ = count;
 
                     if (!current_size) { break; }
+
+                    min = current_size;
                 }
 
                 ++count;
@@ -196,7 +226,6 @@ namespace zab {
         assert(_thread_number.thread_ < workers_.size());
 
         auto& [w, _] = workers_[_thread_number.thread_];
-
         {
             std::unique_lock lck(w.mtx_);
             w.events_.push_back(_event);

@@ -49,33 +49,31 @@ namespace zab {
 
     timer_service::timer_service(engine* _engine) : engine_(_engine), current_(0)
     {
-        int timer_fd = timerfd_create(CLOCK_MONOTONIC, TFD_NONBLOCK | TFD_CLOEXEC);
+        timer_fd_ = timerfd_create(CLOCK_MONOTONIC, TFD_NONBLOCK | TFD_CLOEXEC);
 
-        if (timer_fd == -1)
+        if (timer_fd_ == -1)
         {
             std::cerr << "timer_service -> Failed to create timerfd. errno:" << errno << "\n";
             abort();
         }
 
-        auto waiter_opt = engine_->get_notification_handler().subscribe(timer_fd);
+        waiter_ = engine_->get_notification_handler().subscribe(timer_fd_);
 
-        if (!waiter_opt)
+        if (!waiter_)
         {
             std::cerr << "timer_service -> Failed to subscribe to timerfd. errno:" << errno << "\n";
             abort();
         }
-
-        swap(waiter_, *waiter_opt);
 
         run();
     }
 
     timer_service::~timer_service()
     {
-        auto desc = waiter_.file_descriptor();
-        if (desc)
+        waiter_ = std::nullopt;
+        if (timer_fd_)
         {
-            if (close(desc))
+            if (::close(timer_fd_))
             {
                 std::cerr << "timer_service -> Failed to close timer during deconstruction. errno:"
                           << errno << "\n";
@@ -87,20 +85,24 @@ namespace zab {
     async_function<>
     timer_service::run()
     {
-        co_await yield(engine_, order_t{0}, thread_t{0});
+        auto read_op = co_await waiter_->start_read_operation();
+
+        if (!read_op)
+        {
+            std::cerr << "timer_service -> start_read_operation failed. errno:" << errno << "\n";
+            abort();
+        }
 
         struct itimerspec current_spec;
-        waiter_.set_flags(descriptor_notification::kRead);
         while (true)
         {
-            auto flags = co_await waiter_;
+            auto flags = co_await *read_op;
 
             if (flags | descriptor_notification::kRead)
             {
-                std::lock_guard lck(mtx_);
-                std::uint64_t   current_value = 0;
+                std::uint64_t current_value = 0;
 
-                int rc = ::read(waiter_.file_descriptor(), &current_value, sizeof(current_value));
+                int rc = ::read(waiter_->file_descriptor(), &current_value, sizeof(current_value));
                 if (rc < 0 && errno != EAGAIN)
                 {
                     std::cerr << "timer_service -> read failed. errno:" << errno << "\n";
@@ -109,14 +111,15 @@ namespace zab {
 
                 if (current_value)
                 {
-
-                    rc = timerfd_gettime(waiter_.file_descriptor(), &current_spec);
+                    rc = timerfd_gettime(waiter_->file_descriptor(), &current_spec);
                     if (rc < 0)
                     {
                         std::cerr << "timer_service -> timerfd_gettime failed. errno:" << errno
                                   << "\n";
                         abort();
                     }
+
+                    std::lock_guard lck(mtx_);
 
                     current_ +=
                         ((((std::uint64_t) current_spec.it_interval.tv_sec) * kNanoInSeconds) +
@@ -141,7 +144,7 @@ namespace zab {
 
                         /* disarm timer */
                         auto rc = timerfd_settime(
-                            waiter_.file_descriptor(),
+                            waiter_->file_descriptor(),
                             0, /* relative */
                             &new_value,
                             nullptr);
@@ -171,7 +174,6 @@ namespace zab {
         std::uint64_t           _nano_seconds,
         thread_t                _thread) noexcept
     {
-        std::cout << "We are going to wait for " << _nano_seconds << "\n";
         std::lock_guard     lck(mtx_);
         const std::uint64_t sleep_mark = current_ + _nano_seconds;
 
@@ -194,7 +196,6 @@ namespace zab {
 
         if (change_rate)
         {
-            std::cout << "Setting timer spec! ";
             struct itimerspec new_value;
 
             new_value.it_value.tv_sec  = _nano_seconds / kNanoInSeconds;
@@ -203,7 +204,7 @@ namespace zab {
             new_value.it_interval = new_value.it_value;
 
             auto rc = timerfd_settime(
-                waiter_.file_descriptor(),
+                waiter_->file_descriptor(),
                 0, /* relative */
                 &new_value,
                 nullptr);

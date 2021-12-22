@@ -446,8 +446,6 @@ namespace zab::test {
             async_function<>
             acquire_count(async_latch& _latch) noexcept
             {
-                // std::cout << "Attempting" << "\n";
-
                 co_await *sem_;
 
                 ++count_;

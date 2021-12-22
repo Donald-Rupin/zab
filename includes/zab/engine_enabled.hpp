@@ -319,7 +319,6 @@ namespace zab {
             [[nodiscard]] inline auto
             yield(order_t _order = now(), thread_t _thread = default_thread()) const noexcept
             {
-                // std::cout << "thread is: " << _thread << "\n";
                 return zab::yield(get_engine(), _order, _thread);
             }
 

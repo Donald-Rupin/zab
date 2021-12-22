@@ -140,7 +140,7 @@ namespace zab {
              *             underlying protocol supports retransmission, the request may be
              *             ignored so that a later reattempt at connection succeeds." - listen(2)
              *
-             *             last_error is set on failure.
+             *             `last_error` is set on failure.
              *
              * @param[in]  _family   The ip family.
              * @param[in]  _port     The port to bind too.
@@ -154,10 +154,19 @@ namespace zab {
             /**
              * @brief      Await for a connection to come in.
              *
-             *             The timeout can be used to resume the suspended coroutine
+             * @details    The timeout can be used to resume the suspended coroutine
              *             early. The number is in nanoseconds and -1 means no timeout.
              *
-             *             last_error is set on failure.
+             *             This function should not be called in the io thread.
+             *
+             *             This function will return into the thread it was called in.
+             *             If this function is called in the io thread or any non-engine thread,
+             *             it will join kAnyThread.
+             *
+             *             This function is thread safe and can be utilised by many threads.
+             *             Although error retreival will not work if multple threads fail.
+             *
+             *             `last_error` is set on failure.
              *
              * @param[in]  _timeout  The timeout to use.
              *
@@ -166,7 +175,50 @@ namespace zab {
              *
              */
             [[nodiscard]] simple_future<tcp_stream>
-            accept(int _timeout = -1) noexcept;
+            accept() noexcept;
+
+            /**
+             * @brief      Joins the io thread which can be used to more efficiently accept.
+             *
+             * @details    Once the io thread is joined, users should use accept_io() function.
+             *
+             *             If the io thread is left, through a `yield` or otherwise, it can be
+             *             joined again using the same `descriptor_op` by called accept.
+             *
+             *             The `descriptor_op` is not thread safe. Although multple descriptor_op's
+             *             for the same acceptor can be created.
+             *
+             * @return     [through co_await] An unqiue_ptr to descriptor_op that is set to the
+             *             descriptor_op on success, or nullptr on failure.
+             */
+            [[nodiscard]] guaranteed_future<std::unique_ptr<descriptor_notification::descriptor_op>>
+            join_io_thread() noexcept;
+
+            /**
+             * @brief      Await for a connection to come in.
+             *
+             * @details    This function will return into the io thread.
+             *
+             *             `last_error` is set on failure.
+             *
+             * @param      _op The descriptor_op.
+             * @return     [through co_await] An optional tcp_stream that is set to the
+             *             accepted connection on success, or std::nullopt on failure.
+             */
+            [[nodiscard]] simple_future<tcp_stream>
+            accept_io(descriptor_notification::descriptor_op& _op) noexcept;
+
+            /**
+             * @brief      Cancels any opertions suspended.
+             *
+             * @details    This function can be called from any thread.
+             *
+             *             Use of any created `descriptor_op's` after concellation is undefined
+             *             behaviour.
+             *
+             */
+            void
+            cancel();
 
             /**
              * @brief      Retrieve the last value of errno recorded
@@ -186,8 +238,8 @@ namespace zab {
 
         private:
 
-            std::optional<descriptor_notification::descriptor_waiter> waiter_;
-            int                                                       last_error_ = 0;
+            std::optional<descriptor_notification::notifier> waiter_;
+            int                                              last_error_ = 0;
     };
 
     /**
@@ -201,7 +253,7 @@ namespace zab {
         public:
 
             /**
-             * @brief      Constructs a new instance an an empty state.
+             * @brief      Constructs a new instance in an empty state.
              *
              *             If this constructor is used, use of `connect`,
              *             will result in undefined behavior until `register_engine`
@@ -268,19 +320,32 @@ namespace zab {
              *             The timeout can be used to resume the suspended coroutine
              *             early. The number is in nanoseconds and -1 means no timeout.
              *
-             *             On success, the state of the connected is reset and can be reused.
-             *
-             *             last_error is set on failure.
+             *             `last_error` is set on failure.
              *
              * @param      _details  The host details.
              * @param      _size     The size of the _details struct
-             * @param[in]  _timeout  The timeout to use.
+             * @param      _return_thread Return to the callees thread
              *
              * @return     [through co_await] An optional tcp_stream that is set to the
              *             accepted connection on success, or std::nullopt on failure.
              */
             [[nodiscard]] simple_future<tcp_stream>
-            connect(struct sockaddr_storage* _details, socklen_t _size, int _timeout = -1) noexcept;
+            connect(
+                struct sockaddr_storage* _details,
+                socklen_t                _size,
+                bool                     _return_thread = true) noexcept;
+
+            /**
+             * @brief      Cancels any opertions suspended.
+             *
+             * @details    This function can be called from any thread.
+             *
+             *             Use of any created `descriptor_op's` after concellation is undefined
+             *             behaviour.
+             *
+             */
+            void
+            cancel();
 
             /**
              * @brief      Retrieve the last value of errno recorded
@@ -300,8 +365,8 @@ namespace zab {
 
         private:
 
-            std::optional<descriptor_notification::descriptor_waiter> waiter_;
-            int                                                       last_error_ = 0;
+            std::optional<descriptor_notification::notifier> waiter_;
+            int                                              last_error_ = 0;
     };
 
 }   // namespace zab
