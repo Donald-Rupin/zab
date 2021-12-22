@@ -412,7 +412,8 @@ namespace zab {
                 else
                 {
                     char ch;
-                    ::read(waiter_->file_descriptor(), &ch, 0);
+                    auto rc = ::read(waiter_->file_descriptor(), &ch, 0);
+                    (void) rc;
                     last_error_ = errno;
 
                     if (!last_error_) { last_error_ = EWOULDBLOCK; }
