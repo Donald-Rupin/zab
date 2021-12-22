@@ -1,8 +1,8 @@
-# ZAB - A coroutine driven asynchronous framework.
+# ZAB - A high performance coroutine executor and event loop framework
 
 ![example workflow](https://github.com/Donald-Rupin/zab/actions/workflows/cmake.yml/badge.svg)
 
-An asynchronous framework for building event-driven, multi-threaded programs. 
+A high-performance asynchronous framework for building event-driven, multi-threaded programs. 
 
 The original goal of this library was to learn the [new coroutines TS](https://en.cppreference.com/w/cpp/coroutine) for C++. I found the most difficult part of the coroutine TS is when you want to develop an asynchronous architecture or "executer/runtime" that can handle re-entrant code across possibly different threads. Thus, **ZAB** was born. 
 
@@ -19,6 +19,7 @@ Contact: donald.rupin@pm.me
 ## Library Contents
 - [Building](#Building)
 - [Examples](#Examples)
+- [Benchmarks](#Benchmarks)
 - [Core Library](#Core-Library)
     + [`engine`](#engine)
     + [Ordering and Threads](#Ordering-and-Threads)
@@ -247,6 +248,11 @@ your_class::example()
 ### Example Application - Echo Server
 See `example/echo_server.cpp` for an example implementation of an Echo Server application using the ZAB framework.
 
+## Benchmarks
+
+See [ZAB benchmarks](https://github.com/Donald-Rupin/zab_benchmark) for details. 
+
+TLDR: In is between 60% to 250% faster then boost asio over the range of benchmarks performed. 
 ## Core Library
 
 ZAB is event-driven and provides methods for creating generic events, signal handling, and file/network IO. ZAB also ensures thread safety for cross-thread events and communication.
