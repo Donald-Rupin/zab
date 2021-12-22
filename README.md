@@ -365,35 +365,74 @@ get_engine()
 
 
 ### Descriptor Notifications
-The `engine` provides an asynchronous descriptor notification service. This is used to power the [`Networking Overlay`](#Networking). You can use this service to receive notifications on any posix Descriptor that is compatible with [epoll](https://man7.org/linux/man-pages/man7/epoll.7.html). The service is essentially a wrapper for a `epoll` with the notification flags being equivalent. 
+The `engine` provides an asynchronous descriptor notification service. This is used to power the [`Networking Overlay`](#Networking). You can use this service to receive notifications on any posix descriptor that is compatible with [epoll](https://man7.org/linux/man-pages/man7/epoll.7.html). The service is essentially a wrapper for a `epoll` with the notification flags being equivalent. 
 
 You can get access to the notification service through `descriptor_notification& engine::get_notification_handler()`. This class provides the method:
 ```c++
 [[nodiscard]] std::optional<descriptor_waiter>
 subscribe(int _fd);
 ``` 
-Returning a valid `descriptor_waiter` on successfully subscribing the Descriptor to the notification service. The user can use the `descriptor_waiter` object to set what flags to be notified by, what timeout to use (if any), and to `co_await` for a notification. For example:
+Returning a valid `descriptor_notifications::notifier` on successfully subscribing the descriptor to the notification service. Once a descriptor is subscribed, users can start read, write, and read-write operations though the `guaranteed_future<std::unique_ptr<descriptor_op>> start_*_operation()`. The `start_*_operation()` will return a `descriptor_op` to the the callee once once the requested operation (`NoticationType::kRead`, `NoticationType:Write` or `NoticationType::kRead | NoticationType::kWrite` respectively) is performable or an error occured. The `descriptor_op` can be further `co_await`'ed to wait for the requested operation to be performable. 
+
+Once either `start_*_operation()` or `co_await descriptor_op` returns, the user is put in the `descriptor_notifications` io thread. Essentially, users should complete their op or `co_await descriptor_op` again if they where unable to. `descriptor_op`'s are atomic whilst the user is within the io thread or is  `co_await`'ed on a `descriptor_op`. If the user leaves the io thread or does not  `co_await` on the `descriptor_op` on next suspend, atomicity is lost. For example, for your write operations to be atomic starting from `start_*_operation()` call, you should either try and write, or if busy, `co_await` the returned `descriptor_op`.
+
+
+Example code (cut down from network overlay):
 ```c++
-int desc = ...;
-auto desc_awaiter = get_engine()->get_notification_handler().subscribe(desc);
+simple_future<int>
+accept(engine* _e, int _desc /* assume is non-blocking socket */)
+{
+    /* Our current thread */
+    thread_t rejoin_thread{_e->get_event_loop().current_id()};
 
-if (desc_awaiter) {
-    /* In milliseconds */
-    desc_awaiter->set_timeout(1000000);
+    /* Subscribe */
+    auto notifier = _e->get_notification_handler().subscribe(_desc);
+    std::unique_ptr<descriptor_notification::descriptor_op> read_op;
 
-    // Equiv and interchangeable to EPOLLIN | EPOLLPRI
-    desc_awaiter->set_flags(descriptor_notification::kRead | descriptor_notification::kException);
+    int socket = 0;
+    while (true)
+    {
+        /* For first pass, see if we can get a quick accept without */
+        /* having to move to the io thread...                       */
+        if (socket = ::accept4(
+                _desc,
+                (struct sockaddr*) &address,
+                &addlen,
+                SOCK_NONBLOCK | SOCK_CLOEXEC);
+            socket >= 0)
+        {
+            break;
+        }
+        else if (errno == EAGAIN || errno == EWOULDBLOCK)
+        {
+            std::uint32_t flags = 0;
+            if (read_op) { flags = co_await *read_op; }
+            else
+            {
+                /* Start the read opertion */
+                read_op = co_await notifier->start_read_operation();
+                if (!read_op) { co_return std::nullopt; }
 
-    /* If you are in an engine thread, this will return in the same thread. */
-    /* If you are not in an engine thread, this will return you in an engine thread. */
-    auto return_flags = co_await *desc_awaiter;
+                flags = read_op->flags();
+            }
 
-    /* Both flags are not necessarily exclusive... */
-    if (return_flags | descriptor_notification::kRead) { /* read data */ }
+            /* Now in the io thread! */
 
-    if (return_flags | descriptor_notification::kException) { /* handle exception */}
+            /* No flags means something happened internally */
+            /* Like a cancel or deconstruction...           */
+            if (!flags) { break; }
+        }
+        else
+        {
+            co_return std::nullopt;
+        }
+    }
+
+    /* Move back from the io thread into the thread we where in... */
+    co_await yield(rejoin_thread); 
+
+    co_return socket;
 }
-
 ```
 
 ### Signal Handling
@@ -1267,7 +1306,7 @@ your_class::publisher()
 
 The file IO overlay provides simple asynchronous read/write operations to the user. An `async_file` is essentially just a wrapper for `fopen`, `fread`, and `fwrite`. 
 
-Unlike other event loops, file io is not designated to its own thread. This is because, by default, zab utilises all physical cores on the running device already. Instead, all file io is designated to the last event loop maintained by the `engine`. For example, if the `engine` is running 4 threads, all file io is done in thread 3. This is a common theme for zab, where all "system" or "overlay" functionality that does not rely on a specific thread, will be placed in the last thread. 
+Unlike other event loops, file io is not designated to its own thread. This is because, by default, zab utilises all physical cores on the running device already. Instead, all file io is designated to the last event loop maintained by the `engine`. For example, if the `engine` is running 4 threads, all file io is done in thread 3. 
 
 See `includes/zab/file_io_overlay.hpp` for more comprehensive documentation.
 

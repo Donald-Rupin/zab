@@ -93,10 +93,10 @@ namespace zab {
              */
             enum NoticationType {
                 kError     = EPOLLERR,
-                kRead      = EPOLLIN,
-                kWrite     = EPOLLOUT,
+                kRead      = EPOLLIN | EPOLLRDNORM,
+                kWrite     = EPOLLOUT | EPOLLWRNORM,
                 kException = EPOLLPRI,
-                kClosed    = EPOLLRDHUP
+                kClosed    = EPOLLRDHUP | EPOLLHUP
             };
 
             /**
@@ -281,10 +281,11 @@ namespace zab {
                      */
                     descriptor(const descriptor&) = delete;
 
-                    std::unique_ptr<descriptor_op>
+                    void
                     add_operation(
-                        descriptor_op::type     _type,
-                        std::coroutine_handle<> _handle) noexcept;
+                        descriptor_op::type             _type,
+                        std::coroutine_handle<>         _handle,
+                        std::unique_ptr<descriptor_op>& _op) noexcept;
 
                     bool
                     re_arm(descriptor_op::type _type) noexcept;

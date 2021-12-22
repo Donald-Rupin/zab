@@ -153,7 +153,7 @@ namespace zab_example {
 
                 while (!_stream.last_error())
                 {
-                    auto data = co_await _stream.read();
+                    auto data = co_await _stream.read_some(1028 * 1028);
 
                     if (data)
                     {

@@ -347,54 +347,84 @@ namespace zab {
             }
         }
 
-        if (::connect(waiter_->file_descriptor(), (const sockaddr*) _details, _size) == 0 ||
-            errno == EISCONN)
+        std::unique_ptr<descriptor_notification::descriptor_op> write_op;
+        do
         {
-            stream.emplace(get_engine(), std::move(waiter_));
+            last_error_ = 0;
 
-            waiter_ = std::nullopt;
-        }
-        else if (errno == EINPROGRESS || errno == EAGAIN || errno == EWOULDBLOCK)
-        {
-            swapped_threads = true;
-
-            /* We do not care if its an error */
-            /* Next call to accept will reveal! */
-            auto write_op = co_await waiter_->start_write_operation();
-
-            if (write_op && write_op->flags() & descriptor_notification::kWrite)
+            if (::connect(waiter_->file_descriptor(), (const sockaddr*) _details, _size) == 0 ||
+                errno == EISCONN)
             {
-                /* I think its odd that a failed connect socket can be writable... */
-                /* but we will handle this case anyways...                         */
-                struct sockaddr addr;
-                socklen_t       addrlen = sizeof(addr);
-                auto            rc = ::getpeername(waiter_->file_descriptor(), &addr, &addrlen);
-                if (!rc)
+                stream.emplace(get_engine(), std::move(waiter_));
+
+                waiter_ = std::nullopt;
+            }
+            else if (
+                errno == EINPROGRESS || errno == EAGAIN || errno == EWOULDBLOCK ||
+                errno == EALREADY)
+            {
+                swapped_threads = true;
+
+                std::uint32_t flags = 0;
+
+                /* We do not care if its an error */
+                /* Next call to accept will reveal! */
+                if (write_op) { flags = co_await *write_op; }
+                else
                 {
-                    stream.emplace(get_engine(), std::move(waiter_));
-                    waiter_.reset();
+                    write_op = co_await waiter_->start_write_operation();
+
+                    if (write_op) { flags = write_op->flags(); }
+                    else
+                    {
+                        last_error_ = errno;
+                        break;
+                    }
+                }
+
+                if (flags & descriptor_notification::kWrite)
+                {
+                    /* I think its odd that a failed connect socket can be writable... */
+                    /* but we will handle this case anyways...                         */
+                    struct sockaddr addr;
+                    socklen_t       addrlen = sizeof(addr);
+                    auto            rc = ::getpeername(waiter_->file_descriptor(), &addr, &addrlen);
+                    if (!rc)
+                    {
+                        stream.emplace(get_engine(), std::move(waiter_));
+                        waiter_.reset();
+                    }
+                    else
+                    {
+                        /* Get error from error spillage... */
+                        char ch;
+                        rc          = ::read(waiter_->file_descriptor(), &ch, 0);
+                        last_error_ = errno;
+                    }
+                }
+                else if (flags & descriptor_notification::kClosed)
+                {
+                    /* This can happen if we are making lots of sockets and connections  */
+                    /* at the same time. I am not sure exactly why, but on retry it will */
+                    /* either succed or fail with an error.                              */
+                    last_error_ = EWOULDBLOCK;
                 }
                 else
                 {
-                    /* Get error from error spillage... */
                     char ch;
-                    rc          = ::read(waiter_->file_descriptor(), &ch, 1);
+                    ::read(waiter_->file_descriptor(), &ch, 0);
                     last_error_ = errno;
+
+                    if (!last_error_) { last_error_ = EWOULDBLOCK; }
                 }
             }
             else
             {
-                /* Get error from error spillage... */
-                char ch;
-                auto rc = ::read(waiter_->file_descriptor(), &ch, 1);
-                (void) rc;
                 last_error_ = errno;
             }
-        }
-        else
-        {
-            last_error_ = errno;
-        }
+
+        } while (
+            (last_error_ == EINPROGRESS || last_error_ == EAGAIN || last_error_ == EWOULDBLOCK));
 
         if (_return_thread && swapped_threads) { co_await yield(rejoin_thread); }
 

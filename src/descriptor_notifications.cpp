@@ -273,31 +273,31 @@ namespace zab {
     {
         std::unique_ptr<descriptor_op> op;
         co_await zab::pause([this, &op, _type](auto* _pause_pack) noexcept
-                            { op = desc_->add_operation(_type, _pause_pack->handle_); });
+                            { desc_->add_operation(_type, _pause_pack->handle_, op); });
 
         co_return op;
     }
 
-    auto
+    void
     descriptor_notification::descriptor::add_operation(
-        descriptor_op::type     _type,
-        std::coroutine_handle<> _handle) noexcept -> std::unique_ptr<descriptor_op>
+        descriptor_op::type             _type,
+        std::coroutine_handle<>         _handle,
+        std::unique_ptr<descriptor_op>& _op) noexcept
     {
-        std::unique_ptr<descriptor_notification::descriptor_op> op          = nullptr;
-        bool                                                    reset_flags = false;
+        bool reset_flags = false;
         {
             std::scoped_lock lck(mtx_);
 
-            op = std::make_unique<descriptor_notification::descriptor_op>(this, _type, _handle);
+            _op = std::make_unique<descriptor_notification::descriptor_op>(this, _type, _handle);
             if (ops_tail_)
             {
-                ops_tail_->next_ = op.get();
-                ops_tail_        = op.get();
+                ops_tail_->next_ = _op.get();
+                ops_tail_        = _op.get();
             }
             else
             {
-                ops_head_ = op.get();
-                ops_tail_ = op.get();
+                ops_head_ = _op.get();
+                ops_tail_ = _op.get();
             }
 
             reset_flags = re_arm_internal(_type);
@@ -308,11 +308,9 @@ namespace zab {
             if (!set_epol())
             {
                 /* The deconstructor will remove it */
-                op = nullptr;
+                _op = nullptr;
             }
         }
-
-        return op;
     }
 
     bool

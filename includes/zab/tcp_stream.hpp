@@ -138,89 +138,115 @@ namespace zab {
             /**
              * @brief      Destroys the stream.
              *
-             * @details    It is recommended to await `Shutdown` and to ensure the reader has exited
-             * before deconstruction of a stream. If the stream is in use when it is deconstructed,
-             * this will result in undefined behavior.
+             * @details    The user needs to ensure oprations have exited before deconsturction.
+             *             If the stream is in use when it is deconstructed, this will result in
+             *             undefined behavior.
              *
-             *             If `Shutdown` is not awaited before deconstruction, the internal state of
-             * the stream is deconstructed at a later time. Essentially, ownership of the internal
-             * state is given to a background process that will attempt to do a similar thing to
-             * `Shutdown`. The only issue is that this background process cannot guarantee that
-             * awaiting writes or reads exit before deconstruction is taken place.
+             *             The user should also await `shutdown` before deconstruction of a stream.
              *
-             *             This also means that the sockets life time will linger past the
-             * deconstruction of the stream as the background process attempts to gracefully socket
-             * close.
+             *             If `shutdown` is not awaited before deconstruction, the internal state of
+             *             the stream is deconstructed at a later time. Essentially, ownership of
+             *             the internal state is given to a background fibre that will attempt to
+             *             do a similar thing to `shutdown`. This means that the sockets life time
+             *             will linger past the deconstruction of the stream as the background
+             *             process attempts to gracefully socket close.
              */
             ~tcp_stream();
 
             /**
              * @brief      Shutdown the stream.
              *
-             * @details    The shut down process is:
-             *             1) Wake any readers
-             *             2) subscribe for any writers to finish
-             *             3) Call ::shutdown(SHUT_WR) to notify client that we are shutting down
-             *             4) Attempt to wait for the write buffer to be flushed
-             *             5) Attempt to drain the read buffer and client to acknowledge shutdown
-             *
-             *             While we wake the reader, there is no guaranteed that the reader
-             *             has returned and resumed the underlying coroutine. As such, `ShutDown()`
-             *             by itself does not guaranty that the stream can be safely deconstructed.
-             *             It guaranties that the stream is no longer alive, and any readers will be
-             *             returning. To be safe, its easier to have the logical thread that is
-             * reading to do the deconstruction itself.
+             * @details    This requires that no reads or writes are in progress.
+             *             The shutdown process is:
+             *             1) Destroy the internal state.
+             *             2) Call ::shutdown(SHUT_WR) to notify client that we are shutting down
+             *             3) Attempt to wait for the write buffer to be flushed
+             *             4) Attempt to drain the read buffer and client to acknowledge shutdown
              *
              *             For applications that require reliable delivery of data, the tcp_stream
-             * tries its best to ensure that all data is delivered. It is highly
-             * unlikely that some data is not sent during shutdown. Although, like that of any
-             * socket programming, we cannot garrenty delivery to the client side application (only
-             * that we tried to send it and try to ensure write buffers are flushed). Most
-             * application level protocols will include some form of acknowledgement in the case of
-             * required reliable delivery and this is above the scope of this class.
+             *             tries its best to ensure that all data is delivered. The user should
+             *             wait for all writes to return. Although, like that of any socket
+             *             programming, we cannot garrenty delivery to the client side application
+             *             (only that we tried to send it and try to ensure write buffers are
+             *             flushed). Most application level protocols will include some form of
+             *             acknowledgement in the case of required reliable delivery and this is
+             *             above the scope of this class.
              *
-             * @return     An awaitable the returns after all steps are complete.
+             * @return     An awaitable that returns after all steps are complete.
              */
             [[nodiscard]] simple_future<>
             shutdown() noexcept;
 
             /**
-             * @brief      Attempt to read some data from the stream.
+             * @brief      Attempt to read data from the stream.
              *
              * @details    This function will suspend the calling coroutine until _amount data is
-             * read or an error occurs.
+             *             read, an error occurs or it is cancelled.
              *
-             *             If the user is interested in any amount of data, specifying
-             *             _amount is 0 (the default) will return when an amount of data has bee
-             * read.
-             *
-             *             This function can return less then _amount when an error also occurred in
-             * conjunction to the read.
-             *
-             *             If the user wants no timeout, specifying _timout is -1 (default) will
-             * indicate no timeout. Although, a call to `CancelRead()` will immediately timeout the
-             *             reader.
+             *             This function can return less then _amount when an error ro cancel
+             *             occurs.
              *
              *             The user should ensure that this function has exited before
-             * deconstruction.
+             *             deconstruction.
              *
              * @param[in]  _amount  The amount to read.
              *
              * @return     The data read if successful, std::nullopt if an error.
              */
             [[nodiscard]] simple_future<std::vector<char>>
-            read(
-                size_t                                  _amount = 0,
-                descriptor_notification::descriptor_op* _op     = nullptr) noexcept;
+            read(size_t _amount, descriptor_notification::descriptor_op* _op = nullptr) noexcept;
 
+            /**
+             * @brief      Attempt to read data from the stream.
+             *
+             * @details    This function will suspend the calling coroutine until _data.size() data
+             *             is read or an error occurs.
+             *
+             *             This function can return less then _amount when an error ro cancel
+             *             occurs.
+             *
+             *             The user should ensure that this function has exited before
+             *             deconstruction.
+             *
+             * @param[in]  _amount  The amount to read.
+             *
+             * @return     The data read if successful, std::nullopt if an error.
+             */
             [[nodiscard]] guaranteed_future<std::size_t>
             read(
                 std::span<char>                         _data,
                 descriptor_notification::descriptor_op* _op = nullptr) noexcept;
 
+            /**
+             * @brief      Attempt to read up _max data from the stream.
+             *
+             * @details    This function will suspend the calling coroutine until some data
+             *             is read or an error occurs.
+             *
+             *
+             *             The user should ensure that this function has exited before
+             *             deconstruction.
+             *
+             * @param[in]  _max  The amount to read.
+             *
+             * @return     The data read if successful, std::nullopt if an error.
+             */
             [[nodiscard]] simple_future<std::vector<char>>
             read_some(size_t _max, descriptor_notification::descriptor_op* _op = nullptr) noexcept;
 
+            /**
+             * @brief      Attempt to read up _data.size() data from the stream.
+             *
+             * @details    This function will suspend the calling coroutine until some data
+             *             is read or an error occurs.
+             *
+             *             The user should ensure that this function has exited before
+             *             deconstruction.
+             *
+             * @param[in]  _max  The amount to read.
+             *
+             * @return     The data read if successful, std::nullopt if an error.
+             */
             [[nodiscard]] guaranteed_future<std::size_t>
             read_some(
                 std::span<char>                         _data,
@@ -230,19 +256,13 @@ namespace zab {
              * @brief      Write some data to the stream waiting for the data to make it to the
              *             OS write buffer.
              *
-             * @details    This function is thread safe and the writes are performed atomically in
-             *             order of acquisition of the internal lock. Each block of data in the
-             * write is sent before the internal lock is released.
-             *
-             *             Atomicity is always guarantied, and ordering is guaranteed by the current
-             *             implementation of async_mutex.
-             *
-             *             The life time of the data held by the span must last longer then the call
+             * @details    The life time of the data held by the span must last longer then the call
              *             to this function.
              *
              *             The data actually written may be different to the amount given due to
-             *             a stream error or to many attempts fail due the OS write buffer is full.
-             *             If the OS write buffer is full, last_error will be set to 0.
+             *             a stream error or cancellation.
+             *
+             *             Calls to writes are not atomic.
              *
              * @param[in]  _data  The view of the data to send.
              *
@@ -253,33 +273,37 @@ namespace zab {
                 std::span<const char>                   _data,
                 descriptor_notification::descriptor_op* _op = nullptr) noexcept;
 
+            /**
+             * @brief      Join the io_thread once a write operation is performable.
+             *
+             * @details    Write operations can be given to the same tcp_stream for more
+             *             optimised batch writing.
+             *
+             * @return guaranteed_future<std::unique_ptr<descriptor_notification::descriptor_op>>
+             */
             [[nodiscard]] guaranteed_future<std::unique_ptr<descriptor_notification::descriptor_op>>
             start_write_operation() noexcept;
 
+            /**
+             * @brief       Join the io_thread once a read operation is performable.
+             *
+             * @details    Read operations can be given to the same tcp_stream for more
+             *             optimised batch read.
+             *
+             * @return guaranteed_future<std::unique_ptr<descriptor_notification::descriptor_op>>
+             */
             [[nodiscard]] guaranteed_future<std::unique_ptr<descriptor_notification::descriptor_op>>
             start_read_operation() noexcept;
 
             /**
              * @brief     Immediately cancles all operations.
              *
-             *            There is a race condition between `read`/`write` and `cancel` if used in
-             *            different threads. `cancel` will only affect the operations iff it is,
-             *            called after the call to `read`/`write` has suspended. Otherwise, those
-             * operations will not be cancelled.
              */
             void
             cancel() noexcept;
 
             /**
              * @brief      Get the last error from an operation.
-             *
-             * @details    This function is not thread safe, so the last error cant be accessed
-             *             reliably in the presence of function use across multiple threads.
-             *
-             *             The last error applies to the last error assigned across all threads.
-             *             When you go to check the error from an operation, another thread could
-             *             assign a new error. This may not be an issue, since the error is most
-             *             likely the same if its an socket error.
              *
              * @return     The last error.
              */
@@ -291,9 +315,6 @@ namespace zab {
 
             /**
              * @brief      Clears the last error.
-             *
-             * @details    This function is not thread safe, so the last error cant be written to
-             *             reliably in the presence of function use across multiple threads.
              *
              */
             inline void
