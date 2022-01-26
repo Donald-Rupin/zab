@@ -70,7 +70,7 @@ namespace zab {
 
             class descriptor;
 
-            static constexpr auto kQueueSize = 4096;
+            static constexpr auto kQueueSize = 512;
 
             /**
              * @brief      Constructs a new instance that will register to this engine.
