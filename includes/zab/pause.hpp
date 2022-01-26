@@ -30,69 +30,23 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  *
- *  @file async_primitives.hpp
+ *  @file pause.hpp
  *
  */
 
-#ifndef ZAB_ASYNCHRONOUS_PRIMITIVES_HPP_
-#define ZAB_ASYNCHRONOUS_PRIMITIVES_HPP_
+#ifndef ZAB_PAUSE_HPP_
+#define ZAB_PAUSE_HPP_
 
+#include <coroutine>
 #include <utility>
+// DELETE
+#include <iostream>
 
-#include "zab/engine.hpp"
 #include "zab/strong_types.hpp"
 
 namespace zab {
 
-    /**
-     * @brief      Yields execution of the current coroutine.
-     *
-     * @param[in]  _engine  The engine to yield into.
-     * @param[in]  _order   The orderring to apply to the event loop.
-     * @param[in]  _thread  The thread to resume in.
-     *
-     * @return     A co_await'ble structure.
-     */
-    inline auto
-    yield(engine* _engine, order_t _order, thread_t _thread)
-    {
-        struct YieldImpl {
-
-                auto operator co_await() const noexcept
-                {
-                    struct {
-
-                            void
-                            await_suspend(std::coroutine_handle<> _awaiter) noexcept
-                            {
-                                yield_->engine_->resume(_awaiter, yield_->order_, yield_->thread_);
-                            }
-
-                            bool
-                            await_ready() const noexcept
-                            {
-                                return false;
-                            }
-
-                            void
-                            await_resume() const noexcept
-                            { }
-
-                            const YieldImpl* yield_;
-
-                    } yield_awaitable{.yield_ = this};
-
-                    return yield_awaitable;
-                }
-
-                engine*  engine_;
-                order_t  order_;
-                thread_t thread_;
-
-        } yield{.engine_ = _engine, .order_ = _order, .thread_ = _thread};
-
-        return yield;
-    }
+    class engine;
 
     /**
      * @brief      Data pack for pausing coroutines.
@@ -104,7 +58,7 @@ namespace zab {
      */
     struct pause_pack {
             thread_t                thread_ = thread_t{};
-            std::uintptr_t          data_   = 0;
+            std::intptr_t           data_   = 0;
             std::coroutine_handle<> handle_ = nullptr;
     };
 
@@ -159,12 +113,17 @@ namespace zab {
      * @param      _pause  The pause pack to resume.
      * @param[in]  _order  The ordering to apply.
      */
-    inline void
-    unpause(engine* _engine, pause_pack& _pause, order_t _order) noexcept
-    {
-        _engine->resume(_pause.handle_, _order, _pause.thread_);
-    }
+    void
+    unpause(engine* _engine, pause_pack& _pause, order_t _order) noexcept;
+
+    /**
+     * @brief      Continues a paused corountine.
+     *
+     * @param      _pause  The pause pack to resume.
+     */
+    void
+    unpause(engine* _engine, pause_pack& _pause) noexcept;
 
 }   // namespace zab
 
-#endif /* ZAB_ASYNCHRONOUS_PRIMITIVES_HPP_ */
+#endif /* ZAB_PAUSE_HPP_ */

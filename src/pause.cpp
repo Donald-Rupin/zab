@@ -30,72 +30,28 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  *
- *
- *  @file async_latch.hpp
+ *  @file pause.cpp
  *
  */
 
-#ifndef ZAB_ASYNC_LATCH_HPP_
-#define ZAB_ASYNC_LATCH_HPP_
+#include "zab/pause.hpp"
 
-#include <atomic>
-#include <deque>
+#include <utility>
 
-#include "zab/pause_token.hpp"
-#include "zab/strong_types.hpp"
+#include "zab/engine.hpp"
 
 namespace zab {
 
-    class async_latch {
+    void
+    unpause(engine* _engine, pause_pack& _pause, order_t _order) noexcept
+    {
+        _engine->delayed_resume(_pause.handle_, _order, _pause.thread_);
+    }
 
-        public:
-
-            async_latch(engine* _engine, std::ptrdiff_t _amount)
-                : count_(_amount), complete_(_engine)
-            { }
-
-            ~async_latch() = default;
-
-            void
-            count_down(std::ptrdiff_t _amount = 1) noexcept
-            {
-                if (auto number = count_.fetch_sub(_amount, std::memory_order_acq_rel);
-                    number > 0 && number <= _amount)
-                {
-                    complete_.unpause();
-                }
-            }
-
-            [[nodiscard]] bool
-            try_wait() noexcept
-            {
-                return count_.load() > 0;
-            }
-
-            [[nodiscard]] auto
-            wait() noexcept
-            {
-                return complete_.operator co_await();
-            }
-
-            [[nodiscard]] auto
-            arrive_and_wait(std::ptrdiff_t _amount = 1) noexcept
-            {
-                count_down(_amount);
-
-                return complete_.operator co_await();
-            }
-
-        private:
-
-            void
-            notify();
-
-            std::atomic<std::ptrdiff_t> count_;
-
-            pause_token complete_;
-    };
+    void
+    unpause(engine* _engine, pause_pack& _pause) noexcept
+    {
+        _engine->thread_resume(_pause.handle_, _pause.thread_);
+    }
 
 }   // namespace zab
-
-#endif /* ZAB_ASYNC_LATCH_HPP_ */

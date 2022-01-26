@@ -46,8 +46,9 @@
 
 #include "zab/async_function.hpp"
 #include "zab/async_mutex.hpp"
-#include "zab/descriptor_notifications.hpp"
 #include "zab/engine_enabled.hpp"
+#include "zab/event_loop.hpp"
+#include "zab/pause.hpp"
 #include "zab/simple_future.hpp"
 #include "zab/strong_types.hpp"
 #include "zab/tcp_stream.hpp"
@@ -62,7 +63,7 @@ namespace zab {
      * @details    The methods of the class are essentially asynchronous equivalents to
      *             socket(2), bind(2), listen(2) and accept(2)
      */
-    class tcp_acceptor : public engine_enabled<tcp_acceptor> {
+    class tcp_acceptor {
 
         public:
 
@@ -85,7 +86,8 @@ namespace zab {
             tcp_acceptor(engine* _engine);
 
             /**
-             * @brief      Move construct a new instance. The parameter is essentially swapped with
+             * @brief      Move construct a new instance. The parameter is essentially swapped
+             with
              *             default constructed instance.
              *
              * @param      _move  The tcp_acceptor to move.
@@ -99,6 +101,12 @@ namespace zab {
              *
              */
             tcp_acceptor(const tcp_acceptor& _copy) = delete;
+
+            inline void
+            register_engine(engine* _engine) noexcept
+            {
+                engine_ = _engine;
+            }
 
             /**
              * @brief      Move Assignment operator.
@@ -177,36 +185,8 @@ namespace zab {
             [[nodiscard]] simple_future<tcp_stream>
             accept() noexcept;
 
-            /**
-             * @brief      Joins the io thread which can be used to more efficiently accept.
-             *
-             * @details    Once the io thread is joined, users should use accept_io() function.
-             *
-             *             If the io thread is left, through a `yield` or otherwise, it can be
-             *             joined again using the same `descriptor_op` by called accept.
-             *
-             *             The `descriptor_op` is not thread safe. Although multple descriptor_op's
-             *             for the same acceptor can be created.
-             *
-             * @return     [through co_await] An unqiue_ptr to descriptor_op that is set to the
-             *             descriptor_op on success, or nullptr on failure.
-             */
-            [[nodiscard]] guaranteed_future<std::unique_ptr<descriptor_notification::descriptor_op>>
-            join_io_thread() noexcept;
-
-            /**
-             * @brief      Await for a connection to come in.
-             *
-             * @details    This function will return into the io thread.
-             *
-             *             `last_error` is set on failure.
-             *
-             * @param      _op The descriptor_op.
-             * @return     [through co_await] An optional tcp_stream that is set to the
-             *             accepted connection on success, or std::nullopt on failure.
-             */
-            [[nodiscard]] simple_future<tcp_stream>
-            accept_io(descriptor_notification::descriptor_op& _op) noexcept;
+            [[nodiscard]] reusable_future<tcp_stream>
+            get_accepter() noexcept;
 
             /**
              * @brief      Cancels any opertions suspended.
@@ -217,8 +197,11 @@ namespace zab {
              *             behaviour.
              *
              */
-            void
+            simple_future<bool>
             cancel();
+
+            simple_future<bool>
+            close();
 
             /**
              * @brief      Retrieve the last value of errno recorded
@@ -238,8 +221,10 @@ namespace zab {
 
         private:
 
-            std::optional<descriptor_notification::notifier> waiter_;
-            int                                              last_error_ = 0;
+            engine*               engine_       = nullptr;
+            event_loop::io_handle cancel_token_ = nullptr;
+            int                   acceptor_     = 0;
+            int                   last_error_   = 0;
     };
 
     /**
@@ -248,7 +233,7 @@ namespace zab {
      * @details    The methods of the class are essentially asynchronous equivalents to
      *             socket(2) and connect(2)
      */
-    class tcp_connector : public engine_enabled<tcp_connector> {
+    class tcp_connector {
 
         public:
 
@@ -271,7 +256,8 @@ namespace zab {
             tcp_connector(engine* _engine);
 
             /**
-             * @brief      Move construct a new instance. The parameter is essentially swapped with
+             * @brief      Move construct a new instance. The parameter is essentially swapped
+             with
              *             default constructed instance.
              *
              * @param      _move  The tcp_connector to move.
@@ -285,6 +271,12 @@ namespace zab {
              *
              */
             tcp_connector(const tcp_connector& _copy) = delete;
+
+            inline void
+            register_engine(engine* _engine) noexcept
+            {
+                engine_ = _engine;
+            }
 
             /**
              * @brief      Move Assignment operator.
@@ -324,16 +316,12 @@ namespace zab {
              *
              * @param      _details  The host details.
              * @param      _size     The size of the _details struct
-             * @param      _return_thread Return to the callees thread
              *
              * @return     [through co_await] An optional tcp_stream that is set to the
              *             accepted connection on success, or std::nullopt on failure.
              */
             [[nodiscard]] simple_future<tcp_stream>
-            connect(
-                struct sockaddr_storage* _details,
-                socklen_t                _size,
-                bool                     _return_thread = true) noexcept;
+            connect(struct sockaddr_storage* _details, socklen_t _size) noexcept;
 
             /**
              * @brief      Cancels any opertions suspended.
@@ -344,8 +332,11 @@ namespace zab {
              *             behaviour.
              *
              */
-            void
+            simple_future<bool>
             cancel();
+
+            simple_future<bool>
+            close();
 
             /**
              * @brief      Retrieve the last value of errno recorded
@@ -365,8 +356,10 @@ namespace zab {
 
         private:
 
-            std::optional<descriptor_notification::notifier> waiter_;
-            int                                              last_error_ = 0;
+            engine*               engine_       = nullptr;
+            event_loop::io_handle cancel_token_ = nullptr;
+            int                   connection_   = 0;
+            int                   last_error_   = 0;
     };
 
 }   // namespace zab

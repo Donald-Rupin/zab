@@ -82,13 +82,13 @@ namespace zab::test {
 
                 ++test_run_;
 
-                if (test_run_ == test_count_) { get_engine()->stop(); }
+                if (test_run_ == test_count_) { engine_->stop(); }
             }
 
             simple_future<bool>
             do_test() noexcept
             {
-                latch_ = std::make_shared<async_latch>(get_engine(), threads_);
+                latch_ = std::make_shared<async_latch>(engine_, threads_);
 
                 for (size_t go = 0; go < threads_; ++go)
                 {
@@ -141,7 +141,7 @@ namespace zab::test {
     int
     test_single_thread()
     {
-        engine engine(event_loop::configs{1});
+        engine engine(engine::configs{1});
 
         test_single_thread_class test2(2);
         test_single_thread_class test5(5);
@@ -182,13 +182,13 @@ namespace zab::test {
             {
                 failed_ = !co_await do_test();
 
-                get_engine()->stop();
+                engine_->stop();
             }
 
             simple_future<bool>
             do_test() noexcept
             {
-                latch_ = std::make_shared<async_latch>(get_engine(), threads_ + 1);
+                latch_ = std::make_shared<async_latch>(engine_, threads_ + 1);
 
                 for (std::uint16_t go = 0; go < threads_; ++go)
                 {
@@ -216,7 +216,7 @@ namespace zab::test {
 
                 co_await latch_->arrive_and_wait();
 
-                if (expected(get_engine()->get_event_loop().current_id(), _thread)) { co_return; }
+                if (expected(engine_->current_id(), _thread)) { co_return; }
 
                 ++count_;
             }
@@ -243,9 +243,9 @@ namespace zab::test {
     {
         auto lam = [](std::uint16_t _thread)
         {
-            engine engine(event_loop::configs{
+            engine engine(engine::configs{
                 .threads_         = (std::uint16_t)(_thread + 1),
-                .opt_             = event_loop::configs::kAtLeast,
+                .opt_             = engine::configs::kAtLeast,
                 .affinity_set_    = false,
                 .affinity_offset_ = 0});
 

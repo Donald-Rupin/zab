@@ -77,8 +77,8 @@ namespace zab::test {
             void
             initialise() noexcept
             {
-                acceptor_.register_engine(*get_engine());
-                connector_.register_engine(*get_engine());
+                acceptor_.register_engine(engine_);
+                connector_.register_engine(engine_);
 
                 run_acceptor();
                 run_connector();
@@ -89,25 +89,29 @@ namespace zab::test {
             {
                 if (acceptor_.listen(AF_INET, 6998, 10))
                 {
+                    std::cout << "BEFORE ACCEPT!\n";
                     auto stream_opt = co_await acceptor_.accept();
+                    std::cout << "AFTER ACCEPT!\n";
                     if (stream_opt)
                     {
+                        std::cout << "WOO\n";
+
                         auto amount = co_await stream_opt->write(
                             std::span<const char>(kBuffer, ::strlen(kBuffer)));
 
-                        if (expected(strlen(kBuffer), amount)) { get_engine()->stop(); }
+                        if (expected(strlen(kBuffer), amount)) { engine_->stop(); }
 
                         co_await stream_opt->shutdown();
                     }
                     else
                     {
-                        get_engine()->stop();
+                        engine_->stop();
                     }
                 }
                 else
                 {
 
-                    get_engine()->stop();
+                    engine_->stop();
                 }
             }
 
@@ -128,7 +132,7 @@ namespace zab::test {
 
                 if (success || !addr)
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
@@ -141,7 +145,11 @@ namespace zab::test {
 
                     if (stream_opt)
                     {
+                        std::cout << "GOT CONNECT!\n";
+
                         auto buffer = co_await stream_opt->read(5);
+
+                        std::cout << "AFTER read!\n";
 
                         if (buffer)
                         {
@@ -150,6 +158,8 @@ namespace zab::test {
                                 std::string_view og(kBuffer);
                                 buffer->emplace_back(0);
                                 std::string_view ng(buffer->data());
+
+                                std::cout << "GOT BUFFER!\n";
 
                                 if (!expected(og, ng)) { failed_ = false; }
                             }
@@ -162,12 +172,13 @@ namespace zab::test {
                 }
 
                 freeaddrinfo(addr);
-                get_engine()->stop();
+                engine_->stop();
             }
 
             bool
             failed()
             {
+                std::cout << "Simple: " << failed_ << "\n";
                 return failed_;
             }
 
@@ -184,7 +195,7 @@ namespace zab::test {
     test_simple()
     {
 
-        engine engine(event_loop::configs{4});
+        engine engine(engine::configs{4});
 
         test_simple_class test;
 
@@ -225,7 +236,7 @@ namespace zab::test {
             async_function<>
             run_acceptor(std::uint16_t _port)
             {
-                tcp_acceptor acceptor(get_engine());
+                tcp_acceptor acceptor(engine_);
 
                 if (acceptor.listen(AF_INET, _port, kNumberOfConnections / 2))
                 {
@@ -235,7 +246,7 @@ namespace zab::test {
                         if (stream_opt) { run_stream(std::move(*stream_opt)); }
                         else
                         {
-                            get_engine()->stop();
+                            engine_->stop();
                             break;
                         }
                     }
@@ -243,14 +254,14 @@ namespace zab::test {
                 else
                 {
 
-                    get_engine()->stop();
+                    engine_->stop();
                 }
             }
 
             async_function<>
             run_connector(std::uint16_t _port)
             {
-                tcp_connector connector(get_engine());
+                tcp_connector connector(engine_);
 
                 struct addrinfo  hints;
                 struct addrinfo* addr;
@@ -266,7 +277,7 @@ namespace zab::test {
 
                 if (success || !addr)
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
@@ -335,7 +346,7 @@ namespace zab::test {
     int
     test_stress()
     {
-        engine engine(event_loop::configs{4});
+        engine engine(engine::configs{4});
 
         test_stress_class test;
 

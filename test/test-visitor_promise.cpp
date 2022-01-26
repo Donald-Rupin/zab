@@ -79,7 +79,7 @@ namespace zab::test {
 
                 if (expected(1u, count_))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
@@ -87,7 +87,7 @@ namespace zab::test {
 
                 if (expected(2u, count_))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
@@ -95,7 +95,7 @@ namespace zab::test {
 
                 if (expected(4u, count_))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
@@ -103,11 +103,11 @@ namespace zab::test {
 
                 if (expected(4u, count_))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
-                get_engine()->stop();
+                engine_->stop();
             }
 
             visitor_future<>
@@ -164,7 +164,7 @@ namespace zab::test {
     int
     test_visitor_class()
     {
-        engine engine(event_loop::configs{});
+        engine engine(engine::configs{});
 
         visit_void_class test;
 
@@ -240,14 +240,14 @@ namespace zab::test {
 
                 if (expected(true, (bool) comp) && expected(42u, comp->code()))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
                 /* Must perfectly forward the complex objects... */
                 if (expected(0u, complex::copy_count_))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
@@ -255,7 +255,7 @@ namespace zab::test {
                 /* 1 move to the return in this function... */
                 if (expected(2u, complex::move_count_))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
@@ -265,14 +265,14 @@ namespace zab::test {
 
                 if (expected(true, (bool) comp) && expected(43u, comp->code()))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
                 /* Must perfectly forward the complex objects... */
                 if (expected(0u, complex::copy_count_))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
@@ -280,7 +280,7 @@ namespace zab::test {
                 /* 1 move to the return in this function... */
                 if (expected(2u, complex::move_count_))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
@@ -290,14 +290,14 @@ namespace zab::test {
 
                 if (expected(true, (bool) comp) && expected(44u, comp->code()))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
                 /* Must perfectly forward the complex objects... */
                 if (expected(0u, complex::copy_count_))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
@@ -305,7 +305,7 @@ namespace zab::test {
                 /* 1 move to the return in this function... */
                 if (expected(2u, complex::move_count_))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
@@ -315,14 +315,14 @@ namespace zab::test {
 
                 if (expected(true, (bool) comp) && expected(0u, comp->code()))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
                 /* Must perfectly forward the complex objects... */
                 if (expected(0u, complex::copy_count_))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
@@ -330,14 +330,14 @@ namespace zab::test {
                 /* 1 move to the return in this function... */
                 if (expected(2u, complex::move_count_))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
                 complex::clear();
 
                 failed_ = false;
-                get_engine()->stop();
+                engine_->stop();
             }
 
             visitor_future<complex>
@@ -352,26 +352,26 @@ namespace zab::test {
 
                         if (expected(0u, complex::copy_count_))
                         {
-                            get_engine()->stop();
+                            engine_->stop();
                             return;
                         }
 
                         if (expected(1u, complex::move_count_))
                         {
-                            get_engine()->stop();
+                            engine_->stop();
                             return;
                         }
                     });
 
                 if (expected(0u, complex::copy_count_))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return std::nullopt;
                 }
 
                 if (expected(0u, complex::move_count_))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return std::nullopt;
                 }
 
@@ -392,26 +392,26 @@ namespace zab::test {
 
                         if (expected(0u, complex::copy_count_))
                         {
-                            get_engine()->stop();
+                            engine_->stop();
                             return;
                         }
 
                         if (expected(1u, complex::move_count_))
                         {
-                            get_engine()->stop();
+                            engine_->stop();
                             return;
                         }
                     });
 
                 if (expected(0u, complex::copy_count_))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return std::nullopt;
                 }
 
                 if (expected(0u, complex::move_count_))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return std::nullopt;
                 }
 
@@ -435,26 +435,26 @@ namespace zab::test {
 
                         if (expected(0u, complex::copy_count_))
                         {
-                            get_engine()->stop();
+                            engine_->stop();
                             return;
                         }
 
                         if (expected(1u, complex::move_count_))
                         {
-                            get_engine()->stop();
+                            engine_->stop();
                             return;
                         }
                     });
 
                 if (expected(0u, complex::copy_count_))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return std::nullopt;
                 }
 
                 if (expected(0u, complex::move_count_))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return std::nullopt;
                 }
 
@@ -467,13 +467,13 @@ namespace zab::test {
 
                         if (expected(0u, complex::copy_count_))
                         {
-                            get_engine()->stop();
+                            engine_->stop();
                             return;
                         }
 
                         if (expected(1u, complex::move_count_))
                         {
-                            get_engine()->stop();
+                            engine_->stop();
                             return;
                         }
                     });
@@ -496,26 +496,26 @@ namespace zab::test {
 
                         if (expected(0u, complex::copy_count_))
                         {
-                            get_engine()->stop();
+                            engine_->stop();
                             return;
                         }
 
                         if (expected(1u, complex::move_count_))
                         {
-                            get_engine()->stop();
+                            engine_->stop();
                             return;
                         }
                     });
 
                 if (expected(0u, complex::copy_count_))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return std::nullopt;
                 }
 
                 if (expected(0u, complex::move_count_))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return std::nullopt;
                 }
 
@@ -528,13 +528,13 @@ namespace zab::test {
 
                         if (expected(0u, complex::copy_count_))
                         {
-                            get_engine()->stop();
+                            engine_->stop();
                             return;
                         }
 
                         if (expected(1u, complex::move_count_))
                         {
-                            get_engine()->stop();
+                            engine_->stop();
                             return;
                         }
                     });
@@ -561,7 +561,7 @@ namespace zab::test {
     int
     test_visit_complex_class()
     {
-        engine engine(event_loop::configs{});
+        engine engine(engine::configs{});
 
         visit_complex_class test;
 

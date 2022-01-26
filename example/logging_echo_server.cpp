@@ -41,12 +41,12 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 
+#include "zab/async_file.hpp"
 #include "zab/async_function.hpp"
 #include "zab/async_mutex.hpp"
 #include "zab/engine.hpp"
 #include "zab/engine_enabled.hpp"
 #include "zab/event_loop.hpp"
-#include "zab/file_io_overlay.hpp"
 #include "zab/for_each.hpp"
 #include "zab/network_overlay.hpp"
 #include "zab/strong_types.hpp"
@@ -91,12 +91,9 @@ namespace zab_example {
 
                     for (const auto i : active_streams_)
                     {
-                        i->cancel();
+                        co_await i->cancel();
                     }
                 }
-
-                /* Give 1 second to do so... */
-                co_await yield(zab::order::in_seconds(1));
 
                 std::cout << "Stopping Engine"
                           << "\n";
@@ -109,15 +106,24 @@ namespace zab_example {
                 int connection_count = 0;
                 if (acceptor_.listen(AF_INET, port_, 10))
                 {
-
                     std::cout << "Starting acceptor on port " << port_ << "\n";
 
                     std::optional<zab::tcp_stream> stream;
-                    while (stream = co_await acceptor_.accept())
-                    {
-                        run_stream(connection_count++, std::move(*stream));
-                        stream.reset();
-                    }
+
+                    co_await zab::for_each(
+                        acceptor_.get_accepter(),
+                        [&](auto&& _stream) noexcept -> zab::for_ctl
+                        {
+                            if (_stream)
+                            {
+                                run_stream(connection_count++, std::move(*stream));
+                                return zab::for_ctl::kContinue;
+                            }
+                            else
+                            {
+                                return zab::for_ctl::kBreak;
+                            }
+                        });
 
                     std::cout << "Stopping acceptor with errno " << acceptor_.last_error() << "\n";
                 }
@@ -133,8 +139,8 @@ namespace zab_example {
             zab::async_function<>
             run_stream(int _connection_count, zab::tcp_stream _stream)
             {
-                zab::thread_t thread{(std::uint16_t)(
-                    _connection_count % engine_->get_event_loop().number_of_workers())};
+                zab::thread_t thread{
+                    (std::uint16_t)(_connection_count % engine_->number_of_workers())};
                 /* Lets load balance connections between available threads... */
                 co_await yield(thread);
 
@@ -146,10 +152,11 @@ namespace zab_example {
                 print(thread, _connection_count, "Got connection.");
 
                 /* Log received data to file. */
-                zab::async_file log_file(
-                    engine_,
+                zab::async_file<char> log_file(engine_);
+
+                auto file_open = co_await log_file.open(
                     "./connection_log." + std::to_string(_connection_count) + ".txt",
-                    zab::async_file::Options::kTrunc);
+                    zab::file::Option::kTrunc);
 
                 while (!_stream.last_error())
                 {
@@ -164,8 +171,11 @@ namespace zab_example {
                         co_await _stream.write(*data);
 
                         /* log data to file */
-                        auto s = co_await log_file.write_to_file(*data);
-                        if (!s) { print(thread, _connection_count, "Failed to log to file."); }
+                        if (file_open)
+                        {
+                            auto s = co_await log_file.write_to_file(*data);
+                            if (!s) { print(thread, _connection_count, "Failed to log to file."); }
+                        }
                     }
                     else
                     {
@@ -229,7 +239,7 @@ main(int _argc, const char** _argv)
 
     auto port = std::stoi(_argv[1]);
 
-    zab::engine e(zab::event_loop::configs{});
+    zab::engine e(zab::engine::configs{});
 
     zab_example::echo_server es(&e, port);
 

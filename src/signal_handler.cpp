@@ -52,7 +52,7 @@ namespace zab {
     }
 
     signal_handler::signal_handler(engine* _engine)
-        : handlers_mtx_(std::make_unique<std::mutex>()), engine_(_engine)
+        : handlers_mtx_(std::make_unique<std::mutex>()), engine_(_engine), handle_(nullptr)
     {
 
         signal_handler* test = nullptr;
@@ -61,7 +61,7 @@ namespace zab {
         fds_[0] = 0;
         fds_[1] = 0;
 
-        if (int error = ::pipe2(fds_, O_NONBLOCK); error == -1)
+        if (int error = ::pipe2(fds_, 0); error == -1)
         {
             std::cerr << "signal_handler ->  signal_handler -> Failed to create pipe. errno:"
                       << errno;
@@ -78,10 +78,12 @@ namespace zab {
         {
 
             std::cerr
-                << "signal_handler -> Failed to close Notifier pipe during deconstruction. errno:"
+                << "signal_handler -> Failed to close Notifier pipe during deconstruction. errno : "
                 << errno;
             abort();
         }
+
+        if (handle_) { event_loop::clean_up(handle_); }
     }
 
     async_function<>
@@ -89,45 +91,21 @@ namespace zab {
     {
         if (handler_.load() != this) { co_return; }
 
-        auto& not_handler = engine_->get_notification_handler();
-
-        auto descriptor = not_handler.subscribe(fds_[0]);
-
-        if (!descriptor) [[unlikely]]
-        {
-            std::cerr << "signal_handler ->  Failed to get descriptor at run time \n";
-            abort();
-        }
-
-        std::unique_ptr<descriptor_notification::descriptor_op> read_op;
-        running_ = true;
+        char buffer = 0;
+        running_    = true;
         while (running_)
         {
-            int rc;
-            if (read_op) { rc = co_await *read_op; }
-            else
+            auto rc = co_await engine_->get_event_loop().read(
+                fds_[0],
+                std::span<std::byte>(
+                    static_cast<std::byte*>(static_cast<void*>(&buffer)),
+                    sizeof(buffer)),
+                0,
+                &handle_);
+            handle_ = nullptr;
+
+            if (rc && *rc == sizeof(buffer))
             {
-                read_op = co_await descriptor->start_read_operation();
-
-                if (!read_op)
-                {
-                    std::cerr << "signal_handler ->  Failed to start read_operation \n";
-                    abort();
-                }
-
-                rc = read_op->flags();
-            }
-
-            if (rc | descriptor_notification::kRead)
-            {
-                char buffer;
-                if (int rc = ::read(fds_[0], &buffer, 1);
-                    rc < 0 && errno != EAGAIN && errno != EWOULDBLOCK)
-                {
-                    std::cerr << "signal_handler -> read failed. errno:" << errno << "\n";
-                    co_return;
-                }
-
                 int signal = static_cast<int>(buffer);
 
                 std::scoped_lock lck(*handlers_mtx_);
@@ -186,7 +164,6 @@ namespace zab {
         /** Its new... */
         if (handlers_[_sig].size() == 1)
         {
-
             auto handler = +[](int _signal)
             {
                 signal_handler* self = handler_.load();

@@ -37,6 +37,7 @@
 #ifndef ZAB_SIMPLE_FUTURE_HPP_
 #define ZAB_SIMPLE_FUTURE_HPP_
 
+#include <cassert>
 #include <coroutine>
 #include <optional>
 #include <type_traits>
@@ -45,6 +46,24 @@
 #include "zab/simple_promise.hpp"
 
 namespace zab {
+
+    /**
+     * @brief      An empty struct for void promises
+     */
+    struct promise_void {
+            auto
+            operator<=>(const promise_void&) const = default;
+    };
+
+    template <typename T>
+    struct deduce_type {
+            using type = T;
+    };
+
+    template <>
+    struct deduce_type<void> {
+            using type = promise_void;
+    };
 
     namespace details {
 
@@ -68,43 +87,38 @@ namespace zab {
         template <typename Base>
         concept Returnable = requires(Base a)
         {
-            {
-                a.initial_suspend()
-            }
-            noexcept->std::same_as<std::suspend_always>;
-            {
-                a.complete()
-            }
-            noexcept->std::same_as<bool>;
-            {
-                a.set_underlying(std::coroutine_handle<>{})
-            }
-            noexcept->std::same_as<void>;
-            {
-                a.get_return_object()
-            }
-            noexcept->std::same_as<std::coroutine_handle<Base>>;
+            {a.initial_suspend()};
         }
         &&(Returns<Base> || IsVoid<Base>);
+
+        template <typename PromiseType>
+        struct simple_awaitable {
+
+                template <typename UnderlyingPromise>
+                auto
+                await_suspend(std::coroutine_handle<UnderlyingPromise> _remsumptor) noexcept
+                {
+                    handle_.promise().set_underlying(_remsumptor);
+                    return handle_;
+                }
+
+                bool
+                await_ready() const noexcept
+                {
+                    return false;
+                }
+
+                decltype(auto)
+                await_resume() const noexcept
+                {
+                    return handle_.promise().data();
+                }
+
+                /** The handle of coroutine to execute next. */
+                std::coroutine_handle<PromiseType> handle_;
+        };
+
     }   // namespace details
-
-    /**
-     * @brief      An empty struct for void promises
-     */
-    struct promise_void {
-            auto
-            operator<=>(const promise_void&) const = default;
-    };
-
-    template <typename T>
-    struct deduce_type {
-            using type = T;
-    };
-
-    template <>
-    struct deduce_type<void> {
-            using type = promise_void;
-    };
 
     /**
      * @brief      Represents the future value of a simple promise.
@@ -119,21 +133,15 @@ namespace zab {
             /* The promise type */
             using promise_type = Promise;
 
-            /* The handle for the coroutine */
-            using coro_handle = std::coroutine_handle<promise_type>;
-
-            /* A type erased handle for the coroutine */
-            using erased_coro_handle = std::coroutine_handle<>;
-
             /* The co_await return value;*/
-            using return_value = typename deduce_type<typename Promise::returns>::type;
+            using return_value = typename deduce_type<typename promise_type::returns>::type;
 
             /**
              * @brief      Construct with the future with a handle to its coroutine.
              *
              * @param[in]  _coroutine  The coroutine handle.
              */
-            simple_future(coro_handle _coroutine) : handle_(_coroutine) { }
+            simple_future(std::coroutine_handle<promise_type> _handle) : handle_(_handle) { }
 
             /**
              * @brief      Destroys the future and cleans up the coroutine handle.
@@ -148,7 +156,10 @@ namespace zab {
                 /* something exceptional must of happened and is causing the coroutine to */
                 /* unwind in the wrong direction. This is most likely the engines attempt */
                 /* to clean up the event loops on shutdown... */
-                if (handle_ && handle_.promise().complete()) { handle_.destroy(); }
+                if (handle_)
+                {
+                    if (handle_.promise().is_complete()) { handle_.destroy(); }
+                }
             }
 
             /**
@@ -164,7 +175,7 @@ namespace zab {
              *
              * @param      _other  The simple_future to move.
              */
-            simple_future(simple_future&& _other) : handle_(_other.handle_)
+            simple_future(simple_future&& _other) : handle_(std::move(_other.handle_))
             {
                 _other.handle_ = nullptr;
             }
@@ -197,51 +208,13 @@ namespace zab {
              *
              * @return     A `co_await`'able struct.
              */
-            auto operator co_await() const noexcept
+            inline details::simple_awaitable<promise_type> operator co_await() noexcept
             {
-                struct {
-                        bool
-                        await_suspend(erased_coro_handle _remsumptor) noexcept
-                        {
-                            handle_.resume();
-
-                            if (handle_.promise().complete()) { return false; }
-                            else
-                            {
-                                handle_.promise().set_underlying(_remsumptor);
-                                return true;
-                            }
-                        }
-
-                        bool
-                        await_ready() const noexcept
-                        {
-                            return false;
-                        }
-
-                        decltype(auto)
-                        await_resume() const noexcept
-                        {   // TODO(donald): test if return type is correct with
-                            // regards to perfect forwarding...
-                            if constexpr (!std::is_same_v<return_value, promise_void>)
-                            {
-                                return handle_.promise().data();
-                            }
-                            else
-                            {
-                                return;
-                            }
-                        }
-
-                        /** The handle of coroutine to execute next. */
-                        coro_handle handle_;
-
-                } awaiter{.handle_ = handle_};
-
-                return awaiter;
+                assert((bool) handle_);
+                return details::simple_awaitable<promise_type>{.handle_ = handle_};
             }
 
-            coro_handle handle_;
+            std::coroutine_handle<promise_type> handle_;
     };
 
     /**

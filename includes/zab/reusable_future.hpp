@@ -161,16 +161,12 @@ namespace zab {
             {
                 handle_.promise().prepare();
                 struct {
-                        bool
+
+                        auto
                         await_suspend(erased_coro_handle _remsumptor) noexcept
                         {
-                            handle_.resume();
-                            if (handle_.promise().value_ready()) { return false; }
-                            else
-                            {
-                                handle_.promise().set_underlying(_remsumptor);
-                                return true;
-                            }
+                            handle_.promise().set_underlying(_remsumptor);
+                            return handle_;
                         }
 
                         bool

@@ -240,7 +240,7 @@ namespace zab::test {
     int
     test_observer_thread()
     {
-        engine engine(event_loop::configs{kNumberThreads});
+        engine engine(engine::configs{kNumberThreads});
 
         test_observer_thread_class test;
 

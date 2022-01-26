@@ -36,10 +36,15 @@
 
 #include "zab/engine.hpp"
 
+#include <fstream>
+#include <iterator>
+#include <latch>
+#include <sched.h>
+#include <string>
+#include <thread>
+
 #include "zab/async_function.hpp"
-#include "zab/async_primitives.hpp"
-#include "zab/signal_handler.hpp"
-#include "zab/timer_service.hpp"
+#include "zab/yield.hpp"
 
 namespace zab {
 
@@ -54,18 +59,109 @@ namespace zab {
         }
     }   // namespace
 
-    engine::engine(event_loop::configs _configs)
-        : event_loop_(_configs), handler_(this), notifcations_(this),
-          timer_(std::make_unique<timer_service>(this))
+    thread_local thread_t engine::this_thead_ = thread_t{};
+
+    engine::engine(configs _configs)
+        : event_loop_(validate(_configs)), sig_handler_(this), configs_(_configs)
     { }
 
-    engine::~engine()
+    std::uint16_t
+    engine::validate(configs& _configs)
     {
-        timer_ = nullptr;
+        auto cores = core_count();
 
-        event_loop_.purge();
-        notifcations_.purge();
-        event_loop_.purge();
+        if (_configs.opt_ == configs::kAny) { _configs.threads_ = cores; }
+        else if (_configs.opt_ == configs::kAtLeast)
+        {
+            _configs.threads_ = std::max(cores, _configs.threads_);
+        }
+
+        if (!_configs.threads_) { _configs.threads_ = 1; }
+
+        return _configs.threads_;
+    }
+
+    std::uint16_t
+    engine::core_count() noexcept
+    {
+        auto count = std::thread::hardware_concurrency();
+
+        if (!count)
+        {
+            /* See if we can look up in proc (nix only) */
+            /* TODO(donald): Im not sure if cpu info format is standard */
+            /*       Or if it includes virtual (hyper) cores */
+            /* TODO(donald): windows impl */
+            std::ifstream cpuinfo("/proc/cpuinfo");
+            count = std::count(
+                std::istream_iterator<std::string>(cpuinfo),
+                std::istream_iterator<std::string>(),
+                std::string("processor"));
+        }
+
+        if (count > std::numeric_limits<std::uint16_t>::max()) [[unlikely]]
+        {
+            count = std::numeric_limits<std::uint16_t>::max();
+        }
+
+        return count;
+    }
+
+    void
+    engine::set_worker_affinity(thread_t _thread_id) noexcept
+    {
+        if (_thread_id < threads_.size())
+        {
+            auto      count = core_count();
+            cpu_set_t cpuset;
+            CPU_ZERO(&cpuset);
+            CPU_SET((_thread_id.thread_ + configs_.affinity_offset_) % (count), &cpuset);
+            int rc = pthread_setaffinity_np(
+                threads_[_thread_id.thread_].native_handle(),
+                sizeof(cpu_set_t),
+                &cpuset);
+            if (rc != 0) { std::cerr << "Error calling pthread_setaffinity_np: " << rc << "\n"; }
+        }
+    }
+
+    void
+    engine::start() noexcept
+    {
+        std::latch lat(configs_.threads_ + 1);
+        for (std::uint16_t i = 0; i < configs_.threads_; ++i)
+        {
+            timers_.emplace_back(this);
+            threads_.emplace_back(
+                [this, &lat, i](auto _stop_token)
+                {
+                    this_thead_ = thread_t{i};
+                    std::stop_callback callback(_stop_token, event_loop_[i].get_stop_function());
+                    lat.arrive_and_wait();
+                    if (i == signal_handler::kSignalThread) { sig_handler_.run(); }
+                    timers_[i].run();
+                    event_loop_[i].run(_stop_token);
+                });
+        }
+
+        lat.arrive_and_wait();
+
+        for (auto& t : threads_)
+        {
+            if (t.joinable()) { t.join(); }
+        }
+
+        threads_.clear();
+        timers_.clear();
+    }
+
+    void
+    engine::stop() noexcept
+    {
+        sig_handler_.stop();
+        for (auto& t : threads_)
+        {
+            t.request_stop();
+        }
     }
 
     void
@@ -75,16 +171,62 @@ namespace zab {
     }
 
     void
-    engine::resume(event _handle, order_t _order, thread_t _thread) noexcept
+    engine::resume(event _handle) noexcept
     {
-        if (!_order.order_) { event_loop_.send_event(_handle, _thread); }
-        else if (timer_)
+        thread_resume(_handle, this_thead_);
+    }
+
+    thread_t
+    engine::get_any_thread()
+    {
+        thread_t      thread;
+        std::uint16_t current  = 0;
+        std::size_t   min_size = std::numeric_limits<std::size_t>::max();
+        for (const auto& el : event_loop_)
         {
-            timer_->wait(_handle, _order.order_, _thread);
+            auto es = el.event_size();
+            if (!es)
+            {
+                thread.thread_ = current;
+                break;
+            }
+            else if (es < min_size)
+            {
+                min_size       = es;
+                thread.thread_ = current;
+            }
+
+            ++current;
         }
+
+        return thread;
+    }
+
+    void
+    engine::thread_resume(event _handle, thread_t _thread) noexcept
+    {
+        if (_thread.thread_ == thread_t::kAnyThread) { _thread = get_any_thread(); }
+
+        assert(_thread.thread_ < event_loop_.size());
+        event_loop_[_thread.thread_].user_event(_handle);
+    }
+
+    void
+    engine::delayed_resume(event _handle, order_t _order) noexcept
+    {
+
+        delayed_resume(_handle, _order, this_thead_);
+    }
+
+    void
+    engine::delayed_resume(event _handle, order_t _order, thread_t _thread) noexcept
+    {
+        if (_thread.thread_ == thread_t::kAnyThread) { _thread = get_any_thread(); }
+
+        if (_order.order_) { timers_[_thread.thread_].wait(_handle, _order.order_, _thread); }
         else
         {
-            _handle.destroy();
+            thread_resume(_handle, _thread);
         }
     }
 

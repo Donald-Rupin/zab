@@ -43,9 +43,9 @@
 #include <cstddef>
 
 #include "zab/async_function.hpp"
-#include "zab/async_primitives.hpp"
 #include "zab/engine.hpp"
 #include "zab/strong_types.hpp"
+#include "zab/yield.hpp"
 
 namespace zab {
 
@@ -139,17 +139,14 @@ namespace zab {
                 if (!count) { control(); }
             }
 
-            waiter operator co_await() noexcept
-            {
-                return {*this, engine_->get_event_loop().current_id()};
-            }
+            waiter operator co_await() noexcept { return {*this, engine_->current_id()}; }
 
         private:
 
             async_function<>
             control()
             {
-                auto   thread = engine_->get_event_loop().current_id();
+                auto   thread = engine_->current_id();
                 size_t count  = 0;
 
                 while (true)
@@ -176,10 +173,7 @@ namespace zab {
                             }
 
                             /* resume them */
-                            engine_->resume(
-                                resume->handle_,
-                                order_t{order::now()},
-                                resume->thread_);
+                            engine_->thread_resume(resume->handle_, resume->thread_);
                         }
 
                         auto waiting = release_count_.fetch_sub(1, std::memory_order_release);
@@ -194,7 +188,7 @@ namespace zab {
                         active_count_.fetch_add(1, std::memory_order_release);
 
                         /* resume them */
-                        engine_->resume(resume->handle_, order_t{order::now()}, resume->thread_);
+                        engine_->thread_resume(resume->handle_, resume->thread_);
 
                         auto waiting = release_count_.fetch_sub(1, std::memory_order_release);
 
@@ -365,11 +359,7 @@ namespace zab {
                 /* Either we have a list to process, or we just got one */
                 transfer_ = head->next_waiting_;
 
-                if (head->handle_)
-                {
-
-                    engine_->resume(head->handle_, order_t{order::now()}, head->thread_);
-                }
+                if (head->handle_) { engine_->thread_resume(head->handle_, head->thread_); }
             }
 
             /**
@@ -378,10 +368,7 @@ namespace zab {
              * @return     Acquires the semaphore.
              *
              */
-            waiter operator co_await() noexcept
-            {
-                return {*this, engine_->get_event_loop().current_id()};
-            }
+            waiter operator co_await() noexcept { return {*this, engine_->current_id()}; }
 
         private:
 

@@ -156,10 +156,10 @@ namespace zab {
                                     if (!ob_->internal_->result_)
                                     {
                                         ob_->internal_->handle_ = _awaiter;
-                                        ob_->internal_->thread_ = thread_t{
-                                            ob_->observable_->engine_->get_event_loop().current_id()
+                                        ob_->internal_->thread_ =
+                                            thread_t{ob_->observable_->engine_->current_id()
 
-                                        };
+                                            };
 
                                         return true;
                                     }
@@ -241,7 +241,7 @@ namespace zab {
                             {
                                 auto tmp   = o->handle_;
                                 o->handle_ = nullptr;
-                                super::engine_->resume(tmp, order_t{order::now()}, o->thread_);
+                                super::engine_->thread_resume(tmp, o->thread_);
                             }
                         }
                     }

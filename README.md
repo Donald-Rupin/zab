@@ -1,8 +1,8 @@
-# ZAB - A high performance coroutine executor and event loop framework
+# ZAB - A high performance coroutine executor and asynchronous io framework
 
 ![example workflow](https://github.com/Donald-Rupin/zab/actions/workflows/cmake.yml/badge.svg)
 
-A high-performance asynchronous framework for building event-driven, multi-threaded programs. 
+A high-performance framework for building asynchronous and multi-threaded programs. 
 
 The original goal of this library was to learn the [new coroutines TS](https://en.cppreference.com/w/cpp/coroutine) for C++. I found the most difficult part of the coroutine TS is when you want to develop an asynchronous architecture or "executer/runtime" that can handle re-entrant code across possibly different threads. Thus, **ZAB** was born. 
 
@@ -14,7 +14,7 @@ Contact: donald.rupin@pm.me
 
 ## Disclosure 
 
-**ZAB** is still very much in the _alpha_ stage so all feedback and suggestions are welcome and encouraged. I do not expect the interface to change significantly but it is possible. Tests are provided and I've tried to be thorough but I don't have the capacity to test everything at this stage. If people are interested in using the **ZAB** framework, I will work to release a fully stable version. 
+**ZAB** is still in the _alpha_ stage so all feedback and suggestions are welcome and encouraged. I do not expect the interface to change significantly but it is possible. Tests are provided and I've tried to be thorough but I don't have the capacity to test everything at this stage. If people are interested in using the **ZAB** framework, I will work to release a fully stable version. 
 
 ## Library Contents
 - [Building](#Building)
@@ -24,7 +24,7 @@ Contact: donald.rupin@pm.me
     + [`engine`](#engine)
     + [Ordering and Threads](#Ordering-and-Threads)
     + [`engine_enabled<Base>`](#engine_enabled<Base>)
-    + [Descriptor Notifications](#Descriptor-Notifications)
+    + [`event_loop`](#event_loop)
     + [Signal Handling](#Signal-Handling)
 - [Coroutine Types](#Coroutine-Types)
     + [`async_function`](#async_function)
@@ -57,9 +57,10 @@ Contact: donald.rupin@pm.me
 
 Portability has not been the primary focus in the creation of **ZAB**. Any and all help with porting and verifying ZAB works across different platforms and compilers is much appreciated. 
 
-
 Built Tested on:
 - x86 g++ 11.0.1
+
+The dependancy liburing has kernal version requirments and the build has been tested on kernal version 5.11. 
 
 ```bash
 mkdir build
@@ -77,7 +78,7 @@ Standard `make` also works if you do not want to use ninja.
 
 ```c++
 /* Create an engine with configs - this example has at least 4 event loop threads running */
-zab::engine e(zab::event_loop::configs{
+zab::engine e(zab::engine::configs{
     .threads_ = 4
 });
 
@@ -163,7 +164,7 @@ your_class::example()
 
     /* Observable */
 
-    zab::observable<std::string, int> ob(get_engine());
+    zab::observable<std::string, int> ob(engine_);
 
     auto con = ob.connect();
 
@@ -188,7 +189,7 @@ your_class::example()
     /* We can do some non-blocking synchronisation */
 
     /* mutex - for mutual exclusion */
-    zab::async_mutex mtx(get_engine());
+    zab::async_mutex mtx(engine_);
 
     {
         /* Acquire a scoped lock */
@@ -196,7 +197,7 @@ your_class::example()
     }
 
     /* binary semaphore - for signalling - created in locked mode  */
-    zab::async_binary_semaphore sem(get_engine(), false);
+    zab::async_binary_semaphore sem(engine_, false);
 
     /* release the sem */
     sem.release();
@@ -207,7 +208,9 @@ your_class::example()
     /* Lots more synchronisation primitives in the library... */
 
     /* File IO */
-    zab::async_file file(get_engine(), "test_file.txt", async_file::Options::kRWTruncate);
+    zab::async_file<char> file(engine_);
+    
+    auto success = co_await file.open("test_file.txt", async_file::Options::kRWTruncate);
 
     std::vector<char> buffer(42, 42);
     /* write to file! */
@@ -220,25 +223,32 @@ your_class::example()
     }
 
     /* Networking */
-
     /* acceptors or connectors make tcp streams! */
-    zab::tcp_acceptor acceptor(get_engine());
+    zab::tcp_acceptor acceptor(engine_);
     if (acceptor_.listen(AF_INET, 8080, 10)) {
+        
+        co_await zab::for_each(
+            acceptor_.get_accepter(),
+            [&](auto&& _stream) noexcept -> zab::for_ctl
+            {
+                if (_stream)
+                {
+                    /*  Read some data */
+                    auto data = co_await stream->read(42);
 
-        std::optional<zab::tcp_stream> stream;
-        while (stream = co_await acceptor.accept())
-        {
-            /* got a tcp stream! */
+                    /* Write some data */
+                    auto amount_wrote = co_await stream->write(buffer);
 
-            /*  Read some data */
-            auto data = co_await stream->read();
+                    /* await a graceful shutdown */
+                    co_await stream->shutdown();
 
-            /* Write some data */
-            auto amount_wrote = co_await stream->write(buffer);
-
-            /* await a graceful shutdown */
-            co_await stream->shutdown();
-        }
+                    return zab::for_ctl::kContinue;
+                }
+                else
+                {
+                    return zab::for_ctl::kBreak;
+                }
+            });
     }
 
 }
@@ -252,17 +262,16 @@ See `example/echo_server.cpp` for an example implementation of an Echo Server ap
 
 See [ZAB benchmarks](https://github.com/Donald-Rupin/zab_benchmark) for details. 
 
-TLDR: In is between 60% to 250% faster then boost asio over the range of benchmarks performed. 
 ## Core Library
 
-ZAB is event-driven and provides methods for creating generic events, signal handling, and file/network IO. ZAB also ensures thread safety for cross-thread events and communication.
+ZAB provides methods for creating generic events, signal handling, and file/network IO. ZAB also ensures thread safety for cross-thread events and communication.
 
 ### engine
-The `engine` is the core object in ZAB which represents the framework. The `engine` is responsible for running the event loops, ordering events for execution, handling cross thread events, and providing both [Signal Handling](#Signal-Handling) and [Descriptor Notifications](#Descriptor-Notifications). 
+The `engine` is the core object in ZAB which represents the framework. The `engine` is responsible for running the event loops, ordering events for execution, handling cross thread events, and providing both [Signal Handling](#Signal-Handling) and asynchronous io through the `event_loop`. [event_loop](#event_loop). 
 
 The `engine` can be constructed with the following configurations:
 ```c++
-event_loop::configs {
+engine::configs {
 
     enum thread_option {
         kAny,     /* Ignore threads_ var and have number of processors - 1 event loops */
@@ -290,7 +299,7 @@ The amount of threads that can be made is bounded by `2^16 - 2` (although I don'
 
 An `order_t` is a strongly typed `std::size_t`. This specifies the delay to apply in the event loop in nanoseconds (0 for no delay).
 
-A `thread_t` is a strongly typed `std::uint16_t` which is used to select a thread to be used. This can have different meaning in different contexts.  Typically `event_loop::kAnyThread` can be used to select which thread currently has the least amount of work to do. Thread bounds are not checked, so specifying an index larger than the number of threads in the `engine` is undefined behavior. 
+A `thread_t` is a strongly typed `std::uint16_t` which is used to select a thread to be used. This can have different meaning in different contexts.  Typically `thread_t::any_thread()` can be used to select which thread currently has the least amount of work to do. Thread bounds are not checked, so specifying an index larger than the number of threads in the `engine` is undefined behavior. 
 
 ### engine_enabled<Base>
 
@@ -303,19 +312,19 @@ public:
      * Select the default thread to execute in when default
      * parameters are used to select the thread.
      *
-     * Defaults to `event_loop::kAnyThread` which means the
+     * Defaults to `thread_t::any_thread()` which means the
      * thread with the least work.
      *
      */
-    static constexpr zab::thread_t kDefaultThread = event_loop::kAnyThread;
+    static constexpr zab::thread_t kDefaultThread = thread_t::any_thread();
 
     /**
      * This function is executed after the object is
      * "registered" with the engine. This occurs once.
      *
-     * Use of `get_engine()` results in undefined behavior
+     * Use of `engine_` results in undefined behavior
      * until `initialise()` is called. Or in the case there is
-     * no `initialise()` after `register_get_engine()` is called.
+     * no `initialise()` after `register_engine_` is called.
      *
      */
     void initialise() noexcept;
@@ -323,7 +332,7 @@ public:
     /**
      * What thread to run the `initialise()` function in.
      *
-     * Defaults to `event_loop::kAnyThread`.
+     * Defaults to `thread_t::any_thread()`.
      */
     static constexpr zab::thread_t kInitialiseThread = kDefaultThread;
 
@@ -344,7 +353,7 @@ public:
     /**
      * What thread to run the `main()` function in.
      *
-     * Defaults to `event_loop::kAnyThread`.
+     * Defaults to `thread_t::any_thread()`.
      */
     static constexpr zab::thread_t kMainThread = kDefaultThread;
         
@@ -354,7 +363,7 @@ public:
 ```c++
 /**
  * Registers the engine binding the correct functions and allowing
- * access to `get_engine()`
+ * access to `engine_`
  */
 bool 
 register_engine(engine& _engine);
@@ -362,84 +371,32 @@ register_engine(engine& _engine);
 /**
  * Gets the `engine` that was registered.
  *
- * Returns `nullptr` until `register_get_engine()` is called.
+ * Returns `nullptr` until `register_engine_` is called.
  */
 engine*
-get_engine()
+engine_
 ```
 `engine_enabled<Base>` also provides easy access to all of [Asynchronous Primitives](#Asynchronous-Primitives).
 
 
-### Descriptor Notifications
-The `engine` provides an asynchronous descriptor notification service. This is used to power the [`Networking Overlay`](#Networking). You can use this service to receive notifications on any posix descriptor that is compatible with [epoll](https://man7.org/linux/man-pages/man7/epoll.7.html). The service is essentially a wrapper for a `epoll` with the notification flags being equivalent. 
+### `event_loop`
+ZAB is powered by [liburing](https://github.com/axboe/liburing) which is a userspace wrapper for [`io_uring`](https://kernel.dk/io_uring.pdf). An `event_loop` loop exists for every `engine` thread in ZAB and is loops on the completion queue of submitted io requests fowarding the results and resuming the respective coroutines. User space events (those submitted by `engine::resume` and family) are submitted to the `event_loop` via an event_fd. User code should only do short computations or `yield` long running computation in the `event_loop` to ensure IO completions are reported back in a timely manner.  
 
-You can get access to the notification service through `descriptor_notification& engine::get_notification_handler()`. This class provides the method:
-```c++
-[[nodiscard]] std::optional<descriptor_waiter>
-subscribe(int _fd);
-``` 
-Returning a valid `descriptor_notifications::notifier` on successfully subscribing the descriptor to the notification service. Once a descriptor is subscribed, users can start read, write, and read-write operations though the `guaranteed_future<std::unique_ptr<descriptor_op>> start_*_operation()`. The `start_*_operation()` will return a `descriptor_op` to the the callee once once the requested operation (`NoticationType::kRead`, `NoticationType:Write` or `NoticationType::kRead | NoticationType::kWrite` respectively) is performable or an error occured. The `descriptor_op` can be further `co_await`'ed to wait for the requested operation to be performable. 
+In this release the following io_uring calls are supported in ZAB:
+- [open_at](https://linux.die.net/man/2/openat)
+- [close](https://linux.die.net/man/2/close)
+- [read](https://linux.die.net/man/2/read)
+- [read_v](https://linux.die.net/man/2/readv)
+- [write](https://linux.die.net/man/2/write)
+- [write_v](https://linux.die.net/man/2/writev)
+- [recv](https://linux.die.net/man/2/recv)
+- [send](https://linux.die.net/man/2/send)
+- [accept](https://linux.die.net/man/2/accept)
+- [connect](https://linux.die.net/man/2/connect)
 
-Once either `start_*_operation()` or `co_await descriptor_op` returns, the user is put in the `descriptor_notifications` io thread. Essentially, users should complete their op or `co_await descriptor_op` again if they where unable to. `descriptor_op`'s are atomic whilst the user is within the io thread or is  `co_await`'ed on a `descriptor_op`. If the user leaves the io thread or does not  `co_await` on the `descriptor_op` on next suspend, atomicity is lost. For example, for your write operations to be atomic starting from `start_*_operation()` call, you should either try and write, or if busy, `co_await` the returned `descriptor_op`.
+As in `liburing` options can be attempted to be canclled. Each io_uring call has two overloads: 1) A simple future that has a `io_handle` out value which will be set to the cancellation handle on suspension. 2) A void function that expects a `io_handle` prefilled with the suspended coroutines handle. In either case, the value can be passed to `cancel_event` to attempt a cancle. 
 
-
-Example code (cut down from network overlay):
-```c++
-simple_future<int>
-accept(engine* _e, int _desc /* assume is non-blocking socket */)
-{
-    /* Our current thread */
-    thread_t rejoin_thread{_e->get_event_loop().current_id()};
-
-    /* Subscribe */
-    auto notifier = _e->get_notification_handler().subscribe(_desc);
-    std::unique_ptr<descriptor_notification::descriptor_op> read_op;
-
-    int socket = 0;
-    while (true)
-    {
-        /* For first pass, see if we can get a quick accept without */
-        /* having to move to the io thread...                       */
-        if (socket = ::accept4(
-                _desc,
-                (struct sockaddr*) &address,
-                &addlen,
-                SOCK_NONBLOCK | SOCK_CLOEXEC);
-            socket >= 0)
-        {
-            break;
-        }
-        else if (errno == EAGAIN || errno == EWOULDBLOCK)
-        {
-            std::uint32_t flags = 0;
-            if (read_op) { flags = co_await *read_op; }
-            else
-            {
-                /* Start the read opertion */
-                read_op = co_await notifier->start_read_operation();
-                if (!read_op) { co_return std::nullopt; }
-
-                flags = read_op->flags();
-            }
-
-            /* Now in the io thread! */
-
-            /* No flags means something happened internally */
-            /* Like a cancel or deconstruction...           */
-            if (!flags) { break; }
-        }
-        else
-        {
-            co_return std::nullopt;
-        }
-    }
-
-    /* Move back from the io thread into the thread we where in... */
-    co_await yield(rejoin_thread); 
-
-    co_return socket;
-}
-```
+A `io_handle` is an alias to a `pause_pack*` which can be obtained through the `zab::pause(...)` function.
 
 ### Signal Handling
 The `engine` provides rudimentary signal handling that utilises the "self-pipe trick". Your class can access the `signal_handler` through `signal_handler& engine::get_signal_handler()` and use this to register for notification every time a signal is caught. 
@@ -707,7 +664,7 @@ auto yield(
 ```
 #### Parameters
 - `_order` specifies when to resume the function. This is useful for imposing delays or breaking up expensive functions in order not to block the event loop. 
-- `_thread` specifies what thread to return into. This can be used to jump execution of your function into different threads (to access shared state) or to specify that you don't care what thread this executes in `event_loop::kAnyThread`. 
+- `_thread` specifies what thread to return into. This can be used to jump execution of your function into different threads (to access shared state) or to specify that you don't care what thread this executes in `thread_t::any_thread()`. 
 
 Example Usage:
 ```c++
@@ -821,7 +778,7 @@ your_class::foo() noexcept
         bool,
         std::optional<std::size_t>
     > result = co_await wait_for(
-        get_engine(),
+        engine_,
         future_value<>(),
         future_value<bool>(),
         future_value<std::size_t>() 
@@ -923,8 +880,8 @@ your_class::worker(thread_t _thread, pause_token& _pt)
 async_function<> 
 your_class::pause_example(pause_token& _pt)
 {
-    const auto threads = get_engine()->get_event_loop().number_of_workers();
-    pause_token pt(get_engine());
+    const auto threads = engine_->number_of_workers();
+    pause_token pt(engine_);
 
     for (std::uint16_t t = 0; t < threads; ++t) {
         worker(thread_t{t}, pt);
@@ -976,10 +933,10 @@ your_class::queue_work()
     /* Move into thread 0 */
     co_await yield(thread_t{0})
 
-    async_counting_semaphore<> sem(get_engine(), 0);
+    async_counting_semaphore<> sem(engine_, 0);
 
     /* Create worker [logical] threads 1 - n */
-    const auto threads = get_engine()->get_event_loop().number_of_workers();
+    const auto threads = engine_->number_of_workers();
     assert(t > 1);
     for (std::uint16_t t = 1; t < threads; ++t)
     {
@@ -1039,10 +996,10 @@ your_class::queue_work()
     /* Move into thread 0 */
     co_await yield(thread_t{0})
 
-    async_counting_semaphore<1> sem(get_engine(), false);
+    async_counting_semaphore<1> sem(engine_, false);
 
     /* Create worker [logical] threads 1 - n */
-    const auto threads = get_engine()->get_event_loop().number_of_workers();
+    const auto threads = engine_->number_of_workers();
     assert(t > 1);
     for (std::uint16_t t = 1; t < threads; ++t) {
         do_work(thread_t{t}, sem, work_orders);
@@ -1140,8 +1097,8 @@ your_class::do_work(thread_t _thread, async_latch& _latch)
 async_function<> 
 your_class::spawn_threads()
 {
-    const auto threads = get_engine()->get_event_loop().number_of_workers();
-    async_latch latch(get_engine(), threads + 1);
+    const auto threads = engine_->number_of_workers();
+    async_latch latch(engine_, threads + 1);
 
     /* Create worker [logical] threads 0 - n */
     for (std::uint16_t t = 0; t < threads; ++t) {
@@ -1295,7 +1252,7 @@ your_class::subscriber(string_observable& _ob)
 async_function<> 
 your_class::publisher()
 {
-    string_observable ob(get_engine());
+    string_observable ob(engine_);
 
     subscriber(ob);
 
@@ -1321,33 +1278,31 @@ See `includes/zab/file_io_overlay.hpp` for more comprehensive documentation.
 async_function<> 
 your_class::file_io_example()
 {
+    
+    async_file<> file(engine_);
+    
     /* Open with read, write, and truncate */
-    async_file file(get_engine(), "test_file.txt", async_file::Options::kRWTruncate);
-
-    std::vector<char> buffer(42, 42);
-
-    /* Write data to file - return in the io thread  */
-    bool success = co_await file.write_to_file(file.io_thread(), buffer);
-
-    /* Note: returning and entering file functions to/from the io thread */
-    /* will result in sliglty faster code (slightly...)                  */
-
-    /* Note 2: async_file is not thread-safe. Only use in 1 thread at a time. */
+    bool success = co_await file.open("test_file.txt", async_file::Options::kRWTruncate);
 
     if (success)
     {
+        std::vector<char> buffer(42, 42);
 
-        /* Re position the file ptr */
-        success = file.position(0);
+        /* Write data to file */
+        success = co_await file.write_to_file(buffer);
 
         if (success)
         {
+            /* Re position the file ptr */
+            success = file.position(0);
 
-            /* Read the data and return to our default thread    */
-            /* We are entering this function from the io thread. */
-            std::optional<std::vector<char>> data = co_await file.read_file(default_thread());
+            if (success)
+            {
+                /* Read the data */
+                std::optional<std::vector<char>> data = co_await file.read_file();
 
-            if (data && *data == buffer) { std::cout << "File io was successful.": }
+                if (data && *data == buffer) { std::cout << "File io was successful.": }
+            }
         }
     }
 }
@@ -1368,7 +1323,7 @@ Example Usage:
 async_function<>
 YouClass::run_acceptor()
 {
-    tcp_acceptor acceptor(get_engine());
+    tcp_acceptor acceptor(engine_);
     // listen for IPv4 on port 8080 with a maximum backlog of 10
     // See bind(2) and listen(2) for more details...
     if (acceptor.listen(AF_INET, 8080, 10))
@@ -1399,7 +1354,7 @@ Example Usage:
 async_function<>
 YouClass::run_connector()
 {
-    tcp_connector connector(get_engine());
+    tcp_connector connector(engine_);
 
     /* Fill out posix struct for host details... */
     struct addrinfo  hints;
@@ -1440,7 +1395,7 @@ The `tcp_stream` represents the a duplex network stream for writing and reading 
 Example Usage:
 ```c++
 async_function<>
-YouClass::run_stream(tcp_stream&& _stream)
+your_class::run_stream(tcp_stream&& _stream)
 {
     /* Save locally so doesnt go out of scope when we suspend */
     tcp_stream stream(std::move(_stream));

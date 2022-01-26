@@ -37,81 +37,110 @@
 #include "zab/timer_service.hpp"
 
 #include <cstring>
-#include <mutex>
+#include <span>
 #include <sys/timerfd.h>
 
-#include "zab/async_primitives.hpp"
-#include "zab/descriptor_notifications.hpp"
 #include "zab/engine.hpp"
 #include "zab/event.hpp"
+#include "zab/event_loop.hpp"
+#include "zab/yield.hpp"
 
 namespace zab {
 
-    timer_service::timer_service(engine* _engine) : engine_(_engine), current_(0)
+    namespace {
+
+        async_function<>
+        cleanup(engine* _engine, int _fd)
+        {
+            static constexpr auto kErrorMessage = "Failed to close a timer_server socket.";
+            struct clean_up {
+                    ~clean_up()
+                    {
+                        if (fd_)
+                        {
+                            if (::close(fd_)) { std::cerr << kErrorMessage << " (2)\n"; }
+                        }
+                    }
+                    int& fd_;
+            } cu{_fd};
+
+            /* Are we running in a thread? */
+            if (_engine->current_id() != thread_t::any_thread())
+            {
+                auto rc = co_await _engine->get_event_loop().close(_fd);
+
+                if (rc && *rc == 0) { _fd = 0; }
+                else
+                {
+                    std::cerr << kErrorMessage << " (1)\n";
+                }
+            }
+        }
+
+    }   // namespace
+
+    timer_service::timer_service(engine* _engine)
+        : engine_(_engine), handle_(nullptr), read_buffer_(0), timer_fd_(0), current_(0)
     {
-        timer_fd_ = timerfd_create(CLOCK_MONOTONIC, TFD_NONBLOCK | TFD_CLOEXEC);
+        timer_fd_.store(timerfd_create(CLOCK_MONOTONIC, TFD_CLOEXEC), std::memory_order_relaxed);
 
         if (timer_fd_ == -1)
         {
             std::cerr << "timer_service -> Failed to create timerfd. errno:" << errno << "\n";
             abort();
         }
+    }
 
-        waiter_ = engine_->get_notification_handler().subscribe(timer_fd_);
-
-        if (!waiter_)
-        {
-            std::cerr << "timer_service -> Failed to subscribe to timerfd. errno:" << errno << "\n";
-            abort();
-        }
-
-        run();
+    timer_service::timer_service(timer_service&& _other)
+        : engine_(_other.engine_), handle_(_other.handle_), timer_fd_(_other.timer_fd_.load()),
+          current_(_other.current_), waiting_(std::move(_other.waiting_))
+    {
+        _other.handle_ = nullptr;
+        _other.timer_fd_.store(0);
     }
 
     timer_service::~timer_service()
     {
-        waiter_ = std::nullopt;
-        if (timer_fd_)
+        if (handle_) { event_loop::clean_up(handle_); }
+
+        if (timer_fd_.load())
         {
-            if (::close(timer_fd_))
+            auto tmp = timer_fd_.load(std::memory_order_relaxed);
+            timer_fd_.store(0);
+            cleanup(engine_, tmp);
+        }
+
+        for (const auto& [time, vector] : waiting_)
+        {
+            for (const auto& [handle, thread] : vector)
             {
-                std::cerr << "timer_service -> Failed to close timer during deconstruction. errno:"
-                          << errno << "\n";
-                abort();
+                handle.destroy();
             }
         }
     }
 
     async_function<>
-    timer_service::run()
+    timer_service::run() noexcept
     {
-        auto read_op = co_await waiter_->start_read_operation();
-
-        if (!read_op)
-        {
-            std::cerr << "timer_service -> start_read_operation failed. errno:" << errno << "\n";
-            abort();
-        }
+        auto fd = timer_fd_.load();
 
         struct itimerspec current_spec;
-        while (true)
+        while (fd)
         {
-            auto flags = co_await *read_op;
+            auto rc = co_await engine_->get_event_loop().read(
+                fd,
+                std::span<std::byte>(
+                    static_cast<std::byte*>(static_cast<void*>(&read_buffer_)),
+                    sizeof(read_buffer_)),
+                0,
+                &handle_);
+            handle_ = nullptr;
 
-            if (flags | descriptor_notification::kRead)
+            if (rc == sizeof(read_buffer_))
             {
-                std::uint64_t current_value = 0;
-
-                int rc = ::read(waiter_->file_descriptor(), &current_value, sizeof(current_value));
-                if (rc < 0 && errno != EAGAIN)
+                if (read_buffer_)
                 {
-                    std::cerr << "timer_service -> read failed. errno:" << errno << "\n";
-                    abort();
-                }
-
-                if (current_value)
-                {
-                    rc = timerfd_gettime(waiter_->file_descriptor(), &current_spec);
+                    rc = timerfd_gettime(fd, &current_spec);
                     if (rc < 0)
                     {
                         std::cerr << "timer_service -> timerfd_gettime failed. errno:" << errno
@@ -119,18 +148,16 @@ namespace zab {
                         abort();
                     }
 
-                    std::lock_guard lck(mtx_);
-
                     current_ +=
                         ((((std::uint64_t) current_spec.it_interval.tv_sec) * kNanoInSeconds) +
                          current_spec.it_interval.tv_nsec) *
-                        current_value;
+                        read_buffer_;
 
                     for (auto it = waiting_.begin(); it != waiting_.end() && it->first <= current_;)
                     {
                         for (const auto& [handle, thread] : it->second)
                         {
-                            engine_->resume(handle, order::now(), thread);
+                            engine_->thread_resume(handle, thread);
                         }
 
                         it = waiting_.erase(it);
@@ -144,7 +171,7 @@ namespace zab {
 
                         /* disarm timer */
                         auto rc = timerfd_settime(
-                            waiter_->file_descriptor(),
+                            fd,
                             0, /* relative */
                             &new_value,
                             nullptr);
@@ -157,8 +184,39 @@ namespace zab {
                             abort();
                         }
                     }
+                    else
+                    {
+                        change_timer(waiting_.begin()->first - current_);
+                    }
                 }
             }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    void
+    timer_service::change_timer(std::uint64_t _nano_seconds) noexcept
+    {
+        struct itimerspec new_value;
+
+        new_value.it_value.tv_sec  = _nano_seconds / kNanoInSeconds;
+        new_value.it_value.tv_nsec = _nano_seconds % kNanoInSeconds;
+
+        new_value.it_interval = new_value.it_value;
+
+        auto rc = timerfd_settime(
+            timer_fd_,
+            0, /* relative */
+            &new_value,
+            nullptr);
+
+        if (rc < 0)
+        {
+            std::cerr << "timer_service -> timerfd_settime failed (2). errno:" << errno << "\n";
+            abort();
         }
     }
 
@@ -174,7 +232,6 @@ namespace zab {
         std::uint64_t           _nano_seconds,
         thread_t                _thread) noexcept
     {
-        std::lock_guard     lck(mtx_);
         const std::uint64_t sleep_mark = current_ + _nano_seconds;
 
         bool change_rate = false;
@@ -194,27 +251,7 @@ namespace zab {
             it->second.emplace_back(_handle, _thread);
         }
 
-        if (change_rate)
-        {
-            struct itimerspec new_value;
-
-            new_value.it_value.tv_sec  = _nano_seconds / kNanoInSeconds;
-            new_value.it_value.tv_nsec = _nano_seconds % kNanoInSeconds;
-
-            new_value.it_interval = new_value.it_value;
-
-            auto rc = timerfd_settime(
-                waiter_->file_descriptor(),
-                0, /* relative */
-                &new_value,
-                nullptr);
-
-            if (rc < 0)
-            {
-                std::cerr << "timer_service -> timerfd_settime failed (2). errno:" << errno << "\n";
-                abort();
-            }
-        }
+        if (change_rate) { change_timer(_nano_seconds); }
     }
 
 }   // namespace zab

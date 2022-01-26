@@ -45,7 +45,6 @@
 
 #include "zab/async_barrier.hpp"
 #include "zab/async_function.hpp"
-#include "zab/async_primitives.hpp"
 #include "zab/async_semaphore.hpp"
 #include "zab/engine.hpp"
 #include "zab/engine_enabled.hpp"
@@ -92,17 +91,17 @@ namespace zab::test {
 
                 failed_ = !(co_await do_singles_plain() && co_await do_singles_async());
 
-                get_engine()->stop();
+                engine_->stop();
             }
 
             simple_future<bool>
             do_singles_plain() noexcept
             {
-                async_binary_semaphore sem(get_engine(), false);
+                async_binary_semaphore sem(engine_, false);
                 std::atomic<size_t>    count{0};
 
                 async_barrier barrier(
-                    get_engine(),
+                    engine_,
                     threads_,
                     [this, &sem, rounds = 0u]() mutable noexcept
                     {
@@ -197,10 +196,10 @@ namespace zab::test {
             simple_future<bool>
             do_singles_async() noexcept
             {
-                async_binary_semaphore sem(get_engine(), false);
+                async_binary_semaphore sem(engine_, false);
                 std::atomic<size_t>    count{0};
 
-                async_barrier barrier(get_engine(), threads_, do_sync_phase(sem), thread_t{0});
+                async_barrier barrier(engine_, threads_, do_sync_phase(sem), thread_t{0});
 
                 /* Create worker threads... */
                 for (std::uint16_t t = 0; t < threads_; ++t)
@@ -234,7 +233,7 @@ namespace zab::test {
     {
         auto test_lam = [](std::uint16_t _thread_count)
         {
-            engine engine(event_loop::configs{1});
+            engine engine(engine::configs{1});
 
             test_single_thread_class test(_thread_count);
 
@@ -271,17 +270,17 @@ namespace zab::test {
 
                 failed_ = !(co_await do_singles_plain() && co_await do_singles_async());
 
-                get_engine()->stop();
+                engine_->stop();
             }
 
             simple_future<bool>
             do_singles_plain() noexcept
             {
-                async_binary_semaphore sem(get_engine(), false);
+                async_binary_semaphore sem(engine_, false);
                 std::atomic<size_t>    count{0};
 
                 async_barrier barrier(
-                    get_engine(),
+                    engine_,
                     threads_,
                     [this, &sem, rounds = 0u]() mutable noexcept
                     {
@@ -317,9 +316,9 @@ namespace zab::test {
             {
                 co_await yield(now(), thread_t{_id});
 
-                if (expected(get_engine()->get_event_loop().current_id(), thread_t{_id}))
+                if (expected(engine_->current_id(), thread_t{_id}))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
@@ -328,17 +327,17 @@ namespace zab::test {
 
                 while (reducer)
                 {
-                    if (expected(get_engine()->get_event_loop().current_id(), thread_t{_id}))
+                    if (expected(engine_->current_id(), thread_t{_id}))
                     {
-                        get_engine()->stop();
+                        engine_->stop();
                         co_return;
                     }
 
                     co_await _barrier.arrive_and_wait();
 
-                    if (expected(get_engine()->get_event_loop().current_id(), thread_t{_id}))
+                    if (expected(engine_->current_id(), thread_t{_id}))
                     {
-                        get_engine()->stop();
+                        engine_->stop();
                         co_return;
                     }
 
@@ -391,9 +390,9 @@ namespace zab::test {
 
                     if (rounds != threads_ * kRounds) { co_yield promise_void{}; }
 
-                    if (expected(get_engine()->get_event_loop().current_id(), thread_t{0}))
+                    if (expected(engine_->current_id(), thread_t{0}))
                     {
-                        get_engine()->stop();
+                        engine_->stop();
                         co_return;
                     }
                 }
@@ -406,10 +405,10 @@ namespace zab::test {
             simple_future<bool>
             do_singles_async() noexcept
             {
-                async_binary_semaphore sem(get_engine(), false);
+                async_binary_semaphore sem(engine_, false);
                 std::atomic<size_t>    count{0};
 
-                async_barrier barrier(get_engine(), threads_, do_sync_phase(sem), thread_t{0});
+                async_barrier barrier(engine_, threads_, do_sync_phase(sem), thread_t{0});
 
                 /* Create worker threads... */
                 for (std::uint16_t t = 0; t < threads_; ++t)
@@ -446,7 +445,7 @@ namespace zab::test {
     {
         auto test_lam = [](std::uint16_t _thread_count)
         {
-            engine engine(event_loop::configs{(std::uint16_t)(_thread_count + (std::uint16_t) 1u)});
+            engine engine(engine::configs{(std::uint16_t)(_thread_count + (std::uint16_t) 1u)});
 
             test_multi_thread_class test(_thread_count);
 

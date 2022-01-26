@@ -84,13 +84,13 @@ namespace zab::test {
                     !(co_await test_done() || co_await test_one() || co_await test_many(11) ||
                       co_await test_many(42) || co_await test_many(97) || co_await test_many(150));
 
-                get_engine()->stop();
+                engine_->stop();
             }
 
             simple_future<bool>
             test_done() noexcept
             {
-                pause_token pt(get_engine());
+                pause_token pt(engine_);
 
                 if (expected(pt.paused(), true)) { co_return false; }
 
@@ -107,7 +107,7 @@ namespace zab::test {
             simple_future<bool>
             test_one() noexcept
             {
-                pause_token pt(get_engine());
+                pause_token pt(engine_);
 
                 if (expected(pt.paused(), true)) { co_return false; }
 
@@ -133,7 +133,7 @@ namespace zab::test {
             simple_future<bool>
             test_many(size_t _amount) noexcept
             {
-                pause_token pt(get_engine());
+                pause_token pt(engine_);
 
                 if (expected(pt.paused(), true)) { co_return false; }
 
@@ -176,7 +176,7 @@ namespace zab::test {
     int
     test_basic()
     {
-        engine engine(event_loop::configs{1});
+        engine engine(engine::configs{1});
 
         test_basic_class test;
 
@@ -199,7 +199,7 @@ namespace zab::test {
             void
             initialise() noexcept
             {
-                pause_ = std::make_shared<pause_token>(get_engine());
+                pause_ = std::make_shared<pause_token>(engine_);
                 run();
             }
 
@@ -248,7 +248,7 @@ namespace zab::test {
 
                 count_++;
 
-                if (count_.load() == kNumberOpps * kNumberThreads) { get_engine()->stop(); }
+                if (count_.load() == kNumberOpps * kNumberThreads) { engine_->stop(); }
             }
 
             bool
@@ -269,7 +269,7 @@ namespace zab::test {
     int
     test_multi_thread_pause()
     {
-        engine engine(event_loop::configs{test_multi_thread_pause_class::kNumberThreads});
+        engine engine(engine::configs{test_multi_thread_pause_class::kNumberThreads});
 
         test_multi_thread_pause_class test;
 

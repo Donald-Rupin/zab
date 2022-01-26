@@ -75,6 +75,92 @@ namespace zab {
             std::atomic<bool> lock_ alignas(hardware_constructive_interference_size) = {false};
     };
 
+    struct alignas(hardware_constructive_interference_size) recursive_spin_lock {
+
+            static inline size_t
+            get_id() noexcept
+            {
+                static std::atomic<std::size_t> count = 1;
+                static thread_local std::size_t id    = count.fetch_add(1);
+                return id;
+            }
+
+            inline void
+            lock() noexcept
+            {
+                auto t_hash = get_id();
+
+                auto curr_thread = thread_.load(std::memory_order_relaxed);
+
+                if (curr_thread == t_hash) { ++count_; }
+                else
+                {
+                    while (true)
+                    {
+                        size_t empty = 0;
+                        if (thread_.compare_exchange_strong(
+                                empty,
+                                t_hash,
+                                std::memory_order_acquire,
+                                std::memory_order_relaxed))
+                        {
+                            ++count_;
+                            return;
+                        }
+
+                        while (thread_.load(std::memory_order_relaxed) != 0)
+                        {
+                            __builtin_ia32_pause();
+                        }
+                    }
+                }
+            }
+
+            inline bool
+            try_lock() noexcept
+            {
+                auto t_hash      = get_id();
+                auto curr_thread = thread_.load(std::memory_order_relaxed);
+
+                if (!curr_thread)
+                {
+                    size_t empty = 0;
+                    if (thread_.compare_exchange_strong(
+                            empty,
+                            t_hash,
+                            std::memory_order_acquire,
+                            std::memory_order_relaxed))
+                    {
+                        ++count_;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else if (curr_thread == t_hash)
+                {
+                    ++count_;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            inline void
+            unlock() noexcept
+            {
+                --count_;
+                if (!count_) { thread_.store(0, std::memory_order_release); }
+            }
+
+            std::atomic<std::size_t> thread_ alignas(hardware_constructive_interference_size) = {0};
+            std::size_t              count_                                                   = {0};
+    };
+
 }   // namespace zab
 
 #endif /* ZAB_SPIN_LOCK_HPP_ */

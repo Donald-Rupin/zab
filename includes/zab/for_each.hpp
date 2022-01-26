@@ -74,7 +74,7 @@ namespace zab {
              std::is_same_v<
                  std::result_of_t<Functor(typename reusable_future<T, P>::return_value)>,
                  for_ctl>) )
-    simple_future<>
+    [[nodiscard]] simple_future<>
     for_each(reusable_future<T, P>&& _reusable, Functor&& _functor)
     {
         while (!_reusable.complete())
@@ -86,7 +86,7 @@ namespace zab {
                               void>)
             {
 
-                _functor(co_await _reusable);
+                std::forward<Functor>(_functor)(co_await _reusable);
             }
             else
             {

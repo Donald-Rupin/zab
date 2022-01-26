@@ -90,37 +90,21 @@ namespace zab::test {
             async_function<>
             run() noexcept
             {
-                auto thread_id_1 = std::this_thread::get_id();
-
                 co_await yield(now(), thread_t{kInitialiseThread + 1});
 
-                auto thread_number = get_engine()->get_event_loop().current_id();
+                auto thread_number = engine_->current_id();
 
-                if (expected(thread_number.thread_, kInitialiseThread + 1))
-                {
-                    get_engine()->stop();
-                }
-
-                auto thread_id_2 = std::this_thread::get_id();
-
-                if (not_expected(thread_id_1, thread_id_2)) { get_engine()->stop(); }
+                if (expected(thread_number.thread_, kInitialiseThread + 1)) { engine_->stop(); }
 
                 co_await yield(now(), thread_t{kInitialiseThread});
 
-                thread_number = get_engine()->get_event_loop().current_id();
+                thread_number = engine_->current_id();
 
-                if (expected(thread_number.thread_, kInitialiseThread)) { get_engine()->stop(); }
+                if (expected(thread_number.thread_, kInitialiseThread)) { engine_->stop(); }
 
-                auto thread_id_3 = std::this_thread::get_id();
+                failed_ = false;
 
-                if (expected(thread_id_1, thread_id_3)) { failed_ = true; }
-                else
-                {
-
-                    failed_ = false;
-                }
-
-                get_engine()->stop();
+                engine_->stop();
             }
 
             bool
@@ -137,7 +121,7 @@ namespace zab::test {
     int
     test_async_function()
     {
-        engine engine(event_loop::configs{2, event_loop::configs::kExact});
+        engine engine(engine::configs{2, engine::configs::kExact});
 
         test_async_class test;
 
@@ -173,7 +157,7 @@ namespace zab::test {
 
                 if (expected((bool) promise, true) || expected(*promise, 2u))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
@@ -181,7 +165,7 @@ namespace zab::test {
 
                 if (promise && *promise == 1) { failed_ = false; }
 
-                get_engine()->stop();
+                engine_->stop();
             }
 
             simple_future<>
@@ -195,9 +179,9 @@ namespace zab::test {
             {
                 co_await yield(now(), thread(kInitialiseThread));
 
-                auto thread_number = get_engine()->get_event_loop().current_id();
+                auto thread_number = engine_->current_id();
 
-                if (expected(thread_number.thread_, kInitialiseThread)) { get_engine()->stop(); }
+                if (expected(thread_number.thread_, kInitialiseThread)) { engine_->stop(); }
             }
 
             simple_future<size_t>
@@ -211,21 +195,21 @@ namespace zab::test {
             {
                 co_await yield(now(), thread_t{kInitialiseThread});
 
-                auto thread_number = get_engine()->get_event_loop().current_id();
+                auto thread_number = engine_->current_id();
 
                 if (expected(thread_number.thread_, kInitialiseThread))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return std::nullopt;
                 }
 
                 co_await yield(now(), thread_t{kInitialiseThread});
 
-                thread_number = get_engine()->get_event_loop().current_id();
+                thread_number = engine_->current_id();
 
                 if (expected(thread_number.thread_, kInitialiseThread))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return std::nullopt;
                 }
 
@@ -246,7 +230,7 @@ namespace zab::test {
     int
     test_promise_function()
     {
-        engine engine(event_loop::configs{2, event_loop::configs::kExact});
+        engine engine(engine::configs{2, engine::configs::kExact});
 
         test_promise_class test;
 
@@ -277,7 +261,7 @@ namespace zab::test {
 
                 if (expected((bool) promise, true) || expected(*promise, 1u))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
@@ -285,7 +269,7 @@ namespace zab::test {
 
                 if (promise && *promise == 1) { failed_ = false; }
 
-                get_engine()->stop();
+                engine_->stop();
             }
 
             simple_future<size_t>
@@ -309,12 +293,9 @@ namespace zab::test {
                     /* yield to force the frame to be saved... */
                     co_await yield(now(), thread_t{kInitialiseThread});
 
-                    auto thread_number = get_engine()->get_event_loop().current_id();
+                    auto thread_number = engine_->current_id();
 
-                    if (expected(thread_number.thread_, kInitialiseThread))
-                    {
-                        get_engine()->stop();
-                    }
+                    if (expected(thread_number.thread_, kInitialiseThread)) { engine_->stop(); }
 
                     co_return co_await recursive_promise(_start + 1, _max);
                 }
@@ -334,7 +315,7 @@ namespace zab::test {
     int
     test_recursive_promise_function()
     {
-        engine engine(event_loop::configs{2, event_loop::configs::kExact});
+        engine engine(engine::configs{2, engine::configs::kExact});
 
         test_recursive_promise_class test;
 
@@ -368,9 +349,9 @@ namespace zab::test {
                 code_block(
                     [this, &pack]() noexcept
                     {
-                        if (expected(get_engine()->current_id().thread_, kDefaultThread))
+                        if (expected(engine_->current_id().thread_, kDefaultThread))
                         {
-                            get_engine()->stop();
+                            engine_->stop();
                             return;
                         }
 
@@ -387,7 +368,7 @@ namespace zab::test {
                     failed_ = false;
                 }
 
-                get_engine()->stop();
+                engine_->stop();
             }
 
             bool
@@ -404,7 +385,7 @@ namespace zab::test {
     int
     test_pause_function()
     {
-        engine engine(event_loop::configs{2, event_loop::configs::kExact});
+        engine engine(engine::configs{2, engine::configs::kExact});
 
         test_pause_class test;
 
@@ -437,7 +418,7 @@ namespace zab::test {
                 if (expected((bool) result, true) || expected(*result, 42u))
                 {
 
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
@@ -446,7 +427,7 @@ namespace zab::test {
                 if (expected(false, (bool) result))
                 {
 
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
@@ -463,7 +444,7 @@ namespace zab::test {
                         if (expected((bool) result, true) || expected(*result, j))
                         {
 
-                            get_engine()->stop();
+                            engine_->stop();
                             co_return;
                         }
                     }
@@ -473,7 +454,7 @@ namespace zab::test {
                     if (expected((bool) result, false))
                     {
 
-                        get_engine()->stop();
+                        engine_->stop();
                         co_return;
                     }
                 }
@@ -486,13 +467,13 @@ namespace zab::test {
                     if (expected((bool) result, true) || expected(*result, i))
                     {
 
-                        get_engine()->stop();
+                        engine_->stop();
                         co_return;
                     }
                 }
 
                 failed_ = false;
-                get_engine()->stop();
+                engine_->stop();
             }
 
             reusable_future<size_t>
@@ -546,7 +527,7 @@ namespace zab::test {
     int
     test_reusuable_promise_function()
     {
-        engine engine(event_loop::configs{2, event_loop::configs::kExact});
+        engine engine(engine::configs{2, engine::configs::kExact});
 
         test_reusuable_promise_class test;
 
@@ -578,23 +559,23 @@ namespace zab::test {
             async_function<>
             run() noexcept
             {
-                auto thread_number = get_engine()->get_event_loop().current_id();
+                auto thread_number = engine_->current_id();
 
-                if (expected(thread_number.thread_, 0)) { get_engine()->stop(); }
+                if (expected(thread_number.thread_, 0)) { engine_->stop(); }
 
                 test_function_1_proxy(1, 2, 3, 4);
 
-                thread_number = get_engine()->get_event_loop().current_id();
+                thread_number = engine_->current_id();
 
-                if (expected(thread_number.thread_, 0)) { get_engine()->stop(); }
+                if (expected(thread_number.thread_, 0)) { engine_->stop(); }
 
                 auto result = co_await test_function_2_proxy(3);
 
-                thread_number = get_engine()->get_event_loop().current_id();
+                thread_number = engine_->current_id();
 
-                if (expected(thread_number.thread_, 0)) { get_engine()->stop(); }
+                if (expected(thread_number.thread_, 0)) { engine_->stop(); }
 
-                if (expected(result, 3)) { get_engine()->stop(); }
+                if (expected(result, 3)) { engine_->stop(); }
 
                 auto generator = test_function_3_proxy(10, 20);
 
@@ -604,13 +585,13 @@ namespace zab::test {
 
                     auto result = co_await generator;
 
-                    thread_number = get_engine()->get_event_loop().current_id();
+                    thread_number = engine_->current_id();
 
-                    if (expected(thread_number.thread_, 0)) { get_engine()->stop(); }
+                    if (expected(thread_number.thread_, 0)) { engine_->stop(); }
 
                     if (expected((bool) result, true) || expected(*result, count))
                     {
-                        get_engine()->stop();
+                        engine_->stop();
                     }
 
                     ++count;
@@ -618,11 +599,11 @@ namespace zab::test {
 
                 if (expected(21u, count))
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
-                get_engine()->stop();
+                engine_->stop();
                 failed_ = false;
                 co_return;
             }
@@ -637,9 +618,9 @@ namespace zab::test {
             test_function_1(int, int, int, int) const
             {
 
-                auto thread_number = get_engine()->get_event_loop().current_id();
+                auto thread_number = engine_->current_id();
 
-                if (expected(thread_number.thread_, 1)) { get_engine()->stop(); }
+                if (expected(thread_number.thread_, 1)) { engine_->stop(); }
 
                 co_await yield(now(), thread(1));
             }
@@ -647,9 +628,9 @@ namespace zab::test {
             guaranteed_future<int>
             test_function_2(int _argument) const
             {
-                auto thread_number = get_engine()->get_event_loop().current_id();
+                auto thread_number = engine_->current_id();
 
-                if (expected(thread_number.thread_, 2)) { get_engine()->stop(); }
+                if (expected(thread_number.thread_, 2)) { engine_->stop(); }
 
                 co_await yield(now(), thread(2));
 
@@ -676,15 +657,15 @@ namespace zab::test {
                 while (_start < _stop)
                 {
 
-                    auto thread_number = get_engine()->get_event_loop().current_id();
+                    auto thread_number = engine_->current_id();
 
-                    if (expected(thread_number.thread_, 3)) { get_engine()->stop(); }
+                    if (expected(thread_number.thread_, 3)) { engine_->stop(); }
 
                     co_yield _start;
 
-                    thread_number = get_engine()->get_event_loop().current_id();
+                    thread_number = engine_->current_id();
 
-                    if (expected(thread_number.thread_, 3)) { get_engine()->stop(); }
+                    if (expected(thread_number.thread_, 3)) { engine_->stop(); }
 
                     ++_start;
 
@@ -700,7 +681,7 @@ namespace zab::test {
     int
     test_proxy()
     {
-        engine engine(event_loop::configs{4});
+        engine engine(engine::configs{4});
 
         test_proxy_class test;
 

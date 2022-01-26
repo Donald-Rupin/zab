@@ -68,7 +68,7 @@ namespace zab::test {
             async_function<>
             run() noexcept
             {
-                async_latch latch(get_engine(), 6);
+                async_latch latch(engine_, 6);
 
                 no_suspension(latch);
                 suspension(latch);
@@ -78,7 +78,7 @@ namespace zab::test {
 
                 co_await latch.arrive_and_wait();
 
-                get_engine()->stop();
+                engine_->stop();
             }
 
             async_function<defer_block_promise>
@@ -143,7 +143,7 @@ namespace zab::test {
                         /* Executed in reverse order... */
                         if (expected(1, x))
                         {
-                            get_engine()->stop();
+                            engine_->stop();
                             count_ += 100;
                         }
                     });
@@ -157,7 +157,7 @@ namespace zab::test {
 
                         if (expected(0, x))
                         {
-                            get_engine()->stop();
+                            engine_->stop();
                             count_ += 100;
                         }
 
@@ -181,7 +181,7 @@ namespace zab::test {
     int
     test_defer_class()
     {
-        engine engine(event_loop::configs{});
+        engine engine(engine::configs{});
 
         defer_class test;
 

@@ -47,10 +47,10 @@
 
 #include "zab/async_function.hpp"
 #include "zab/async_latch.hpp"
-#include "zab/async_primitives.hpp"
 #include "zab/engine.hpp"
 #include "zab/reusable_future.hpp"
 #include "zab/simple_future.hpp"
+#include "zab/yield.hpp"
 
 namespace zab {
 
@@ -240,7 +240,6 @@ namespace zab {
         /* Actually things to wait on */
         if constexpr (sizeof...(_args) > 0)
         {
-
             async_latch latch(_engine, sizeof...(_args) + 1);
 
             auto functions = std::make_tuple(std::reference_wrapper(_args)...);
@@ -256,12 +255,10 @@ namespace zab {
                     {
                         if constexpr (std::is_same_v<promise_void, std::decay_t<decltype(_result)>>)
                         {
-
                             co_await _future;
                         }
                         else
                         {
-
                             _result = co_await _future;
                         }
 
@@ -282,7 +279,6 @@ namespace zab {
     guaranteed_future<std::vector<typename simple_future<T>::return_value>>
     wait_for(engine* _engine, std::vector<simple_future<T>>&& _args)
     {
-
         std::vector<simple_future<T>> futures;
         futures.swap(_args);
 
@@ -296,17 +292,14 @@ namespace zab {
 
             for (size_t count = 0; auto& future : futures)
             {
-
                 [](auto& latch, auto& _result, auto& _future) noexcept -> async_function<>
                 {
                     if constexpr (std::is_same_v<promise_void, std::decay_t<decltype(_result)>>)
                     {
-
                         co_await _future;
                     }
                     else
                     {
-
                         _result = co_await _future;
                     }
 
