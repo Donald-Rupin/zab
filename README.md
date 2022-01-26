@@ -380,7 +380,7 @@ engine_
 
 
 ### `event_loop`
-ZAB is powered by [liburing](https://github.com/axboe/liburing) which is a userspace wrapper for [`io_uring`](https://kernel.dk/io_uring.pdf). An `event_loop` loop exists for every `engine` thread in ZAB and is loops on the completion queue of submitted io requests fowarding the results and resuming the respective coroutines. User space events (those submitted by `engine::resume` and family) are submitted to the `event_loop` via an event_fd. User code should only do short computations or `yield` long running computation in the `event_loop` to ensure IO completions are reported back in a timely manner.  
+ZAB is powered by [liburing](https://github.com/axboe/liburing) which is a userspace wrapper for [`io_uring`](https://kernel.dk/io_uring.pdf). An `event_loop` loop exists for every `engine` thread in ZAB. This thread loops on the completion queue waiting for completed io requests then fowarding the results to and resuming the respective coroutines. User space events (those submitted by `engine::resume` and family) are submitted to the `event_loop` via an event_fd. User code should only do short computations or `yield` long running computation in the `event_loop` to ensure IO completions are reported back in a timely manner.  
 
 In this release the following io_uring calls are supported in ZAB:
 - [open_at](https://linux.die.net/man/2/openat)
@@ -1267,11 +1267,9 @@ your_class::publisher()
 
 ### File IO
 
-The file IO overlay provides simple asynchronous read/write operations to the user. An `async_file` is essentially just a wrapper for `fopen`, `fread`, and `fwrite`. 
+The file IO overlay provides simple asynchronous read/write operations to the user. An `async_file` is essentially just a wrapper for file io family of requests providied by liburing. 
 
-Unlike other event loops, file io is not designated to its own thread. This is because, by default, zab utilises all physical cores on the running device already. Instead, all file io is designated to the last event loop maintained by the `engine`. For example, if the `engine` is running 4 threads, all file io is done in thread 3. 
-
-See `includes/zab/file_io_overlay.hpp` for more comprehensive documentation.
+See `includes/zab/async_file.hpp` for more comprehensive documentation.
 
 `async_file` usage in an `engine_enabled` class:
 ```c++
@@ -1279,10 +1277,10 @@ async_function<>
 your_class::file_io_example()
 {
     
-    async_file<> file(engine_);
+    async_file<char> file(engine_);
     
     /* Open with read, write, and truncate */
-    bool success = co_await file.open("test_file.txt", async_file::Options::kRWTruncate);
+    bool success = co_await file.open("test_file.txt", file::Options::kRWTruncate);
 
     if (success)
     {
@@ -1304,6 +1302,9 @@ your_class::file_io_example()
                 if (data && *data == buffer) { std::cout << "File io was successful.": }
             }
         }
+
+        /* Close the file */
+        success = co_await file.close();
     }
 }
 ```
@@ -1415,7 +1416,7 @@ your_class::run_stream(tcp_stream&& _stream)
     }
 
     /* Ensure we shut it down! (flushes all writes and wakes any readers) */
-    co_await stream.ShutDown();
+    co_await stream.shut_down();
 
     /* RAII will clean up for us! */
 }
