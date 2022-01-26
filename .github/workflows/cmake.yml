@@ -42,6 +42,6 @@ jobs:
       working-directory: ${{github.workspace}}/build
       # execute tests defined by the CMake configuration.  
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: ulimit -l unlimited && ctest -C ${{env.BUILD_TYPE}} --rerun-failed --output-on-failure
+      run: sudo ctest -C ${{env.BUILD_TYPE}} --rerun-failed --output-on-failure
       
   
