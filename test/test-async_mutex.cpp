@@ -77,7 +77,7 @@ namespace zab::test {
             async_function<>
             run() noexcept
             {
-                mutex_ = std::make_shared<async_mutex>(get_engine());
+                mutex_ = std::make_shared<async_mutex>(engine_);
 
                 count_ = 0;
 
@@ -96,14 +96,14 @@ namespace zab::test {
                     auto lock = co_await *mutex_;
                 }
 
-                if (expected(count_, 4u)) { get_engine()->stop(); }
+                if (expected(count_, 4u)) { engine_->stop(); }
                 else
                 {
 
                     failed_ = false;
                 }
 
-                get_engine()->stop();
+                engine_->stop();
             }
 
             async_function<>
@@ -113,13 +113,13 @@ namespace zab::test {
                     auto lck = co_await *mutex_;
                 }
 
-                if (expected(count_, 0u)) { get_engine()->stop(); }
+                if (expected(count_, 0u)) { engine_->stop(); }
 
                 {
                     auto lck = co_await *mutex_;
                 }
 
-                if (expected(count_, 0u)) { get_engine()->stop(); }
+                if (expected(count_, 0u)) { engine_->stop(); }
 
                 {
                     auto lck = co_await *mutex_;
@@ -129,7 +129,7 @@ namespace zab::test {
                     lock();
                 }
 
-                if (expected(count_, 0u)) { get_engine()->stop(); }
+                if (expected(count_, 0u)) { engine_->stop(); }
             }
 
             async_function<>
@@ -137,7 +137,7 @@ namespace zab::test {
             {
                 auto lock = co_await *mutex_;
 
-                if (expected(count_, 1u)) { get_engine()->stop(); }
+                if (expected(count_, 1u)) { engine_->stop(); }
             }
 
             simple_future<>
@@ -151,7 +151,7 @@ namespace zab::test {
                 }
 
                 /* (1) Wont have been woken up yet... (cause there is only 1 thread)*/
-                if (expected(count_, 1u)) { get_engine()->stop(); }
+                if (expected(count_, 1u)) { engine_->stop(); }
 
                 {
                     /* But now we wait on (1) */
@@ -162,7 +162,7 @@ namespace zab::test {
                 }
 
                 /* (2) Wont have been woken up yet... (cause there is only 1 thread)*/
-                if (expected(count_, 2u)) { get_engine()->stop(); }
+                if (expected(count_, 2u)) { engine_->stop(); }
 
                 {
                     /* But now we wait on (2) */
@@ -173,14 +173,14 @@ namespace zab::test {
                 }
 
                 /* (3) Wont have been woken up yet... (cause there is only 1 thread)*/
-                if (expected(count_, 3u)) { get_engine()->stop(); }
+                if (expected(count_, 3u)) { engine_->stop(); }
             }
 
             async_function<>
             add_one(size_t _expected) noexcept
             {
                 auto lock = co_await *mutex_;
-                if (expected(count_, _expected)) { get_engine()->stop(); }
+                if (expected(count_, _expected)) { engine_->stop(); }
 
                 ++count_;
             }
@@ -203,7 +203,7 @@ namespace zab::test {
     int
     test_not_paused()
     {
-        engine engine(event_loop::configs{2});
+        engine engine(engine::configs{2});
 
         test_not_paused_class test;
 
@@ -226,7 +226,7 @@ namespace zab::test {
             void
             initialise() noexcept
             {
-                mutex_ = std::make_shared<async_mutex>(get_engine());
+                mutex_ = std::make_shared<async_mutex>(engine_);
                 run();
             }
 
@@ -263,7 +263,7 @@ namespace zab::test {
                         co_await yield(now(), _thread);
 
                         /* Is still ours! */
-                        if (expected(current_thread_, _thread)) { get_engine()->stop(); }
+                        if (expected(current_thread_, _thread)) { engine_->stop(); }
                     }
 
                     /* release lock */
@@ -271,7 +271,7 @@ namespace zab::test {
 
                 if (count_.fetch_add(1) == kNumberThreads - 1)
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     failed_ = false;
                 }
             }
@@ -296,7 +296,7 @@ namespace zab::test {
     int
     test_multi_thread_mutex()
     {
-        engine engine(event_loop::configs{multi_thread_mutex_class::kNumberThreads});
+        engine engine(engine::configs{multi_thread_mutex_class::kNumberThreads});
 
         multi_thread_mutex_class test;
 

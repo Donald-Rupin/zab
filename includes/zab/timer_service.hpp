@@ -40,12 +40,10 @@
 #include <coroutine>
 #include <cstdint>
 #include <map>
-#include <mutex>
 #include <vector>
 
 #include "zab/async_function.hpp"
-#include "zab/descriptor_notifications.hpp"
-#include "zab/engine_enabled.hpp"
+#include "zab/event_loop.hpp"
 #include "zab/simple_future.hpp"
 #include "zab/strong_types.hpp"
 
@@ -53,11 +51,15 @@ namespace zab {
 
     class engine;
 
-    class timer_service {
+    class alignas(hardware_constructive_interference_size) timer_service {
 
         public:
 
             timer_service(engine* _engine);
+
+            timer_service(const timer_service&) = delete;
+
+            timer_service(timer_service&&);
 
             ~timer_service();
 
@@ -110,22 +112,25 @@ namespace zab {
                 co_return;
             }
 
+            async_function<>
+            run() noexcept;
+
         private:
 
-            async_function<>
-            run();
+            void
+            change_timer(std::uint64_t _nano_seconds) noexcept;
 
             static constexpr auto kNanoInSeconds = 1000000000;
 
-            engine* engine_;
+            engine*               engine_;
+            event_loop::io_handle handle_;
 
-            int timer_fd_;
+            std::size_t read_buffer_;
 
-            std::optional<descriptor_notification::notifier> waiter_;
+            std::atomic<int> timer_fd_;
 
             std::uint64_t current_;
 
-            std::mutex mtx_;
             std::map<std::uint64_t, std::vector<std::pair<std::coroutine_handle<>, thread_t>>>
                 waiting_;
     };

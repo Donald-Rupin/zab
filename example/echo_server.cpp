@@ -41,12 +41,12 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 
+#include "zab/async_file.hpp"
 #include "zab/async_function.hpp"
 #include "zab/async_mutex.hpp"
 #include "zab/engine.hpp"
 #include "zab/engine_enabled.hpp"
 #include "zab/event_loop.hpp"
-#include "zab/file_io_overlay.hpp"
 #include "zab/for_each.hpp"
 #include "zab/network_overlay.hpp"
 #include "zab/strong_types.hpp"
@@ -85,12 +85,20 @@ namespace zab_example {
                 int connection_count = 0;
                 if (acceptor_.listen(AF_INET, port_, 10))
                 {
-                    std::optional<zab::tcp_stream> stream;
-                    while (stream = co_await acceptor_.accept())
-                    {
-                        run_stream(connection_count++, std::move(*stream));
-                        stream.reset();
-                    }
+                    co_await zab::for_each(
+                        acceptor_.get_accepter(),
+                        [&](auto&& _stream) noexcept -> zab::for_ctl
+                        {
+                            if (_stream)
+                            {
+                                run_stream(connection_count++, std::move(*_stream));
+                                return zab::for_ctl::kContinue;
+                            }
+                            else
+                            {
+                                return zab::for_ctl::kBreak;
+                            }
+                        });
                 }
                 else
                 {
@@ -101,8 +109,8 @@ namespace zab_example {
             zab::async_function<>
             run_stream(int _connection_count, zab::tcp_stream _stream)
             {
-                zab::thread_t thread{(std::uint16_t)(
-                    _connection_count % engine_->get_event_loop().number_of_workers())};
+                zab::thread_t thread{
+                    (std::uint16_t)(_connection_count % engine_->number_of_workers())};
                 /* Lets load balance connections between available threads... */
                 co_await yield(thread);
 
@@ -143,7 +151,7 @@ main(int _argc, const char** _argv)
 
     auto port = std::stoi(_argv[1]);
 
-    zab::engine e(zab::event_loop::configs{});
+    zab::engine e(zab::engine::configs{});
 
     zab_example::echo_server es(&e, port);
 

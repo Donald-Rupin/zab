@@ -30,7 +30,7 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  *
- *  @file test-file_io_overlay.hpp
+ *  @file test-file_io.hpp
  *
  */
 
@@ -39,12 +39,12 @@
 #include <iostream>
 #include <iterator>
 
+#include "zab/async_file.hpp"
 #include "zab/async_function.hpp"
 #include "zab/engine.hpp"
 #include "zab/engine_enabled.hpp"
 #include "zab/event.hpp"
 #include "zab/event_loop.hpp"
-#include "zab/file_io_overlay.hpp"
 #include "zab/simple_promise.hpp"
 
 namespace zab::test {
@@ -95,15 +95,22 @@ namespace zab::test {
                 buffer.erase(buffer.end() - 1);
 
                 {
-                    async_file file(get_engine(), file_name, async_file::Options::kRead);
-                    auto       test_buffer = co_await file.read_file(default_thread());
+                    async_file<char> file(engine_);
 
-                    if (test_buffer && *test_buffer == buffer) { failed_ = false; }
+                    bool worked = co_await file.open(file_name, file::Option::kRead);
+
+                    if (worked)
+                    {
+
+                        auto test_buffer = co_await file.read_file();
+
+                        if (test_buffer && *test_buffer == buffer) { failed_ = false; }
+                    }
                 }
 
                 ::remove(file_name);
 
-                get_engine()->stop();
+                engine_->stop();
             }
 
             bool
@@ -120,7 +127,7 @@ namespace zab::test {
     int
     test_read()
     {
-        engine engine(event_loop::configs{1});
+        engine engine(engine::configs{1});
 
         test_read_class test;
 
@@ -147,13 +154,17 @@ namespace zab::test {
             async_function<>
             run() noexcept
             {
-
-                std::vector<char> buffer(kFileSize, 42);
+                std::vector<char> buffer(kFileSize, 'Z');
                 bool              worked = false;
 
                 {
-                    async_file file(get_engine(), file_name, async_file::Options::kTrunc);
-                    worked = co_await file.write_to_file(default_thread(), buffer);
+                    async_file<char> file(engine_);
+
+                    worked = co_await file.open(file_name, file::Option::kTrunc);
+
+                    if (worked) { worked = co_await file.write_to_file(buffer); }
+
+                    co_await file.close();
                 }
 
                 if (worked)
@@ -163,6 +174,8 @@ namespace zab::test {
                     std::ifstream infile(file_name, std::ifstream::binary);
 
                     std::vector<char> second;
+                    second.reserve(kFileSize);
+
                     std::copy(
                         std::istream_iterator<char>(infile),
                         std::istream_iterator<char>(),
@@ -173,7 +186,7 @@ namespace zab::test {
 
                 ::remove(file_name);
 
-                get_engine()->stop();
+                engine_->stop();
             }
 
             bool
@@ -190,7 +203,7 @@ namespace zab::test {
     int
     test_write()
     {
-        engine engine(event_loop::configs{1});
+        engine engine(engine::configs{1});
 
         test_write_class test;
 
@@ -220,23 +233,28 @@ namespace zab::test {
 
                 std::vector<char> buffer(kFileSize, 42);
 
-                async_file file(get_engine(), file_name, async_file::Options::kRWTruncate);
+                async_file<char> file(engine_);
 
-                bool worked = co_await file.write_to_file(default_thread(), buffer);
+                bool worked = co_await file.open(file_name, file::Option::kRWTruncate);
 
                 if (worked)
                 {
+                    worked = co_await file.write_to_file(buffer);
 
-                    file.position(0);
+                    if (worked)
+                    {
 
-                    auto test_buffer = co_await file.read_file(default_thread());
+                        file.position(0);
 
-                    if (test_buffer && *test_buffer == buffer) { failed_ = false; }
+                        auto test_buffer = co_await file.read_file();
+
+                        if (test_buffer && *test_buffer == buffer) { failed_ = false; }
+                    }
                 }
 
                 ::remove(file_name);
 
-                get_engine()->stop();
+                engine_->stop();
             }
 
             bool
@@ -253,7 +271,7 @@ namespace zab::test {
     int
     test_read_write()
     {
-        engine engine(event_loop::configs{1});
+        engine engine(engine::configs{1});
 
         test_read_write_class test;
 

@@ -41,13 +41,14 @@
 #include <optional>
 #include <type_traits>
 
-#include "zab/async_primitives.hpp"
 #include "zab/engine.hpp"
 #include "zab/event.hpp"
+#include "zab/pause.hpp"
 #include "zab/reusable_promise.hpp"
 #include "zab/simple_future.hpp"
 #include "zab/strong_types.hpp"
 #include "zab/wait_for.hpp"
+#include "zab/yield.hpp"
 
 namespace zab {
 
@@ -70,16 +71,13 @@ namespace zab {
                 static constexpr auto kMainCadence = order::seconds(30);
 
                 /* Which thread to use by default */
-                static constexpr auto kDefaultThread = event_loop::kAnyThread;
+                static constexpr auto kDefaultThread = thread_t::any_thread();
 
                 /* Which thread to use for initialisation */
-                static constexpr auto kInitialiseThread = event_loop::kAnyThread;
+                static constexpr auto kInitialiseThread = thread_t::any_thread();
 
                 /* Which thread to use for the main */
-                static constexpr auto kMainThread = event_loop::kAnyThread;
-
-                /* Which slot to use for API's */
-                static constexpr auto kSlotToUse = std::numeric_limits<size_t>::max();
+                static constexpr auto kMainThread = thread_t::any_thread();
         };
 
         /**
@@ -194,7 +192,7 @@ namespace zab {
                 {
                     thread_t thread{Base::kInitialiseThread};
 
-                    if constexpr (thread_t{Base::kInitialiseThread} == event_loop::kAnyThread)
+                    if constexpr (thread_t{Base::kInitialiseThread} == thread_t::kAnyThread)
                     {
 
                         thread = thread_t{Base::kDefaultThread};
@@ -205,12 +203,6 @@ namespace zab {
                 if constexpr (details::HasMain<F>) { do_main<F>(); }
 
                 return result;
-            }
-
-            engine*
-            get_engine() const noexcept
-            {
-                return engine_;
             }
 
             friend void
@@ -307,7 +299,7 @@ namespace zab {
                 order_t   _ordering = now(),
                 thread_t  _thread   = default_thread()) const noexcept
             {
-                get_engine()->execute(std::forward<Functor>(_cb), _ordering, _thread);
+                engine_->execute(std::forward<Functor>(_cb), _ordering, _thread);
             }
 
             /**
@@ -319,19 +311,19 @@ namespace zab {
             [[nodiscard]] inline auto
             yield(order_t _order = now(), thread_t _thread = default_thread()) const noexcept
             {
-                return zab::yield(get_engine(), _order, _thread);
+                return zab::yield(engine_, _order, _thread);
             }
 
             [[nodiscard]] inline auto
             yield(thread_t _thread) const noexcept
             {
-                return zab::yield(get_engine(), now(), _thread);
+                return zab::yield(engine_, now(), _thread);
             }
 
             inline void
             unpause(pause_pack& _pause, order_t _order = now()) const
             {
-                zab::unpause(get_engine(), _pause, _order);
+                zab::unpause(engine_, _pause, _order);
             }
 
             template <typename... Promises>
@@ -339,7 +331,7 @@ namespace zab {
 
             wait_for(Promises&&... _args) const
             {
-                return zab::wait_for(get_engine(), std::forward<Promises>(_args)...);
+                return zab::wait_for(engine_, std::forward<Promises>(_args)...);
             }
 
             template <typename T>
@@ -347,7 +339,7 @@ namespace zab {
 
             wait_for(std::vector<simple_future<T>>&& _args) const
             {
-                return zab::wait_for(get_engine(), std::move(_args));
+                return zab::wait_for(engine_, std::move(_args));
             }
 
             template <typename Promise, typename... Parameters>
@@ -378,7 +370,7 @@ namespace zab {
             {
                 thread_t return_thread;
 
-                if (auto t = get_engine()->get_event_loop().current_id();
+                if (auto t = engine_->current_id();
                     _required_thread != thread_t{} && _required_thread != t)
                 {
                     return_thread = t;
@@ -400,7 +392,7 @@ namespace zab {
             {
                 thread_t return_thread;
 
-                if (auto t = get_engine()->get_event_loop().current_id();
+                if (auto t = engine_->current_id();
                     _required_thread != thread_t{} && _required_thread != t)
                 {
                     return_thread = t;
@@ -424,7 +416,7 @@ namespace zab {
 
                 thread_t return_thread;
 
-                if (auto t = get_engine()->get_event_loop().current_id();
+                if (auto t = engine_->current_id();
                     _required_thread != thread_t{} && _required_thread != t)
                 {
                     return_thread = t;
@@ -450,7 +442,7 @@ namespace zab {
 
                 thread_t return_thread;
 
-                if (auto t = get_engine()->get_event_loop().current_id();
+                if (auto t = engine_->current_id();
                     _required_thread != thread_t{} && _required_thread != t)
                 {
                     return_thread = t;
@@ -472,7 +464,7 @@ namespace zab {
                 thread_t                                        _required_thread,
                 Args... _args)
             {
-                thread_t return_thread = get_engine()->get_event_loop().current_id();
+                thread_t return_thread = engine_->current_id();
 
                 reusable_future<Return> generator =
                     (underlying().*_func)(std::forward<Args>(_args)...);
@@ -504,7 +496,7 @@ namespace zab {
                 thread_t                                          _required_thread,
                 Args... _args)
             {
-                thread_t return_thread = get_engine()->get_event_loop().current_id();
+                thread_t return_thread = engine_->current_id();
 
                 reusable_future<Return> generator =
                     (underlying().*_func)(std::forward<Args>(_args)...);
@@ -542,7 +534,7 @@ namespace zab {
             {
                 thread_t thread{Base::kMainThread};
 
-                if constexpr (thread_t{Base::kMainThread} == event_loop::kAnyThread)
+                if constexpr (thread_t{Base::kMainThread} == thread_t::kAnyThread)
                 {
                     thread = thread_t{Base::kDefaultThread};
                 }
@@ -553,7 +545,7 @@ namespace zab {
                         underlying().main();
                         do_main();
                     },
-                    order_t(order::seconds(Base::kMainCadence)),
+                    order_t(Base::kMainCadence),
                     thread);
             }
 

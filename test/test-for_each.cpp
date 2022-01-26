@@ -142,7 +142,7 @@ namespace zab::test {
     int
     test_for_each()
     {
-        engine engine(event_loop::configs{2});
+        engine engine(engine::configs{2});
 
         test_for_each_class test;
 

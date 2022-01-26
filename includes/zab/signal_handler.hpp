@@ -47,9 +47,9 @@
 #include <vector>
 
 #include "zab/async_function.hpp"
+#include "zab/event_loop.hpp"
 #include "zab/simple_future.hpp"
 #include "zab/strong_types.hpp"
-
 namespace zab {
 
     class engine;
@@ -60,9 +60,11 @@ namespace zab {
      * @details    There can only be 1 signal_handler active at 1 time.
      *
      */
-    class signal_handler {
+    class alignas(hardware_constructive_interference_size) signal_handler {
 
         public:
+
+            static constexpr thread_t kSignalThread = thread_t{0};
 
             using handler = std::function<void(int)>;
 
@@ -119,7 +121,8 @@ namespace zab {
             std::unique_ptr<std::mutex>                              handlers_mtx_;
             std::map<int, std::vector<std::pair<thread_t, handler>>> handlers_;
 
-            engine* engine_;
+            engine*               engine_;
+            event_loop::io_handle handle_;
 
             int  fds_[2];
             bool running_ = false;

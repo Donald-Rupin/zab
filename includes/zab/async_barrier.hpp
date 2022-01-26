@@ -47,10 +47,10 @@
 #include <memory>
 
 #include "zab/async_function.hpp"
-#include "zab/async_primitives.hpp"
 #include "zab/engine.hpp"
 #include "zab/simple_future.hpp"
 #include "zab/strong_types.hpp"
+#include "zab/yield.hpp"
 
 namespace zab {
 
@@ -289,7 +289,7 @@ namespace zab {
 
             arrive_and_wait() noexcept
             {
-                return waiter(*this, engine_->get_event_loop().current_id());
+                return waiter(*this, engine_->current_id());
             }
 
             /**
@@ -414,20 +414,17 @@ namespace zab {
                 if constexpr (!std::is_same_v<CompletionFunction, details::no_op>)
                 {
                     /* Put us in the correct thread... */
-                    if (thread_ != event_loop::kAnyThread &&
-                        engine_->get_event_loop().current_id() != thread_)
+                    if (thread_ != thread_t::any_thread() && engine_->current_id() != thread_)
                     {
-                        co_await yield(engine_, order_t{order::now()}, thread_);
+                        co_await yield(engine_, thread_);
                     }
 
                     if constexpr (details::NoThrowAwaitable<CompletionFunction>)
                     {
-
                         co_await function_;
                     }
                     else
                     {
-
                         function_();
                     }
                 }
@@ -446,7 +443,7 @@ namespace zab {
 
                 while (!head)
                 {
-                    auto current = working_set_.load(std::memory_order_acq_rel);
+                    auto current = working_set_.load();
 
                     iterate_linked_list(
                         current,
@@ -584,11 +581,7 @@ namespace zab {
                             /* Clean up drop tokens... */
                             delete _type;
                         }
-                        if (to_resume)
-                        {
-
-                            engine_->resume(to_resume, order_t{order::now()}, to_execute_in);
-                        }
+                        if (to_resume) { engine_->thread_resume(to_resume, to_execute_in); }
 
                         return true;
                     });

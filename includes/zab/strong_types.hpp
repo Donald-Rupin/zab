@@ -49,16 +49,46 @@ namespace zab {
      * @brief      A struct for providing strict typing of thread ids'.
      */
     struct thread_t {
-            std::uint16_t thread_ = std::numeric_limits<std::uint16_t>::max() - 1;
+            static constexpr auto kAnyThread = std::numeric_limits<std::uint16_t>::max() - 1;
+            std::uint16_t         thread_    = kAnyThread;
 
-            constexpr auto
-            operator<=>(const thread_t& _other) const = default;
-
-            template <std::integral Intergral>
-            constexpr auto
-            operator<=>(const Intergral _number) const
+            static constexpr thread_t
+            any_thread()
             {
-                return thread_ <=> _number;
+                return thread_t{kAnyThread};
+            }
+
+            friend constexpr bool
+            operator==(const thread_t _first, const thread_t _second) = default;
+
+            friend constexpr bool
+            operator!=(const thread_t _first, const thread_t _second) = default;
+
+            friend constexpr auto
+            operator<=>(const thread_t _first, const thread_t _second)
+            {
+                return _first.thread_ <=> _second.thread_;
+            }
+
+            template <std::integral T>
+            friend constexpr auto
+            operator<=>(const thread_t _first, const T _number)
+            {
+                return _first.thread_ <=> _number;
+            }
+
+            template <std::integral T>
+            friend constexpr bool
+            operator==(const thread_t _first, const T _second)
+            {
+                return _first.thread_ == _second;
+            }
+
+            template <std::integral T>
+            friend constexpr bool
+            operator!=(const thread_t& _first, const T _second)
+            {
+                return _first.thread_ != _second;
             }
     };
 
@@ -92,7 +122,10 @@ namespace zab {
             std::uint64_t order_ = 0;
 
             constexpr auto
-            operator<=>(const order_t& _other) const = default;
+            operator<=>(const order_t& _other) const
+            {
+                return order_ <=> _other.order_;
+            }
 
             template <std::integral Intergral>
             constexpr auto

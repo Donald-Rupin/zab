@@ -152,7 +152,7 @@ namespace zab::test {
     int
     test_single_thread()
     {
-        engine engine(event_loop::configs{1, event_loop::configs::kExact});
+        engine engine(engine::configs{1, engine::configs::kExact});
 
         test_single_thread_class test;
 
@@ -259,7 +259,7 @@ namespace zab::test {
     int
     test_mulit_thread()
     {
-        engine engine(event_loop::configs{4, event_loop::configs::kExact});
+        engine engine(engine::configs{4, engine::configs::kExact});
 
         test_mulit_thread_class test;
 

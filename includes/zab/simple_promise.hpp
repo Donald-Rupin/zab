@@ -42,54 +42,82 @@
 #include <optional>
 #include <utility>
 
+#include "zab/spin_lock.hpp"
+
 namespace zab {
 
-    /**
-     * @brief      The promise of some value used be `simple_future`'s.
-     *
-     * @tparam     T  The type of the promised value.
-     */
-    template <typename T = void>
-    class simple_promise {
+    namespace details {
+        struct final_suspension {
+
+                template <typename UnderlyingPromise>
+                std::coroutine_handle<>
+                await_suspend(std::coroutine_handle<UnderlyingPromise> _us) noexcept
+                {
+                    auto& self = _us.promise();
+
+                    auto next = self.underlying();
+                    self.set_underlying(nullptr);
+                    self.complete();
+
+                    if (next) { return next; }
+                    else
+                    {
+                        return std::noop_coroutine();
+                    }
+                }
+
+                bool
+                await_ready() const noexcept
+                {
+                    return false;
+                }
+
+                void
+                await_resume() const noexcept
+                { }
+        };
+    }   // namespace details
+
+    template <typename T>
+    class simple_common {
 
         public:
 
-            using returns = std::optional<T>;
+            simple_common() : underlying_(nullptr), complete_(false) { }
 
-            simple_promise() : underlying_(nullptr) { }
-
-            ~simple_promise()
+            ~simple_common()
             {
                 if (underlying_) { underlying_.destroy(); }
             }
 
-            bool
-            complete() const noexcept
+            inline auto
+            get_return_object() noexcept
             {
-                return complete_;
+                return std::coroutine_handle<T>::from_promise(*static_cast<T*>(this));
             }
 
-            returns&&
-            data() noexcept
-            {
-                return std::move(data_);
-            }
-
-            void
+            inline void
             set_underlying(std::coroutine_handle<> _under) noexcept
             {
                 underlying_ = _under;
             }
 
-            /**
-             * @brief      Gets the coroutine handle from `this`.
-             *
-             * @return     The coroutine handle.
-             */
-            auto
-            get_return_object() noexcept
+            inline std::coroutine_handle<>
+            underlying() noexcept
             {
-                return std::coroutine_handle<simple_promise<T>>::from_promise(*this);
+                return underlying_;
+            }
+
+            inline void
+            complete() noexcept
+            {
+                complete_ = true;
+            }
+
+            inline bool
+            is_complete() const noexcept
+            {
+                return complete_;
             }
 
             /**
@@ -98,50 +126,59 @@ namespace zab {
              *
              * @return     A `std::suspend_always`
              */
-            auto
-            initial_suspend() noexcept
+            inline auto
+            initial_suspend() const noexcept
             {
                 return std::suspend_always{};
             }
 
             /**
              * @brief      Final suspension of Promise resumes the underlying
-             * coroutine that co_awaited the `simple_promise`.
+             * coroutine that co_awaited the `simple_common`.
              *
              * @return     A structure for resuming the underlying coroutine.
              */
-            auto
-            final_suspend() noexcept
+            inline auto
+            final_suspend() const noexcept
             {
-                struct {
+                return details::final_suspension{};
+            }
 
-                        std::coroutine_handle<>
-                        await_suspend(std::coroutine_handle<>) noexcept
-                        {
-                            if (next_) { return next_; }
-                            else
-                            {
-                                return std::noop_coroutine();
-                            }
-                        }
+            inline void
+            unhandled_exception()
+            {
+                std::cerr << "Unhandled exception in zab coroutine"
+                          << "\n";
+                abort();
+            }
 
-                        bool
-                        await_ready() const noexcept
-                        {
-                            return false;
-                        }
+        private:
 
-                        void
-                        await_resume() const noexcept
-                        { }
+            // TODO(donald): could remove  complete_ and use null to signal?
+            std::coroutine_handle<> underlying_;
+            bool                    complete_;
+    };
 
-                        std::coroutine_handle<> next_;
+    /**
+     * @brief      The promise of some value used be `simple_future`'s.
+     *
+     * @tparam     T  The type of the promised value.
+     */
+    template <typename T = void>
+    class simple_promise : public simple_common<simple_promise<T>> {
 
-                } final{.next_ = underlying_};
+        public:
 
-                underlying_ = nullptr;
+            using returns = std::optional<T>;
 
-                return final;
+            simple_promise() = default;
+
+            ~simple_promise() = default;
+
+            inline returns&&
+            data() noexcept
+            {
+                return std::move(data_);
             }
 
             /**
@@ -154,11 +191,10 @@ namespace zab {
              * @tparam     Args   The types of the arguments.
              */
             template <typename... Args>
-            void
+            inline void
             return_value(Args&&... _args) noexcept
             {
                 data_.emplace(std::forward<Args>(_args)...);
-                complete_ = true;
             }
 
             /**
@@ -166,46 +202,34 @@ namespace zab {
              *
              * @param      _move  The optional to move.
              */
-            void
+            inline void
             return_value(returns&& _move) noexcept
             {
                 data_.swap(_move);
-                complete_ = true;
             }
 
             /**
              * @brief      No value is returned
              *
              */
-            void
+            inline void
             return_value(std::nullopt_t) noexcept
-            {
-                complete_ = true;
-            }
+            { }
 
             /**
              * @brief      Construct the optional of T.
              *
              * @param[in]  _copy  The optional to copy
              */
-            void
+            inline void
             return_value(const returns& _copy) noexcept
             {
-                data_     = _copy;
-                complete_ = true;
-            }
-
-            void
-            unhandled_exception()
-            {
-                // TODO(donald) abort?
+                data_ = _copy;
             }
 
         private:
 
-            std::coroutine_handle<> underlying_;
-            returns                 data_;
-            bool                    complete_ = false;
+            returns data_;
     };
 
     /**
@@ -220,97 +244,21 @@ namespace zab {
     struct promise_always_resolves { };
 
     template <typename T>
-    class simple_promise<promise_always_resolves<T>> {
+    class simple_promise<promise_always_resolves<T>>
+        : public simple_common<simple_promise<promise_always_resolves<T>>> {
 
         public:
 
             using returns = T;
 
-            ~simple_promise()
-            {
-                if (underlying_) { underlying_.destroy(); }
-            }
+            simple_promise() = default;
 
-            bool
-            complete() const noexcept
-            {
-                return (bool) data_;
-            }
+            ~simple_promise() = default;
 
-            returns&&
+            inline returns&&
             data() noexcept
             {
                 return std::move(*data_);
-            }
-
-            void
-            set_underlying(std::coroutine_handle<> _under) noexcept
-            {
-                underlying_ = _under;
-            }
-
-            /**
-             * @brief      Gets the coroutine handle from `this`.
-             *
-             * @return     The coroutine handle.
-             */
-            std::coroutine_handle<simple_promise<promise_always_resolves<T>>>
-            get_return_object() noexcept
-            {
-                return std::coroutine_handle<
-                    simple_promise<promise_always_resolves<T>>>::from_promise(*this);
-            }
-
-            /**
-             * @brief      Always suspend execution of the promise. wait for it
-             * to be co_awaited.
-             *
-             * @return     A `std::suspend_always`
-             */
-            auto
-            initial_suspend() noexcept
-            {
-                return std::suspend_always{};
-            }
-
-            /**
-             * @brief      Final suspension of Promise resumes the underlying
-             * coroutine that co_awaited the `simple_promise`.
-             *
-             * @return     A structure for resuming the underlying coroutine.
-             */
-            auto
-            final_suspend() noexcept
-            {
-                struct {
-                        std::coroutine_handle<>
-                        await_suspend(std::coroutine_handle<>) noexcept
-                        {
-                            if (next_) { return next_; }
-                            else
-                            {
-
-                                return std::noop_coroutine();
-                            }
-                        }
-
-                        bool
-                        await_ready() const noexcept
-                        {
-                            return false;
-                        }
-
-                        void
-                        await_resume() const noexcept
-                        { }
-
-                        std::coroutine_handle<> next_;
-
-                } final{.next_ = underlying_};
-
-                underlying_ = nullptr;
-
-                return final;
             }
 
             /**
@@ -323,22 +271,15 @@ namespace zab {
              * @tparam     Args   The types of the arguments.
              */
             template <typename... Args>
-            void
+            inline void
             return_value(Args&&... _args) noexcept
             {
                 data_.emplace(std::forward<Args>(_args)...);
             }
 
-            void
-            unhandled_exception()
-            {
-                // TODO(donald) abort?
-            }
-
         private:
 
-            std::coroutine_handle<> underlying_;
-            std::optional<returns>  data_;
+            std::optional<returns> data_;
     };
 
     /**
@@ -346,110 +287,28 @@ namespace zab {
      *
      */
     template <>
-    class simple_promise<void> {
+    class simple_promise<void> : public simple_common<simple_promise<void>> {
 
         public:
 
-            ~simple_promise()
-            {
-                if (underlying_) { underlying_.destroy(); }
-            }
-
             using returns = void;
 
-            bool
-            complete() const noexcept
+            simple_promise() = default;
+
+            ~simple_promise() = default;
+
+            inline returns
+            data() noexcept
             {
-                return (bool) complete_;
-            }
-
-            void
-            set_underlying(std::coroutine_handle<> _under) noexcept
-            {
-                underlying_ = _under;
-            }
-
-            /**
-             * @brief      Gets the coroutine handle from `this`.
-             *
-             * @return     The coroutine handle.
-             */
-            std::coroutine_handle<simple_promise<void>>
-            get_return_object() noexcept
-            {
-                return std::coroutine_handle<simple_promise<void>>::from_promise(*this);
-            }
-
-            /**
-             * @brief      Always suspend execution of the promise. wait for it
-             * to be co_awaited.
-             *
-             * @return     A `std::suspend_always`
-             */
-            auto
-            initial_suspend() noexcept
-            {
-                return std::suspend_always{};
-            }
-
-            /**
-             * @brief      Final suspension of Promise resumes the underlying
-             * coroutine that co_awaited the `simple_promise`.
-             *
-             * @return     A structure for resuming the underlying coroutine.
-             */
-            auto
-            final_suspend() noexcept
-            {
-                struct {
-
-                        std::coroutine_handle<>
-                        await_suspend(std::coroutine_handle<>) noexcept
-                        {
-                            if (next_) { return next_; }
-                            else
-                            {
-
-                                return std::noop_coroutine();
-                            }
-                        }
-
-                        bool
-                        await_ready() const noexcept
-                        {
-                            return false;
-                        }
-
-                        void
-                        await_resume() const noexcept
-                        { }
-
-                        std::coroutine_handle<> next_;
-
-                } final{.next_ = underlying_};
-
-                underlying_ = nullptr;
-
-                return final;
+                return;
             }
 
             /**
              * @brief      The coroutine has finished.
              */
-            void
+            inline void
             return_void() noexcept
-            {
-                complete_ = true;
-            }
-
-            void
-            unhandled_exception()
-            {
-                // TODO(donald) abort?
-            }
-
-            bool                    complete_ = false;
-            std::coroutine_handle<> underlying_;
+            { }
     };
 
     /**
@@ -457,118 +316,34 @@ namespace zab {
      *
      */
     template <>
-    class simple_promise<bool> {
+    class simple_promise<bool> : public simple_common<simple_promise<bool>> {
 
         public:
 
             using returns = bool;
 
-            ~simple_promise()
-            {
-                if (underlying_) { underlying_.destroy(); }
-            }
+            simple_promise() = default;
 
-            bool
-            complete() const noexcept
-            {
-                return complete_;
-            }
+            ~simple_promise() = default;
 
-            returns
+            inline returns
             data() noexcept
             {
                 return return_value_;
             }
 
-            void
-            set_underlying(std::coroutine_handle<> _under) noexcept
-            {
-                underlying_ = _under;
-            }
-
-            /**
-             * @brief      Gets the coroutine handle from `this`.
-             *
-             * @return     The coroutine handle.
-             */
-            std::coroutine_handle<simple_promise<bool>>
-            get_return_object() noexcept
-            {
-                return std::coroutine_handle<simple_promise<bool>>::from_promise(*this);
-            }
-
-            /**
-             * @brief      Always suspend execution of the promise. wait for it
-             * to be co_awaited.
-             *
-             * @return     A `std::suspend_always`
-             */
-            auto
-            initial_suspend() noexcept
-            {
-                return std::suspend_always{};
-            }
-
-            /**
-             * @brief      Final suspension of Promise resumes the underlying
-             * coroutine that co_awaited the `simple_promise`.
-             *
-             * @return     A structure for resuming the underlying coroutine.
-             */
-            auto
-            final_suspend() noexcept
-            {
-                struct {
-
-                        std::coroutine_handle<>
-                        await_suspend(std::coroutine_handle<>) noexcept
-                        {
-                            if (next_) { return next_; }
-                            else
-                            {
-
-                                return std::noop_coroutine();
-                            }
-                        }
-
-                        bool
-                        await_ready() const noexcept
-                        {
-                            return false;
-                        }
-
-                        void
-                        await_resume() const noexcept
-                        { }
-
-                        std::coroutine_handle<> next_;
-
-                } final{.next_ = underlying_};
-
-                underlying_ = nullptr;
-
-                return final;
-            }
-
             /**
              * @brief      The coroutine has finished.
              */
-            void
+            inline void
             return_value(bool _result) noexcept
             {
-                complete_     = true;
                 return_value_ = _result;
             }
 
-            void
-            unhandled_exception()
-            {
-                // TODO(donald) abort?
-            }
+        private:
 
-            bool                    complete_     = false;
-            bool                    return_value_ = false;
-            std::coroutine_handle<> underlying_;
+            bool return_value_ = false;
     };
 }   // namespace zab
 

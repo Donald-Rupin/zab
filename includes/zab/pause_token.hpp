@@ -111,16 +111,13 @@ namespace zab {
                     /* get deleted before we dereference...  */
                     auto tmp = old_pause->next_waiting_;
 
-                    engine_->resume(old_pause->handle_, order_t{order::now()}, old_pause->thread_);
+                    engine_->thread_resume(old_pause->handle_, old_pause->thread_);
 
                     old_pause = tmp;
                 }
             }
 
-            pauser operator co_await() noexcept
-            {
-                return pauser{*this, engine_->get_event_loop().current_id()};
-            }
+            pauser operator co_await() noexcept { return pauser{*this, engine_->current_id()}; }
 
             bool
             pause(pauser* pauser_) noexcept

@@ -88,7 +88,7 @@ namespace zab::test {
             async_function<>
             run() noexcept
             {
-                sem_ = std::make_shared<async_binary_semaphore>(get_engine(), true);
+                sem_ = std::make_shared<async_binary_semaphore>(engine_, true);
 
                 count_ = 0;
 
@@ -105,14 +105,14 @@ namespace zab::test {
                 co_await *sem_;
                 sem_->release();
 
-                if (expected(count_, 4u)) { get_engine()->stop(); }
+                if (expected(count_, 4u)) { engine_->stop(); }
                 else
                 {
 
                     failed_ = false;
                 }
 
-                get_engine()->stop();
+                engine_->stop();
             }
 
             async_function<>
@@ -121,18 +121,18 @@ namespace zab::test {
                 co_await *sem_;
                 sem_->release();
 
-                if (expected(count_, 0u)) { get_engine()->stop(); }
+                if (expected(count_, 0u)) { engine_->stop(); }
 
                 co_await *sem_;
                 sem_->release();
 
-                if (expected(count_, 0u)) { get_engine()->stop(); }
+                if (expected(count_, 0u)) { engine_->stop(); }
 
                 co_await *sem_;
                 lock();
                 sem_->release();
 
-                if (expected(count_, 0u)) { get_engine()->stop(); }
+                if (expected(count_, 0u)) { engine_->stop(); }
             }
 
             async_function<>
@@ -140,7 +140,7 @@ namespace zab::test {
             {
                 co_await *sem_;
 
-                if (expected(count_, 1u)) { get_engine()->stop(); }
+                if (expected(count_, 1u)) { engine_->stop(); }
 
                 sem_->release();
             }
@@ -157,7 +157,7 @@ namespace zab::test {
                 sem_->release();
 
                 /* (1) Wont have been woken up yet... (cause there is only 1 thread)*/
-                if (expected(count_, 1u)) { get_engine()->stop(); }
+                if (expected(count_, 1u)) { engine_->stop(); }
 
                 /* But now we wait on (1) */
                 co_await *sem_;
@@ -168,7 +168,7 @@ namespace zab::test {
                 sem_->release();
 
                 /* (2) Wont have been woken up yet... (cause there is only 1 thread)*/
-                if (expected(count_, 2u)) { get_engine()->stop(); }
+                if (expected(count_, 2u)) { engine_->stop(); }
 
                 /* But now we wait on (2) */
                 co_await *sem_;
@@ -179,14 +179,14 @@ namespace zab::test {
                 sem_->release();
 
                 /* (3) Wont have been woken up yet... (cause there is only 1 thread)*/
-                if (expected(count_, 3u)) { get_engine()->stop(); }
+                if (expected(count_, 3u)) { engine_->stop(); }
             }
 
             async_function<>
             add_one(size_t _expected) noexcept
             {
                 co_await *sem_;
-                if (expected(count_, _expected)) { get_engine()->stop(); }
+                if (expected(count_, _expected)) { engine_->stop(); }
 
                 ++count_;
 
@@ -211,7 +211,7 @@ namespace zab::test {
     int
     test_binary_not_pause()
     {
-        engine engine(event_loop::configs{2});
+        engine engine(engine::configs{2});
 
         test_binary_not_pause_class test;
 
@@ -234,7 +234,7 @@ namespace zab::test {
             void
             initialise() noexcept
             {
-                sem_ = std::make_shared<async_binary_semaphore>(get_engine(), true);
+                sem_ = std::make_shared<async_binary_semaphore>(engine_, true);
                 run();
             }
 
@@ -271,7 +271,7 @@ namespace zab::test {
                         co_await yield(now(), _thread);
 
                         /* Is still ours! */
-                        if (expected(current_thread_, _thread)) { get_engine()->stop(); }
+                        if (expected(current_thread_, _thread)) { engine_->stop(); }
 
                         sem_->release();
 
@@ -287,7 +287,7 @@ namespace zab::test {
 
                 if (count_.fetch_add(1) == kNumberThreads - 1)
                 {
-                    get_engine()->stop();
+                    engine_->stop();
                     failed_ = false;
                 }
             }
@@ -312,7 +312,7 @@ namespace zab::test {
     int
     test_binary_multi_thread_mutex()
     {
-        engine engine(event_loop::configs{binary_multi_thread_mutex_class::kNumberThreads});
+        engine engine(engine::configs{binary_multi_thread_mutex_class::kNumberThreads});
 
         binary_multi_thread_mutex_class test;
 
@@ -341,18 +341,18 @@ namespace zab::test {
             async_function<>
             run() noexcept
             {
-                sem_ = std::make_shared<async_counting_semaphore<>>(get_engine(), 0);
+                sem_ = std::make_shared<async_counting_semaphore<>>(engine_, 0);
 
                 failed_ =
                     !(co_await simple_wind() && co_await no_block() && co_await full_release());
 
-                if (!--test_count_) { get_engine()->stop(); }
+                if (!--test_count_) { engine_->stop(); }
             }
 
             simple_future<bool>
             simple_wind()
             {
-                async_latch latch(get_engine(), threads_ + 1);
+                async_latch latch(engine_, threads_ + 1);
 
                 for (size_t i = 0; i < threads_; ++i)
                 {
@@ -391,7 +391,7 @@ namespace zab::test {
 
                 co_await yield();
 
-                async_latch latch(get_engine(), threads_ + 1);
+                async_latch latch(engine_, threads_ + 1);
                 for (size_t i = 0; i < threads_; ++i)
                 {
                     acquire_count(latch);
@@ -421,7 +421,7 @@ namespace zab::test {
             simple_future<bool>
             full_release()
             {
-                async_latch latch(get_engine(), threads_ + 1);
+                async_latch latch(engine_, threads_ + 1);
 
                 for (size_t i = 0; i < threads_; ++i)
                 {
@@ -479,7 +479,7 @@ namespace zab::test {
     int
     test_counting_single_thread()
     {
-        engine engine(event_loop::configs{1});
+        engine engine(engine::configs{1});
 
         test_counting_single_thread_class test2(2);
         test_counting_single_thread_class test5(5);
@@ -524,7 +524,7 @@ namespace zab::test {
             run() noexcept
             {
                 /* Allow a third of threads to access */
-                sem_ = std::make_shared<async_counting_semaphore<>>(get_engine(), threads_ / 3);
+                sem_ = std::make_shared<async_counting_semaphore<>>(engine_, threads_ / 3);
 
                 for (std::uint16_t fake = 0; fake < threads_; ++fake)
                 {
@@ -549,11 +549,11 @@ namespace zab::test {
                 if (count > (threads_ / 3) - 1)
                 {
                     failed_ = false;
-                    get_engine()->stop();
+                    engine_->stop();
                     co_return;
                 }
 
-                if (expected(get_engine()->get_event_loop().current_id(), _thread))
+                if (expected(engine_->current_id(), _thread))
                 {
                     sem_->release();
                     co_return;
@@ -575,11 +575,11 @@ namespace zab::test {
                     if (count > (threads_ / 3) - 1)
                     {
                         failed_ = false;
-                        get_engine()->stop();
+                        engine_->stop();
                         co_return;
                     }
 
-                    if (expected(get_engine()->get_event_loop().current_id(), _thread))
+                    if (expected(engine_->current_id(), _thread))
                     {
                         sem_->release();
                         co_return;
@@ -597,7 +597,7 @@ namespace zab::test {
                 if (amount == (threads_ * 2) - 1)
                 {
                     failed_ = false;
-                    get_engine()->stop();
+                    engine_->stop();
                 }
             }
 
@@ -630,9 +630,9 @@ namespace zab::test {
     {
         auto lam = [](std::uint16_t _thread)
         {
-            engine engine(event_loop::configs{
+            engine engine(engine::configs{
                 .threads_         = (std::uint16_t)(_thread + 1),
-                .opt_             = event_loop::configs::kAtLeast,
+                .opt_             = engine::configs::kAtLeast,
                 .affinity_set_    = false,
                 .affinity_offset_ = 0});
 

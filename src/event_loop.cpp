@@ -36,261 +36,683 @@
 
 #include "zab/event_loop.hpp"
 
-#include <algorithm>
 #include <atomic>
-#include <cassert>
+#include <chrono>
+#include <coroutine>
 #include <cstdint>
-#include <fstream>
+#include <cstring>
+#include <errno.h>
+#include <fcntl.h>
 #include <iostream>
-#include <latch>
-#include <limits>
+#include <liburing.h>
+#include <memory>
 #include <mutex>
-#include <sched.h>
-#include <thread>
+#include <optional>
+#include <sys/eventfd.h>
+#include <unistd.h>
+#include <utility>
+
+#include "zab/strong_types.hpp"
 
 namespace zab {
 
-    event_loop::event_loop(configs _configs) : configs_(_configs)
-    {
-        auto number_of_workers = validate(_configs);
-        while (workers_.size() != number_of_workers)
+    namespace {
+
+        template <typename FunctionCallType, FunctionCallType Function, typename... Args>
+        inline void
+        do_op_impl(event_loop::io_handle _cancle_token, struct io_uring* _ring, Args&&... _args)
         {
-            workers_.emplace_back(std::make_pair(safe_queue{}, std::jthread{}));
-        }
-    }
+            auto* sqe = io_uring_get_sqe(_ring);
 
-    event_loop::~event_loop() { }
+            if (sqe)
+            {
+                (*Function)(sqe, std::forward<Args>(_args)...);
 
-    std::uint16_t
-    event_loop::validate(configs& _configs)
-    {
-        if (_configs.opt_ == configs::kAny) { _configs.threads_ = core_count() - 1; }
-        else if (_configs.opt_ == configs::kAtLeast)
-        {
-
-            auto cores = core_count();
-
-            if (cores) { --cores; }
-
-            _configs.threads_ = std::max(cores, _configs.threads_);
+                io_uring_sqe_set_data(sqe, _cancle_token);
+            }
+            else
+            {
+                _cancle_token->data_ = -1;
+                _cancle_token->handle_.resume();
+            }
         }
 
-        if (!_configs.threads_) { _configs.threads_ = 1; }
-
-        return _configs.threads_;
-    }
-
-    std::uint16_t
-    event_loop::core_count() noexcept
-    {
-        auto count = std::thread::hardware_concurrency();
-
-        if (!count)
+        /* Args must be by copy, otherwise we take a reference to the call stack */
+        template <typename FunctionCallType, FunctionCallType Function, typename... Args>
+        inline simple_future<int>
+        do_op_impl(event_loop::io_handle* _cancle_token, struct io_uring* _ring, Args... _args)
         {
-            /* See if we can look up in proc (nix only) */
-            /* TODO(donald): Im not sure if cpu info format is standard */
-            /*       Or if it includes virtual (hyper) cores */
-            /* TODO(donald): windows impl */
-            std::ifstream cpuinfo("/proc/cpuinfo");
-            count = std::count(
-                std::istream_iterator<std::string>(cpuinfo),
-                std::istream_iterator<std::string>(),
-                std::string("processor"));
-        }
-
-        if (count > std::numeric_limits<std::uint16_t>::max()) [[unlikely]]
-        {
-            count = std::numeric_limits<std::uint16_t>::max();
-        }
-
-        return count;
-    }
-
-    void
-    event_loop::set_affinity(thread_t _thread_id) noexcept
-    {
-        auto      count = core_count();
-        cpu_set_t cpuset;
-        CPU_ZERO(&cpuset);
-        CPU_SET((_thread_id.thread_ + configs_.affinity_offset_) % (count), &cpuset);
-        int rc = pthread_setaffinity_np(
-            workers_[_thread_id.thread_].second.native_handle(),
-            sizeof(cpu_set_t),
-            &cpuset);
-        if (rc != 0) { std::cerr << "Error calling pthread_setaffinity_np: " << rc << "\n"; }
-    }
-
-    void
-    event_loop::start() noexcept
-    {
-        std::latch wait_for_init{static_cast<std::ptrdiff_t>(workers_.size() + 1)};
-        ids_.resize(workers_.size());
-
-        for (std::uint16_t count = 0; auto& [work, thread] : workers_)
-        {
-            thread = std::jthread(
-                [this, count, &wait_for_init](std::stop_token _stop_token)
+            pause_pack pp = co_await zab::pause(
+                [_cancle_token, _ring, _args...](event_loop::io_handle _pp) mutable noexcept
                 {
-                    wait_for_init.arrive_and_wait();
-
-                    if (configs_.affinity_set_) { set_affinity(thread_t{count}); }
-
-                    run_loop(_stop_token, thread_t{count});
+                    if (_cancle_token) { *_cancle_token = _pp; }
+                    do_op_impl<FunctionCallType, Function>(
+                        _pp,
+                        _ring,
+                        std::forward<Args>(_args)...);
                 });
 
-            ids_[count] = thread.get_id();
-
-            ++count;
+            co_return pp.data_;
         }
 
-        wait_for_init.arrive_and_wait();
+#define do_op(function, ...) do_op_impl<decltype(function), function>(__VA_ARGS__)
+    }   // namespace
 
-        for (auto& [work, thread] : workers_)
+    event_loop::event_loop()
+        : ring_(std::make_unique<io_uring>()), pinned_buffers_(kTotalBuffers * kPinSize),
+          use_space_handle_(nullptr)
+    {
+        struct io_uring_params params;
+        ::memset(&params, 0, sizeof(params));
+        // params.flags |= IORING_SETUP_SQPOLL;
+        // params.sq_thread_idle = 2000;
+
+        int ret = io_uring_queue_init_params(kQueueSize, ring_.get(), &params);
+        if (ret < 0)
         {
-            if (thread.joinable()) { thread.join(); }
+            std::cerr << "Failed to init io_uring. Return: " << ret << " , errno: " << errno
+                      << "\n";
+            abort();
+        }
+
+        std::vector<struct iovec> ptrs;
+        ptrs.reserve(kTotalBuffers);
+        for (std::size_t i = 0; i < kTotalBuffers; ++i)
+        {
+            free_buffers_.emplace_back(
+                std::span<std::byte>(pinned_buffers_.data() + i * kPinSize, kPinSize),
+                i);
+            ptrs.emplace_back(iovec{
+                .iov_base = (io_handle) (pinned_buffers_.data() + i * kPinSize),
+                .iov_len  = kPinSize});
+        }
+        io_uring_register_buffers(ring_.get(), ptrs.data(), ptrs.size());
+
+        /* Could also use `EFD_SEMAPHORE`. Not sure what would be best... */
+        user_space_event_fd_ = eventfd(0, EFD_CLOEXEC);
+        if (user_space_event_fd_ < 0)
+        {
+            std::cerr << "Failed to init user_space_event_fd_\n";
+            abort();
+        }
+    }
+
+    event_loop::~event_loop()
+    {
+        for (auto h : handles_[kWriteIndex])
+        {
+            h.destroy();
+        }
+        io_uring_queue_exit(ring_.get());
+
+        if (use_space_handle_) { clean_up(use_space_handle_); }
+    }
+
+    std::optional<std::pair<std::span<std::byte>, std::size_t>>
+    event_loop::claim_fixed_buffer()
+    {
+        if (free_buffers_.size())
+        {
+            auto result = free_buffers_.front();
+            free_buffers_.pop_front();
+            return result;
+        }
+        else
+        {
+            return std::nullopt;
         }
     }
 
     void
-    event_loop::stop() noexcept
+    event_loop::release_fixed_buffer(std::pair<std::span<std::byte>, std::size_t> _buffer)
     {
-        for (auto& [work, thread] : workers_)
+        free_buffers_.emplace_back(_buffer);
+    }
+
+    void
+    event_loop::submit_pending_events() noexcept
+    {
+        io_uring_submit(ring_.get());
+    }
+
+    simple_future<int>
+    event_loop::open_at(
+        int                    _dfd,
+        const std::string_view _path,
+        int                    _flags,
+        mode_t                 _mode,
+        io_handle*             _cancle_token) noexcept
+    {
+        return do_op(
+            &io_uring_prep_openat,
+            _cancle_token,
+            ring_.get(),
+            _dfd,
+            _path.data(),
+            _flags,
+            (mode_t) _mode);
+    }
+
+    void
+    event_loop::open_at(
+        io_handle              _cancle_token,
+        int                    _dfd,
+        const std::string_view _path,
+        int                    _flags,
+        mode_t                 _mode) noexcept
+    {
+        return do_op(
+            &io_uring_prep_openat,
+            _cancle_token,
+            ring_.get(),
+            _dfd,
+            _path.data(),
+            _flags,
+            (mode_t) _mode);
+    }
+
+    simple_future<int>
+    event_loop::close(int _fd, io_handle* _cancle_token) noexcept
+    {
+        return do_op(&io_uring_prep_close, _cancle_token, ring_.get(), _fd);
+    }
+
+    void
+    event_loop::close(io_handle _cancle_token, int _fd) noexcept
+    {
+        return do_op(&io_uring_prep_close, _cancle_token, ring_.get(), _fd);
+    }
+
+    simple_future<int>
+    event_loop::read(
+        int                  _fd,
+        std::span<std::byte> _buffer,
+        off_t                _offset,
+        io_handle*           _cancle_token) noexcept
+    {
+        return do_op(
+            &io_uring_prep_read,
+            _cancle_token,
+            ring_.get(),
+            _fd,
+            (char*) _buffer.data(),
+            _buffer.size(),
+            _offset);
+    }
+
+    void
+    event_loop::read(
+        io_handle            _cancle_token,
+        int                  _fd,
+        std::span<std::byte> _buffer,
+        off_t                _offset) noexcept
+    {
+        return do_op(
+            &io_uring_prep_read,
+            _cancle_token,
+            ring_.get(),
+            _fd,
+            (char*) _buffer.data(),
+            _buffer.size(),
+            _offset);
+    }
+
+    simple_future<int>
+    event_loop::read_v(
+        int                 _fd,
+        const struct iovec* _iovecs,
+        unsigned            _nr_vecs,
+        off_t               _offset,
+        io_handle*          _cancle_token) noexcept
+    {
+        return do_op(
+            &io_uring_prep_readv,
+            _cancle_token,
+            ring_.get(),
+            _fd,
+            _iovecs,
+            _nr_vecs,
+            _offset);
+    }
+
+    void
+    event_loop::read_v(
+        io_handle           _cancle_token,
+        int                 _fd,
+        const struct iovec* _iovecs,
+        unsigned            _nr_vecs,
+        off_t               _offset) noexcept
+    {
+        return do_op(
+            &io_uring_prep_readv,
+            _cancle_token,
+            ring_.get(),
+            _fd,
+            _iovecs,
+            _nr_vecs,
+            _offset);
+    }
+
+    simple_future<int>
+    event_loop::fixed_read(
+        int                  _fd,
+        std::span<std::byte> _buffer,
+        off_t                _offset,
+        int                  _buf_index,
+        io_handle*           _cancle_token) noexcept
+    {
+        return do_op(
+            &io_uring_prep_read_fixed,
+            _cancle_token,
+            ring_.get(),
+            _fd,
+            (char*) _buffer.data(),
+            _buffer.size(),
+            _offset,
+            _buf_index);
+    }
+
+    void
+    event_loop::fixed_read(
+        io_handle            _cancle_token,
+        int                  _fd,
+        std::span<std::byte> _buffer,
+        off_t                _offset,
+        int                  _buf_index) noexcept
+    {
+        return do_op(
+            &io_uring_prep_read_fixed,
+            _cancle_token,
+            ring_.get(),
+            _fd,
+            (char*) _buffer.data(),
+            _buffer.size(),
+            _offset,
+            _buf_index);
+    }
+
+    simple_future<int>
+    event_loop::write(
+        int                        _fd,
+        std::span<const std::byte> _buffer,
+        off_t                      _offset,
+        io_handle*                 _cancle_token) noexcept
+    {
+        return do_op(
+            &io_uring_prep_write,
+            _cancle_token,
+            ring_.get(),
+            _fd,
+            (const char*) _buffer.data(),
+            _buffer.size(),
+            _offset);
+    }
+
+    void
+    event_loop::write(
+        io_handle                  _cancle_token,
+        int                        _fd,
+        std::span<const std::byte> _buffer,
+        off_t                      _offset) noexcept
+    {
+        return do_op(
+            &io_uring_prep_write,
+            _cancle_token,
+            ring_.get(),
+            _fd,
+            (const char*) _buffer.data(),
+            _buffer.size(),
+            _offset);
+    }
+
+    simple_future<int>
+    event_loop::write_v(
+        int                 _fd,
+        const struct iovec* _iovecs,
+        unsigned            _nr_vecs,
+        off_t               _offset,
+        io_handle*          _cancle_token) noexcept
+    {
+        return do_op(
+            &io_uring_prep_writev,
+            _cancle_token,
+            ring_.get(),
+            _fd,
+            _iovecs,
+            _nr_vecs,
+            _offset);
+    }
+
+    void
+    event_loop::write_v(
+        io_handle           _cancle_token,
+        int                 _fd,
+        const struct iovec* _iovecs,
+        unsigned            _nr_vecs,
+        off_t               _offset) noexcept
+    {
+        return do_op(
+            &io_uring_prep_writev,
+            _cancle_token,
+            ring_.get(),
+            _fd,
+            _iovecs,
+            _nr_vecs,
+            _offset);
+    }
+
+    simple_future<int>
+    event_loop::fixed_write(
+        int                        _fd,
+        std::span<const std::byte> _buffer,
+        off_t                      _offset,
+        int                        _buf_index,
+        io_handle*                 _cancle_token) noexcept
+    {
+        return do_op(
+            &io_uring_prep_write_fixed,
+            _cancle_token,
+            ring_.get(),
+            _fd,
+            (const char*) _buffer.data(),
+            _buffer.size(),
+            _offset,
+            _buf_index);
+    }
+
+    void
+    event_loop::fixed_write(
+        io_handle                  _cancle_token,
+        int                        _fd,
+        std::span<const std::byte> _buffer,
+        off_t                      _offset,
+        int                        _buf_index) noexcept
+    {
+        return do_op(
+            &io_uring_prep_write_fixed,
+            _cancle_token,
+            ring_.get(),
+            _fd,
+            (const char*) _buffer.data(),
+            _buffer.size(),
+            _offset,
+            _buf_index);
+    }
+
+    simple_future<int>
+    event_loop::recv(
+        int                  sockfd,
+        std::span<std::byte> _buffer,
+        int                  _flags,
+        io_handle*           _cancle_token) noexcept
+    {
+        return do_op(
+            &io_uring_prep_recv,
+            _cancle_token,
+            ring_.get(),
+            sockfd,
+            (char*) _buffer.data(),
+            _buffer.size(),
+            _flags);
+    }
+
+    void
+    event_loop::recv(
+        io_handle            _cancle_token,
+        int                  sockfd,
+        std::span<std::byte> _buffer,
+        int                  _flags) noexcept
+    {
+        return do_op(
+            &io_uring_prep_recv,
+            _cancle_token,
+            ring_.get(),
+            sockfd,
+            (char*) _buffer.data(),
+            _buffer.size(),
+            _flags);
+    }
+
+    simple_future<int>
+    event_loop::send(
+        int                        sockfd,
+        std::span<const std::byte> _buffer,
+        int                        _flags,
+        io_handle*                 _cancle_token) noexcept
+    {
+        return do_op(
+            &io_uring_prep_send,
+            _cancle_token,
+            ring_.get(),
+            sockfd,
+            (const char*) _buffer.data(),
+            _buffer.size(),
+            _flags);
+    }
+
+    void
+    event_loop::send(
+        io_handle                  _cancle_token,
+        int                        sockfd,
+        std::span<const std::byte> _buffer,
+        int                        _flags) noexcept
+    {
+        return do_op(
+            &io_uring_prep_send,
+            _cancle_token,
+            ring_.get(),
+            sockfd,
+            (const char*) _buffer.data(),
+            _buffer.size(),
+            _flags);
+    }
+
+    simple_future<int>
+    event_loop::accept(
+        int              _fd,
+        struct sockaddr* _addr,
+        socklen_t*       _addrlen,
+        int              _flags,
+        io_handle*       _cancle_token) noexcept
+    {
+        return do_op(
+            &io_uring_prep_accept,
+            _cancle_token,
+            ring_.get(),
+            _fd,
+            _addr,
+            _addrlen,
+            _flags);
+    }
+
+    void
+    event_loop::accept(
+        io_handle        _cancle_token,
+        int              _fd,
+        struct sockaddr* _addr,
+        socklen_t*       _addrlen,
+        int              _flags) noexcept
+    {
+        return do_op(
+            &io_uring_prep_accept,
+            _cancle_token,
+            ring_.get(),
+            _fd,
+            _addr,
+            _addrlen,
+            _flags);
+    }
+
+    simple_future<int>
+    event_loop::connect(
+        int              _fd,
+        struct sockaddr* _addr,
+        socklen_t        _addrlen,
+        io_handle*       _cancle_token) noexcept
+    {
+        return do_op(&io_uring_prep_connect, _cancle_token, ring_.get(), _fd, _addr, _addrlen);
+    }
+
+    void
+    event_loop::connect(
+        io_handle        _cancle_token,
+        int              _fd,
+        struct sockaddr* _addr,
+        socklen_t        _addrlen) noexcept
+    {
+        return do_op(&io_uring_prep_connect, _cancle_token, ring_.get(), _fd, _addr, _addrlen);
+    }
+
+    auto
+    event_loop::cancel_event(io_handle _key, bool _resume, std::uintptr_t _cancel_code) noexcept
+        -> guaranteed_future<CancelResults>
+    {
+        auto* sqe = io_uring_get_sqe(ring_.get());
+
+        if (!sqe) { co_return CancelResults::kFailed; }
+
+        sqe->opcode = IORING_OP_ASYNC_CANCEL;
+        sqe->addr   = reinterpret_cast<std::uintptr_t>(_key);
+
+        clean_up(_key, _resume, _cancel_code);
+
+        auto pp = co_await zab::pause([&](auto* _pp) noexcept { io_uring_sqe_set_data(sqe, _pp); });
+
+        if (!pp.data_) { co_return CancelResults::kDone; }
+        else if (pp.data_ == ENOENT)
         {
-            if (!thread.get_stop_token().stop_requested()) { thread.request_stop(); }
+            co_return CancelResults::kNotFound;
+        }
+        else if (pp.data_ == EALREADY)
+        {
+            co_return CancelResults::kTried;
+        }
+        else
+        {
+            co_return CancelResults::kUnknown;
         }
     }
 
     void
-    event_loop::purge() noexcept
+    event_loop::clean_up(io_handle _key, bool _resume, std::uintptr_t _cancel_code) noexcept
     {
-        stop();
-
-        for (auto& [work, thread] : workers_)
+        if (!_resume) { _key->handle_.destroy(); }
+        else
         {
-            if (thread.joinable()) { thread.join(); }
+            _key->data_ = _cancel_code;
+            _key->handle_.resume();
+        }
+    }
+
+    void
+    event_loop::wake()
+    {
+        // TODO: test speed compared to write using io_uring::write
+        std::uint64_t item = 1;
+        if (::write(user_space_event_fd_, &item, sizeof(item)) < (int) sizeof(item))
+        {
+            std::cerr << "Notify user space event_fd read failed. Expect halt.\n";
+        }
+    }
+
+    void
+    event_loop::run(std::stop_token _st) noexcept
+    {
+        run_user_space(_st);
+
+        io_uring_submit(ring_.get());
+
+        static constexpr auto kMaxBatch = 16;
+        io_uring_cqe*         completions[kMaxBatch];
+        pause_pack*           to_resume[kMaxBatch];
+
+        while (!_st.stop_requested() &&
+               !io_uring_wait_cqe(ring_.get(), (io_uring_cqe**) &completions))
+        {
+            std::uint32_t amount;
+            while ((
+                amount =
+                    io_uring_peek_batch_cqe(ring_.get(), (io_uring_cqe**) &completions, kMaxBatch)))
+            {
+                /* Pop off the queue... */
+                for (std::uint32_t i = 0; i < amount; ++i)
+                {
+                    to_resume[i] = static_cast<pause_pack*>(io_uring_cqe_get_data(completions[i]));
+                    to_resume[i]->data_ = completions[i]->res;
+                }
+
+                io_uring_cq_advance(ring_.get(), amount);
+
+                /* Resume them*/
+                for (std::uint32_t i = 0; i < amount; ++i)
+                {
+                    if (to_resume[i]->handle_) { to_resume[i]->handle_.resume(); }
+                }
+
+                io_uring_submit(ring_.get());
+            }
+        }
+    }
+
+    void
+    event_loop::user_event(event _handle) noexcept
+    {
+        bool notify = false;
+        {
+            std::scoped_lock lck(mtx_);
+            handles_[kWriteIndex].emplace_back(_handle);
+            if (handles_[kWriteIndex].size() == 1) { notify = true; }
+            size_.fetch_add(1, std::memory_order_relaxed);
         }
 
-        std::size_t spin_count = 0;
-        bool        stil_events_;
+        if (notify) { wake(); }
+    }
+
+    async_function<>
+    event_loop::run_user_space(std::stop_token _st) noexcept
+    {
+        std::uint64_t count = 0;
         do
         {
-            std::vector<std::pair<safe_queue, std::jthread>> workers_tmp(workers_.size());
-
-            stil_events_ = false;
-            workers_tmp.swap(workers_);
-            workers_tmp.clear();
-
-            for (const auto& [w, _] : workers_)
             {
-                if (w.events_.size())
-                {
-                    stil_events_ = true;
-                    break;
-                }
+                std::scoped_lock lck(mtx_);
+                handles_[kReadIndex].swap(handles_[kWriteIndex]);
+                size_.store(0, std::memory_order_relaxed);
             }
 
-        } while (stil_events_ && spin_count++ < 50);
-
-        if (stil_events_)
-        {
-            std::cerr << "Recursive deletion of coroutines detected. "
-                         "Expect memory leak at best, but now in undefined behavour land.\n"
-                         "This usually occurs when a deconstructor has some recursive element "
-                         "that attempts to use the event loop on deconstruction."
-                         "\n";
-        }
-    }
-
-    void
-    event_loop::send_event(event _event, thread_t _thread_number) noexcept
-    {
-        if (_thread_number == kAnyThread)
-        {
-            std::size_t min = std::numeric_limits<std::size_t>::max();
-            for (std::uint16_t count = 0; const auto& [w, _] : workers_)
+            while (handles_[kReadIndex].size())
             {
-                auto current_size = w.size_.load(std::memory_order_relaxed);
-                if (current_size < min)
-                {
-                    _thread_number.thread_ = count;
-
-                    if (!current_size) { break; }
-
-                    min = current_size;
-                }
-
-                ++count;
-            }
-        }
-
-        assert(_thread_number.thread_ < workers_.size());
-
-        auto& [w, _] = workers_[_thread_number.thread_];
-        {
-            std::unique_lock lck(w.mtx_);
-            w.events_.push_back(_event);
-            w.size_.fetch_add(1, std::memory_order_relaxed);
-            if (w.events_.size() == 1) { w.cv_.notify_one(); }
-        }
-    }
-
-    void
-    event_loop::run_loop(std::stop_token _stop_token, thread_t _thread_number) noexcept
-    {
-        auto& [w, _] = workers_[_thread_number.thread_];
-
-        std::stop_callback callback(
-            _stop_token,
-            [this, _thread_number] { send_event(nullptr, _thread_number); });
-
-        while (!_stop_token.stop_requested())
-        {
-            event e;
-            {
-                std::unique_lock lck(w.mtx_);
-                if (!w.events_.size())
-                {
-                    w.cv_.wait(lck, [&w = w]() { return w.events_.size(); });
-                }
-
-                e = w.events_.front();
-                w.events_.pop_front();
-                w.size_.fetch_sub(1, std::memory_order_relaxed);
+                handles_[kReadIndex].front().resume();
+                handles_[kReadIndex].pop_front();
             }
 
-            if (e) { e.resume(); }
-        }
-    }
+            auto pp = co_await pause(
+                [&](pause_pack* _pp) noexcept
+                {
+                    use_space_handle_ = _pp;
+                    read(
+                        _pp,
+                        user_space_event_fd_,
+                        std::span<std::byte>(
+                            static_cast<std::byte*>(static_cast<void*>(&count)),
+                            sizeof(count)),
+                        0);
+                });
 
-    event_loop::safe_queue::safe_queue() : size_(0) { }
+            use_space_handle_ = nullptr;
 
-    event_loop::safe_queue::safe_queue(safe_queue&& _que)
-        : size_(_que.size_.load()), events_(std::move(_que.events_))
-    { }
+            if (pp.data_ == -1)
+            {
+                std::cerr << "User space event_fd read failed due to sqe exhaustion.\n";
+                break;
+            }
+            else if (pp.data_ != sizeof(count))
+            {
+                std::cerr << "User space event_fd read failed.\n";
+                break;
+            }
 
-    event_loop::safe_queue::~safe_queue()
-    {
-        for (const auto e : events_)
-        {
-            if (e) { e.destroy(); }
-        }
-    }
-
-    thread_t
-    event_loop::current_id() const noexcept
-    {
-        auto this_tid = std::this_thread::get_id();
-        /* Presumably cbegin, cend and operator[]const are thread safe.*/
-        for (std::uint16_t count = 0; const auto& stdtid : ids_)
-        {
-
-            /* operator= const should also be thread safe. */
-            if (this_tid == stdtid) { return thread_t{count}; }
-
-            ++count;
-        }
-
-        return kAnyThread;
+        } while (!_st.stop_requested());
     }
 
 }   // namespace zab

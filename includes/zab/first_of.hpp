@@ -38,12 +38,13 @@
 #define ZAB_FIRTS_OF_HPP
 
 #include <atomic>
+#include <memory>
 
-#include "zab/async_primitives.hpp"
 #include "zab/async_semaphore.hpp"
 #include "zab/event.hpp"
 #include "zab/strong_types.hpp"
 #include "zab/wait_for.hpp"
+#include "zab/yield.hpp"
 
 namespace zab {
 

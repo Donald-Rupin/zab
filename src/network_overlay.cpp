@@ -42,51 +42,74 @@
 #include <netinet/in.h>
 #include <unistd.h>
 
+#include "zab/event_loop.hpp"
 #include "zab/first_of.hpp"
 #include "zab/timer_service.hpp"
 
 namespace zab {
 
     namespace {
-        inline void
-        CloseSocket(int _socket)
+
+        static simple_future<bool>
+        do_close(engine* _engine, int _fd, event_loop::io_handle _ct)
         {
-            /* Clean any errors on the sockets... */
-            int       result;
-            socklen_t result_len = sizeof(result);
-            ::getsockopt(_socket, SOL_SOCKET, SO_ERROR, (char*) &result, &result_len);
+            struct cu {
+                    ~cu()
+                    {
+                        if (fd_)
+                        {
+                            if (::close(fd_) < 0)
+                            {
+                                std::cerr << "async network failed to close the file descriptor "
+                                          << fd_ << ". errno: " << errno << "\n";
+                            }
+                        }
+                    }
+                    int& fd_;
+            } cleaner{_fd};
 
-            if (::close(_socket) && errno != EBADF)
+            if (_engine->current_id() == thread_t::any_thread())
             {
+                co_await yield(_engine, thread_t::any_thread());
+            }
 
-                std::cerr << "zab: A network overlay socket failed to close.\n";
+            if (_ct) { co_await _engine->get_event_loop().cancel_event(_ct); }
+
+            auto rc = co_await _engine->get_event_loop().close(_fd);
+            _fd     = 0;
+
+            if (rc && !*rc) { co_return true; }
+            else
+            {
+                co_return false;
             }
         }
+
+        static async_function<>
+        background_close(engine* _engine, int _fd, event_loop::io_handle _ct)
+        {
+            co_await do_close(_engine, _fd, _ct);
+        }
+
     }   // namespace
 
     tcp_acceptor::~tcp_acceptor()
     {
-        if (waiter_)
-        {
-            auto desc = waiter_->file_descriptor();
-            waiter_   = std::nullopt;
-            CloseSocket(desc);
-        }
+        if (acceptor_) { background_close(engine_, acceptor_, cancel_token_); }
     }
 
     tcp_connector::~tcp_connector()
     {
-        if (waiter_)
-        {
-            auto desc = waiter_->file_descriptor();
-            waiter_   = std::nullopt;
-            CloseSocket(desc);
-        }
+        if (connection_) { background_close(engine_, connection_, cancel_token_); }
     }
 
-    tcp_acceptor::tcp_acceptor(engine* _engine) : last_error_(0) { register_engine(*_engine); }
+    tcp_acceptor::tcp_acceptor(engine* _engine)
+        : engine_(_engine), cancel_token_(nullptr), acceptor_(0), last_error_(0)
+    { }
 
-    tcp_connector::tcp_connector(engine* _engine) : last_error_(0) { register_engine(*_engine); }
+    tcp_connector::tcp_connector(engine* _engine)
+        : engine_(_engine), cancel_token_(nullptr), connection_(0), last_error_(0)
+    { }
 
     tcp_acceptor::tcp_acceptor(tcp_acceptor&& _move) : tcp_acceptor() { swap(*this, _move); }
 
@@ -101,18 +124,17 @@ namespace zab {
     swap(tcp_acceptor& _first, tcp_acceptor& _second) noexcept
     {
         using std::swap;
-        swap(_first.waiter_, _second.waiter_);
+        swap(_first.acceptor_, _second.acceptor_);
         swap(_first.last_error_, _second.last_error_);
-        using Acc = engine_enabled<tcp_acceptor>;
-        swap(*((Acc*) &_first), *((Acc*) &_second));
+        swap(_first.engine_, _second.engine_);
     }
 
     tcp_connector::tcp_connector(tcp_connector&& _move) : tcp_connector() { swap(*this, _move); }
 
     tcp_connector&
-    tcp_connector::operator=(tcp_connector&& _acceptor)
+    tcp_connector::operator=(tcp_connector&& _connector)
     {
-        swap(*this, _acceptor);
+        swap(*this, _connector);
         return *this;
     }
 
@@ -120,25 +142,79 @@ namespace zab {
     swap(tcp_connector& _first, tcp_connector& _second) noexcept
     {
         using std::swap;
-        swap(_first.waiter_, _second.waiter_);
+        swap(_first.connection_, _second.connection_);
         swap(_first.last_error_, _second.last_error_);
-        using Con = engine_enabled<tcp_connector>;
-        swap(*((Con*) &_first), *((Con*) &_second));
+        swap(_first.engine_, _second.engine_);
+    }
+
+    simple_future<bool>
+    tcp_acceptor::cancel()
+    {
+        if (cancel_token_)
+        {
+            auto tmp_ct   = cancel_token_;
+            cancel_token_ = nullptr;
+            auto rc       = co_await engine_->get_event_loop().cancel_event(tmp_ct);
+            if (rc == event_loop::CancelResults::kDone) { co_return true; }
+            else
+            {
+                co_return false;
+            }
+        }
+    }
+
+    simple_future<bool>
+    tcp_acceptor::close()
+    {
+        auto tmp      = acceptor_;
+        auto tmp_ct   = cancel_token_;
+        acceptor_     = 0;
+        cancel_token_ = nullptr;
+        return do_close(engine_, tmp, tmp_ct);
+    }
+
+    simple_future<bool>
+    tcp_connector::cancel()
+    {
+
+        if (cancel_token_)
+        {
+            auto tmp_ct   = cancel_token_;
+            cancel_token_ = nullptr;
+            auto rc       = co_await engine_->get_event_loop().cancel_event(tmp_ct);
+            if (rc == event_loop::CancelResults::kDone) { co_return true; }
+            else
+            {
+                co_return false;
+            }
+        }
+    }
+
+    simple_future<bool>
+    tcp_connector::close()
+    {
+        auto tmp      = connection_;
+        auto tmp_ct   = cancel_token_;
+        connection_   = 0;
+        cancel_token_ = nullptr;
+        return do_close(engine_, tmp, tmp_ct);
     }
 
     bool
     tcp_acceptor::listen(int _family, std::uint16_t _port, int _backlog) noexcept
     {
-        auto test = ::socket(_family, SOCK_STREAM | SOCK_NONBLOCK | SOCK_CLOEXEC, 0);
+        acceptor_ = ::socket(_family, SOCK_STREAM | SOCK_CLOEXEC, 0);
 
-        if (!test || test < 0) [[unlikely]]
+        if (!acceptor_ || acceptor_ < 0) [[unlikely]]
         {
+            acceptor_   = 0;
             last_error_ = errno;
             return false;
         }
 
         unsigned long on = 1;
-        if (::setsockopt(test, SOL_SOCKET, SO_REUSEADDR, (char*) &on, sizeof(on)) != 0) [[unlikely]]
+        if (::setsockopt(acceptor_, SOL_SOCKET, SO_REUSEADDR, (char*) &on, sizeof(on)) != 0)
+            [[unlikely]]
         {
             last_error_ = errno;
             return false;
@@ -169,21 +245,13 @@ namespace zab {
             return false;
         }
 
-        if (::bind(test, (struct sockaddr*) &add, sizeof(add)) != 0) [[unlikely]]
+        if (::bind(acceptor_, (struct sockaddr*) &add, sizeof(add)) != 0) [[unlikely]]
         {
             last_error_ = errno;
             return false;
         }
 
-        if (::listen(test, _backlog) != 0) [[unlikely]]
-        {
-            last_error_ = errno;
-            return false;
-        }
-
-        waiter_ = get_engine()->get_notification_handler().subscribe(test);
-
-        if (!waiter_) [[unlikely]]
+        if (::listen(acceptor_, _backlog) != 0) [[unlikely]]
         {
             last_error_ = errno;
             return false;
@@ -195,238 +263,98 @@ namespace zab {
     simple_future<tcp_stream>
     tcp_acceptor::accept() noexcept
     {
-        bool     swapped_threads = false;
-        thread_t rejoin_thread{engine_->get_event_loop().current_id()};
+        std::optional<tcp_stream> stream;
 
         struct sockaddr_storage address;
         socklen_t               addlen = sizeof(address);
         ::memset(&address, 0, sizeof(address));
 
-        std::unique_ptr<descriptor_notification::descriptor_op> read_op;
-        std::optional<tcp_stream>                               stream;
-        while (true)
+        auto rc = co_await engine_->get_event_loop().accept(
+            acceptor_,
+            (struct sockaddr*) &address,
+            &addlen,
+            SOCK_CLOEXEC,
+            &cancel_token_);
+
+        cancel_token_ = nullptr;
+
+        if (rc && *rc >= 0) { stream.emplace(engine_, *rc); }
+        else if (rc)
         {
-            if (int sd = ::accept4(
-                    waiter_->file_descriptor(),
-                    (struct sockaddr*) &address,
-                    &addlen,
-                    SOCK_NONBLOCK | SOCK_CLOEXEC);
-                sd >= 0)
-            {
-                stream.emplace(get_engine(), sd);
-
-                if (stream->last_error())
-                {
-                    stream      = std::nullopt;
-                    last_error_ = stream->last_error();
-                }
-
-                break;
-            }
-            else if (errno == EAGAIN || errno == EWOULDBLOCK)
-            {
-                std::uint32_t flags = 0;
-
-                if (!swapped_threads)
-                {
-                    read_op = co_await join_io_thread();
-
-                    if (read_op)
-                    {
-                        swapped_threads = true;
-                        flags           = read_op->flags();
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-                else
-                {
-                    if (!read_op)
-                    {
-                        last_error_ = errno;
-                        break;
-                    }
-
-                    flags = co_await *read_op;
-                }
-
-                /* No flags means something happened internally */
-                /* Like a cancel or deconstruction              */
-                if (!flags) { break; }
-            }
-            else
-            {
-                last_error_ = errno;
-                break;
-            }
-        }
-
-        if (swapped_threads) { co_await yield(rejoin_thread); }
-
-        co_return stream;
-    }
-
-    [[nodiscard]] guaranteed_future<std::unique_ptr<descriptor_notification::descriptor_op>>
-    tcp_acceptor::join_io_thread() noexcept
-    {
-        return waiter_->start_read_operation();
-    }
-
-    simple_future<tcp_stream>
-    tcp_acceptor::accept_io(descriptor_notification::descriptor_op& _op) noexcept
-    {
-        struct sockaddr_storage address;
-        socklen_t               addlen = sizeof(address);
-        ::memset(&address, 0, sizeof(address));
-
-        std::optional<tcp_stream> stream;
-        while (true)
-        {
-            if (int sd = ::accept4(
-                    waiter_->file_descriptor(),
-                    (struct sockaddr*) &address,
-                    &addlen,
-                    SOCK_NONBLOCK | SOCK_CLOEXEC);
-                sd >= 0)
-            {
-                stream.emplace(get_engine(), sd);
-
-                if (stream->last_error())
-                {
-                    stream      = std::nullopt;
-                    last_error_ = stream->last_error();
-                }
-
-                break;
-            }
-            else if (errno == EAGAIN || errno == EWOULDBLOCK)
-            {
-                co_await _op;
-            }
-            else
-            {
-                last_error_ = errno;
-                break;
-            }
+            last_error_ = -*rc;
         }
 
         co_return stream;
     }
 
-    simple_future<tcp_stream>
-    tcp_connector::connect(
-        struct sockaddr_storage* _details,
-        socklen_t                _size,
-        bool                     _return_thread) noexcept
+    reusable_future<tcp_stream>
+    tcp_acceptor::get_accepter() noexcept
     {
-        bool     swapped_threads = false;
-        thread_t rejoin_thread{engine_->get_event_loop().current_id()};
-
-        std::optional<tcp_stream> stream;
-
-        if (!waiter_)
+        while (true)
         {
-            int socket;
-            if (socket =
-                    ::socket(_details->ss_family, SOCK_STREAM | SOCK_NONBLOCK | SOCK_CLOEXEC, 0);
-                socket < 0) [[unlikely]]
+            std::optional<tcp_stream> stream;
+
+            struct sockaddr_storage address;
+            socklen_t               addlen = sizeof(address);
+            ::memset(&address, 0, sizeof(address));
+
+            auto rc = (co_await pause(
+                           [&](auto* _pp) noexcept
+                           {
+                               cancel_token_ = _pp;
+                               engine_->get_event_loop().accept(
+                                   _pp,
+                                   acceptor_,
+                                   (struct sockaddr*) &address,
+                                   &addlen,
+                                   SOCK_CLOEXEC);
+                           }))
+                          .data_;
+
+            cancel_token_ = nullptr;
+
+            if (rc >= 0) { stream.emplace(engine_, rc); }
+
+            else if (rc)
             {
-                last_error_ = errno;
-                co_return std::nullopt;
+                last_error_ = -rc;
             }
 
-            waiter_ = get_engine()->get_notification_handler().subscribe(socket);
+            co_yield stream;
+        }
 
-            if (!waiter_) [[unlikely]]
+        co_return std::nullopt;
+    }
+
+    simple_future<tcp_stream>
+    tcp_connector::connect(struct sockaddr_storage* _details, socklen_t _size) noexcept
+    {
+
+        std::optional<tcp_stream> stream;
+        if (!connection_)
+        {
+            if (connection_ = ::socket(_details->ss_family, SOCK_STREAM | SOCK_CLOEXEC, 0);
+                connection_ < 0) [[unlikely]]
             {
                 last_error_ = errno;
                 co_return std::nullopt;
             }
         }
 
-        std::unique_ptr<descriptor_notification::descriptor_op> write_op;
-        do
+        auto rc = co_await engine_->get_event_loop()
+                      .connect(connection_, (sockaddr*) _details, _size, &cancel_token_);
+
+        cancel_token_ = nullptr;
+
+        if (rc && !*rc)
         {
-            last_error_ = 0;
-
-            if (::connect(waiter_->file_descriptor(), (const sockaddr*) _details, _size) == 0 ||
-                errno == EISCONN)
-            {
-                stream.emplace(get_engine(), std::move(waiter_));
-
-                waiter_ = std::nullopt;
-            }
-            else if (
-                errno == EINPROGRESS || errno == EAGAIN || errno == EWOULDBLOCK ||
-                errno == EALREADY)
-            {
-                swapped_threads = true;
-
-                std::uint32_t flags = 0;
-
-                /* We do not care if its an error */
-                /* Next call to accept will reveal! */
-                if (write_op) { flags = co_await *write_op; }
-                else
-                {
-                    write_op = co_await waiter_->start_write_operation();
-
-                    if (write_op) { flags = write_op->flags(); }
-                    else
-                    {
-                        last_error_ = errno;
-                        break;
-                    }
-                }
-
-                if (flags & descriptor_notification::kWrite)
-                {
-                    /* I think its odd that a failed connect socket can be writable... */
-                    /* but we will handle this case anyways...                         */
-                    struct sockaddr addr;
-                    socklen_t       addrlen = sizeof(addr);
-                    auto            rc = ::getpeername(waiter_->file_descriptor(), &addr, &addrlen);
-                    if (!rc)
-                    {
-                        stream.emplace(get_engine(), std::move(waiter_));
-                        waiter_.reset();
-                    }
-                    else
-                    {
-                        /* Get error from error spillage... */
-                        char ch;
-                        rc          = ::read(waiter_->file_descriptor(), &ch, 0);
-                        last_error_ = errno;
-                    }
-                }
-                else if (flags & descriptor_notification::kClosed)
-                {
-                    /* This can happen if we are making lots of sockets and connections  */
-                    /* at the same time. I am not sure exactly why, but on retry it will */
-                    /* either succed or fail with an error.                              */
-                    last_error_ = EWOULDBLOCK;
-                }
-                else
-                {
-                    char ch;
-                    auto rc = ::read(waiter_->file_descriptor(), &ch, 0);
-                    (void) rc;
-                    last_error_ = errno;
-
-                    if (!last_error_) { last_error_ = EWOULDBLOCK; }
-                }
-            }
-            else
-            {
-                last_error_ = errno;
-            }
-
-        } while (
-            (last_error_ == EINPROGRESS || last_error_ == EAGAIN || last_error_ == EWOULDBLOCK));
-
-        if (_return_thread && swapped_threads) { co_await yield(rejoin_thread); }
+            stream.emplace(engine_, connection_);
+            connection_ = 0;
+        }
+        else if (rc)
+        {
+            last_error_ = -*rc;
+        }
 
         co_return stream;
     }

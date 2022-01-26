@@ -87,7 +87,7 @@ namespace zab::test {
                       co_await recursive(7) && co_await recursive(14) && co_await recursive(58) &&
                       co_await recursive(1209));
 
-                get_engine()->stop();
+                engine_->stop();
             }
 
             simple_future<bool>
@@ -273,7 +273,6 @@ namespace zab::test {
                     ++b_count_;
                     co_await yield(now(), thread_t{});
                 }
-
                 co_return _loops & 0b1;
             }
 
@@ -319,7 +318,7 @@ namespace zab::test {
     int
     test_wait_for_tuple()
     {
-        engine engine(event_loop::configs{kNumberOfThreads, event_loop::configs::kAtLeast});
+        engine engine(engine::configs{kNumberOfThreads, engine::configs::kAtLeast});
 
         test_wait_for_tuple_class test;
 
@@ -352,7 +351,7 @@ namespace zab::test {
                       co_await variable_length(5) && co_await variable_length(16) &&
                       co_await variable_length(123));
 
-                get_engine()->stop();
+                engine_->stop();
             }
 
             simple_future<bool>
@@ -361,9 +360,8 @@ namespace zab::test {
                 std::vector<guaranteed_future<size_t>> vec;
                 vec.emplace_back(typed_promise(0));
 
-                // /* test constant size */
+                /* test constant size */
                 auto result_s_constant = co_await wait_for(std::move(vec));
-
                 if (expected(result_s_constant[0], 0u)) { co_return false; }
 
                 co_return true;
@@ -444,7 +442,7 @@ namespace zab::test {
     int
     test_wait_for_vector()
     {
-        engine engine(event_loop::configs{kNumberOfThreads, event_loop::configs::kAtLeast});
+        engine engine(engine::configs{kNumberOfThreads, engine::configs::kAtLeast});
 
         test_wait_for_vector_class test;
 

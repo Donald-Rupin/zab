@@ -69,15 +69,12 @@ namespace zab::test {
             async_function<>
             run() noexcept
             {
-                get_engine()->get_signal_handler().handle(
+                engine_->get_signal_handler().handle(
                     SIGUSR1,
                     default_thread(),
-                    [this](auto _s) noexcept
+                    [this](int _s) noexcept
                     {
-                        if (expected(get_engine()->current_id().thread_, kDefaultThread))
-                        {
-                            return;
-                        }
+                        if (expected(engine_->current_id().thread_, kDefaultThread)) { return; }
 
                         if (expected(_s, SIGUSR1)) { return; }
 
@@ -95,7 +92,7 @@ namespace zab::test {
 
                 if (handled_ == true) { failed_ = false; }
 
-                get_engine()->stop();
+                engine_->stop();
             }
 
             bool
@@ -114,7 +111,7 @@ namespace zab::test {
     int
     test_raise()
     {
-        engine engine(event_loop::configs{1});
+        engine engine(engine::configs{.threads_ = 1, .opt_ = engine::configs::kExact});
 
         test_raise_class test;
 

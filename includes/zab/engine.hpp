@@ -38,11 +38,13 @@
 #define ZAB_ENGINE_HPP_
 
 #include <cstdint>
+#include <thread>
+#include <vector>
 
-#include "zab/descriptor_notifications.hpp"
 #include "zab/event.hpp"
 #include "zab/event_loop.hpp"
 #include "zab/signal_handler.hpp"
+#include "zab/timer_service.hpp"
 
 namespace zab {
 
@@ -56,10 +58,27 @@ namespace zab {
     class engine {
         public:
 
+            struct configs {
+
+                    enum thread_option {
+                        kAny,
+                        kAtLeast,
+                        kExact
+                    };
+
+                    uint16_t threads_ = 1;
+
+                    thread_option opt_ = kAtLeast;
+
+                    bool affinity_set_ = true;
+
+                    uint16_t affinity_offset_ = 0;
+            };
+
             /**
              * @brief      Constructs an engine.
              */
-            engine(event_loop::configs _configs);
+            engine(configs _configs);
 
             /**
              * @brief      Engines are movable.
@@ -71,7 +90,21 @@ namespace zab {
             /**
              * @brief      Destroys the engine.
              */
-            ~engine();
+            ~engine() = default;
+
+            /**
+             * @brief      Gets the number of cores for the device.
+             *
+             * @return     The number of cores.
+             */
+            static uint16_t
+            core_count() noexcept;
+
+            static uint16_t
+            validate(configs& _configs);
+
+            void
+            set_worker_affinity(thread_t _thread_id) noexcept;
 
             /**
              * @brief      Provides direct access to the signal handler.
@@ -81,13 +114,7 @@ namespace zab {
             inline signal_handler&
             get_signal_handler() noexcept
             {
-                return handler_;
-            }
-
-            inline descriptor_notification&
-            get_notification_handler() noexcept
-            {
-                return notifcations_;
+                return sig_handler_;
             }
 
             /**
@@ -98,14 +125,49 @@ namespace zab {
             inline event_loop&
             get_event_loop() noexcept
             {
-                return event_loop_;
+                return get_event_loop(current_id());
+            }
+
+            inline event_loop&
+            get_event_loop(thread_t _thread) noexcept
+            {
+                assert(_thread < event_loop_.size());
+                return event_loop_[_thread.thread_];
             }
 
             inline timer_service&
             get_timer() noexcept
             {
-                return *timer_;
+                return get_timer(current_id());
             }
+
+            inline timer_service&
+            get_timer(thread_t _thread) noexcept
+            {
+                assert(_thread < timers_.size());
+                return timers_[_thread.thread_];
+            }
+
+            void
+            execute(std::function<void()> _yielder, order_t _order, thread_t _thread) noexcept;
+
+            void
+            resume(event _handle) noexcept;
+
+            void
+            thread_resume(event _handle, thread_t _thread) noexcept;
+
+            void
+            delayed_resume(event _handle, order_t _order) noexcept;
+
+            void
+            delayed_resume(event _handle, order_t _order, thread_t _thread) noexcept;
+
+            void
+            start() noexcept;
+
+            void
+            stop() noexcept;
 
             /**
              * @brief      Get the ID of the thread running this function.
@@ -115,40 +177,38 @@ namespace zab {
              *
              * @return     The thread id.
              */
-            thread_t
+            inline thread_t
             current_id() const noexcept
             {
-                return event_loop_.current_id();
+                return this_thead_;
             }
 
-            void
-            execute(std::function<void()> _yielder, order_t _order, thread_t _thread) noexcept;
-
-            void
-            resume(event _handle, order_t _order, thread_t _thread) noexcept;
-
-            inline void
-            start() noexcept
+            /**
+             * @brief      Get the number of worker events.
+             *
+             * @return     ThWDe nubmer of worker events.
+             */
+            inline uint16_t
+            number_of_workers() const noexcept
             {
-                notifcations_.run();
-                handler_.run();
-                event_loop_.start();
-            }
-
-            inline void
-            stop() noexcept
-            {
-                event_loop_.stop();
-                handler_.stop();
-                notifcations_.stop();
+                return event_loop_.size();
             }
 
         private:
 
-            event_loop              event_loop_ alignas(hardware_constructive_interference_size);
-            signal_handler          handler_ alignas(hardware_constructive_interference_size);
-            descriptor_notification notifcations_ alignas(hardware_constructive_interference_size);
-            std::unique_ptr<timer_service> timer_ alignas(hardware_constructive_interference_size);
+            static thread_local thread_t this_thead_;
+
+            thread_t
+            get_any_thread();
+
+            std::vector<event_loop>    event_loop_;
+            std::vector<timer_service> timers_;
+
+            signal_handler sig_handler_;
+
+            std::vector<std::jthread> threads_;
+
+            configs configs_;
     };
 
 }   // namespace zab

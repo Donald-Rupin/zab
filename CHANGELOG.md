@@ -6,7 +6,7 @@ See the [Keep a Changelog formatting convention](https://keepachangelog.com/en/1
 
 ## Unreleased
 
-## v0.0.0.2 2021/12/22
+## v0.0.0.2 2021/1/26
 
 ### Added
 
@@ -16,11 +16,12 @@ See the [Keep a Changelog formatting convention](https://keepachangelog.com/en/1
 
 ### Changed
 - Made a simpler echo server and moved current one to `logging_echo_server.cpp`
-- epoll no longer handles any timeouts. All timers are now performed by `timing_service`.
+- All timers are now performed by `timing_service`.
 - order_t is now relative (in nano-seconds) and no longer supports negative ordering.
-- descriptor notifications now move waiters into the io thread for their operations.
+- engine is now powered by io_uring
 ### Fixed
 - Bug with event loop not picking the least busy loop in `kAnyThread`.
+- Bug with timer service not resetting time check cadence. 
 
 ### Removed
 - Event loop test since there is no ordering to test now.
