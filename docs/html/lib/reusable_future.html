@@ -1,0 +1,429 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>reusable_future &mdash; ZAB 0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Promise Types" href="promise_types.html" />
+    <link rel="prev" title="simple_future" href="simple_future.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ZAB
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_library.html">Core Library</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="coroutines.html">Coroutines</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="task_types.html">Task Types</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="async_function.html">async_function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="simple_future.html">simple_future</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">reusable_future</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="promise_types.html">Promise Types</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="async_primitives.html">Asynchronous Primitives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="async_sync.html">Asynchronous Synchronisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="observable.html">Observables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_io.html">File IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ZAB</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="lib_root.html">ZAB Documentation</a> &raquo;</li>
+        
+          <li><a href="coroutines.html">Coroutines</a> &raquo;</li>
+        
+          <li><a href="task_types.html">Task Types</a> &raquo;</li>
+        
+      <li>reusable_future</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/lib/reusable_future.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="reusable-future">
+<span id="id1"></span><h1>reusable_future<a class="headerlink" href="#reusable-future" title="Permalink to this headline">¶</a></h1>
+<p>A function can mark itself as a coroutine by having a return type of <code class="docutils literal notranslate"><span class="pre">reusable_future&lt;T,</span> <span class="pre">Promise&gt;</span></code>. A reusable future is essentially <code class="docutils literal notranslate"><span class="pre">simple_future&lt;T,</span> <span class="pre">Promise&gt;</span></code> that can be <code class="docutils literal notranslate"><span class="pre">co_await</span></code>’ed multiple times. The return type is always wrapped in an <code class="docutils literal notranslate"><span class="pre">std::optional</span></code> since the <code class="docutils literal notranslate"><span class="pre">reusable_future&lt;T,</span> <span class="pre">Promise&gt;</span></code> may have finished or hit an error. A user can use the <code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">complete()</span></code> to distinguish the two. A <code class="docutils literal notranslate"><span class="pre">reusable_future&lt;T,</span> <span class="pre">Promise&gt;</span></code> can be viewed as a generator that may exhibit asynchronous behavior. A <code class="docutils literal notranslate"><span class="pre">reusable_future&lt;T&gt;</span></code> will wake up the waiting coroutine and return a value to when the <code class="docutils literal notranslate"><span class="pre">Promise</span></code> uses either the <code class="docutils literal notranslate"><span class="pre">co_yield</span></code> or <code class="docutils literal notranslate"><span class="pre">co_return</span></code> keywords. <code class="docutils literal notranslate"><span class="pre">co_yield</span></code> will return a value, but allow a the <code class="docutils literal notranslate"><span class="pre">reusable_future&lt;T,</span> <span class="pre">Promise&gt;</span></code> to be <code class="docutils literal notranslate"><span class="pre">co_await``ed</span> <span class="pre">again.</span> <span class="pre">``co_return</span></code> will complete the coroutine and any further <code class="docutils literal notranslate"><span class="pre">co_await</span></code> attempts on the <code class="docutils literal notranslate"><span class="pre">reusable_future&lt;T,</span> <span class="pre">Promise&gt;</span></code> will fail.</p>
+<p>The difference in use cases between using a <code class="docutils literal notranslate"><span class="pre">simple_future&lt;T.</span> <span class="pre">Promise&gt;</span></code> many times and having a single <code class="docutils literal notranslate"><span class="pre">reusable_future&lt;T,</span> <span class="pre">Promise&gt;</span></code> is that a <code class="docutils literal notranslate"><span class="pre">reusable_future&lt;T,</span> <span class="pre">Promise&gt;</span></code> can store state about its context between value returns.</p>
+<p>The promise type for an <code class="docutils literal notranslate"><span class="pre">reusable_future&lt;T,</span> <span class="pre">Promise&gt;</span></code> must satisfy the <code class="docutils literal notranslate"><span class="pre">Reoccurring</span></code> concept. The default promise type is the <a class="reference internal" href="reusable_promise.html#reusable-promise"><span class="std std-ref">reusable_promise</span></a>.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">simple_future</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span>
+<span class="n">attempt_foo</span><span class="p">()</span> <span class="k">noexcept</span><span class="p">;</span>
+
+<span class="n">reusable_future</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="o">&gt;</span>
+<span class="n">your_class</span><span class="o">::</span><span class="n">exponential_delay</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">_max</span><span class="p">)</span> <span class="k">noexcept</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">delay</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">delay</span> <span class="o">&lt;</span> <span class="n">_max</span><span class="p">)</span>
+    <span class="p">{</span>
+
+        <span class="k">co_await</span> <span class="nf">yield</span><span class="p">(</span><span class="n">order_t</span><span class="p">(</span><span class="n">order</span><span class="o">::</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="n">order</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="n">delay</span><span class="p">)));</span>
+
+        <span class="n">delay</span> <span class="o">*=</span> <span class="mi">2</span><span class="p">;</span>
+
+        <span class="k">co_yield</span> <span class="n">delay</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/* dealyed to long... */</span>
+    <span class="k">co_return</span> <span class="n">std</span><span class="o">::</span><span class="n">nullopt_t</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="n">async_function</span><span class="o">&lt;&gt;</span>
+<span class="n">your_class</span><span class="o">::</span><span class="n">run</span><span class="p">()</span> <span class="k">noexcept</span>
+<span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="k">auto</span> <span class="n">delay_func</span> <span class="o">=</span> <span class="n">exponential_delay</span><span class="p">(</span><span class="mi">256</span><span class="p">);</span> <span class="o">!</span><span class="n">delay_func</span><span class="p">.</span><span class="n">complete</span><span class="p">())</span>
+    <span class="p">{</span>
+
+        <span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">foo</span> <span class="o">=</span> <span class="k">co_await</span> <span class="n">attempt_foo</span><span class="p">();</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">foo</span><span class="p">)</span>
+        <span class="p">{</span>
+
+            <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Got foo: &quot;</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">foo</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+            <span class="n">delay_func</span><span class="p">.</span><span class="n">force_completion</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+
+            <span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="o">&gt;</span> <span class="n">delay_length</span> <span class="o">=</span> <span class="k">co_await</span> <span class="n">delay_func</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">delay_length</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Delayed for: &quot;</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">delay_length</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span> <span class="p">}</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+
+                <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Timed out</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0_N7details11ReoccurringEEN3zab15reusable_futureE">
+<span id="_CPPv3I0_N7details11ReoccurringEEN3zab15reusable_futureE"></span><span id="_CPPv2I0_N7details11ReoccurringEEN3zab15reusable_futureE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Reoccurring</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Promise</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="reusable_promise.html#_CPPv4I0EN3zab16reusable_promiseE" title="zab::reusable_promise"><span class="n"><span class="pre">reusable_promise</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0_N7details11ReoccurringEEN3zab15reusable_futureE" title="zab::reusable_future::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1reusable__future"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">reusable_future</span></span></span><a class="headerlink" href="#_CPPv4I0_N7details11ReoccurringEEN3zab15reusable_futureE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Represents the future value of a reusuable promise. </p>
+<p><dl class="field-list simple">
+<dt class="field-odd">tparam T</dt>
+<dd class="field-odd"><p>The type of the promised value. </p>
+</dd>
+</dl>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab15reusable_future12promise_typeE">
+<span id="_CPPv3N3zab15reusable_future12promise_typeE"></span><span id="_CPPv2N3zab15reusable_future12promise_typeE"></span><span class="target" id="classzab_1_1reusable__future_1a0deec04551cd5fa6fe2d28213b81308b"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">promise_type</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0_N7details11ReoccurringEEN3zab15reusable_futureE" title="zab::reusable_future::Promise"><span class="n"><span class="pre">Promise</span></span></a><a class="headerlink" href="#_CPPv4N3zab15reusable_future12promise_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab15reusable_future11coro_handleE">
+<span id="_CPPv3N3zab15reusable_future11coro_handleE"></span><span id="_CPPv2N3zab15reusable_future11coro_handleE"></span><span class="target" id="classzab_1_1reusable__future_1af68120f436b01c0b59132841d2158b24"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">coro_handle</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">coroutine_handle</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3zab15reusable_future12promise_typeE" title="zab::reusable_future::promise_type"><span class="n"><span class="pre">promise_type</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3zab15reusable_future11coro_handleE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab15reusable_future18erased_coro_handleE">
+<span id="_CPPv3N3zab15reusable_future18erased_coro_handleE"></span><span id="_CPPv2N3zab15reusable_future18erased_coro_handleE"></span><span class="target" id="classzab_1_1reusable__future_1a0b97bacf4f71f3d840c8981e07288e73"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">erased_coro_handle</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">coroutine_handle</span></span><span class="p"><span class="pre">&lt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3zab15reusable_future18erased_coro_handleE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab15reusable_future12return_valueE">
+<span id="_CPPv3N3zab15reusable_future12return_valueE"></span><span id="_CPPv2N3zab15reusable_future12return_valueE"></span><span class="target" id="classzab_1_1reusable__future_1a68ed7cb02de00f8cd2d03464d659da10"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">return_value</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="n"><span class="pre">deduce_type</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0_N7details11ReoccurringEEN3zab15reusable_futureE" title="zab::reusable_future::Promise"><span class="n"><span class="pre">Promise</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">returns</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">type</span></span><a class="headerlink" href="#_CPPv4N3zab15reusable_future12return_valueE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab15reusable_future15reusable_futureE11coro_handle">
+<span id="_CPPv3N3zab15reusable_future15reusable_futureE11coro_handle"></span><span id="_CPPv2N3zab15reusable_future15reusable_futureE11coro_handle"></span><span id="zab::reusable_future::reusable_future__coro_handle"></span><span class="target" id="classzab_1_1reusable__future_1afb34cf4f6bf2cdf5dca07abcfcfe85a0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reusable_future</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab15reusable_future11coro_handleE" title="zab::reusable_future::coro_handle"><span class="n"><span class="pre">coro_handle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_coroutine</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab15reusable_future15reusable_futureE11coro_handle" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Construct with the future with a handle to its coroutine. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_coroutine</strong> – <strong>[in]</strong> The coroutine handle. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab15reusable_futureD0Ev">
+<span id="_CPPv3N3zab15reusable_futureD0Ev"></span><span id="_CPPv2N3zab15reusable_futureD0Ev"></span><span id="zab::reusable_future::~reusable_future"></span><span class="target" id="classzab_1_1reusable__future_1a009cabd48bcf9a9f4062e80d874961fc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~reusable_future</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab15reusable_futureD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Destroys the future and cleans up the coroutine handle. </p>
+<p>We destroy the coroutine handle here as the the final_suspend in the <code class="docutils literal notranslate"><span class="pre">reusable_promise</span></code> does not resume. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab15reusable_futureaSERR15reusable_future">
+<span id="_CPPv3N3zab15reusable_futureaSERR15reusable_future"></span><span id="_CPPv2N3zab15reusable_futureaSERR15reusable_future"></span><span id="zab::reusable_future::assign-operator__reusable_futureRR"></span><span class="target" id="classzab_1_1reusable__future_1a2e83fc321b58652bb36dee0dcb765664"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0_N7details11ReoccurringEEN3zab15reusable_futureE" title="zab::reusable_future"><span class="n"><span class="pre">reusable_future</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0_N7details11ReoccurringEEN3zab15reusable_futureE" title="zab::reusable_future"><span class="n"><span class="pre">reusable_future</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab15reusable_futureaSERR15reusable_future" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Move Assignment operator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_other</strong> – The <a class="reference internal" href="simple_future.html#classzab_1_1simple__future"><span class="std std-ref">simple_future</span></a> to move.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>*this. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab15reusable_future15reusable_futureERK15reusable_future">
+<span id="_CPPv3N3zab15reusable_future15reusable_futureERK15reusable_future"></span><span id="_CPPv2N3zab15reusable_future15reusable_futureERK15reusable_future"></span><span id="zab::reusable_future::reusable_future__reusable_futureCR"></span><span class="target" id="classzab_1_1reusable__future_1a30879c96311ffbff634ee74d7d9b7229"></span><span class="sig-name descname"><span class="n"><span class="pre">reusable_future</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab15reusable_future15reusable_futureERK15reusable_future" title="zab::reusable_future::reusable_future"><span class="n"><span class="pre">reusable_future</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab15reusable_future15reusable_futureERK15reusable_future" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Cannot be coppied. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_other</strong> – <strong>[in]</strong> The <a class="reference internal" href="#classzab_1_1reusable__future"><span class="std std-ref">reusable_future</span></a> to copy. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab15reusable_future15reusable_futureERR15reusable_future">
+<span id="_CPPv3N3zab15reusable_future15reusable_futureERR15reusable_future"></span><span id="_CPPv2N3zab15reusable_future15reusable_futureERR15reusable_future"></span><span id="zab::reusable_future::reusable_future__reusable_futureRR"></span><span class="target" id="classzab_1_1reusable__future_1a679d0ef422db1ff023579e1cdc9ed2b5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reusable_future</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab15reusable_future15reusable_futureERR15reusable_future" title="zab::reusable_future::reusable_future"><span class="n"><span class="pre">reusable_future</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab15reusable_future15reusable_futureERR15reusable_future" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Moving makes the moved <a class="reference internal" href="#classzab_1_1reusable__future"><span class="std std-ref">reusable_future</span></a> lose ownership of the handle. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_other</strong> – The <a class="reference internal" href="#classzab_1_1reusable__future"><span class="std std-ref">reusable_future</span></a> to move. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3zab15reusable_futurecv8co_awaitEv">
+<span id="_CPPv3NK3zab15reusable_futurecv8co_awaitEv"></span><span id="_CPPv2NK3zab15reusable_futurecv8co_awaitEv"></span><span id="zab::reusable_future::castto-co_await-operatorC"></span><span class="target" id="classzab_1_1reusable__future_1a169b6e83bd103c472c40f86d59ffdfd3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="n"><span class="pre">co_await</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3zab15reusable_futurecv8co_awaitEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>wait for the <code class="docutils literal notranslate"><span class="pre">reusable_promise</span></code> to be fulfilled or fail. </p>
+<p>Then co_await returns an <code class="docutils literal notranslate"><span class="pre">std::optional&lt;T&gt;</span></code> which represents if the reusable_promise was fulfilled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <code class="docutils literal notranslate"><span class="pre">co_await</span></code>’able struct. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3zab15reusable_future8completeEv">
+<span id="_CPPv3NK3zab15reusable_future8completeEv"></span><span id="_CPPv2NK3zab15reusable_future8completeEv"></span><span id="zab::reusable_future::completeC"></span><span class="target" id="classzab_1_1reusable__future_1a6de3c73be1a594fc556a34b721a50057"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">complete</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3zab15reusable_future8completeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Test if the coroutine has fully completed. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>true if complete, false otherwise. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3zab15reusable_futurecvbEv">
+<span id="_CPPv3NK3zab15reusable_futurecvbEv"></span><span id="_CPPv2NK3zab15reusable_futurecvbEv"></span><span id="zab::reusable_future::castto-b-operatorC"></span><span class="target" id="classzab_1_1reusable__future_1ac06328186fdb88a89f2500650f215ece"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3zab15reusable_futurecvbEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Test if the coroutine has fully completed. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>true if complete, false otherwise. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab15reusable_future16force_completionEv">
+<span id="_CPPv3N3zab15reusable_future16force_completionEv"></span><span id="_CPPv2N3zab15reusable_future16force_completionEv"></span><span id="zab::reusable_future::force_completion"></span><span class="target" id="classzab_1_1reusable__future_1a9a1aa252c25ffd3cdc8d5e1aaaa1acfe"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">force_completion</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab15reusable_future16force_completionEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Force the end of the coroutine. </p>
+<p>If this function is called while somthing is <code class="docutils literal notranslate"><span class="pre">co_await</span></code>ing the corountine, it will cause undefined behaviour. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="promise_types.html" class="btn btn-neutral float-right" title="Promise Types" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="simple_future.html" class="btn btn-neutral float-left" title="simple_future" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Donald Rupin.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,507 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1engine" kind="class" language="C++" prot="public">
+    <compoundname>zab::engine</compoundname>
+    <includes refid="engine_8hpp" local="no">engine.hpp</includes>
+    <innerclass refid="structzab_1_1engine_1_1configs" prot="public">zab::engine::configs</innerclass>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classzab_1_1engine_1aca530ba195d8745e26f2161c7de6e3b0" prot="private" static="yes" mutable="no">
+        <type>thread_local <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+        <definition>thread_local thread_t zab::engine::this_thead_</definition>
+        <argsstring></argsstring>
+        <name>this_thead_</name>
+        <initializer>= <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="199" column="42" bodyfile="/home/donald/rupin/zab/includes/zab/engine.hpp" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzab_1_1engine_1a8a7c0b13d37435981147c65a04a84827" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classzab_1_1event__loop" kindref="compound">event_loop</ref> &gt;</type>
+        <definition>std::vector&lt;event_loop&gt; zab::engine::event_loop_</definition>
+        <argsstring></argsstring>
+        <name>event_loop_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="204" column="28" bodyfile="/home/donald/rupin/zab/includes/zab/engine.hpp" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1engine_1addcb0bc1fdee216d71120de60da3eb05" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; timer_service &gt;</type>
+        <definition>std::vector&lt;timer_service&gt; zab::engine::timers_</definition>
+        <argsstring></argsstring>
+        <name>timers_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="205" column="25" bodyfile="/home/donald/rupin/zab/includes/zab/engine.hpp" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1engine_1a58c88ddb4fd8c59dceb92057d7e5a2eb" prot="private" static="no" mutable="no">
+        <type><ref refid="classzab_1_1signal__handler" kindref="compound">signal_handler</ref></type>
+        <definition>signal_handler zab::engine::sig_handler_</definition>
+        <argsstring></argsstring>
+        <name>sig_handler_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="207" column="28" bodyfile="/home/donald/rupin/zab/includes/zab/engine.hpp" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1engine_1a9535a424a1906dfac80dff8b884375b8" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::jthread &gt;</type>
+        <definition>std::vector&lt;std::jthread&gt; zab::engine::threads_</definition>
+        <argsstring></argsstring>
+        <name>threads_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="209" column="25" bodyfile="/home/donald/rupin/zab/includes/zab/engine.hpp" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1engine_1adcfd1e8656ee9020fcf8bba940d6d15e" prot="private" static="no" mutable="no">
+        <type>configs</type>
+        <definition>configs zab::engine::configs_</definition>
+        <argsstring></argsstring>
+        <name>configs_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="211" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/engine.hpp" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1engine_1ad5458d5c7152bfe037b7876716877d99" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::engine::engine</definition>
+        <argsstring>(configs _configs)</argsstring>
+        <name>engine</name>
+        <param>
+          <type>configs</type>
+          <declname>_configs</declname>
+        </param>
+        <briefdescription>
+<para>Constructs an engine. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="81" column="13" bodyfile="/home/donald/rupin/zab/src/engine.cpp" bodystart="64" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine_1aaa8dd050971a73ad3fa2987a9950f7e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::engine::engine</definition>
+        <argsstring>(engine &amp;&amp;_move)=default</argsstring>
+        <name>engine</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> &amp;&amp;</type>
+          <declname>_move</declname>
+        </param>
+        <briefdescription>
+<para>Engines are movable. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_move</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The engine to move </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="88" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine_1ac510d891c0826a916ea3dab771fcd950" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::engine::~engine</definition>
+        <argsstring>()=default</argsstring>
+        <name>~engine</name>
+        <briefdescription>
+<para>Destroys the engine. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="93" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine_1afbcb8b260290c13db5d8ace81508f294" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::engine::set_worker_affinity</definition>
+        <argsstring>(thread_t _thread_id) noexcept</argsstring>
+        <name>set_worker_affinity</name>
+        <param>
+          <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_thread_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="107" column="13" bodyfile="/home/donald/rupin/zab/src/engine.cpp" bodystart="111" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine_1a6a06c37a667cc81a03c02c07aa0886e0" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1signal__handler" kindref="compound">signal_handler</ref> &amp;</type>
+        <definition>signal_handler&amp; zab::engine::get_signal_handler</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>get_signal_handler</name>
+        <briefdescription>
+<para>Provides direct access to the signal handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The Wngines signal handler. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="115" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine.hpp" bodystart="115" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine_1a673c2a057185742ff02d3fe76181cf60" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1event__loop" kindref="compound">event_loop</ref> &amp;</type>
+        <definition>event_loop&amp; zab::engine::get_event_loop</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>get_event_loop</name>
+        <briefdescription>
+<para>Provides direct access to the event loop. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The Wngines event loop. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="126" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine.hpp" bodystart="126" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine_1a090caa1af571f6649e5d25c51e84cbf0" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1event__loop" kindref="compound">event_loop</ref> &amp;</type>
+        <definition>event_loop&amp; zab::engine::get_event_loop</definition>
+        <argsstring>(thread_t _thread) noexcept</argsstring>
+        <name>get_event_loop</name>
+        <param>
+          <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_thread</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="132" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine.hpp" bodystart="132" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine_1ad1731f6adbebc522b83c529a3dbffb59" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>timer_service &amp;</type>
+        <definition>timer_service&amp; zab::engine::get_timer</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>get_timer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="139" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine.hpp" bodystart="139" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine_1a0152c98e0a9098f7488b136cdf395438" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>timer_service &amp;</type>
+        <definition>timer_service&amp; zab::engine::get_timer</definition>
+        <argsstring>(thread_t _thread) noexcept</argsstring>
+        <name>get_timer</name>
+        <param>
+          <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_thread</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="145" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine.hpp" bodystart="145" bodyend="149"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine_1a0445734515afba97d3618a41b306c234" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::engine::execute</definition>
+        <argsstring>(std::function&lt; void()&gt; _yielder, order_t _order, thread_t _thread) noexcept</argsstring>
+        <name>execute</name>
+        <param>
+          <type>std::function&lt; void()&gt;</type>
+          <declname>_yielder</declname>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1order__t" kindref="compound">order_t</ref></type>
+          <declname>_order</declname>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_thread</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="152" column="13" bodyfile="/home/donald/rupin/zab/src/engine.cpp" bodystart="168" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine_1a828c81cb6117828c06be28fdfee712ca" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::engine::resume</definition>
+        <argsstring>(event _handle) noexcept</argsstring>
+        <name>resume</name>
+        <param>
+          <type>event</type>
+          <declname>_handle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="155" column="13" bodyfile="/home/donald/rupin/zab/src/engine.cpp" bodystart="174" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine_1a4542b68b83d5ec1d5f04844c666516f3" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::engine::thread_resume</definition>
+        <argsstring>(event _handle, thread_t _thread) noexcept</argsstring>
+        <name>thread_resume</name>
+        <param>
+          <type>event</type>
+          <declname>_handle</declname>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_thread</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="158" column="13" bodyfile="/home/donald/rupin/zab/src/engine.cpp" bodystart="206" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine_1a7a9bd8a116033a6b4332bdc191aed2a3" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::engine::delayed_resume</definition>
+        <argsstring>(event _handle, order_t _order) noexcept</argsstring>
+        <name>delayed_resume</name>
+        <param>
+          <type>event</type>
+          <declname>_handle</declname>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1order__t" kindref="compound">order_t</ref></type>
+          <declname>_order</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="161" column="13" bodyfile="/home/donald/rupin/zab/src/engine.cpp" bodystart="215" bodyend="219"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine_1afaa797779e08c54de530dbe39cc52d81" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::engine::delayed_resume</definition>
+        <argsstring>(event _handle, order_t _order, thread_t _thread) noexcept</argsstring>
+        <name>delayed_resume</name>
+        <param>
+          <type>event</type>
+          <declname>_handle</declname>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1order__t" kindref="compound">order_t</ref></type>
+          <declname>_order</declname>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_thread</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="164" column="13" bodyfile="/home/donald/rupin/zab/src/engine.cpp" bodystart="222" bodyend="231"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine_1a750521969f5797447f29ff9f0c46c7b6" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::engine::start</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="167" column="13" bodyfile="/home/donald/rupin/zab/src/engine.cpp" bodystart="128" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine_1a5d4ef6e3465d1a99a297aa7763b4c516" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::engine::stop</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>stop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="170" column="13" bodyfile="/home/donald/rupin/zab/src/engine.cpp" bodystart="158" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine_1a13dea91640a140e9d077b8e257ad4e66" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+        <definition>thread_t zab::engine::current_id</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>current_id</name>
+        <briefdescription>
+<para>Get the ID of the thread running this function. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns kAnyThread if this thread is not an engine thread.</para>
+<para><simplesect kind="return"><para>The thread id. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="181" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine.hpp" bodystart="181" bodyend="184"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine_1a78093e0912c3e7c50840fc4f2e1560e4" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>uint16_t</type>
+        <definition>uint16_t zab::engine::number_of_workers</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>number_of_workers</name>
+        <briefdescription>
+<para>Get the number of worker events. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>ThWDe nubmer of worker events. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="192" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine.hpp" bodystart="192" bodyend="195"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classzab_1_1engine_1ad4afd9324a9f645950c86031883af30c" prot="public" static="yes" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>uint16_t</type>
+        <definition>std::uint16_t zab::engine::core_count</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>core_count</name>
+        <briefdescription>
+<para>Gets the number of cores for the device. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The number of cores. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="101" column="13" bodyfile="/home/donald/rupin/zab/src/engine.cpp" bodystart="85" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine_1a0e81ad45cb54af9890a415b5620ba1ba" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint16_t</type>
+        <definition>std::uint16_t zab::engine::validate</definition>
+        <argsstring>(configs &amp;_configs)</argsstring>
+        <name>validate</name>
+        <param>
+          <type>configs &amp;</type>
+          <declname>_configs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="104" column="13" bodyfile="/home/donald/rupin/zab/src/engine.cpp" bodystart="69" bodyend="82"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzab_1_1engine_1a769be960a0cf27b5deabf75d5ac87bf1" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+        <definition>thread_t zab::engine::get_any_thread</definition>
+        <argsstring>()</argsstring>
+        <name>get_any_thread</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="202" column="13" bodyfile="/home/donald/rupin/zab/src/engine.cpp" bodystart="180" bodyend="203"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This class describes an engine for enabling access to an interface and providing an event loop to execute requests. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/engine.hpp" line="58" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/engine.hpp" bodystart="58" bodyend="212"/>
+    <listofallmembers>
+      <member refid="classzab_1_1engine_1adcfd1e8656ee9020fcf8bba940d6d15e" prot="private" virt="non-virtual"><scope>zab::engine</scope><name>configs_</name></member>
+      <member refid="classzab_1_1engine_1ad4afd9324a9f645950c86031883af30c" prot="public" virt="non-virtual"><scope>zab::engine</scope><name>core_count</name></member>
+      <member refid="classzab_1_1engine_1a13dea91640a140e9d077b8e257ad4e66" prot="public" virt="non-virtual"><scope>zab::engine</scope><name>current_id</name></member>
+      <member refid="classzab_1_1engine_1a7a9bd8a116033a6b4332bdc191aed2a3" prot="public" virt="non-virtual"><scope>zab::engine</scope><name>delayed_resume</name></member>
+      <member refid="classzab_1_1engine_1afaa797779e08c54de530dbe39cc52d81" prot="public" virt="non-virtual"><scope>zab::engine</scope><name>delayed_resume</name></member>
+      <member refid="classzab_1_1engine_1ad5458d5c7152bfe037b7876716877d99" prot="public" virt="non-virtual"><scope>zab::engine</scope><name>engine</name></member>
+      <member refid="classzab_1_1engine_1aaa8dd050971a73ad3fa2987a9950f7e2" prot="public" virt="non-virtual"><scope>zab::engine</scope><name>engine</name></member>
+      <member refid="classzab_1_1engine_1a8a7c0b13d37435981147c65a04a84827" prot="private" virt="non-virtual"><scope>zab::engine</scope><name>event_loop_</name></member>
+      <member refid="classzab_1_1engine_1a0445734515afba97d3618a41b306c234" prot="public" virt="non-virtual"><scope>zab::engine</scope><name>execute</name></member>
+      <member refid="classzab_1_1engine_1a769be960a0cf27b5deabf75d5ac87bf1" prot="private" virt="non-virtual"><scope>zab::engine</scope><name>get_any_thread</name></member>
+      <member refid="classzab_1_1engine_1a673c2a057185742ff02d3fe76181cf60" prot="public" virt="non-virtual"><scope>zab::engine</scope><name>get_event_loop</name></member>
+      <member refid="classzab_1_1engine_1a090caa1af571f6649e5d25c51e84cbf0" prot="public" virt="non-virtual"><scope>zab::engine</scope><name>get_event_loop</name></member>
+      <member refid="classzab_1_1engine_1a6a06c37a667cc81a03c02c07aa0886e0" prot="public" virt="non-virtual"><scope>zab::engine</scope><name>get_signal_handler</name></member>
+      <member refid="classzab_1_1engine_1ad1731f6adbebc522b83c529a3dbffb59" prot="public" virt="non-virtual"><scope>zab::engine</scope><name>get_timer</name></member>
+      <member refid="classzab_1_1engine_1a0152c98e0a9098f7488b136cdf395438" prot="public" virt="non-virtual"><scope>zab::engine</scope><name>get_timer</name></member>
+      <member refid="classzab_1_1engine_1a78093e0912c3e7c50840fc4f2e1560e4" prot="public" virt="non-virtual"><scope>zab::engine</scope><name>number_of_workers</name></member>
+      <member refid="classzab_1_1engine_1a828c81cb6117828c06be28fdfee712ca" prot="public" virt="non-virtual"><scope>zab::engine</scope><name>resume</name></member>
+      <member refid="classzab_1_1engine_1afbcb8b260290c13db5d8ace81508f294" prot="public" virt="non-virtual"><scope>zab::engine</scope><name>set_worker_affinity</name></member>
+      <member refid="classzab_1_1engine_1a58c88ddb4fd8c59dceb92057d7e5a2eb" prot="private" virt="non-virtual"><scope>zab::engine</scope><name>sig_handler_</name></member>
+      <member refid="classzab_1_1engine_1a750521969f5797447f29ff9f0c46c7b6" prot="public" virt="non-virtual"><scope>zab::engine</scope><name>start</name></member>
+      <member refid="classzab_1_1engine_1a5d4ef6e3465d1a99a297aa7763b4c516" prot="public" virt="non-virtual"><scope>zab::engine</scope><name>stop</name></member>
+      <member refid="classzab_1_1engine_1aca530ba195d8745e26f2161c7de6e3b0" prot="private" virt="non-virtual"><scope>zab::engine</scope><name>this_thead_</name></member>
+      <member refid="classzab_1_1engine_1a4542b68b83d5ec1d5f04844c666516f3" prot="public" virt="non-virtual"><scope>zab::engine</scope><name>thread_resume</name></member>
+      <member refid="classzab_1_1engine_1a9535a424a1906dfac80dff8b884375b8" prot="private" virt="non-virtual"><scope>zab::engine</scope><name>threads_</name></member>
+      <member refid="classzab_1_1engine_1addcb0bc1fdee216d71120de60da3eb05" prot="private" virt="non-virtual"><scope>zab::engine</scope><name>timers_</name></member>
+      <member refid="classzab_1_1engine_1a0e81ad45cb54af9890a415b5620ba1ba" prot="public" virt="non-virtual"><scope>zab::engine</scope><name>validate</name></member>
+      <member refid="classzab_1_1engine_1ac510d891c0826a916ea3dab771fcd950" prot="public" virt="non-virtual"><scope>zab::engine</scope><name>~engine</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

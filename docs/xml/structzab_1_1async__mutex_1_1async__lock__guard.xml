@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structzab_1_1async__mutex_1_1async__lock__guard" kind="struct" language="C++" prot="public">
+    <compoundname>zab::async_mutex::async_lock_guard</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzab_1_1async__mutex_1_1async__lock__guard_1a08091fda0fe548e58ec8d2def54a6a99" prot="public" static="no" mutable="no">
+        <type>async_binary_semaphore *</type>
+        <definition>async_binary_semaphore* zab::async_mutex::async_lock_guard::sem_</definition>
+        <argsstring></argsstring>
+        <name>sem_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" line="69" column="44" bodyfile="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzab_1_1async__mutex_1_1async__lock__guard_1aae28ee3093d152075c0961ce90b64753" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_mutex::async_lock_guard::~async_lock_guard</definition>
+        <argsstring>()</argsstring>
+        <name>~async_lock_guard</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" line="55" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" bodystart="55" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="structzab_1_1async__mutex_1_1async__lock__guard_1a4eb5e7d2851f19d94c5c9db7d11732c8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_mutex::async_lock_guard::async_lock_guard</definition>
+        <argsstring>(async_binary_semaphore *_sem)</argsstring>
+        <name>async_lock_guard</name>
+        <param>
+          <type>async_binary_semaphore *</type>
+          <declname>_sem</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" line="60" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" bodystart="60" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="structzab_1_1async__mutex_1_1async__lock__guard_1a24360cb8e31ef233655633003d068cf9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_mutex::async_lock_guard::async_lock_guard</definition>
+        <argsstring>(const async_lock_guard &amp;_copy)=delete</argsstring>
+        <name>async_lock_guard</name>
+        <param>
+          <type>const async_lock_guard &amp;</type>
+          <declname>_copy</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" line="62" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="structzab_1_1async__mutex_1_1async__lock__guard_1aa100a03aed63d438927d122409411b90" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_mutex::async_lock_guard::async_lock_guard</definition>
+        <argsstring>(async_lock_guard &amp;&amp;_move)</argsstring>
+        <name>async_lock_guard</name>
+        <param>
+          <type>async_lock_guard &amp;&amp;</type>
+          <declname>_move</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" line="64" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" bodystart="64" bodyend="67"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" line="53" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" bodystart="53" bodyend="70"/>
+    <listofallmembers>
+      <member refid="structzab_1_1async__mutex_1_1async__lock__guard_1a4eb5e7d2851f19d94c5c9db7d11732c8" prot="public" virt="non-virtual"><scope>zab::async_mutex::async_lock_guard</scope><name>async_lock_guard</name></member>
+      <member refid="structzab_1_1async__mutex_1_1async__lock__guard_1a24360cb8e31ef233655633003d068cf9" prot="public" virt="non-virtual"><scope>zab::async_mutex::async_lock_guard</scope><name>async_lock_guard</name></member>
+      <member refid="structzab_1_1async__mutex_1_1async__lock__guard_1aa100a03aed63d438927d122409411b90" prot="public" virt="non-virtual"><scope>zab::async_mutex::async_lock_guard</scope><name>async_lock_guard</name></member>
+      <member refid="structzab_1_1async__mutex_1_1async__lock__guard_1a08091fda0fe548e58ec8d2def54a6a99" prot="public" virt="non-virtual"><scope>zab::async_mutex::async_lock_guard</scope><name>sem_</name></member>
+      <member refid="structzab_1_1async__mutex_1_1async__lock__guard_1aae28ee3093d152075c0961ce90b64753" prot="public" virt="non-virtual"><scope>zab::async_mutex::async_lock_guard</scope><name>~async_lock_guard</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

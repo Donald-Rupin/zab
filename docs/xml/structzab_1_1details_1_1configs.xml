@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structzab_1_1details_1_1configs" kind="struct" language="C++" prot="public">
+    <compoundname>zab::details::configs</compoundname>
+    <derivedcompoundref refid="classzab_1_1engine__enabled" prot="public" virt="non-virtual">zab::engine_enabled&lt; observable&lt; Args... &gt; &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classzab_1_1engine__enabled" prot="public" virt="non-virtual">zab::engine_enabled&lt; Base &gt;</derivedcompoundref>
+    <includes refid="engine__enabled_8hpp" local="no">engine_enabled.hpp</includes>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="structzab_1_1details_1_1configs_1a89303251a3a56e12439ada0e27085676" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr auto</type>
+        <definition>constexpr auto zab::details::configs::kMainCadence</definition>
+        <argsstring></argsstring>
+        <name>kMainCadence</name>
+        <initializer>= order::seconds(30)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="71" column="39" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzab_1_1details_1_1configs_1ab1cfc59a82d9cbb792bb390d27524c8c" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr auto</type>
+        <definition>constexpr auto zab::details::configs::kDefaultThread</definition>
+        <argsstring></argsstring>
+        <name>kDefaultThread</name>
+        <initializer>= thread_t::any_thread()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="74" column="39" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzab_1_1details_1_1configs_1ac38d8a4b6c0818e3e0cfc558162b6a63" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr auto</type>
+        <definition>constexpr auto zab::details::configs::kInitialiseThread</definition>
+        <argsstring></argsstring>
+        <name>kInitialiseThread</name>
+        <initializer>= thread_t::any_thread()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="77" column="39" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzab_1_1details_1_1configs_1a9f93594d89066f9dbd08ae66725b9498" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr auto</type>
+        <definition>constexpr auto zab::details::configs::kMainThread</definition>
+        <argsstring></argsstring>
+        <name>kMainThread</name>
+        <initializer>= thread_t::any_thread()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="80" column="39" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Since we cannot enforce std::is_base_of&lt;engine_enabled&lt;Base&gt;, Base&gt; due to circular depandancy we instead have a common ancestor to both Base and <ref refid="classzab_1_1engine__enabled" kindref="compound">engine_enabled</ref> (configs -&gt; <ref refid="classzab_1_1engine__enabled" kindref="compound">engine_enabled</ref> -&gt; Base). </para>
+    </briefdescription>
+    <detaileddescription>
+<para>An object could still satisfy std::is_base_of&lt;configs, Base&gt; by directly inheriting from configs instead of <ref refid="classzab_1_1engine__enabled" kindref="compound">engine_enabled</ref>. But if they purposely do this then they can expect things to break :) </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>zab::engine_enabled&lt; Base &gt;</label>
+        <link refid="classzab_1_1engine__enabled"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zab::details::configs</label>
+        <link refid="structzab_1_1details_1_1configs"/>
+      </node>
+      <node id="2">
+        <label>zab::engine_enabled&lt; observable&lt; Args... &gt; &gt;</label>
+        <link refid="classzab_1_1engine__enabled"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="69" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="69" bodyend="81"/>
+    <listofallmembers>
+      <member refid="structzab_1_1details_1_1configs_1ab1cfc59a82d9cbb792bb390d27524c8c" prot="public" virt="non-virtual"><scope>zab::details::configs</scope><name>kDefaultThread</name></member>
+      <member refid="structzab_1_1details_1_1configs_1ac38d8a4b6c0818e3e0cfc558162b6a63" prot="public" virt="non-virtual"><scope>zab::details::configs</scope><name>kInitialiseThread</name></member>
+      <member refid="structzab_1_1details_1_1configs_1a89303251a3a56e12439ada0e27085676" prot="public" virt="non-virtual"><scope>zab::details::configs</scope><name>kMainCadence</name></member>
+      <member refid="structzab_1_1details_1_1configs_1a9f93594d89066f9dbd08ae66725b9498" prot="public" virt="non-virtual"><scope>zab::details::configs</scope><name>kMainThread</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

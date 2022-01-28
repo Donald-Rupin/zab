@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1defer__block__promise" kind="class" language="C++" prot="public">
+    <compoundname>zab::defer_block_promise</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzab_1_1defer__block__promise_1a8ac6a5fb1b1475cdef9035f16abb9255" prot="private" static="no" mutable="no">
+        <type>std::function&lt; void(void)&gt;</type>
+        <definition>std::function&lt;void(void)&gt; zab::defer_block_promise::defer_</definition>
+        <argsstring></argsstring>
+        <name>defer_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" line="155" column="27" bodyfile="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1defer__block__promise_1a122857bc01032ba02b9c26f8b2a94f0c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::defer_block_promise::~defer_block_promise</definition>
+        <argsstring>()</argsstring>
+        <name>~defer_block_promise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" line="58" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" bodystart="58" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1defer__block__promise_1a83667cb9c5c6b715ae274a013477fe87" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::defer_block_promise::get_return_object</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>get_return_object</name>
+        <briefdescription>
+<para>Gets the coroutine handle from <computeroutput>this</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The coroutine handle. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" line="70" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" bodystart="70" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1defer__block__promise_1a64bfb5dbf7419ab7cbfc340ea5fff0c1" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::defer_block_promise::initial_suspend</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>initial_suspend</name>
+        <briefdescription>
+<para>All <computeroutput><ref refid="classzab_1_1execution__promise" kindref="compound">execution_promise</ref></computeroutput>&apos;s&apos; begin execution on function call. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>A <computeroutput>std::suspend_never</computeroutput>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" line="82" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" bodystart="82" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1defer__block__promise_1a0e4cb575822f7e80486347c629c9de70" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::defer_block_promise::final_suspend</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>final_suspend</name>
+        <briefdescription>
+<para>When execution completes, the coroutine will clean itself up. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><computeroutput>A std::suspend_never</computeroutput>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" line="94" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" bodystart="94" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1defer__block__promise_1ae0852a58a348de52493be433c85d2832" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::defer_block_promise::return_void</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>return_void</name>
+        <briefdescription>
+<para>Returning is a no-op. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" line="110" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" bodystart="110" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1defer__block__promise_1a1c7d58ab39495c8fc5b867f6613d33e3" prot="public" static="no" const="no" explicit="no" inline="yes" refqual="rvalue" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>zab::defer_block_promise::requires</definition>
+        <argsstring>(std::is_nothrow_invocable_v&lt; T &gt;) auto yield_value(defer_block&lt; T &gt; &amp;&amp;_block)</argsstring>
+        <name>requires</name>
+        <param>
+          <type>std::is_nothrow_invocable_v&lt; T &gt;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" line="114" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" bodystart="114" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1defer__block__promise_1a4047b2a2523601da84828e5bbbbf5dad" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::defer_block_promise::yield_value</definition>
+        <argsstring>(purge_block &amp;&amp;)</argsstring>
+        <name>yield_value</name>
+        <param>
+          <type>purge_block &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" line="138" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" bodystart="138" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1defer__block__promise_1a85946dcf75d55e9b82c020104edffca4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::defer_block_promise::unhandled_exception</definition>
+        <argsstring>()</argsstring>
+        <name>unhandled_exception</name>
+        <briefdescription>
+<para>Exceptions are currently not implermented. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" line="148" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" bodystart="148" bodyend="151"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" line="54" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" bodystart="54" bodyend="156"/>
+    <listofallmembers>
+      <member refid="classzab_1_1defer__block__promise_1a8ac6a5fb1b1475cdef9035f16abb9255" prot="private" virt="non-virtual"><scope>zab::defer_block_promise</scope><name>defer_</name></member>
+      <member refid="classzab_1_1defer__block__promise_1a0e4cb575822f7e80486347c629c9de70" prot="public" virt="non-virtual"><scope>zab::defer_block_promise</scope><name>final_suspend</name></member>
+      <member refid="classzab_1_1defer__block__promise_1a83667cb9c5c6b715ae274a013477fe87" prot="public" virt="non-virtual"><scope>zab::defer_block_promise</scope><name>get_return_object</name></member>
+      <member refid="classzab_1_1defer__block__promise_1a64bfb5dbf7419ab7cbfc340ea5fff0c1" prot="public" virt="non-virtual"><scope>zab::defer_block_promise</scope><name>initial_suspend</name></member>
+      <member refid="classzab_1_1defer__block__promise_1a1c7d58ab39495c8fc5b867f6613d33e3" prot="public" virt="non-virtual"><scope>zab::defer_block_promise</scope><name>requires</name></member>
+      <member refid="classzab_1_1defer__block__promise_1ae0852a58a348de52493be433c85d2832" prot="public" virt="non-virtual"><scope>zab::defer_block_promise</scope><name>return_void</name></member>
+      <member refid="classzab_1_1defer__block__promise_1a85946dcf75d55e9b82c020104edffca4" prot="public" virt="non-virtual"><scope>zab::defer_block_promise</scope><name>unhandled_exception</name></member>
+      <member refid="classzab_1_1defer__block__promise_1a4047b2a2523601da84828e5bbbbf5dad" prot="public" virt="non-virtual"><scope>zab::defer_block_promise</scope><name>yield_value</name></member>
+      <member refid="classzab_1_1defer__block__promise_1a122857bc01032ba02b9c26f8b2a94f0c" prot="public" virt="non-virtual"><scope>zab::defer_block_promise</scope><name>~defer_block_promise</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

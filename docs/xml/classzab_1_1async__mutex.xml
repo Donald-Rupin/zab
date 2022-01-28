@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1async__mutex" kind="class" language="C++" prot="public">
+    <compoundname>zab::async_mutex</compoundname>
+    <innerclass refid="structzab_1_1async__mutex_1_1async__lock__guard" prot="public">zab::async_mutex::async_lock_guard</innerclass>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzab_1_1async__mutex_1af6280e789355bb7a9d80dee6f8e8a0e9" prot="private" static="no" mutable="no">
+        <type>async_binary_semaphore</type>
+        <definition>async_binary_semaphore zab::async_mutex::sem_</definition>
+        <argsstring></argsstring>
+        <name>sem_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" line="114" column="36" bodyfile="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1async__mutex_1a5a4cb45047b031f08dffd179cbd7c401" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_mutex::async_mutex</definition>
+        <argsstring>(engine *_engine)</argsstring>
+        <name>async_mutex</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" line="72" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" bodystart="72" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__mutex_1ac687104dfc124468152a7e01b372dd66" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_mutex::async_mutex</definition>
+        <argsstring>(const async_mutex &amp;_engine)=delete</argsstring>
+        <name>async_mutex</name>
+        <param>
+          <type>const async_mutex &amp;</type>
+          <declname>_engine</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" line="74" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__mutex_1af1e46f50ef688df5f799f16ba7d950e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_mutex::async_mutex</definition>
+        <argsstring>(async_mutex &amp;_engine)=delete</argsstring>
+        <name>async_mutex</name>
+        <param>
+          <type>async_mutex &amp;</type>
+          <declname>_engine</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" line="76" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__mutex_1ad12c172e277d9800e404daf40a4845ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_mutex::~async_mutex</definition>
+        <argsstring>()=default</argsstring>
+        <name>~async_mutex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" line="78" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__mutex_1a908204e3e689f57224c83b859509eb33" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zab::async_mutex::try_lock</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>try_lock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" line="81" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" bodystart="81" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__mutex_1a82e8b03008eaa183c42df6dff21e816a" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::async_mutex::unlock</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>unlock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" line="87" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" bodystart="87" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__mutex_1a2694d42916adf77ef897a99e7b74c2d1" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::async_mutex::operator co_await</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>operator co_await</name>
+        <briefdescription>
+<para>lock() </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Locks the mutex. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" line="98" column="18" bodyfile="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" bodystart="98" bodyend="110"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" line="49" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/async_mutex.hpp" bodystart="49" bodyend="115"/>
+    <listofallmembers>
+      <member refid="classzab_1_1async__mutex_1a5a4cb45047b031f08dffd179cbd7c401" prot="public" virt="non-virtual"><scope>zab::async_mutex</scope><name>async_mutex</name></member>
+      <member refid="classzab_1_1async__mutex_1ac687104dfc124468152a7e01b372dd66" prot="public" virt="non-virtual"><scope>zab::async_mutex</scope><name>async_mutex</name></member>
+      <member refid="classzab_1_1async__mutex_1af1e46f50ef688df5f799f16ba7d950e4" prot="public" virt="non-virtual"><scope>zab::async_mutex</scope><name>async_mutex</name></member>
+      <member refid="classzab_1_1async__mutex_1a2694d42916adf77ef897a99e7b74c2d1" prot="public" virt="non-virtual"><scope>zab::async_mutex</scope><name>operator co_await</name></member>
+      <member refid="classzab_1_1async__mutex_1af6280e789355bb7a9d80dee6f8e8a0e9" prot="private" virt="non-virtual"><scope>zab::async_mutex</scope><name>sem_</name></member>
+      <member refid="classzab_1_1async__mutex_1a908204e3e689f57224c83b859509eb33" prot="public" virt="non-virtual"><scope>zab::async_mutex</scope><name>try_lock</name></member>
+      <member refid="classzab_1_1async__mutex_1a82e8b03008eaa183c42df6dff21e816a" prot="public" virt="non-virtual"><scope>zab::async_mutex</scope><name>unlock</name></member>
+      <member refid="classzab_1_1async__mutex_1ad12c172e277d9800e404daf40a4845ed" prot="public" virt="non-virtual"><scope>zab::async_mutex</scope><name>~async_mutex</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

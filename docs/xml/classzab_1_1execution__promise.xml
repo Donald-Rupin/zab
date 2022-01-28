@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1execution__promise" kind="class" language="C++" prot="public">
+    <compoundname>zab::execution_promise</compoundname>
+    <includes refid="execution__promise_8hpp" local="no">execution_promise.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1execution__promise_1ad3dc0c4fea9934eefe5f3af83988d45c" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>std::coroutine_handle&lt; <ref refid="classzab_1_1execution__promise" kindref="compound">execution_promise</ref> &gt;</type>
+        <definition>std::coroutine_handle&lt;execution_promise&gt; zab::execution_promise::get_return_object</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>get_return_object</name>
+        <briefdescription>
+<para>Gets the coroutine handle from <computeroutput>this</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The coroutine handle. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/execution_promise.hpp" line="59" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/execution_promise.hpp" bodystart="59" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1execution__promise_1aea87eae3dd664db6204e010995b8922e" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::execution_promise::initial_suspend</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>initial_suspend</name>
+        <briefdescription>
+<para>All <computeroutput><ref refid="classzab_1_1execution__promise" kindref="compound">execution_promise</ref></computeroutput>&apos;s&apos; begin execution on function call. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>A <computeroutput>std::suspend_never</computeroutput>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/execution_promise.hpp" line="71" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/execution_promise.hpp" bodystart="71" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1execution__promise_1aced834bf3f549bcf0f580708f467bf3c" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::execution_promise::final_suspend</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>final_suspend</name>
+        <briefdescription>
+<para>When execution completes, the coroutine will clean itself up. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><computeroutput>A std::suspend_never</computeroutput>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/execution_promise.hpp" line="83" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/execution_promise.hpp" bodystart="83" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1execution__promise_1af4da859ea64f4cca04793d4f39fe70ca" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::execution_promise::return_void</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>return_void</name>
+        <briefdescription>
+<para>Returning is a no-op. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/execution_promise.hpp" line="92" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/execution_promise.hpp" bodystart="92" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1execution__promise_1a5208777571d588046d777bf0c8125e99" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::execution_promise::unhandled_exception</definition>
+        <argsstring>()</argsstring>
+        <name>unhandled_exception</name>
+        <briefdescription>
+<para>Exceptions are currently not implermented. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/execution_promise.hpp" line="99" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/execution_promise.hpp" bodystart="99" bodyend="102"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This simplest promise type to allow a function to behave in asyncronous ways. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/execution_promise.hpp" line="49" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/execution_promise.hpp" bodystart="49" bodyend="103"/>
+    <listofallmembers>
+      <member refid="classzab_1_1execution__promise_1aced834bf3f549bcf0f580708f467bf3c" prot="public" virt="non-virtual"><scope>zab::execution_promise</scope><name>final_suspend</name></member>
+      <member refid="classzab_1_1execution__promise_1ad3dc0c4fea9934eefe5f3af83988d45c" prot="public" virt="non-virtual"><scope>zab::execution_promise</scope><name>get_return_object</name></member>
+      <member refid="classzab_1_1execution__promise_1aea87eae3dd664db6204e010995b8922e" prot="public" virt="non-virtual"><scope>zab::execution_promise</scope><name>initial_suspend</name></member>
+      <member refid="classzab_1_1execution__promise_1af4da859ea64f4cca04793d4f39fe70ca" prot="public" virt="non-virtual"><scope>zab::execution_promise</scope><name>return_void</name></member>
+      <member refid="classzab_1_1execution__promise_1a5208777571d588046d777bf0c8125e99" prot="public" virt="non-virtual"><scope>zab::execution_promise</scope><name>unhandled_exception</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

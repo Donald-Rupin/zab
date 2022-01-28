@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespacezab_1_1thread" kind="namespace" language="C++">
+    <compoundname>zab::thread</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="strong__types_8hpp_1adec24231853b36f68aeb062077edaacb" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto zab::thread::in</definition>
+        <argsstring>(std::uint16_t _thread) noexcept</argsstring>
+        <name>in</name>
+        <param>
+          <type>std::uint16_t</type>
+          <declname>_thread</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="98" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="98" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="strong__types_8hpp_1a7593f86d74665a4229345a6a45964068" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>constexpr auto zab::thread::any</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>any</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="104" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="104" bodyend="107"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="95" column="5"/>
+  </compounddef>
+</doxygen>

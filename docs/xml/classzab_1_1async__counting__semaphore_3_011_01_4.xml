@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1async__counting__semaphore_3_011_01_4" kind="class" language="C++" prot="public">
+    <compoundname>zab::async_counting_semaphore&lt; 1 &gt;</compoundname>
+    <innerclass refid="structzab_1_1async__counting__semaphore_3_011_01_4_1_1waiter" prot="public">zab::async_counting_semaphore&lt; 1 &gt;::waiter</innerclass>
+    <templateparamlist>
+    </templateparamlist>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classzab_1_1async__counting__semaphore_3_011_01_4_1a14e6018b0ed93235f8a059bf1d482b46" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr std::uintptr_t</type>
+        <definition>constexpr std::uintptr_t zab::async_counting_semaphore&lt; 1 &gt;::kLockFlag</definition>
+        <argsstring></argsstring>
+        <name>kLockFlag</name>
+        <initializer>= 0b1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="375" column="45" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="375" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classzab_1_1async__counting__semaphore_3_011_01_4_1a5c2d8ad3dc03a2fcae52cb8a99db61cc" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct</type>
+        <definition>friend struct waiter</definition>
+        <argsstring></argsstring>
+        <name>waiter</name>
+        <param>
+          <type>waiter</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="377" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="377" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzab_1_1async__counting__semaphore_3_011_01_4_1a1a651dcd4d7eb05315a9dbbb31390cf6" prot="private" static="no" mutable="no">
+        <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+        <definition>engine* zab::async_counting_semaphore&lt; 1 &gt;::engine_</definition>
+        <argsstring></argsstring>
+        <name>engine_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="418" column="20" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="418" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1async__counting__semaphore_3_011_01_4_1a92d85524d8a7a6f013d6e293ab215b97" prot="private" static="no" mutable="no">
+        <type>std::atomic&lt; std::uintptr_t &gt;</type>
+        <definition>std::atomic&lt;std::uintptr_t&gt; zab::async_counting_semaphore&lt; 1 &gt;::resuming_</definition>
+        <argsstring></argsstring>
+        <name>resuming_</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="420" column="25" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="420" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1async__counting__semaphore_3_011_01_4_1ac7797054e4579b20be04eaf96fd479e8" prot="private" static="no" mutable="no">
+        <type>waiter *</type>
+        <definition>waiter* zab::async_counting_semaphore&lt; 1 &gt;::transfer_</definition>
+        <argsstring></argsstring>
+        <name>transfer_</name>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="421" column="40" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="421" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1async__counting__semaphore_3_011_01_4_1ac7f35411d76d9f101e9ce8c6bfda2dbc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_counting_semaphore&lt; 1 &gt;::async_counting_semaphore</definition>
+        <argsstring>(engine *_engine, bool _unlocked)</argsstring>
+        <name>async_counting_semaphore</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_unlocked</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="308" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="308" bodyend="310"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__counting__semaphore_3_011_01_4_1a71dca3b8ecf6409cb66d70dce3f658bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_counting_semaphore&lt; 1 &gt;::~async_counting_semaphore</definition>
+        <argsstring>()=default</argsstring>
+        <name>~async_counting_semaphore</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="312" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__counting__semaphore_3_011_01_4_1ac78d029c98df863a2c9b7b4e79c0ca6f" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zab::async_counting_semaphore&lt; 1 &gt;::try_aquire</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>try_aquire</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="315" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="315" bodyend="323"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__counting__semaphore_3_011_01_4_1aebd3264cd71e6f85f70665e5fc85f02f" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::async_counting_semaphore&lt; 1 &gt;::release</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>release</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="326" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="326" bodyend="363"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__counting__semaphore_3_011_01_4_1a3017616a688a58a41a7497cb6ad57043" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>waiter</type>
+        <definition>waiter zab::async_counting_semaphore&lt; 1 &gt;::operator co_await</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>operator co_await</name>
+        <briefdescription>
+<para>Acquire() </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Acquires the semaphore. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="371" column="20" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="371" bodyend="371"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzab_1_1async__counting__semaphore_3_011_01_4_1a9244320ae864244b5c420e6688ccb54a" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zab::async_counting_semaphore&lt; 1 &gt;::suspend</definition>
+        <argsstring>(waiter *_waiter)</argsstring>
+        <name>suspend</name>
+        <param>
+          <type>waiter *</type>
+          <declname>_waiter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="380" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="380" bodyend="416"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="275" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="275" bodyend="422"/>
+    <listofallmembers>
+      <member refid="classzab_1_1async__counting__semaphore_3_011_01_4_1ac7f35411d76d9f101e9ce8c6bfda2dbc" prot="public" virt="non-virtual"><scope>zab::async_counting_semaphore&lt; 1 &gt;</scope><name>async_counting_semaphore</name></member>
+      <member refid="classzab_1_1async__counting__semaphore_3_011_01_4_1a1a651dcd4d7eb05315a9dbbb31390cf6" prot="private" virt="non-virtual"><scope>zab::async_counting_semaphore&lt; 1 &gt;</scope><name>engine_</name></member>
+      <member refid="classzab_1_1async__counting__semaphore_3_011_01_4_1a14e6018b0ed93235f8a059bf1d482b46" prot="private" virt="non-virtual"><scope>zab::async_counting_semaphore&lt; 1 &gt;</scope><name>kLockFlag</name></member>
+      <member refid="classzab_1_1async__counting__semaphore_3_011_01_4_1a3017616a688a58a41a7497cb6ad57043" prot="public" virt="non-virtual"><scope>zab::async_counting_semaphore&lt; 1 &gt;</scope><name>operator co_await</name></member>
+      <member refid="classzab_1_1async__counting__semaphore_3_011_01_4_1aebd3264cd71e6f85f70665e5fc85f02f" prot="public" virt="non-virtual"><scope>zab::async_counting_semaphore&lt; 1 &gt;</scope><name>release</name></member>
+      <member refid="classzab_1_1async__counting__semaphore_3_011_01_4_1a92d85524d8a7a6f013d6e293ab215b97" prot="private" virt="non-virtual"><scope>zab::async_counting_semaphore&lt; 1 &gt;</scope><name>resuming_</name></member>
+      <member refid="classzab_1_1async__counting__semaphore_3_011_01_4_1a9244320ae864244b5c420e6688ccb54a" prot="private" virt="non-virtual"><scope>zab::async_counting_semaphore&lt; 1 &gt;</scope><name>suspend</name></member>
+      <member refid="classzab_1_1async__counting__semaphore_3_011_01_4_1ac7797054e4579b20be04eaf96fd479e8" prot="private" virt="non-virtual"><scope>zab::async_counting_semaphore&lt; 1 &gt;</scope><name>transfer_</name></member>
+      <member refid="classzab_1_1async__counting__semaphore_3_011_01_4_1ac78d029c98df863a2c9b7b4e79c0ca6f" prot="public" virt="non-virtual"><scope>zab::async_counting_semaphore&lt; 1 &gt;</scope><name>try_aquire</name></member>
+      <member refid="classzab_1_1async__counting__semaphore_3_011_01_4_1a5c2d8ad3dc03a2fcae52cb8a99db61cc" prot="private" virt="non-virtual"><scope>zab::async_counting_semaphore&lt; 1 &gt;</scope><name>waiter</name></member>
+      <member refid="classzab_1_1async__counting__semaphore_3_011_01_4_1a71dca3b8ecf6409cb66d70dce3f658bb" prot="public" virt="non-virtual"><scope>zab::async_counting_semaphore&lt; 1 &gt;</scope><name>~async_counting_semaphore</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

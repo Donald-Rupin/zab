@@ -1,0 +1,500 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>engine_enabled &mdash; ZAB 0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="event_loop" href="event_loop.html" />
+    <link rel="prev" title="Ordering and Threads" href="ordering_and_threads.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ZAB
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="core_library.html">Core Library</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="engine.html">engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ordering_and_threads.html">Ordering and Threads</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">engine_enabled</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#zab-engine-enabled">zab::engine_enabled</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="event_loop.html">event_loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="signal_handling.html">Signal Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="coroutines.html">Coroutines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="async_primitives.html">Asynchronous Primitives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="async_sync.html">Asynchronous Synchronisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="observable.html">Observables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_io.html">File IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ZAB</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="lib_root.html">ZAB Documentation</a> &raquo;</li>
+        
+          <li><a href="core_library.html">Core Library</a> &raquo;</li>
+        
+      <li>engine_enabled</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/lib/engine_enabled.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="engine-enabled">
+<span id="id1"></span><h1>engine_enabled<a class="headerlink" href="#engine-enabled" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">engine_enabled&lt;Base&gt;</span></code> is a helper class that uses <a class="reference external" href="https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern">CRTP</a> to aid in setting up you classes for easy use of the <code class="docutils literal notranslate"><span class="pre">engine</span></code> class. It also provides configurations and member function bindings to remove common boiler plate.</p>
+<p>If the base class satisisfies the <code class="docutils literal notranslate"><span class="pre">details::HasInitialise&lt;F&gt;</span></code> concept (has a <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">initialise()</span> <span class="pre">noexcept</span></code>) method, this method will be called on engine start.</p>
+<p>If the base class satisisfies the <code class="docutils literal notranslate"><span class="pre">details::HasMain&lt;F&gt;</span></code> concept (has a <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">main()</span> <span class="pre">noexcept</span></code>) method, this method will be called on a loop of cadence kMainCadence.</p>
+<p>The base class can configure its bindings by overiding the members <code class="docutils literal notranslate"><span class="pre">zab::details::configs</span></code> which is a parent of <code class="docutils literal notranslate"><span class="pre">engine_enabled&lt;Base&gt;</span></code>.</p>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab7details7configsE">
+<span id="_CPPv3N3zab7details7configsE"></span><span id="_CPPv2N3zab7details7configsE"></span><span id="zab::details::configs"></span><span class="target" id="structzab_1_1details_1_1configs"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">configs</span></span></span><a class="headerlink" href="#_CPPv4N3zab7details7configsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Since we cannot enforce std::is_base_of&lt;engine_enabled&lt;Base&gt;, Base&gt; due to circular depandancy we instead have a common ancestor to both Base and <a class="reference internal" href="#classzab_1_1engine__enabled"><span class="std std-ref">engine_enabled</span></a> (configs -&gt; <a class="reference internal" href="#classzab_1_1engine__enabled"><span class="std std-ref">engine_enabled</span></a> -&gt; Base). </p>
+<p>An object could still satisfy std::is_base_of&lt;configs, Base&gt; by directly inheriting from configs instead of <a class="reference internal" href="#classzab_1_1engine__enabled"><span class="std std-ref">engine_enabled</span></a>. But if they purposely do this then they can expect things to break :) </p>
+<p>Subclassed by <a class="reference internal" href="#classzab_1_1engine__enabled"><span class="std std-ref">zab::engine_enabled&lt; observable&lt; Args… &gt; &gt;</span></a>, <a class="reference internal" href="#classzab_1_1engine__enabled"><span class="std std-ref">zab::engine_enabled&lt; Base &gt;</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab7details7configs12kMainCadenceE">
+<span id="_CPPv3N3zab7details7configs12kMainCadenceE"></span><span id="_CPPv2N3zab7details7configs12kMainCadenceE"></span><span id="zab::details::configs::kMainCadence__auto"></span><span class="target" id="structzab_1_1details_1_1configs_1a89303251a3a56e12439ada0e27085676"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kMainCadence</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">seconds</span></span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">30</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv4N3zab7details7configs12kMainCadenceE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab7details7configs14kDefaultThreadE">
+<span id="_CPPv3N3zab7details7configs14kDefaultThreadE"></span><span id="_CPPv2N3zab7details7configs14kDefaultThreadE"></span><span id="zab::details::configs::kDefaultThread__auto"></span><span class="target" id="structzab_1_1details_1_1configs_1ab1cfc59a82d9cbb792bb390d27524c8c"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kDefaultThread</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_t10any_threadEv" title="zab::thread_t::any_thread"><span class="n"><span class="pre">any_thread</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv4N3zab7details7configs14kDefaultThreadE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab7details7configs17kInitialiseThreadE">
+<span id="_CPPv3N3zab7details7configs17kInitialiseThreadE"></span><span id="_CPPv2N3zab7details7configs17kInitialiseThreadE"></span><span id="zab::details::configs::kInitialiseThread__auto"></span><span class="target" id="structzab_1_1details_1_1configs_1ac38d8a4b6c0818e3e0cfc558162b6a63"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kInitialiseThread</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_t10any_threadEv" title="zab::thread_t::any_thread"><span class="n"><span class="pre">any_thread</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv4N3zab7details7configs17kInitialiseThreadE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab7details7configs11kMainThreadE">
+<span id="_CPPv3N3zab7details7configs11kMainThreadE"></span><span id="_CPPv2N3zab7details7configs11kMainThreadE"></span><span id="zab::details::configs::kMainThread__auto"></span><span class="target" id="structzab_1_1details_1_1configs_1a9f93594d89066f9dbd08ae66725b9498"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kMainThread</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_t10any_threadEv" title="zab::thread_t::any_thread"><span class="n"><span class="pre">any_thread</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv4N3zab7details7configs11kMainThreadE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<div class="section" id="zab-engine-enabled">
+<h2>zab::engine_enabled<a class="headerlink" href="#zab-engine-enabled" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">engine_enabled&lt;Base&gt;</span></code> provides easy access to <a class="reference internal" href="async_primitives.html#async-primitives"><span class="std std-ref">Asynchronous Primitives</span></a> and use of the <code class="docutils literal notranslate"><span class="pre">proxy</span></code> primitive.</p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3zab14engine_enabledE">
+<span id="_CPPv3I0EN3zab14engine_enabledE"></span><span id="_CPPv2I0EN3zab14engine_enabledE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Base</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1engine__enabled"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">engine_enabled</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3zab7details7configsE" title="zab::details::configs"><span class="n"><span class="pre">configs</span></span></a><a class="headerlink" href="#_CPPv4I0EN3zab14engine_enabledE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This class describes an engine enabled wrapper for class. </p>
+<p><dl class="field-list simple">
+<dt class="field-odd">tparam Base</dt>
+<dd class="field-odd"><p>The class to wrap. </p>
+</dd>
+</dl>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab14engine_enabled14engine_enabledEv">
+<span id="_CPPv3N3zab14engine_enabled14engine_enabledEv"></span><span id="_CPPv2N3zab14engine_enabled14engine_enabledEv"></span><span id="zab::engine_enabled::engine_enabled"></span><span class="target" id="classzab_1_1engine__enabled_1a80893d57532e83253dbce27738d30d99"></span><span class="sig-name descname"><span class="n"><span class="pre">engine_enabled</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3zab14engine_enabled14engine_enabledEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Default constructed. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab14engine_enabledD0Ev">
+<span id="_CPPv3N3zab14engine_enabledD0Ev"></span><span id="_CPPv2N3zab14engine_enabledD0Ev"></span><span id="zab::engine_enabled::~engine_enabled"></span><span class="target" id="classzab_1_1engine__enabled_1a6d844708281a80ac5c0e75c55d5a74bc"></span><span class="sig-name descname"><span class="n"><span class="pre">~engine_enabled</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3zab14engine_enabledD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Default destroyed. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3zab14engine_enabled15register_engineEbR6engine">
+<span id="_CPPv3I0EN3zab14engine_enabled15register_engineER6engine"></span><span id="_CPPv2I0EN3zab14engine_enabled15register_engineER6engine"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">F</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3zab14engine_enabledE" title="zab::engine_enabled::Base"><span class="n"><span class="pre">Base</span></span></a><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1engine__enabled_1a8f5953d0970da89287bd8315790e8826"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">register_engine</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_engine</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4I0EN3zab14engine_enabled15register_engineEbR6engine" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Register this class with an <code class="docutils literal notranslate"><span class="pre">engine</span></code> </p>
+<p>If the class statisfies <code class="docutils literal notranslate"><span class="pre">details::HasInitialise</span><span class="pre">&lt;F&gt;</span></code> then <code class="docutils literal notranslate"><span class="pre">initialise()</span></code> will be called on engine start.</p>
+<p>If the class satisfies <code class="docutils literal notranslate"><span class="pre">details::HasMain</span><span class="pre">&lt;F&gt;</span></code> then <code class="docutils literal notranslate"><span class="pre">main()</span></code> will be called on a loop of cadence <code class="docutils literal notranslate"><span class="pre">kMainCadence</span></code>. The Base class can overwrite the value of <code class="docutils literal notranslate"><span class="pre">kMainCadence</span></code>.</p>
+<p>If the class satisfies <code class="docutils literal notranslate"><span class="pre">details::HasAPI&lt;F&gt;</span></code> then the <code class="docutils literal notranslate"><span class="pre">API</span></code> returned by <code class="docutils literal notranslate"><span class="pre">APIInterface()</span></code> will registered against the <code class="docutils literal notranslate"><span class="pre">engine</span></code>s interface. If the does not provide a <code class="docutils literal notranslate"><span class="pre">kSlotToUse</span></code> then one is dynamically selected and the class must provide a <code class="docutils literal notranslate"><span class="pre">Slot(size_t)</span></code> function will report the slot provided.</p>
+<p>Usuage of <code class="docutils literal notranslate"><span class="pre">YieldCode()</span></code>, <code class="docutils literal notranslate"><span class="pre">HitAPI()</span></code>, <code class="docutils literal notranslate"><span class="pre">Respond()</span></code> or <code class="docutils literal notranslate"><span class="pre">Fail()</span></code> results in undefined behaviour if an engine has not been registered.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_engine</strong> – The engine to register against.</p>
+</dd>
+<dt class="field-even">Template Parameters</dt>
+<dd class="field-even"><p><strong>F</strong> – The <code class="docutils literal notranslate"><span class="pre">Base</span></code> class.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>true if successful, 0 otherwise. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-types">Protected Types</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab14engine_enabled12async_memberE">
+<span id="_CPPv3N3zab14engine_enabled12async_memberE"></span><span id="_CPPv2N3zab14engine_enabled12async_memberE"></span><span class="target" id="classzab_1_1engine__enabled_1a2454bfe2df66fcee6c4f86d4e8677b94"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">async_member</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="async_function.html#_CPPv4I_N7details9ExecutionEEN3zab14async_functionE" title="zab::async_function"><span class="n"><span class="pre">async_function</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Promise</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0EN3zab14engine_enabledE" title="zab::engine_enabled::Base"><span class="n"><span class="pre">Base</span></span></a><span class="p"><span class="pre">::</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">Parameters</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv4N3zab14engine_enabled12async_memberE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4I0DpEN3zab14engine_enabled14async_member_cE">
+<span id="_CPPv3I0DpEN3zab14engine_enabled14async_member_cE"></span><span id="_CPPv2I0DpEN3zab14engine_enabled14async_member_cE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Promise</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Parameters</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1engine__enabled_1a3fdda8a38d4c067bbb9934ed99525776"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">async_member_c</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="async_function.html#_CPPv4I_N7details9ExecutionEEN3zab14async_functionE" title="zab::async_function"><span class="n"><span class="pre">async_function</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0DpEN3zab14engine_enabled14async_member_cE" title="zab::engine_enabled::async_member_c::Promise"><span class="n"><span class="pre">Promise</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0EN3zab14engine_enabledE" title="zab::engine_enabled::Base"><span class="n"><span class="pre">Base</span></span></a><span class="p"><span class="pre">::</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0DpEN3zab14engine_enabled14async_member_cE" title="zab::engine_enabled::async_member_c::Parameters"><span class="n"><span class="pre">Parameters</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0DpEN3zab14engine_enabled14async_member_cE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4I00DpEN3zab14engine_enabled13simple_memberE">
+<span id="_CPPv3I00DpEN3zab14engine_enabled13simple_memberE"></span><span id="_CPPv2I00DpEN3zab14engine_enabled13simple_memberE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Promise</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Return</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Parameters</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1engine__enabled_1afc5813b0a8c1b78262f87cb45f8bcfc2"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">simple_member</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00DpEN3zab14engine_enabled13simple_memberE" title="zab::engine_enabled::simple_member::Return"><span class="n"><span class="pre">Return</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I00DpEN3zab14engine_enabled13simple_memberE" title="zab::engine_enabled::simple_member::Promise"><span class="n"><span class="pre">Promise</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0EN3zab14engine_enabledE" title="zab::engine_enabled::Base"><span class="n"><span class="pre">Base</span></span></a><span class="p"><span class="pre">::</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I00DpEN3zab14engine_enabled13simple_memberE" title="zab::engine_enabled::simple_member::Parameters"><span class="n"><span class="pre">Parameters</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv4I00DpEN3zab14engine_enabled13simple_memberE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4I00DpEN3zab14engine_enabled15simple_member_cE">
+<span id="_CPPv3I00DpEN3zab14engine_enabled15simple_member_cE"></span><span id="_CPPv2I00DpEN3zab14engine_enabled15simple_member_cE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Promise</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Return</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Parameters</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1engine__enabled_1a0f30db447b23f1e32201f7d10db0452b"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">simple_member_c</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00DpEN3zab14engine_enabled15simple_member_cE" title="zab::engine_enabled::simple_member_c::Return"><span class="n"><span class="pre">Return</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I00DpEN3zab14engine_enabled15simple_member_cE" title="zab::engine_enabled::simple_member_c::Promise"><span class="n"><span class="pre">Promise</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0EN3zab14engine_enabledE" title="zab::engine_enabled::Base"><span class="n"><span class="pre">Base</span></span></a><span class="p"><span class="pre">::</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I00DpEN3zab14engine_enabled15simple_member_cE" title="zab::engine_enabled::simple_member_c::Parameters"><span class="n"><span class="pre">Parameters</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I00DpEN3zab14engine_enabled15simple_member_cE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4I00DpEN3zab14engine_enabled15reusable_memberE">
+<span id="_CPPv3I00DpEN3zab14engine_enabled15reusable_memberE"></span><span id="_CPPv2I00DpEN3zab14engine_enabled15reusable_memberE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Promise</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Return</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Parameters</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1engine__enabled_1a4f7aa8b5e3b262e5975999df415a283b"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reusable_member</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="reusable_future.html#_CPPv4I0_N7details11ReoccurringEEN3zab15reusable_futureE" title="zab::reusable_future"><span class="n"><span class="pre">reusable_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00DpEN3zab14engine_enabled15reusable_memberE" title="zab::engine_enabled::reusable_member::Return"><span class="n"><span class="pre">Return</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I00DpEN3zab14engine_enabled15reusable_memberE" title="zab::engine_enabled::reusable_member::Promise"><span class="n"><span class="pre">Promise</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0EN3zab14engine_enabledE" title="zab::engine_enabled::Base"><span class="n"><span class="pre">Base</span></span></a><span class="p"><span class="pre">::</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I00DpEN3zab14engine_enabled15reusable_memberE" title="zab::engine_enabled::reusable_member::Parameters"><span class="n"><span class="pre">Parameters</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv4I00DpEN3zab14engine_enabled15reusable_memberE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4I00DpEN3zab14engine_enabled17reusable_member_cE">
+<span id="_CPPv3I00DpEN3zab14engine_enabled17reusable_member_cE"></span><span id="_CPPv2I00DpEN3zab14engine_enabled17reusable_member_cE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Promise</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Return</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Parameters</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1engine__enabled_1a1de4c35afff03bbdfe1a6e1813a1b44a"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reusable_member_c</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="reusable_future.html#_CPPv4I0_N7details11ReoccurringEEN3zab15reusable_futureE" title="zab::reusable_future"><span class="n"><span class="pre">reusable_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00DpEN3zab14engine_enabled17reusable_member_cE" title="zab::engine_enabled::reusable_member_c::Return"><span class="n"><span class="pre">Return</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I00DpEN3zab14engine_enabled17reusable_member_cE" title="zab::engine_enabled::reusable_member_c::Promise"><span class="n"><span class="pre">Promise</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I0EN3zab14engine_enabledE" title="zab::engine_enabled::Base"><span class="n"><span class="pre">Base</span></span></a><span class="p"><span class="pre">::</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I00DpEN3zab14engine_enabled17reusable_member_cE" title="zab::engine_enabled::reusable_member_c::Parameters"><span class="n"><span class="pre">Parameters</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I00DpEN3zab14engine_enabled17reusable_member_cE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-functions">Protected Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classzab_1_1engine__enabled_1a5b0b1a34b89ef10693e0f5d5af6332b5"></span><span class="sig-name descname"><span class="pre">template&lt;typename</span> <span class="pre">Functor&gt;</span>&#160; <span class="pre">requires</span> <span class="pre">(std::is_nothrow_invocable_v&lt;</span> <span class="pre">Functor</span> <span class="pre">&gt;)</span> <span class="pre">inline</span> <span class="pre">void</span> <span class="pre">code_block(Functor</span> <span class="pre">&amp;&amp;_cb</span></span></dt>
+<dd><p>Defer some code to be executed at a later time. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_cb</strong> – <strong>[in]</strong> The code to execute later. </p></li>
+<li><p><strong>_ordering</strong> – <strong>[in]</strong> The ordering to apply. </p></li>
+<li><p><strong>_thread</strong> – <strong>[in]</strong> The thread to use. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0DpDpEN3zab14engine_enabled5proxyE14async_function12async_memberI7PromiseDp10ParametersE8thread_tDp4Args">
+<span id="_CPPv3I0DpDpEN3zab14engine_enabled5proxyE12async_memberI7PromiseDp10ParametersE8thread_tDp4Args"></span><span id="_CPPv2I0DpDpEN3zab14engine_enabled5proxyE12async_memberI7PromiseDp10ParametersE8thread_tDp4Args"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Promise</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Args</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Parameters</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1engine__enabled_1a5060e0c0c85df49158531959fb4f23be"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="async_function.html#_CPPv4I_N7details9ExecutionEEN3zab14async_functionE" title="zab::async_function"><span class="n"><span class="pre">async_function</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">proxy</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab14engine_enabled12async_memberE" title="zab::engine_enabled::async_member"><span class="n"><span class="pre">async_member</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0DpDpEN3zab14engine_enabled5proxyE14async_function12async_memberI7PromiseDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Promise"><span class="n"><span class="pre">Promise</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0DpDpEN3zab14engine_enabled5proxyE14async_function12async_memberI7PromiseDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Parameters"><span class="n"><span class="pre">Parameters</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_func</span></span>, <a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_required_thread</span></span>, <a class="reference internal" href="#_CPPv4I0DpDpEN3zab14engine_enabled5proxyE14async_function12async_memberI7PromiseDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0DpDpEN3zab14engine_enabled5proxyE14async_function12async_memberI7PromiseDp10ParametersE8thread_tDp4Args" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0DpDpENK3zab14engine_enabled5proxyE14async_function14async_member_cI7PromiseDp10ParametersE8thread_tDp4Args">
+<span id="_CPPv3I0DpDpENK3zab14engine_enabled5proxyE14async_member_cI7PromiseDp10ParametersE8thread_tDp4Args"></span><span id="_CPPv2I0DpDpENK3zab14engine_enabled5proxyE14async_member_cI7PromiseDp10ParametersE8thread_tDp4Args"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Promise</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Args</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Parameters</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1engine__enabled_1a1eb13d7ce25756d35514ce2251381044"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="async_function.html#_CPPv4I_N7details9ExecutionEEN3zab14async_functionE" title="zab::async_function"><span class="n"><span class="pre">async_function</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">proxy</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0DpEN3zab14engine_enabled14async_member_cE" title="zab::engine_enabled::async_member_c"><span class="n"><span class="pre">async_member_c</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0DpDpENK3zab14engine_enabled5proxyE14async_function14async_member_cI7PromiseDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Promise"><span class="n"><span class="pre">Promise</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0DpDpENK3zab14engine_enabled5proxyE14async_function14async_member_cI7PromiseDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Parameters"><span class="n"><span class="pre">Parameters</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_func</span></span>, <a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_required_thread</span></span>, <a class="reference internal" href="#_CPPv4I0DpDpENK3zab14engine_enabled5proxyE14async_function14async_member_cI7PromiseDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_args</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0DpDpENK3zab14engine_enabled5proxyE14async_function14async_member_cI7PromiseDp10ParametersE8thread_tDp4Args" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE13simple_futureI6Return7PromiseE13simple_memberI7Promise6ReturnDp10ParametersE8thread_tDp4Args">
+<span id="_CPPv3I0Dp0DpEN3zab14engine_enabled5proxyE13simple_memberI7Promise6ReturnDp10ParametersE8thread_tDp4Args"></span><span id="_CPPv2I0Dp0DpEN3zab14engine_enabled5proxyE13simple_memberI7Promise6ReturnDp10ParametersE8thread_tDp4Args"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Promise</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Args</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Return</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Parameters</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1engine__enabled_1aa6520009ad04c091256bafccc948d7a8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE13simple_futureI6Return7PromiseE13simple_memberI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Return"><span class="n"><span class="pre">Return</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE13simple_futureI6Return7PromiseE13simple_memberI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Promise"><span class="n"><span class="pre">Promise</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">proxy</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I00DpEN3zab14engine_enabled13simple_memberE" title="zab::engine_enabled::simple_member"><span class="n"><span class="pre">simple_member</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE13simple_futureI6Return7PromiseE13simple_memberI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Promise"><span class="n"><span class="pre">Promise</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE13simple_futureI6Return7PromiseE13simple_memberI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Return"><span class="n"><span class="pre">Return</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE13simple_futureI6Return7PromiseE13simple_memberI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Parameters"><span class="n"><span class="pre">Parameters</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_func</span></span>, <a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_required_thread</span></span>, <a class="reference internal" href="#_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE13simple_futureI6Return7PromiseE13simple_memberI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE13simple_futureI6Return7PromiseE13simple_memberI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0Dp0DpENK3zab14engine_enabled5proxyE13simple_futureI6ReturnE15simple_member_cI7Promise6ReturnDp10ParametersE8thread_tDp4Args">
+<span id="_CPPv3I0Dp0DpENK3zab14engine_enabled5proxyE15simple_member_cI7Promise6ReturnDp10ParametersE8thread_tDp4Args"></span><span id="_CPPv2I0Dp0DpENK3zab14engine_enabled5proxyE15simple_member_cI7Promise6ReturnDp10ParametersE8thread_tDp4Args"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Promise</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Args</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Return</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Parameters</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1engine__enabled_1a6a366b9c1e7ca54145d2c8c0eb5fa0ed"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0Dp0DpENK3zab14engine_enabled5proxyE13simple_futureI6ReturnE15simple_member_cI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Return"><span class="n"><span class="pre">Return</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">proxy</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I00DpEN3zab14engine_enabled15simple_member_cE" title="zab::engine_enabled::simple_member_c"><span class="n"><span class="pre">simple_member_c</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0Dp0DpENK3zab14engine_enabled5proxyE13simple_futureI6ReturnE15simple_member_cI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Promise"><span class="n"><span class="pre">Promise</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0Dp0DpENK3zab14engine_enabled5proxyE13simple_futureI6ReturnE15simple_member_cI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Return"><span class="n"><span class="pre">Return</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0Dp0DpENK3zab14engine_enabled5proxyE13simple_futureI6ReturnE15simple_member_cI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Parameters"><span class="n"><span class="pre">Parameters</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_func</span></span>, <a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_required_thread</span></span>, <a class="reference internal" href="#_CPPv4I0Dp0DpENK3zab14engine_enabled5proxyE13simple_futureI6ReturnE15simple_member_cI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_args</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0Dp0DpENK3zab14engine_enabled5proxyE13simple_futureI6ReturnE15simple_member_cI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE15reusable_futureI6ReturnE15reusable_memberI7Promise6ReturnDp10ParametersE8thread_tDp4Args">
+<span id="_CPPv3I0Dp0DpEN3zab14engine_enabled5proxyE15reusable_memberI7Promise6ReturnDp10ParametersE8thread_tDp4Args"></span><span id="_CPPv2I0Dp0DpEN3zab14engine_enabled5proxyE15reusable_memberI7Promise6ReturnDp10ParametersE8thread_tDp4Args"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Promise</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Args</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Return</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Parameters</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1engine__enabled_1a1e7a053f67732ce3ee055075e8226a22"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="reusable_future.html#_CPPv4I0_N7details11ReoccurringEEN3zab15reusable_futureE" title="zab::reusable_future"><span class="n"><span class="pre">reusable_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE15reusable_futureI6ReturnE15reusable_memberI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Return"><span class="n"><span class="pre">Return</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">proxy</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I00DpEN3zab14engine_enabled15reusable_memberE" title="zab::engine_enabled::reusable_member"><span class="n"><span class="pre">reusable_member</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE15reusable_futureI6ReturnE15reusable_memberI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Promise"><span class="n"><span class="pre">Promise</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE15reusable_futureI6ReturnE15reusable_memberI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Return"><span class="n"><span class="pre">Return</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE15reusable_futureI6ReturnE15reusable_memberI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Parameters"><span class="n"><span class="pre">Parameters</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_func</span></span>, <a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_required_thread</span></span>, <a class="reference internal" href="#_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE15reusable_futureI6ReturnE15reusable_memberI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE15reusable_futureI6ReturnE15reusable_memberI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE15reusable_futureI6ReturnE17reusable_member_cI7Promise6ReturnDp10ParametersE8thread_tDp4Args">
+<span id="_CPPv3I0Dp0DpEN3zab14engine_enabled5proxyE17reusable_member_cI7Promise6ReturnDp10ParametersE8thread_tDp4Args"></span><span id="_CPPv2I0Dp0DpEN3zab14engine_enabled5proxyE17reusable_member_cI7Promise6ReturnDp10ParametersE8thread_tDp4Args"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Promise</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Args</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Return</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Parameters</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1engine__enabled_1ab0de115f16c08344b467909dd2c8da30"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="reusable_future.html#_CPPv4I0_N7details11ReoccurringEEN3zab15reusable_futureE" title="zab::reusable_future"><span class="n"><span class="pre">reusable_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE15reusable_futureI6ReturnE17reusable_member_cI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Return"><span class="n"><span class="pre">Return</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">proxy</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I00DpEN3zab14engine_enabled17reusable_member_cE" title="zab::engine_enabled::reusable_member_c"><span class="n"><span class="pre">reusable_member_c</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE15reusable_futureI6ReturnE17reusable_member_cI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Promise"><span class="n"><span class="pre">Promise</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE15reusable_futureI6ReturnE17reusable_member_cI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Return"><span class="n"><span class="pre">Return</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE15reusable_futureI6ReturnE17reusable_member_cI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Parameters"><span class="n"><span class="pre">Parameters</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_func</span></span>, <a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_required_thread</span></span>, <a class="reference internal" href="#_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE15reusable_futureI6ReturnE17reusable_member_cI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="zab::engine_enabled::proxy::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0Dp0DpEN3zab14engine_enabled5proxyE15reusable_futureI6ReturnE17reusable_member_cI7Promise6ReturnDp10ParametersE8thread_tDp4Args" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-attributes">Protected Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab14engine_enabled9_orderingE">
+<span id="_CPPv3N3zab14engine_enabled9_orderingE"></span><span id="_CPPv2N3zab14engine_enabled9_orderingE"></span><span id="zab::engine_enabled::_ordering__order_t"></span><span class="target" id="classzab_1_1engine__enabled_1acf161ed1323412d2985592b50a6b1f39"></span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab7order_tE" title="zab::order_t"><span class="n"><span class="pre">order_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_ordering</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab14engine_enabled3nowEv" title="zab::engine_enabled::now"><span class="n"><span class="pre">now</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv4N3zab14engine_enabled9_orderingE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp">
+<span class="target" id="classzab_1_1engine__enabled_1aba7ce83ede9c4526365b1f914a9ff894"></span><span class="sig-name descname"><span class="pre">order_t</span> <span class="pre">thread_t</span> <span class="pre">_thread</span></span></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-static-functions">Protected Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab14engine_enabled5orderE7int64_t">
+<span id="_CPPv3N3zab14engine_enabled5orderE7int64_t"></span><span id="_CPPv2N3zab14engine_enabled5orderE7int64_t"></span><span id="zab::engine_enabled::order__int64_tCE"></span><span class="target" id="classzab_1_1engine__enabled_1a8691cd5fd0506c1335ae152f65869a8e"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab7order_tE" title="zab::order_t"><span class="n"><span class="pre">order_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">order</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_order</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab14engine_enabled5orderE7int64_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Create an <a class="reference internal" href="ordering_and_threads.html#structzab_1_1order__t"><span class="std std-ref">order_t</span></a>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_order</strong> – <strong>[in]</strong> The order to apply.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The <a class="reference internal" href="ordering_and_threads.html#structzab_1_1order__t"><span class="std std-ref">order_t</span></a>. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab14engine_enabled3nowEv">
+<span id="_CPPv3N3zab14engine_enabled3nowEv"></span><span id="_CPPv2N3zab14engine_enabled3nowEv"></span><span id="zab::engine_enabled::now"></span><span class="target" id="classzab_1_1engine__enabled_1a985dac14994ad7f9b672ebee6f99f9ef"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab7order_tE" title="zab::order_t"><span class="n"><span class="pre">order_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">now</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab14engine_enabled3nowEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Create an <a class="reference internal" href="ordering_and_threads.html#structzab_1_1order__t"><span class="std std-ref">order_t</span></a> set to <code class="docutils literal notranslate"><span class="pre">order::now()</span></code>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The <a class="reference internal" href="ordering_and_threads.html#structzab_1_1order__t"><span class="std std-ref">order_t</span></a>. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab14engine_enabled4nextEv">
+<span id="_CPPv3N3zab14engine_enabled4nextEv"></span><span id="_CPPv2N3zab14engine_enabled4nextEv"></span><span id="zab::engine_enabled::nextCE"></span><span class="target" id="classzab_1_1engine__enabled_1a259d395cdabcf50e69f5386333413c5c"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab7order_tE" title="zab::order_t"><span class="n"><span class="pre">order_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">next</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab14engine_enabled4nextEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Create an <a class="reference internal" href="ordering_and_threads.html#structzab_1_1order__t"><span class="std std-ref">order_t</span></a> that specifies to be executed next. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The <a class="reference internal" href="ordering_and_threads.html#structzab_1_1order__t"><span class="std std-ref">order_t</span></a>. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab14engine_enabled6threadENSt8uint16_tE">
+<span id="_CPPv3N3zab14engine_enabled6threadENSt8uint16_tE"></span><span id="_CPPv2N3zab14engine_enabled6threadENSt8uint16_tE"></span><span id="zab::engine_enabled::thread__std::uint16_tCE"></span><span class="target" id="classzab_1_1engine__enabled_1a2916f8852cd332dd033b078c5c90f6be"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">thread</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">uint16_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_thread</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab14engine_enabled6threadENSt8uint16_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Create a <a class="reference internal" href="ordering_and_threads.html#structzab_1_1thread__t"><span class="std std-ref">thread_t</span></a> targeting a spercific thread. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_thread</strong> – <strong>[in]</strong> The thread to target.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The <a class="reference internal" href="ordering_and_threads.html#structzab_1_1thread__t"><span class="std std-ref">thread_t</span></a>. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab14engine_enabled10any_threadEv">
+<span id="_CPPv3N3zab14engine_enabled10any_threadEv"></span><span id="_CPPv2N3zab14engine_enabled10any_threadEv"></span><span id="zab::engine_enabled::any_threadCE"></span><span class="target" id="classzab_1_1engine__enabled_1a5e805bcc7940325a07a6ba78e03bfa76"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">any_thread</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab14engine_enabled10any_threadEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Create a <a class="reference internal" href="ordering_and_threads.html#structzab_1_1thread__t"><span class="std std-ref">thread_t</span></a> targeting any thread. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The <a class="reference internal" href="ordering_and_threads.html#structzab_1_1thread__t"><span class="std std-ref">thread_t</span></a>. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab14engine_enabled14default_threadEv">
+<span id="_CPPv3N3zab14engine_enabled14default_threadEv"></span><span id="_CPPv2N3zab14engine_enabled14default_threadEv"></span><span id="zab::engine_enabled::default_threadCE"></span><span class="target" id="classzab_1_1engine__enabled_1a538f1163ef8c8198122f155bf8cc1946"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">default_thread</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab14engine_enabled14default_threadEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Create a <a class="reference internal" href="ordering_and_threads.html#structzab_1_1thread__t"><span class="std std-ref">thread_t</span></a> targeting the default thread. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The <a class="reference internal" href="ordering_and_threads.html#structzab_1_1thread__t"><span class="std std-ref">thread_t</span></a>. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab14engine_enabled4swapER14engine_enabledR14engine_enabled">
+<span id="_CPPv3N3zab14engine_enabled4swapER14engine_enabledR14engine_enabled"></span><span id="_CPPv2N3zab14engine_enabled4swapER14engine_enabledR14engine_enabled"></span><span id="zab::engine_enabled::swap__engine_enabledR.engine_enabledR"></span><span class="target" id="classzab_1_1engine__enabled_1af2d450a6e5301687a542c5439be08bde"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">swap</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN3zab14engine_enabledE" title="zab::engine_enabled"><span class="n"><span class="pre">engine_enabled</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_first</span></span>, <a class="reference internal" href="#_CPPv4I0EN3zab14engine_enabledE" title="zab::engine_enabled"><span class="n"><span class="pre">engine_enabled</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_second</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab14engine_enabled4swapER14engine_enabledR14engine_enabled" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="event_loop.html" class="btn btn-neutral float-right" title="event_loop" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="ordering_and_threads.html" class="btn btn-neutral float-left" title="Ordering and Threads" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Donald Rupin.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

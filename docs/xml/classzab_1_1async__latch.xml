@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1async__latch" kind="class" language="C++" prot="public">
+    <compoundname>zab::async_latch</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzab_1_1async__latch_1a1bf51c3ea73d4ce414ad0def7f2332b4" prot="private" static="no" mutable="no">
+        <type>std::atomic&lt; std::ptrdiff_t &gt;</type>
+        <definition>std::atomic&lt;std::ptrdiff_t&gt; zab::async_latch::count_</definition>
+        <argsstring></argsstring>
+        <name>count_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_latch.hpp" line="94" column="25" bodyfile="/home/donald/rupin/zab/includes/zab/async_latch.hpp" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1async__latch_1a9b5ae992e292309f094ed7feb9a99ecd" prot="private" static="no" mutable="no">
+        <type>pause_token</type>
+        <definition>pause_token zab::async_latch::complete_</definition>
+        <argsstring></argsstring>
+        <name>complete_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_latch.hpp" line="96" column="25" bodyfile="/home/donald/rupin/zab/includes/zab/async_latch.hpp" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1async__latch_1ad9dc19b2a7c5dea345475c0726c400e5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_latch::async_latch</definition>
+        <argsstring>(engine *_engine, std::ptrdiff_t _amount)</argsstring>
+        <name>async_latch</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <param>
+          <type>std::ptrdiff_t</type>
+          <declname>_amount</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_latch.hpp" line="53" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_latch.hpp" bodystart="53" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__latch_1a29fed4ce7ecd2cfb156c92593a419a02" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_latch::~async_latch</definition>
+        <argsstring>()=default</argsstring>
+        <name>~async_latch</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_latch.hpp" line="57" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__latch_1a284fe5deeb2cfe87abb18438b41237a5" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::async_latch::count_down</definition>
+        <argsstring>(std::ptrdiff_t _amount=1) noexcept</argsstring>
+        <name>count_down</name>
+        <param>
+          <type>std::ptrdiff_t</type>
+          <declname>_amount</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_latch.hpp" line="60" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_latch.hpp" bodystart="60" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__latch_1a5a0a87689a53001d5b08add0353285fc" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zab::async_latch::try_wait</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>try_wait</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_latch.hpp" line="70" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_latch.hpp" bodystart="70" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__latch_1a3dc30f513d909ffffd993af2b153f06d" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::async_latch::wait</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>wait</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_latch.hpp" line="76" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_latch.hpp" bodystart="76" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__latch_1a280bd2894d3f85e00f378eb6cdae4ed7" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::async_latch::arrive_and_wait</definition>
+        <argsstring>(std::ptrdiff_t _amount=1) noexcept</argsstring>
+        <name>arrive_and_wait</name>
+        <param>
+          <type>std::ptrdiff_t</type>
+          <declname>_amount</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_latch.hpp" line="82" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_latch.hpp" bodystart="82" bodyend="87"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzab_1_1async__latch_1ab560cbc29934b7db5757980cb3fb5846" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::async_latch::notify</definition>
+        <argsstring>()</argsstring>
+        <name>notify</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_latch.hpp" line="92" column="13"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/async_latch.hpp" line="49" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/async_latch.hpp" bodystart="49" bodyend="97"/>
+    <listofallmembers>
+      <member refid="classzab_1_1async__latch_1a280bd2894d3f85e00f378eb6cdae4ed7" prot="public" virt="non-virtual"><scope>zab::async_latch</scope><name>arrive_and_wait</name></member>
+      <member refid="classzab_1_1async__latch_1ad9dc19b2a7c5dea345475c0726c400e5" prot="public" virt="non-virtual"><scope>zab::async_latch</scope><name>async_latch</name></member>
+      <member refid="classzab_1_1async__latch_1a9b5ae992e292309f094ed7feb9a99ecd" prot="private" virt="non-virtual"><scope>zab::async_latch</scope><name>complete_</name></member>
+      <member refid="classzab_1_1async__latch_1a1bf51c3ea73d4ce414ad0def7f2332b4" prot="private" virt="non-virtual"><scope>zab::async_latch</scope><name>count_</name></member>
+      <member refid="classzab_1_1async__latch_1a284fe5deeb2cfe87abb18438b41237a5" prot="public" virt="non-virtual"><scope>zab::async_latch</scope><name>count_down</name></member>
+      <member refid="classzab_1_1async__latch_1ab560cbc29934b7db5757980cb3fb5846" prot="private" virt="non-virtual"><scope>zab::async_latch</scope><name>notify</name></member>
+      <member refid="classzab_1_1async__latch_1a5a0a87689a53001d5b08add0353285fc" prot="public" virt="non-virtual"><scope>zab::async_latch</scope><name>try_wait</name></member>
+      <member refid="classzab_1_1async__latch_1a3dc30f513d909ffffd993af2b153f06d" prot="public" virt="non-virtual"><scope>zab::async_latch</scope><name>wait</name></member>
+      <member refid="classzab_1_1async__latch_1a29fed4ce7ecd2cfb156c92593a419a02" prot="public" virt="non-virtual"><scope>zab::async_latch</scope><name>~async_latch</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,537 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1async__barrier" kind="class" language="C++" prot="public">
+    <compoundname>zab::async_barrier</compoundname>
+    <includes refid="async__barrier_8hpp" local="no">async_barrier.hpp</includes>
+    <innerclass refid="classzab_1_1async__barrier_1_1arrival__token" prot="public">zab::async_barrier::arrival_token</innerclass>
+    <innerclass refid="structzab_1_1async__barrier_1_1drop__token" prot="private">zab::async_barrier::drop_token</innerclass>
+    <innerclass refid="classzab_1_1async__barrier_1_1waiter" prot="public">zab::async_barrier::waiter</innerclass>
+    <templateparamlist>
+      <param>
+        <type>details::Sequencer</type>
+        <declname>CompletionFunction</declname>
+        <defname>CompletionFunction</defname>
+        <defval><ref refid="structzab_1_1details_1_1no__op" kindref="compound">details::no_op</ref></defval>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classzab_1_1async__barrier_1aea293b39eabfbb24a061c65ce58080e5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class waiter</definition>
+        <argsstring></argsstring>
+        <name>waiter</name>
+        <param>
+          <type><ref refid="classzab_1_1async__barrier_1_1waiter" kindref="compound">waiter</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="599" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="599" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classzab_1_1async__barrier_1a6acf7d4e3a5b26d1bb432bb6bb4479c0" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr std::uintptr_t</type>
+        <definition>constexpr std::uintptr_t zab::async_barrier&lt; CompletionFunction &gt;::kDropFlag</definition>
+        <argsstring></argsstring>
+        <name>kDropFlag</name>
+        <initializer>= 0b01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="601" column="45" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="601" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1async__barrier_1a3bee96837fcb5c8964fc19f580c7f485" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr std::uintptr_t</type>
+        <definition>constexpr std::uintptr_t zab::async_barrier&lt; CompletionFunction &gt;::kTokenFlag</definition>
+        <argsstring></argsstring>
+        <name>kTokenFlag</name>
+        <initializer>= 0b10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="602" column="45" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="602" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1async__barrier_1ad5c5882af3f3ee9102b4fa2af4d7812f" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr std::uintptr_t</type>
+        <definition>constexpr std::uintptr_t zab::async_barrier&lt; CompletionFunction &gt;::kFlagMask</definition>
+        <argsstring></argsstring>
+        <name>kFlagMask</name>
+        <initializer>= 0b11</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="603" column="45" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="603" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1async__barrier_1a8f98a9e3864a01327b22a436c428c6fe" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr std::uintptr_t</type>
+        <definition>constexpr std::uintptr_t zab::async_barrier&lt; CompletionFunction &gt;::kAddressMask</definition>
+        <argsstring></argsstring>
+        <name>kAddressMask</name>
+        <initializer>= ~kFlagMask</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="604" column="45" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="604" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzab_1_1async__barrier_1a55e8b94d54e6548cb4d6c666949bc0c8" prot="private" static="no" mutable="no">
+        <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+        <definition>engine* zab::async_barrier&lt; CompletionFunction &gt;::engine_</definition>
+        <argsstring></argsstring>
+        <name>engine_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="606" column="20" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="606" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1async__barrier_1a02682cfa16c8a6a5849bf914f6d6a5c7" prot="private" static="no" mutable="no">
+        <type>std::ptrdiff_t</type>
+        <definition>std::ptrdiff_t zab::async_barrier&lt; CompletionFunction &gt;::expected_</definition>
+        <argsstring></argsstring>
+        <name>expected_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="608" column="28" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="608" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1async__barrier_1a9c426f270e94c3b7fa88ae990dc0e833" prot="private" static="no" mutable="no">
+        <type>std::atomic&lt; std::uintptr_t &gt;</type>
+        <definition>std::atomic&lt;std::uintptr_t&gt; zab::async_barrier&lt; CompletionFunction &gt;::working_set_</definition>
+        <argsstring></argsstring>
+        <name>working_set_</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="610" column="25" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="610" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1async__barrier_1a72fe34679938313ded162e868a0c6396" prot="private" static="no" mutable="no">
+        <type>std::atomic&lt; std::ptrdiff_t &gt;</type>
+        <definition>std::atomic&lt;std::ptrdiff_t&gt; zab::async_barrier&lt; CompletionFunction &gt;::count_</definition>
+        <argsstring></argsstring>
+        <name>count_</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="611" column="25" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="611" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1async__barrier_1a38f61c65f33ddf68a025fdd24ee3ae46" prot="private" static="no" mutable="no">
+        <type>CompletionFunction</type>
+        <definition>CompletionFunction zab::async_barrier&lt; CompletionFunction &gt;::function_</definition>
+        <argsstring></argsstring>
+        <name>function_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="613" column="32" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="613" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1async__barrier_1aeca38caf0967d746b8fedade875e8228" prot="private" static="no" mutable="no">
+        <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+        <definition>thread_t zab::async_barrier&lt; CompletionFunction &gt;::thread_</definition>
+        <argsstring></argsstring>
+        <name>thread_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="614" column="32" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="614" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1async__barrier_1a6f4f36d028188cb8d7b306927a1f08ef" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_barrier&lt; CompletionFunction &gt;::async_barrier</definition>
+        <argsstring>(engine *_engine, std::ptrdiff_t _expected, const CompletionFunction &amp;_function=CompletionFunction{}, thread_t _thread=thread_t{})</argsstring>
+        <name>async_barrier</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <param>
+          <type>std::ptrdiff_t</type>
+          <declname>_expected</declname>
+        </param>
+        <param>
+          <type>const CompletionFunction &amp;</type>
+          <declname>_function</declname>
+          <defval>CompletionFunction{}</defval>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_thread</declname>
+          <defval><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref>{}</defval>
+        </param>
+        <briefdescription>
+<para>Construct the <ref refid="classzab_1_1async__barrier" kindref="compound">async_barrier</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">_engine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The engine to run in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">_expected</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of threads to suspend </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">_function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The completion phase function </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">_thread</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The control thread </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="235" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="235" bodyend="242"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__barrier_1a81074fef3c692eaaaee9da7a2a672a64" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_barrier&lt; CompletionFunction &gt;::async_barrier</definition>
+        <argsstring>(engine *_engine, std::ptrdiff_t _expected, CompletionFunction &amp;&amp;_function=CompletionFunction{}, thread_t _thread=thread_t{})</argsstring>
+        <name>async_barrier</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <param>
+          <type>std::ptrdiff_t</type>
+          <declname>_expected</declname>
+        </param>
+        <param>
+          <type>CompletionFunction &amp;&amp;</type>
+          <declname>_function</declname>
+          <defval>CompletionFunction{}</defval>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_thread</declname>
+          <defval><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref>{}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="244" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="244" bodyend="251"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__barrier_1a82e1243c9267346030c504ae6eb95157" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_barrier&lt; CompletionFunction &gt;::async_barrier</definition>
+        <argsstring>(const async_barrier &amp;)=delete</argsstring>
+        <name>async_barrier</name>
+        <param>
+          <type>const <ref refid="classzab_1_1async__barrier" kindref="compound">async_barrier</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="253" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__barrier_1a4d2357f5f7c2ced2847eef92b37f76ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_barrier&lt; CompletionFunction &gt;::async_barrier</definition>
+        <argsstring>(async_barrier &amp;&amp;)=delete</argsstring>
+        <name>async_barrier</name>
+        <param>
+          <type><ref refid="classzab_1_1async__barrier" kindref="compound">async_barrier</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="255" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__barrier_1a118ee90e31ae9d1d5a7113e6955016f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_barrier&lt; CompletionFunction &gt;::~async_barrier</definition>
+        <argsstring>()=default</argsstring>
+        <name>~async_barrier</name>
+        <briefdescription>
+<para>Default destroys the object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="260" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__barrier_1a86dee90f56b76be7fb9b103667f245f2" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1async__barrier_1_1arrival__token" kindref="compound">arrival_token</ref></type>
+        <definition>arrival_token zab::async_barrier&lt; CompletionFunction &gt;::arrive</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>arrive</name>
+        <briefdescription>
+<para>arrive at the barrier but do not suspend. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The arrival token to await on later. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="270" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="270" bodyend="280"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__barrier_1a1174425db45ae4ec35358a0e1c5e52fc" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1async__barrier_1_1waiter" kindref="compound">waiter</ref></type>
+        <definition>waiter zab::async_barrier&lt; CompletionFunction &gt;::arrive_and_wait</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>arrive_and_wait</name>
+        <briefdescription>
+<para>arrive at the barrier and suspend. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The waiter to co_await. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="290" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="290" bodyend="293"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__barrier_1a5ab2f837e0126efcdd2a9ccbed8f295b" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::async_barrier&lt; CompletionFunction &gt;::arrive_and_drop</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>arrive_and_drop</name>
+        <briefdescription>
+<para>arrive at the barrier and decrement the expected thread count after the current phase is complete. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="302" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="302" bodyend="309"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzab_1_1async__barrier_1a22ce2ebfd5bf3df252e2488fe4ad6b51" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void zab::async_barrier&lt; CompletionFunction &gt;::add_to_working_set</definition>
+        <argsstring>(T *_ptr)</argsstring>
+        <name>add_to_working_set</name>
+        <param>
+          <type>T *</type>
+          <declname>_ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="319" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="319" bodyend="337"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__barrier_1a435364c0150fed70a236c4b71c2242e6" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::async_barrier&lt; CompletionFunction &gt;::add_drop_to_waorking_set</definition>
+        <argsstring>()</argsstring>
+        <name>add_drop_to_waorking_set</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="340" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="340" bodyend="356"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__barrier_1a4b30bd80927e93ca98dea1461790631f" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1async__function" kindref="compound">async_function</ref></type>
+        <definition>async_function zab::async_barrier&lt; CompletionFunction &gt;::complete_phase</definition>
+        <argsstring>()</argsstring>
+        <name>complete_phase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="359" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="359" bodyend="436"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__barrier_1a59aade67f7f55b667b0fad870d7079a6" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::uintptr_t</type>
+        <definition>std::uintptr_t zab::async_barrier&lt; CompletionFunction &gt;::aquire_window</definition>
+        <argsstring>()</argsstring>
+        <name>aquire_window</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="439" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="439" bodyend="471"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__barrier_1ab34f3815dcc1628ffa32f6992604b9a2" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Functor</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void zab::async_barrier&lt; CompletionFunction &gt;::iterate_linked_list</definition>
+        <argsstring>(std::uintptr_t _ptr, Functor _f)</argsstring>
+        <name>iterate_linked_list</name>
+        <param>
+          <type>std::uintptr_t</type>
+          <declname>_ptr</declname>
+        </param>
+        <param>
+          <type>Functor</type>
+          <declname>_f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="475" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="475" bodyend="510"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__barrier_1a8a522dd5019b41381fc9f75a2af7210b" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::uintptr_t</type>
+        <definition>std::uintptr_t zab::async_barrier&lt; CompletionFunction &gt;::get_next</definition>
+        <argsstring>(std::uintptr_t _ptr)</argsstring>
+        <name>get_next</name>
+        <param>
+          <type>std::uintptr_t</type>
+          <declname>_ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="513" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="513" bodyend="539"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__barrier_1a97e0bf588b957cbd84667d0a406a80a1" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::async_barrier&lt; CompletionFunction &gt;::resume_frames</definition>
+        <argsstring>(std::uintptr_t _ptr)</argsstring>
+        <name>resume_frames</name>
+        <param>
+          <type>std::uintptr_t</type>
+          <declname>_ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="542" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="542" bodyend="597"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This class describes an asynchronous barrier. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>See: <ulink url="https://en.cppreference.com/w/cpp/thread/barrier">std::barrier</ulink></para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>CompletionFunction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The phase completion step to execute during the phase complete step. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="116" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="116" bodyend="615"/>
+    <listofallmembers>
+      <member refid="classzab_1_1async__barrier_1a435364c0150fed70a236c4b71c2242e6" prot="private" virt="non-virtual"><scope>zab::async_barrier</scope><name>add_drop_to_waorking_set</name></member>
+      <member refid="classzab_1_1async__barrier_1a22ce2ebfd5bf3df252e2488fe4ad6b51" prot="private" virt="non-virtual"><scope>zab::async_barrier</scope><name>add_to_working_set</name></member>
+      <member refid="classzab_1_1async__barrier_1a59aade67f7f55b667b0fad870d7079a6" prot="private" virt="non-virtual"><scope>zab::async_barrier</scope><name>aquire_window</name></member>
+      <member refid="classzab_1_1async__barrier_1a86dee90f56b76be7fb9b103667f245f2" prot="public" virt="non-virtual"><scope>zab::async_barrier</scope><name>arrive</name></member>
+      <member refid="classzab_1_1async__barrier_1a5ab2f837e0126efcdd2a9ccbed8f295b" prot="public" virt="non-virtual"><scope>zab::async_barrier</scope><name>arrive_and_drop</name></member>
+      <member refid="classzab_1_1async__barrier_1a1174425db45ae4ec35358a0e1c5e52fc" prot="public" virt="non-virtual"><scope>zab::async_barrier</scope><name>arrive_and_wait</name></member>
+      <member refid="classzab_1_1async__barrier_1a6f4f36d028188cb8d7b306927a1f08ef" prot="public" virt="non-virtual"><scope>zab::async_barrier</scope><name>async_barrier</name></member>
+      <member refid="classzab_1_1async__barrier_1a81074fef3c692eaaaee9da7a2a672a64" prot="public" virt="non-virtual"><scope>zab::async_barrier</scope><name>async_barrier</name></member>
+      <member refid="classzab_1_1async__barrier_1a82e1243c9267346030c504ae6eb95157" prot="public" virt="non-virtual"><scope>zab::async_barrier</scope><name>async_barrier</name></member>
+      <member refid="classzab_1_1async__barrier_1a4d2357f5f7c2ced2847eef92b37f76ce" prot="public" virt="non-virtual"><scope>zab::async_barrier</scope><name>async_barrier</name></member>
+      <member refid="classzab_1_1async__barrier_1a4b30bd80927e93ca98dea1461790631f" prot="private" virt="non-virtual"><scope>zab::async_barrier</scope><name>complete_phase</name></member>
+      <member refid="classzab_1_1async__barrier_1a72fe34679938313ded162e868a0c6396" prot="private" virt="non-virtual"><scope>zab::async_barrier</scope><name>count_</name></member>
+      <member refid="classzab_1_1async__barrier_1a55e8b94d54e6548cb4d6c666949bc0c8" prot="private" virt="non-virtual"><scope>zab::async_barrier</scope><name>engine_</name></member>
+      <member refid="classzab_1_1async__barrier_1a02682cfa16c8a6a5849bf914f6d6a5c7" prot="private" virt="non-virtual"><scope>zab::async_barrier</scope><name>expected_</name></member>
+      <member refid="classzab_1_1async__barrier_1a38f61c65f33ddf68a025fdd24ee3ae46" prot="private" virt="non-virtual"><scope>zab::async_barrier</scope><name>function_</name></member>
+      <member refid="classzab_1_1async__barrier_1a8a522dd5019b41381fc9f75a2af7210b" prot="private" virt="non-virtual"><scope>zab::async_barrier</scope><name>get_next</name></member>
+      <member refid="classzab_1_1async__barrier_1ab34f3815dcc1628ffa32f6992604b9a2" prot="private" virt="non-virtual"><scope>zab::async_barrier</scope><name>iterate_linked_list</name></member>
+      <member refid="classzab_1_1async__barrier_1a8f98a9e3864a01327b22a436c428c6fe" prot="private" virt="non-virtual"><scope>zab::async_barrier</scope><name>kAddressMask</name></member>
+      <member refid="classzab_1_1async__barrier_1a6acf7d4e3a5b26d1bb432bb6bb4479c0" prot="private" virt="non-virtual"><scope>zab::async_barrier</scope><name>kDropFlag</name></member>
+      <member refid="classzab_1_1async__barrier_1ad5c5882af3f3ee9102b4fa2af4d7812f" prot="private" virt="non-virtual"><scope>zab::async_barrier</scope><name>kFlagMask</name></member>
+      <member refid="classzab_1_1async__barrier_1a3bee96837fcb5c8964fc19f580c7f485" prot="private" virt="non-virtual"><scope>zab::async_barrier</scope><name>kTokenFlag</name></member>
+      <member refid="classzab_1_1async__barrier_1a97e0bf588b957cbd84667d0a406a80a1" prot="private" virt="non-virtual"><scope>zab::async_barrier</scope><name>resume_frames</name></member>
+      <member refid="classzab_1_1async__barrier_1aeca38caf0967d746b8fedade875e8228" prot="private" virt="non-virtual"><scope>zab::async_barrier</scope><name>thread_</name></member>
+      <member refid="classzab_1_1async__barrier_1aea293b39eabfbb24a061c65ce58080e5" prot="private" virt="non-virtual"><scope>zab::async_barrier</scope><name>waiter</name></member>
+      <member refid="classzab_1_1async__barrier_1a9c426f270e94c3b7fa88ae990dc0e833" prot="private" virt="non-virtual"><scope>zab::async_barrier</scope><name>working_set_</name></member>
+      <member refid="classzab_1_1async__barrier_1a118ee90e31ae9d1d5a7113e6955016f1" prot="public" virt="non-virtual"><scope>zab::async_barrier</scope><name>~async_barrier</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

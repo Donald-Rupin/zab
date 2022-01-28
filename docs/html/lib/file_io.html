@@ -1,0 +1,425 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>File IO &mdash; ZAB 0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Networking" href="networking.html" />
+    <link rel="prev" title="Observables" href="observable.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ZAB
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_library.html">Core Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coroutines.html">Coroutines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="async_primitives.html">Asynchronous Primitives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="async_sync.html">Asynchronous Synchronisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="observable.html">Observables</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">File IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ZAB</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="lib_root.html">ZAB Documentation</a> &raquo;</li>
+        
+      <li>File IO</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/lib/file_io.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="file-io">
+<span id="id1"></span><h1>File IO<a class="headerlink" href="#file-io" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">async_file</span></code> provides simple asynchronous read/write operations to the user. An <code class="docutils literal notranslate"><span class="pre">async_file</span></code> is essentially just a wrapper for file io family of requests providied by liburing.</p>
+<p><code class="docutils literal notranslate"><span class="pre">async_file</span></code> usage in an <code class="docutils literal notranslate"><span class="pre">engine_enabled</span></code> class:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">async_function</span><span class="o">&lt;&gt;</span>
+<span class="n">your_class</span><span class="o">::</span><span class="n">file_io_example</span><span class="p">()</span>
+<span class="p">{</span>
+
+    <span class="n">async_file</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">file</span><span class="p">(</span><span class="n">engine_</span><span class="p">);</span>
+
+    <span class="cm">/* Open with read, write, and truncate */</span>
+    <span class="kt">bool</span> <span class="n">success</span> <span class="o">=</span> <span class="k">co_await</span> <span class="n">file</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s">&quot;test_file.txt&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">::</span><span class="n">Options</span><span class="o">::</span><span class="n">kRWTruncate</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">success</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">buffer</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mi">42</span><span class="p">);</span>
+
+        <span class="cm">/* Write data to file */</span>
+        <span class="n">success</span> <span class="o">=</span> <span class="k">co_await</span> <span class="n">file</span><span class="p">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">success</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="cm">/* Re position the file ptr */</span>
+            <span class="n">success</span> <span class="o">=</span> <span class="n">file</span><span class="p">.</span><span class="n">position</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">success</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="cm">/* Read the data */</span>
+                <span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="k">co_await</span> <span class="n">file</span><span class="p">.</span><span class="n">read_file</span><span class="p">();</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">&amp;&amp;</span> <span class="o">*</span><span class="n">data</span> <span class="o">==</span> <span class="n">buffer</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;File io was successful.&quot;</span><span class="o">:</span> <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="cm">/* Close the file */</span>
+        <span class="n">success</span> <span class="o">=</span> <span class="k">co_await</span> <span class="n">file</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3zab10async_fileE">
+<span id="_CPPv3I0EN3zab10async_fileE"></span><span id="_CPPv2I0EN3zab10async_fileE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ReadType</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">byte</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1async__file"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">async_file</span></span></span><a class="headerlink" href="#_CPPv4I0EN3zab10async_fileE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This class allows for asyncronous file i/o. </p>
+<p>The file descriptor associated with <a class="reference internal" href="#classzab_1_1async__file"><span class="std std-ref">async_file</span></a> is opened as if by call to fopen() or open(2) with the following flags: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   ┌───────────────┬───────────────┬───────────────────────────────┐
+   │  Options      │  fopen() mode │  open() flags                 │
+   ├───────────────┼───────────────┼───────────────────────────────┤
+   │ kRead         │     r         │ O_RDONLY                      │
+   ├───────────────┼───────────────┼───────────────────────────────┤
+   │ kTrunc        │     w         │ O_WRONLY | O_CREAT | O_TRUNC  │
+   ├───────────────┼───────────────┼───────────────────────────────┤
+   │ kAppend       │     a         │ O_WRONLY | O_CREAT | O_APPEND │
+   ├───────────────┼───────────────┼───────────────────────────────┤
+   │ kReadWrite    │     r+        │ O_RDWR                        │
+   ├───────────────┼───────────────┼───────────────────────────────┤
+   │ kRWTruncate   │     w+        │ O_RDWR | O_CREAT | O_TRUNC    │
+   ├───────────────├───────────────┼───────────────────────────────┤
+   │ kRWAppend     │     a+        │ O_RDWR | O_CREAT | O_APPEND   │
+   └───────────────┴───────────────┴───────────────────────────────┘
+</pre></div>
+</div>
+ </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10async_file10async_fileEP6engine">
+<span id="_CPPv3N3zab10async_file10async_fileEP6engine"></span><span id="_CPPv2N3zab10async_file10async_fileEP6engine"></span><span id="zab::async_file::async_file__engineP"></span><span class="target" id="classzab_1_1async__file_1aa0d7cfdb6ae6d8741add9da76ada55ed"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">async_file</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10async_file10async_fileEP6engine" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Create a async file. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_engine</strong> – The engine to use. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10async_file10async_fileERK10async_file">
+<span id="_CPPv3N3zab10async_file10async_fileERK10async_file"></span><span id="_CPPv2N3zab10async_file10async_fileERK10async_file"></span><span id="zab::async_file::async_file__async_fileCR"></span><span class="target" id="classzab_1_1async__file_1a3741b0f9b1a6dcb492de4fab8a79cbaf"></span><span class="sig-name descname"><span class="n"><span class="pre">async_file</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab10async_file10async_fileERK10async_file" title="zab::async_file::async_file"><span class="n"><span class="pre">async_file</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab10async_file10async_fileERK10async_file" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10async_file10async_fileERR10async_file">
+<span id="_CPPv3N3zab10async_file10async_fileERR10async_file"></span><span id="_CPPv2N3zab10async_file10async_fileERR10async_file"></span><span id="zab::async_file::async_file__async_fileRR"></span><span class="target" id="classzab_1_1async__file_1aac0701ef7bc075d2795bca19b5a0a083"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">async_file</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10async_file10async_fileERR10async_file" title="zab::async_file::async_file"><span class="n"><span class="pre">async_file</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_move</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10async_file10async_fileERR10async_file" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10async_fileD0Ev">
+<span id="_CPPv3N3zab10async_fileD0Ev"></span><span id="_CPPv2N3zab10async_fileD0Ev"></span><span id="zab::async_file::~async_file"></span><span class="target" id="classzab_1_1async__file_1a0e32396638075e58027e6b92e18447ad"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~async_file</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10async_fileD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Closes the file. </p>
+<p>The acutal clsoing of the file will be flushed to a background process. <code class="docutils literal notranslate"><span class="pre">co_await</span></code>ing on <code class="docutils literal notranslate"><span class="pre">close()</span></code> is reconmended before deconsturction. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10async_file4openENSt11string_viewEN4file6OptionE6mode_t">
+<span id="_CPPv3N3zab10async_file4openENSt11string_viewEN4file6OptionE6mode_t"></span><span id="_CPPv2N3zab10async_file4openENSt11string_viewEN4file6OptionE6mode_t"></span><span id="zab::async_file::open__std::string_view.file::Option.mode_t"></span><span class="target" id="classzab_1_1async__file_1a3d88e227cfb680ae6d422e9f35d8a86a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">open</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_path</span></span>, <span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Option</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_options</span></span>, <span class="n"><span class="pre">mode_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_mode</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab10async_file12kDefaultModeE" title="zab::async_file::kDefaultMode"><span class="n"><span class="pre">kDefaultMode</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10async_file4openENSt11string_viewEN4file6OptionE6mode_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10async_file4openENSt11string_viewEi6mode_t">
+<span id="_CPPv3N3zab10async_file4openENSt11string_viewEi6mode_t"></span><span id="_CPPv2N3zab10async_file4openENSt11string_viewEi6mode_t"></span><span id="zab::async_file::open__std::string_view.i.mode_t"></span><span class="target" id="classzab_1_1async__file_1ae182971684dc9fcb92d33a1947dba3ce"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">open</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_path</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_flags</span></span>, <span class="n"><span class="pre">mode_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10async_file4openENSt11string_viewEi6mode_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10async_file4openERK9directoryNSt11string_viewEN4file6OptionE6mode_t">
+<span id="_CPPv3N3zab10async_file4openERK9directoryNSt11string_viewEN4file6OptionE6mode_t"></span><span id="_CPPv2N3zab10async_file4openERK9directoryNSt11string_viewEN4file6OptionE6mode_t"></span><span id="zab::async_file::open__directoryCR.std::string_view.file::Option.mode_t"></span><span class="target" id="classzab_1_1async__file_1aae3cc8d44ba74777820fa12ac812f88c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">open</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">directory</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_dir</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_path</span></span>, <span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Option</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_options</span></span>, <span class="n"><span class="pre">mode_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_mode</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab10async_file12kDefaultModeE" title="zab::async_file::kDefaultMode"><span class="n"><span class="pre">kDefaultMode</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10async_file4openERK9directoryNSt11string_viewEN4file6OptionE6mode_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10async_file4openERK9directoryNSt11string_viewEi6mode_t">
+<span id="_CPPv3N3zab10async_file4openERK9directoryNSt11string_viewEi6mode_t"></span><span id="_CPPv2N3zab10async_file4openERK9directoryNSt11string_viewEi6mode_t"></span><span id="zab::async_file::open__directoryCR.std::string_view.i.mode_t"></span><span class="target" id="classzab_1_1async__file_1ae2e438e9cf57087bd1f27b4f239e87e8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">open</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">directory</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_dir</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_path</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_flags</span></span>, <span class="n"><span class="pre">mode_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_mode</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab10async_file12kDefaultModeE" title="zab::async_file::kDefaultMode"><span class="n"><span class="pre">kDefaultMode</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10async_file4openERK9directoryNSt11string_viewEi6mode_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10async_file5closeEv">
+<span id="_CPPv3N3zab10async_file5closeEv"></span><span id="_CPPv2N3zab10async_file5closeEv"></span><span id="zab::async_file::close"></span><span class="target" id="classzab_1_1async__file_1a2a54a31d70b5f391ec0886f617ed4972"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">close</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10async_file5closeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10async_file9read_fileEv">
+<span id="_CPPv3N3zab10async_file9read_fileEv"></span><span id="_CPPv2N3zab10async_file9read_fileEv"></span><span id="zab::async_file::read_file"></span><span class="target" id="classzab_1_1async__file_1a4be74df7c9ab0b0539a4bc5ded8def6e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3zab10async_fileE" title="zab::async_file::ReadType"><span class="n"><span class="pre">ReadType</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read_file</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10async_file9read_fileEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10async_file9read_someENSt6size_tE">
+<span id="_CPPv3N3zab10async_file9read_someENSt6size_tE"></span><span id="_CPPv2N3zab10async_file9read_someENSt6size_tE"></span><span id="zab::async_file::read_some__std::s"></span><span class="target" id="classzab_1_1async__file_1a868fae8d8d4359a329ac97d72d4efb94"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3zab10async_fileE" title="zab::async_file::ReadType"><span class="n"><span class="pre">ReadType</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read_some</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_amount</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10async_file9read_someENSt6size_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10async_file9read_someENSt4spanI8ReadTypeEE">
+<span id="_CPPv3N3zab10async_file9read_someENSt4spanI8ReadTypeEE"></span><span id="_CPPv2N3zab10async_file9read_someENSt4spanI8ReadTypeEE"></span><span id="zab::async_file::read_some__std::span:ReadType:"></span><span class="target" id="classzab_1_1async__file_1a33e1b3344069850ab88e113d74a1a76c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read_some</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3zab10async_fileE" title="zab::async_file::ReadType"><span class="n"><span class="pre">ReadType</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_data</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10async_file9read_someENSt4spanI8ReadTypeEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10async_file13write_to_fileENSt4spanIK8ReadTypeEE">
+<span id="_CPPv3N3zab10async_file13write_to_fileENSt4spanIK8ReadTypeEE"></span><span id="_CPPv2N3zab10async_file13write_to_fileENSt4spanIK8ReadTypeEE"></span><span id="zab::async_file::write_to_file__std::span:ReadTypeC:"></span><span class="target" id="classzab_1_1async__file_1a0813809c75cf4eb11d72feae2b0c9f9c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">write_to_file</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3zab10async_fileE" title="zab::async_file::ReadType"><span class="n"><span class="pre">ReadType</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_data</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10async_file13write_to_fileENSt4spanIK8ReadTypeEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10async_file8positionENSt6size_tEN4file6OffsetE">
+<span id="_CPPv3N3zab10async_file8positionENSt6size_tEN4file6OffsetE"></span><span id="_CPPv2N3zab10async_file8positionENSt6size_tEN4file6OffsetE"></span><span id="zab::async_file::position__std::s.file::Offset"></span><span class="target" id="classzab_1_1async__file_1a5a5ebc7850e24903658debc2c10b4a36"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">position</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_pos</span></span>, <span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Offset</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_whence</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Offset</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">kBegin</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10async_file8positionENSt6size_tEN4file6OffsetE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Reset the poistion of the file cursor. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_pos</strong> – <strong>[in]</strong> The amount to move. </p></li>
+<li><p><strong>_whence</strong> – <strong>[in]</strong> Where to move from.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true if successful, false otherwise. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10async_file4sizeEv">
+<span id="_CPPv3N3zab10async_file4sizeEv"></span><span id="_CPPv2N3zab10async_file4sizeEv"></span><span id="zab::async_file::size"></span><span class="target" id="classzab_1_1async__file_1a5d12ed22dbefbab2320e5b83805ae23c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10async_file4sizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3zab10async_file4goodEv">
+<span id="_CPPv3NK3zab10async_file4goodEv"></span><span id="_CPPv2NK3zab10async_file4goodEv"></span><span id="zab::async_file::goodC"></span><span class="target" id="classzab_1_1async__file_1a137343468ad1a014572c4042c88bde00"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">good</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3zab10async_file4goodEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Checks if there is an error pending on the file. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>true if no error, false otherwise. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10async_file12relative_dirEv">
+<span id="_CPPv3N3zab10async_file12relative_dirEv"></span><span id="_CPPv2N3zab10async_file12relative_dirEv"></span><span id="zab::async_file::relative_dir"></span><span class="target" id="classzab_1_1async__file_1a8772e59fa42709a6eb111b0419f62a9c"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">relative_dir</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10async_file12relative_dirEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10async_file5closeEP6enginei">
+<span id="_CPPv3N3zab10async_file5closeEP6enginei"></span><span id="_CPPv2N3zab10async_file5closeEP6enginei"></span><span id="zab::async_file::close__engineP.i"></span><span class="target" id="classzab_1_1async__file_1a1303dd83d363e91f6b044e37594b2ca3"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">close</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_fd</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10async_file5closeEP6enginei" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10async_file19close_in_backgroundEP6enginei">
+<span id="_CPPv3N3zab10async_file19close_in_backgroundEP6enginei"></span><span id="_CPPv2N3zab10async_file19close_in_backgroundEP6enginei"></span><span id="zab::async_file::close_in_background__engineP.i"></span><span class="target" id="classzab_1_1async__file_1a8a683a3a09eeea80671d646d5d9f5aab"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="async_function.html#_CPPv4I_N7details9ExecutionEEN3zab14async_functionE" title="zab::async_function"><span class="n"><span class="pre">async_function</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">close_in_background</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_fd</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10async_file19close_in_backgroundEP6enginei" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10async_file12kDefaultModeE">
+<span id="_CPPv3N3zab10async_file12kDefaultModeE"></span><span id="_CPPv2N3zab10async_file12kDefaultModeE"></span><span id="zab::async_file::kDefaultMode__mode_t"></span><span class="target" id="classzab_1_1async__file_1a764c726461fb63caaf8d269a0e78d15f"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="n"><span class="pre">mode_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kDefaultMode</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">S_IRUSR</span></span><span class="w"> </span><span class="o"><span class="pre">|</span></span><span class="w"> </span><span class="n"><span class="pre">S_IWUSR</span></span><a class="headerlink" href="#_CPPv4N3zab10async_file12kDefaultModeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The defaukt mode for opening files is user read/write. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="networking.html" class="btn btn-neutral float-right" title="Networking" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="observable.html" class="btn btn-neutral float-left" title="Observables" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Donald Rupin.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structzab_1_1async__barrier_1_1drop__token" kind="struct" language="C++" prot="private">
+    <compoundname>zab::async_barrier::drop_token</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzab_1_1async__barrier_1_1drop__token_1a31c447432cbbd5bd503c770e6aae1e21" prot="public" static="no" mutable="no">
+        <type>std::uintptr_t</type>
+        <definition>std::uintptr_t zab::async_barrier&lt; CompletionFunction &gt;::drop_token::next_</definition>
+        <argsstring></argsstring>
+        <name>next_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="314" column="36" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="313" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="313" bodyend="315"/>
+    <listofallmembers>
+      <member refid="structzab_1_1async__barrier_1_1drop__token_1a31c447432cbbd5bd503c770e6aae1e21" prot="public" virt="non-virtual"><scope>zab::async_barrier::drop_token</scope><name>next_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

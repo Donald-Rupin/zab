@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespacezab_1_1file" kind="namespace" language="C++">
+    <compoundname>zab::file</compoundname>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="async__file_8hpp_1a3c98c3a8f10f00b361378e9bae7d23d1" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>Option</name>
+        <enumvalue id="async__file_8hpp_1a3c98c3a8f10f00b361378e9bae7d23d1a8604cf55a79d6bfdcb30f77d1622839b" prot="public">
+          <name>kRead</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="async__file_8hpp_1a3c98c3a8f10f00b361378e9bae7d23d1a8681e538866553847bf291189392344e" prot="public">
+          <name>kTrunc</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="async__file_8hpp_1a3c98c3a8f10f00b361378e9bae7d23d1aed5658e329d7469d2f08b7362619ffef" prot="public">
+          <name>kAppend</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="async__file_8hpp_1a3c98c3a8f10f00b361378e9bae7d23d1af34c23f2eed93c9645e1aa681c77bec5" prot="public">
+          <name>kReadWrite</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="async__file_8hpp_1a3c98c3a8f10f00b361378e9bae7d23d1aff1c9600e452a8826970bdf4ec9831f7" prot="public">
+          <name>kRWTruncate</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="async__file_8hpp_1a3c98c3a8f10f00b361378e9bae7d23d1a7c195aa802764990474b796352c77337" prot="public">
+          <name>kRWAppend</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>File options used to open the file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="65" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="65" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="enum" id="async__file_8hpp_1a823e320d511bc91a23790ae3ec587807" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>Offset</name>
+        <enumvalue id="async__file_8hpp_1a823e320d511bc91a23790ae3ec587807a5b2e06d1e72dcec72883ce2f30115b43" prot="public">
+          <name>kBegin</name>
+          <initializer>= SEEK_SET</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="async__file_8hpp_1a823e320d511bc91a23790ae3ec587807aa1f14acc9c84a430477914441ad13a97" prot="public">
+          <name>kCurrent</name>
+          <initializer>= SEEK_CUR</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="async__file_8hpp_1a823e320d511bc91a23790ae3ec587807a374bf9ba57a441a600d65b212cf9d13c" prot="public">
+          <name>kEnd</name>
+          <initializer>= SEEK_END</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Offests for repositioning the file cursor position. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="77" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="77" bodyend="81"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="async__file_8hpp_1a1aede935ad89831bc7c253bede1cdc13" prot="public" static="yes" constexpr="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>constexpr auto</type>
+        <definition>static constexpr auto zab::file::open_options</definition>
+        <argsstring>(Option _options)</argsstring>
+        <name>open_options</name>
+        <param>
+          <type>Option</type>
+          <declname>_options</declname>
+        </param>
+        <briefdescription>
+<para>Convert Options to open options. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">_options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The option to convert.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The fopen options. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="91" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="91" bodyend="115"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="60" column="5"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,310 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>pause_token &mdash; ZAB 0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="async_counting_semaphore" href="async_counting_semaphore.html" />
+    <link rel="prev" title="Asynchronous Synchronisation" href="async_sync.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ZAB
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_library.html">Core Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coroutines.html">Coroutines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="async_primitives.html">Asynchronous Primitives</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="async_sync.html">Asynchronous Synchronisation</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pause_token</a></li>
+<li class="toctree-l3"><a class="reference internal" href="async_counting_semaphore.html">async_counting_semaphore</a></li>
+<li class="toctree-l3"><a class="reference internal" href="async_binary_semaphore.html">async_binary_semaphore</a></li>
+<li class="toctree-l3"><a class="reference internal" href="async_mutex.html">async_mutex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="async_latch.html">async_latch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="async_barrier.html">async_barrier</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="observable.html">Observables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_io.html">File IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ZAB</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="lib_root.html">ZAB Documentation</a> &raquo;</li>
+        
+          <li><a href="async_sync.html">Asynchronous Synchronisation</a> &raquo;</li>
+        
+      <li>pause_token</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/lib/pause_token.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pause-token">
+<span id="id1"></span><h1>pause_token<a class="headerlink" href="#pause-token" title="Permalink to this headline">¶</a></h1>
+<p>A <code class="docutils literal notranslate"><span class="pre">pause_token</span></code> is the only synchronisation class in ZAB that has no standard library equivalent. It is used for pauseing and unpausing coroutines in a thread safe manner. All <code class="docutils literal notranslate"><span class="pre">pause_token</span></code> functions except the deconstructor are thread safe. The <code class="docutils literal notranslate"><span class="pre">pause_token</span></code> is constructed in a paused state.</p>
+<p>If paused, coroutines that <code class="docutils literal notranslate"><span class="pre">co_await</span></code> the <code class="docutils literal notranslate"><span class="pre">pause_token</span></code> will have their execution suspended. Otherwise, <code class="docutils literal notranslate"><span class="pre">co_await</span></code> no-ops.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">pause_token</span></code> changes from a paused state to an unpaused state, all coroutines that had their execution suspended will be resumed in the <cite>same</cite> thread they were suspended in.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">pause_token</span></code> is re-usable and can be switched between paused and unpaused states. There is no maximum number of coroutines that can be suspended. Although, unpausing is linear in the number of suspended coroutines.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">async_function</span><span class="o">&lt;&gt;</span>
+<span class="n">your_class</span><span class="o">::</span><span class="n">worker</span><span class="p">(</span><span class="n">thread_t</span> <span class="n">_thread</span><span class="p">,</span> <span class="n">pause_token</span><span class="o">&amp;</span> <span class="n">_pt</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="cm">/* Move into our thread */</span>
+    <span class="k">co_await</span> <span class="nf">yield</span><span class="p">(</span><span class="n">_thread</span><span class="p">);</span>
+
+    <span class="cm">/* If it was already unpaused this will just no-op */</span>
+    <span class="k">co_await</span> <span class="n">_pt</span><span class="p">;</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;At work &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">_thread</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="n">async_function</span><span class="o">&lt;&gt;</span>
+<span class="n">your_class</span><span class="o">::</span><span class="n">pause_example</span><span class="p">(</span><span class="n">pause_token</span><span class="o">&amp;</span> <span class="n">_pt</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="k">auto</span> <span class="n">threads</span> <span class="o">=</span> <span class="n">engine_</span><span class="o">-&gt;</span><span class="n">number_of_workers</span><span class="p">();</span>
+    <span class="n">pause_token</span> <span class="nf">pt</span><span class="p">(</span><span class="n">engine_</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">uint16_t</span> <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">threads</span><span class="p">;</span> <span class="o">++</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">worker</span><span class="p">(</span><span class="n">thread_t</span><span class="p">{</span><span class="n">t</span><span class="p">},</span> <span class="n">pt</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="cm">/* wait 5 second... */</span>
+    <span class="k">co_await</span> <span class="n">yield</span><span class="p">(</span><span class="n">order</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Putting to work</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="n">pt</span><span class="p">.</span><span class="n">unpause</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab11pause_tokenE">
+<span id="_CPPv3N3zab11pause_tokenE"></span><span id="_CPPv2N3zab11pause_tokenE"></span><span id="zab::pause_token"></span><span class="target" id="classzab_1_1pause__token"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">pause_token</span></span></span><a class="headerlink" href="#_CPPv4N3zab11pause_tokenE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab11pause_token11pause_tokenEP6engine">
+<span id="_CPPv3N3zab11pause_token11pause_tokenEP6engine"></span><span id="_CPPv2N3zab11pause_token11pause_tokenEP6engine"></span><span id="zab::pause_token::pause_token__engineP"></span><span class="target" id="classzab_1_1pause__token_1a28a1e9d071dbe5981c0573ce760f5502"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pause_token</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab11pause_token11pause_tokenEP6engine" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3zab11pause_token6pausedEv">
+<span id="_CPPv3NK3zab11pause_token6pausedEv"></span><span id="_CPPv2NK3zab11pause_token6pausedEv"></span><span id="zab::pause_token::pausedC"></span><span class="target" id="classzab_1_1pause__token_1a07af4cb6ac43bae42ec8de8aa921fcc0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">paused</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3zab11pause_token6pausedEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab11pause_token5pauseEv">
+<span id="_CPPv3N3zab11pause_token5pauseEv"></span><span id="_CPPv2N3zab11pause_token5pauseEv"></span><span id="zab::pause_token::pause"></span><span class="target" id="classzab_1_1pause__token_1abf30bc402dbb30189eba3696b8581f36"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pause</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab11pause_token5pauseEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab11pause_token7unpauseEv">
+<span id="_CPPv3N3zab11pause_token7unpauseEv"></span><span id="_CPPv2N3zab11pause_token7unpauseEv"></span><span id="zab::pause_token::unpause"></span><span class="target" id="classzab_1_1pause__token_1aea8bb5113eb01392fbaa6e6557ea15c6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">unpause</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab11pause_token7unpauseEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab11pause_tokencv8co_awaitEv">
+<span id="_CPPv3N3zab11pause_tokencv8co_awaitEv"></span><span id="_CPPv2N3zab11pause_tokencv8co_awaitEv"></span><span id="zab::pause_token::castto-co_await-operator"></span><span class="target" id="classzab_1_1pause__token_1a88357e5e552ea674bdc48ee553cf4ec3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">pauser</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="n"><span class="pre">co_await</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab11pause_tokencv8co_awaitEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab11pause_token5pauseEP6pauser">
+<span id="_CPPv3N3zab11pause_token5pauseEP6pauser"></span><span id="_CPPv2N3zab11pause_token5pauseEP6pauser"></span><span id="zab::pause_token::pause__pauserP"></span><span class="target" id="classzab_1_1pause__token_1a6dbf858bf34d85d2f8d8e3411d1150e1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pause</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">pauser</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pauser_</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab11pause_token5pauseEP6pauser" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="async_counting_semaphore.html" class="btn btn-neutral float-right" title="async_counting_semaphore" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="async_sync.html" class="btn btn-neutral float-left" title="Asynchronous Synchronisation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Donald Rupin.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

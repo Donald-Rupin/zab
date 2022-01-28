@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structzab_1_1tcp__stream_1_1op__control" kind="struct" language="C++" prot="public">
+    <compoundname>zab::tcp_stream::op_control</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzab_1_1tcp__stream_1_1op__control_1a3de3330b1fc920dcc332174ae108444c" prot="public" static="no" mutable="no">
+        <type>std::byte *</type>
+        <definition>std::byte* zab::tcp_stream::op_control::data_</definition>
+        <argsstring></argsstring>
+        <name>data_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="259" column="32" bodyfile="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzab_1_1tcp__stream_1_1op__control_1a241471644ddde985ad9d68c4c4df10f8" prot="public" static="no" mutable="no">
+        <type>std::size_t</type>
+        <definition>std::size_t zab::tcp_stream::op_control::size_</definition>
+        <argsstring></argsstring>
+        <name>size_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="260" column="33" bodyfile="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="258" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" bodystart="258" bodyend="261"/>
+    <listofallmembers>
+      <member refid="structzab_1_1tcp__stream_1_1op__control_1a3de3330b1fc920dcc332174ae108444c" prot="public" virt="non-virtual"><scope>zab::tcp_stream::op_control</scope><name>data_</name></member>
+      <member refid="structzab_1_1tcp__stream_1_1op__control_1a241471644ddde985ad9d68c4c4df10f8" prot="public" virt="non-virtual"><scope>zab::tcp_stream::op_control</scope><name>size_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

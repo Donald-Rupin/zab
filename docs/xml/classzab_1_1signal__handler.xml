@@ -1,0 +1,317 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1signal__handler" kind="class" language="C++" prot="public">
+    <compoundname>zab::signal_handler</compoundname>
+    <includes refid="signal__handler_8hpp" local="no">signal_handler.hpp</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classzab_1_1signal__handler_1a43bf789492554c19983f08183391fe4b" prot="public" static="no">
+        <type>std::function&lt; void(int)&gt;</type>
+        <definition>using zab::signal_handler::handler =  std::function&lt;void(int)&gt;</definition>
+        <argsstring></argsstring>
+        <name>handler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="69" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classzab_1_1signal__handler_1a7e0d778ab166ec350b3cb8bb12ef1f16" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+        <definition>constexpr thread_t zab::signal_handler::kSignalThread</definition>
+        <argsstring></argsstring>
+        <name>kSignalThread</name>
+        <initializer>= <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref>{0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="67" column="39" bodyfile="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzab_1_1signal__handler_1abe2f5e96e8da08ac63bd9f78cc56714b" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; std::mutex &gt;</type>
+        <definition>std::unique_ptr&lt;std::mutex&gt; zab::signal_handler::handlers_mtx_</definition>
+        <argsstring></argsstring>
+        <name>handlers_mtx_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="121" column="58" bodyfile="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1signal__handler_1a9aeafe9321638cdb474167ef867783cd" prot="private" static="no" mutable="no">
+        <type>std::map&lt; int, std::vector&lt; std::pair&lt; <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref>, handler &gt; &gt; &gt;</type>
+        <definition>std::map&lt;int, std::vector&lt;std::pair&lt;thread_t, handler&gt; &gt; &gt; zab::signal_handler::handlers_</definition>
+        <argsstring></argsstring>
+        <name>handlers_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="122" column="22" bodyfile="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1signal__handler_1a7170c1dd6b40cf9d20196238f9fb19da" prot="private" static="no" mutable="no">
+        <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+        <definition>engine* zab::signal_handler::engine_</definition>
+        <argsstring></argsstring>
+        <name>engine_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="124" column="34" bodyfile="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1signal__handler_1a200dcba20f7e7e986058f5bf2bd867db" prot="private" static="no" mutable="no">
+        <type><ref refid="structzab_1_1pause__pack" kindref="compound">event_loop::io_handle</ref></type>
+        <definition>event_loop::io_handle zab::signal_handler::handle_</definition>
+        <argsstring></argsstring>
+        <name>handle_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="125" column="35" bodyfile="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1signal__handler_1a9ffb5971f51976345e8462dca15dbf14" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int zab::signal_handler::fds_[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>fds_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="127" column="18" bodyfile="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1signal__handler_1aefe71e6715a600a8a75530d7177680a5" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool zab::signal_handler::running_</definition>
+        <argsstring></argsstring>
+        <name>running_</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="128" column="18" bodyfile="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1signal__handler_1aac84a022622ceb0fce7d01c214bd7f30" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::signal_handler::signal_handler</definition>
+        <argsstring>(engine *_engine)</argsstring>
+        <name>signal_handler</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <briefdescription>
+<para>initialise the handler with an engine to re-enter into. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_engine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The engine. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="77" column="13" bodyfile="/home/donald/rupin/zab/src/signal_handler.cpp" bodystart="54" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1signal__handler_1a998fef73822815517be29e7d2b0f17bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::signal_handler::signal_handler</definition>
+        <argsstring>(signal_handler &amp;&amp;_move)=default</argsstring>
+        <name>signal_handler</name>
+        <param>
+          <type><ref refid="classzab_1_1signal__handler" kindref="compound">signal_handler</ref> &amp;&amp;</type>
+          <declname>_move</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="79" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1signal__handler_1a9fa773983b5c7769b3fbb46cd6fb8060" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::signal_handler::~signal_handler</definition>
+        <argsstring>()</argsstring>
+        <name>~signal_handler</name>
+        <briefdescription>
+<para>Destroys the <ref refid="classzab_1_1signal__handler" kindref="compound">signal_handler</ref> and resets the callbacks to default. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="85" column="13" bodyfile="/home/donald/rupin/zab/src/signal_handler.cpp" bodystart="72" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1signal__handler_1a40fc6dc35d4d7b18f627a436d8e8e93f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzab_1_1async__function" kindref="compound">async_function</ref></type>
+        <definition>async_function zab::signal_handler::run</definition>
+        <argsstring>()</argsstring>
+        <name>run</name>
+        <briefdescription>
+<para>run the signal loop. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="91" column="13" bodyfile="/home/donald/rupin/zab/src/signal_handler.cpp" bodystart="90" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1signal__handler_1ac2d23fcbed15dd09fc143f92b25faae8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::signal_handler::stop</definition>
+        <argsstring>()</argsstring>
+        <name>stop</name>
+        <briefdescription>
+<para>stop the signal loop. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="97" column="13" bodyfile="/home/donald/rupin/zab/src/signal_handler.cpp" bodystart="137" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1signal__handler_1ae280134e323454b06dc385dc25910682" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zab::signal_handler::handle</definition>
+        <argsstring>(int _sig, thread_t _thread, handler &amp;&amp;_function) noexcept</argsstring>
+        <name>handle</name>
+        <param>
+          <type>int</type>
+          <declname>_sig</declname>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_thread</declname>
+        </param>
+        <param>
+          <type>handler &amp;&amp;</type>
+          <declname>_function</declname>
+        </param>
+        <briefdescription>
+<para>Register a handler for a given signal. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">_sig</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The signal to handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">_thread</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The thread to run on. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The function to call.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>If registereds successfully. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+<para>Its new...</para>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="109" column="13" bodyfile="/home/donald/rupin/zab/src/signal_handler.cpp" bodystart="157" bodyend="188"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1signal__handler_1a625788bc7f3b107dccb5d4500f24bd47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zab::signal_handler::is_active</definition>
+        <argsstring>()</argsstring>
+        <name>is_active</name>
+        <briefdescription>
+<para>Determines if <ref refid="classzab_1_1signal__handler" kindref="compound">signal_handler</ref> this active. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if active, false otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="117" column="13" bodyfile="/home/donald/rupin/zab/src/signal_handler.cpp" bodystart="131" bodyend="134"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This class describes a signal handler for re-entrant signals. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>There can only be 1 <ref refid="classzab_1_1signal__handler" kindref="compound">signal_handler</ref> active at 1 time. </para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>zab::thread_t</label>
+        <link refid="structzab_1_1thread__t"/>
+      </node>
+      <node id="1">
+        <label>zab::signal_handler</label>
+        <link refid="classzab_1_1signal__handler"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>kSignalThread</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="63" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" bodystart="63" bodyend="129"/>
+    <listofallmembers>
+      <member refid="classzab_1_1signal__handler_1a7170c1dd6b40cf9d20196238f9fb19da" prot="private" virt="non-virtual"><scope>zab::signal_handler</scope><name>engine_</name></member>
+      <member refid="classzab_1_1signal__handler_1a9ffb5971f51976345e8462dca15dbf14" prot="private" virt="non-virtual"><scope>zab::signal_handler</scope><name>fds_</name></member>
+      <member refid="classzab_1_1signal__handler_1ae280134e323454b06dc385dc25910682" prot="public" virt="non-virtual"><scope>zab::signal_handler</scope><name>handle</name></member>
+      <member refid="classzab_1_1signal__handler_1a200dcba20f7e7e986058f5bf2bd867db" prot="private" virt="non-virtual"><scope>zab::signal_handler</scope><name>handle_</name></member>
+      <member refid="classzab_1_1signal__handler_1a43bf789492554c19983f08183391fe4b" prot="public" virt="non-virtual"><scope>zab::signal_handler</scope><name>handler</name></member>
+      <member refid="classzab_1_1signal__handler_1a9aeafe9321638cdb474167ef867783cd" prot="private" virt="non-virtual"><scope>zab::signal_handler</scope><name>handlers_</name></member>
+      <member refid="classzab_1_1signal__handler_1abe2f5e96e8da08ac63bd9f78cc56714b" prot="private" virt="non-virtual"><scope>zab::signal_handler</scope><name>handlers_mtx_</name></member>
+      <member refid="classzab_1_1signal__handler_1a625788bc7f3b107dccb5d4500f24bd47" prot="public" virt="non-virtual"><scope>zab::signal_handler</scope><name>is_active</name></member>
+      <member refid="classzab_1_1signal__handler_1a7e0d778ab166ec350b3cb8bb12ef1f16" prot="public" virt="non-virtual"><scope>zab::signal_handler</scope><name>kSignalThread</name></member>
+      <member refid="classzab_1_1signal__handler_1a40fc6dc35d4d7b18f627a436d8e8e93f" prot="public" virt="non-virtual"><scope>zab::signal_handler</scope><name>run</name></member>
+      <member refid="classzab_1_1signal__handler_1aefe71e6715a600a8a75530d7177680a5" prot="private" virt="non-virtual"><scope>zab::signal_handler</scope><name>running_</name></member>
+      <member refid="classzab_1_1signal__handler_1aac84a022622ceb0fce7d01c214bd7f30" prot="public" virt="non-virtual"><scope>zab::signal_handler</scope><name>signal_handler</name></member>
+      <member refid="classzab_1_1signal__handler_1a998fef73822815517be29e7d2b0f17bb" prot="public" virt="non-virtual"><scope>zab::signal_handler</scope><name>signal_handler</name></member>
+      <member refid="classzab_1_1signal__handler_1ac2d23fcbed15dd09fc143f92b25faae8" prot="public" virt="non-virtual"><scope>zab::signal_handler</scope><name>stop</name></member>
+      <member refid="classzab_1_1signal__handler_1a9fa773983b5c7769b3fbb46cd6fb8060" prot="public" virt="non-virtual"><scope>zab::signal_handler</scope><name>~signal_handler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

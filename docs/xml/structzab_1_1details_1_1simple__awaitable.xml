@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structzab_1_1details_1_1simple__awaitable" kind="struct" language="C++" prot="public">
+    <compoundname>zab::details::simple_awaitable</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename PromiseType</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzab_1_1details_1_1simple__awaitable_1a417972f9c3b4f7f30549ca3e5af9c5ae" prot="public" static="no" mutable="no">
+        <type>std::coroutine_handle&lt; PromiseType &gt;</type>
+        <definition>std::coroutine_handle&lt;PromiseType&gt; zab::details::simple_awaitable&lt; PromiseType &gt;::handle_</definition>
+        <argsstring></argsstring>
+        <name>handle_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The handle of coroutine to execute next. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_future.hpp" line="118" column="39" bodyfile="/home/donald/rupin/zab/includes/zab/simple_future.hpp" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzab_1_1details_1_1simple__awaitable_1a29c5ddc46eced845b6fbee27aea5c04d" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename UnderlyingPromise</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>auto zab::details::simple_awaitable&lt; PromiseType &gt;::await_suspend</definition>
+        <argsstring>(std::coroutine_handle&lt; UnderlyingPromise &gt; _remsumptor) noexcept</argsstring>
+        <name>await_suspend</name>
+        <param>
+          <type>std::coroutine_handle&lt; UnderlyingPromise &gt;</type>
+          <declname>_remsumptor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_future.hpp" line="99" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/simple_future.hpp" bodystart="99" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="structzab_1_1details_1_1simple__awaitable_1a1b9f0a5847e122e5dca077beeeec63ff" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zab::details::simple_awaitable&lt; PromiseType &gt;::await_ready</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>await_ready</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_future.hpp" line="106" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/simple_future.hpp" bodystart="106" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="structzab_1_1details_1_1simple__awaitable_1a6889210850a512165118b944e7e8a5b4" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>decltype(auto)</type>
+        <definition>decltype(auto) zab::details::simple_awaitable&lt; PromiseType &gt;::await_resume</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>await_resume</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_future.hpp" line="112" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/simple_future.hpp" bodystart="112" bodyend="115"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/simple_future.hpp" line="95" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/simple_future.hpp" bodystart="95" bodyend="119"/>
+    <listofallmembers>
+      <member refid="structzab_1_1details_1_1simple__awaitable_1a1b9f0a5847e122e5dca077beeeec63ff" prot="public" virt="non-virtual"><scope>zab::details::simple_awaitable</scope><name>await_ready</name></member>
+      <member refid="structzab_1_1details_1_1simple__awaitable_1a6889210850a512165118b944e7e8a5b4" prot="public" virt="non-virtual"><scope>zab::details::simple_awaitable</scope><name>await_resume</name></member>
+      <member refid="structzab_1_1details_1_1simple__awaitable_1a29c5ddc46eced845b6fbee27aea5c04d" prot="public" virt="non-virtual"><scope>zab::details::simple_awaitable</scope><name>await_suspend</name></member>
+      <member refid="structzab_1_1details_1_1simple__awaitable_1a417972f9c3b4f7f30549ca3e5af9c5ae" prot="public" virt="non-virtual"><scope>zab::details::simple_awaitable</scope><name>handle_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

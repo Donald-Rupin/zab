@@ -1,0 +1,898 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1engine__enabled" kind="class" language="C++" prot="public">
+    <compoundname>zab::engine_enabled</compoundname>
+    <basecompoundref refid="structzab_1_1details_1_1configs" prot="public" virt="non-virtual">zab::details::configs</basecompoundref>
+    <includes refid="engine__enabled_8hpp" local="no">engine_enabled.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename Base</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="protected-type">
+      <memberdef kind="typedef" id="classzab_1_1engine__enabled_1a2454bfe2df66fcee6c4f86d4e8677b94" prot="protected" static="no">
+        <type><ref refid="classzab_1_1async__function" kindref="compound">async_function</ref>&lt; Promise &gt;(Base::*)(Parameters...)</type>
+        <definition>using zab::engine_enabled&lt; Base &gt;::async_member =  async_function&lt;Promise&gt; (Base::*)(Parameters...)</definition>
+        <argsstring></argsstring>
+        <name>async_member</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="346" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="346" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classzab_1_1engine__enabled_1a3fdda8a38d4c067bbb9934ed99525776" prot="protected" static="no">
+        <templateparamlist>
+          <param>
+            <type>typename Promise</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Parameters</declname>
+            <defname>Parameters</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classzab_1_1async__function" kindref="compound">async_function</ref>&lt; Promise &gt;(Base::*)(Parameters...) const</type>
+        <definition>using zab::engine_enabled&lt; Base &gt;::async_member_c =  async_function&lt;Promise&gt; (Base::*)(Parameters...) const</definition>
+        <argsstring></argsstring>
+        <name>async_member_c</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="349" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="349" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classzab_1_1engine__enabled_1afc5813b0a8c1b78262f87cb45f8bcfc2" prot="protected" static="no">
+        <templateparamlist>
+          <param>
+            <type>typename Promise</type>
+          </param>
+          <param>
+            <type>typename Return</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Parameters</declname>
+            <defname>Parameters</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; Return, Promise &gt;(Base::*)(Parameters...)</type>
+        <definition>using zab::engine_enabled&lt; Base &gt;::simple_member =  simple_future&lt;Return, Promise&gt; (Base::*)(Parameters...)</definition>
+        <argsstring></argsstring>
+        <name>simple_member</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="352" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="352" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classzab_1_1engine__enabled_1a0f30db447b23f1e32201f7d10db0452b" prot="protected" static="no">
+        <templateparamlist>
+          <param>
+            <type>typename Promise</type>
+          </param>
+          <param>
+            <type>typename Return</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Parameters</declname>
+            <defname>Parameters</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; Return, Promise &gt;(Base::*)(Parameters...) const</type>
+        <definition>using zab::engine_enabled&lt; Base &gt;::simple_member_c =  simple_future&lt;Return, Promise&gt; (Base::*)(Parameters...) const</definition>
+        <argsstring></argsstring>
+        <name>simple_member_c</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="355" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="355" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classzab_1_1engine__enabled_1a4f7aa8b5e3b262e5975999df415a283b" prot="protected" static="no">
+        <templateparamlist>
+          <param>
+            <type>typename Promise</type>
+          </param>
+          <param>
+            <type>typename Return</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Parameters</declname>
+            <defname>Parameters</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classzab_1_1reusable__future" kindref="compound">reusable_future</ref>&lt; Return, Promise &gt;(Base::*)(Parameters...)</type>
+        <definition>using zab::engine_enabled&lt; Base &gt;::reusable_member =  reusable_future&lt;Return, Promise&gt; (Base::*)(Parameters...)</definition>
+        <argsstring></argsstring>
+        <name>reusable_member</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="358" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="358" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classzab_1_1engine__enabled_1a1de4c35afff03bbdfe1a6e1813a1b44a" prot="protected" static="no">
+        <templateparamlist>
+          <param>
+            <type>typename Promise</type>
+          </param>
+          <param>
+            <type>typename Return</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Parameters</declname>
+            <defname>Parameters</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classzab_1_1reusable__future" kindref="compound">reusable_future</ref>&lt; Return, Promise &gt;(Base::*)(Parameters...) const</type>
+        <definition>using zab::engine_enabled&lt; Base &gt;::reusable_member_c =  reusable_future&lt;Return, Promise&gt; (Base::*)(Parameters...) const</definition>
+        <argsstring></argsstring>
+        <name>reusable_member_c</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="361" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="362" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzab_1_1engine__enabled_1a6e031bb916b02e46038bc961a7a8eb82" prot="private" static="no" mutable="no">
+        <type>friend</type>
+        <definition>friend zab::engine_enabled&lt; Base &gt;::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="120" column="20" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1engine__enabled_1aade8c806263526a12c425322d8cf86ed" prot="private" static="no" mutable="no">
+        <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+        <definition>engine* zab::engine_enabled&lt; Base &gt;::engine_</definition>
+        <argsstring></argsstring>
+        <name>engine_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="552" column="20" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="552" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classzab_1_1engine__enabled_1acf161ed1323412d2985592b50a6b1f39" prot="protected" static="no" mutable="no">
+        <type><ref refid="structzab_1_1order__t" kindref="compound">order_t</ref></type>
+        <definition>order_t zab::engine_enabled&lt; Base &gt;::_ordering</definition>
+        <argsstring></argsstring>
+        <name>_ordering</name>
+        <initializer>= <ref refid="classzab_1_1engine__enabled_1a985dac14994ad7f9b672ebee6f99f9ef" kindref="member">now</ref>()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="299" column="27" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1engine__enabled_1aba7ce83ede9c4526365b1f914a9ff894" prot="protected" static="no" mutable="no">
+        <type><ref refid="structzab_1_1order__t" kindref="compound">order_t</ref> <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+        <definition>order_t thread_t zab::engine_enabled&lt; Base &gt;::_thread</definition>
+        <argsstring></argsstring>
+        <name>_thread</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="300" column="27" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzab_1_1engine__enabled_1af849415b1bd969d50314d14486957103" prot="private" static="no" const="no" explicit="no" inline="yes" refqual="lvalue" noexcept="yes" virt="non-virtual">
+        <type>Base &amp;</type>
+        <definition>Base&amp; zab::engine_enabled&lt; Base &gt;::underlying</definition>
+        <argsstring>() &amp;noexcept</argsstring>
+        <name>underlying</name>
+        <briefdescription>
+<para>Convert this to its child. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><computeroutput>this</computeroutput> as a <computeroutput>Base&amp;</computeroutput> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="128" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="128" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine__enabled_1a38282bd06d7eb86332f4ff101e3e8355" prot="private" static="no" const="yes" explicit="no" inline="yes" refqual="lvalue" noexcept="yes" virt="non-virtual">
+        <type>const Base &amp;</type>
+        <definition>const Base&amp; zab::engine_enabled&lt; Base &gt;::underlying</definition>
+        <argsstring>() const &amp;noexcept</argsstring>
+        <name>underlying</name>
+        <briefdescription>
+<para>Convert this to its child. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><computeroutput>this</computeroutput> as a <computeroutput>const Base&amp;</computeroutput> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="139" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="139" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine__enabled_1a5d607a99b96c88607256bb85cee6346a" prot="private" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type><ref refid="namespacezab_1_1details_1a041619824392973e2e94a2cde2b9f482" kindref="member">details::HasMain</ref></type>
+            <declname>F</declname>
+            <defname>F</defname>
+            <defval>Base</defval>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void zab::engine_enabled&lt; Base &gt;::do_main</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>do_main</name>
+        <briefdescription>
+<para>Recursiviely <computeroutput>code_block()</computeroutput> the Base class&apos; <computeroutput>main()</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>F</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The Base class. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="533" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="533" bodyend="550"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1engine__enabled_1a80893d57532e83253dbce27738d30d99" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::engine_enabled&lt; Base &gt;::engine_enabled</definition>
+        <argsstring>()=default</argsstring>
+        <name>engine_enabled</name>
+        <briefdescription>
+<para>Default constructed. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="149" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine__enabled_1a6d844708281a80ac5c0e75c55d5a74bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::engine_enabled&lt; Base &gt;::~engine_enabled</definition>
+        <argsstring>()=default</argsstring>
+        <name>~engine_enabled</name>
+        <briefdescription>
+<para>Default destroyed. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="154" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine__enabled_1a8f5953d0970da89287bd8315790e8826" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename F</type>
+            <defval>Base</defval>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool zab::engine_enabled&lt; Base &gt;::register_engine</definition>
+        <argsstring>(engine &amp;_engine) noexcept</argsstring>
+        <name>register_engine</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> &amp;</type>
+          <declname>_engine</declname>
+        </param>
+        <briefdescription>
+<para>Register this class with an <computeroutput>engine</computeroutput> </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If the class statisfies <computeroutput><ref refid="namespacezab_1_1details_1aae2337a00137bca1ff62f0f369c0f6aa" kindref="member">details::HasInitialise</ref>&lt;F&gt;</computeroutput> then <computeroutput>initialise()</computeroutput> will be called on engine start.</para>
+<para>If the class satisfies <computeroutput><ref refid="namespacezab_1_1details_1a041619824392973e2e94a2cde2b9f482" kindref="member">details::HasMain</ref>&lt;F&gt;</computeroutput> then <computeroutput>main()</computeroutput> will be called on a loop of cadence <computeroutput>kMainCadence</computeroutput>. The Base class can overwrite the value of <computeroutput>kMainCadence</computeroutput>.</para>
+<para>If the class satisfies <computeroutput>details::HasAPI&lt;F&gt;</computeroutput> then the <computeroutput>API</computeroutput> returned by <computeroutput>APIInterface()</computeroutput> will registered against the <computeroutput>engine</computeroutput>s interface. If the does not provide a <computeroutput>kSlotToUse</computeroutput> then one is dynamically selected and the class must provide a <computeroutput>Slot(size_t)</computeroutput> function will report the slot provided.</para>
+<para>Usuage of <computeroutput>YieldCode()</computeroutput>, <computeroutput>HitAPI()</computeroutput>, <computeroutput>Respond()</computeroutput> or <computeroutput>Fail()</computeroutput> results in undefined behaviour if an engine has not been registered.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_engine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The engine to register against.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>F</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The <computeroutput>Base</computeroutput> class.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if successful, 0 otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="186" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="186" bodyend="206"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classzab_1_1engine__enabled_1af2d450a6e5301687a542c5439be08bde" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void swap</definition>
+        <argsstring>(engine_enabled &amp;_first, engine_enabled &amp;_second) noexcept</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="classzab_1_1engine__enabled" kindref="compound">engine_enabled</ref> &amp;</type>
+          <declname>_first</declname>
+        </param>
+        <param>
+          <type><ref refid="classzab_1_1engine__enabled" kindref="compound">engine_enabled</ref> &amp;</type>
+          <declname>_second</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="209" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="209" bodyend="213"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-static-func">
+      <memberdef kind="function" id="classzab_1_1engine__enabled_1a8691cd5fd0506c1335ae152f65869a8e" prot="protected" static="yes" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref></type>
+        <definition>static constexpr order_t zab::engine_enabled&lt; Base &gt;::order</definition>
+        <argsstring>(int64_t _order)</argsstring>
+        <name>order</name>
+        <param>
+          <type>int64_t</type>
+          <declname>_order</declname>
+        </param>
+        <briefdescription>
+<para>Create an <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">_order</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The order to apply.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="225" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="225" bodyend="228"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine__enabled_1a985dac14994ad7f9b672ebee6f99f9ef" prot="protected" static="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="structzab_1_1order__t" kindref="compound">order_t</ref></type>
+        <definition>static order_t zab::engine_enabled&lt; Base &gt;::now</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>now</name>
+        <briefdescription>
+<para>Create an <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref> set to <computeroutput>order::now()</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="236" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="236" bodyend="239"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine__enabled_1a259d395cdabcf50e69f5386333413c5c" prot="protected" static="yes" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref></type>
+        <definition>static constexpr order_t zab::engine_enabled&lt; Base &gt;::next</definition>
+        <argsstring>()</argsstring>
+        <name>next</name>
+        <briefdescription>
+<para>Create an <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref> that specifies to be executed next. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="247" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="247" bodyend="250"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine__enabled_1a2916f8852cd332dd033b078c5c90f6be" prot="protected" static="yes" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+        <definition>static constexpr thread_t zab::engine_enabled&lt; Base &gt;::thread</definition>
+        <argsstring>(std::uint16_t _thread)</argsstring>
+        <name>thread</name>
+        <param>
+          <type>std::uint16_t</type>
+          <declname>_thread</declname>
+        </param>
+        <briefdescription>
+<para>Create a <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref> targeting a spercific thread. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">_thread</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The thread to target.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="260" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="260" bodyend="263"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine__enabled_1a5e805bcc7940325a07a6ba78e03bfa76" prot="protected" static="yes" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+        <definition>static constexpr thread_t zab::engine_enabled&lt; Base &gt;::any_thread</definition>
+        <argsstring>()</argsstring>
+        <name>any_thread</name>
+        <briefdescription>
+<para>Create a <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref> targeting any thread. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="271" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="271" bodyend="274"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine__enabled_1a538f1163ef8c8198122f155bf8cc1946" prot="protected" static="yes" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+        <definition>static constexpr thread_t zab::engine_enabled&lt; Base &gt;::default_thread</definition>
+        <argsstring>()</argsstring>
+        <name>default_thread</name>
+        <briefdescription>
+<para>Create a <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref> targeting the default thread. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="282" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="282" bodyend="285"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classzab_1_1engine__enabled_1a5b0b1a34b89ef10693e0f5d5af6332b5" prot="protected" static="no" const="no" explicit="no" inline="no" refqual="rvalue" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Functor</type>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>zab::engine_enabled&lt; Base &gt;::requires</definition>
+        <argsstring>(std::is_nothrow_invocable_v&lt; Functor &gt;) inline void code_block(Functor &amp;&amp;_cb</argsstring>
+        <name>requires</name>
+        <param>
+          <type>std::is_nothrow_invocable_v&lt; Functor &gt;</type>
+        </param>
+        <briefdescription>
+<para>Defer some code to be executed at a later time. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">_cb</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The code to execute later. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">_ordering</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The ordering to apply. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">_thread</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The thread to use. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="295" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine__enabled_1a5060e0c0c85df49158531959fb4f23be" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Promise</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Parameters</declname>
+            <defname>Parameters</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classzab_1_1async__function" kindref="compound">async_function</ref></type>
+        <definition>async_function zab::engine_enabled&lt; Base &gt;::proxy</definition>
+        <argsstring>(async_member&lt; Promise, Parameters... &gt; _func, thread_t _required_thread, Args... _args)</argsstring>
+        <name>proxy</name>
+        <param>
+          <type>async_member&lt; Promise, Parameters... &gt;</type>
+          <declname>_func</declname>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_required_thread</declname>
+        </param>
+        <param>
+          <type>Args...</type>
+          <declname>_args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="366" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="366" bodyend="384"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine__enabled_1a1eb13d7ce25756d35514ce2251381044" prot="protected" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Promise</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Parameters</declname>
+            <defname>Parameters</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classzab_1_1async__function" kindref="compound">async_function</ref></type>
+        <definition>async_function zab::engine_enabled&lt; Base &gt;::proxy</definition>
+        <argsstring>(async_member_c&lt; Promise, Parameters... &gt; _func, thread_t _required_thread, Args... _args) const</argsstring>
+        <name>proxy</name>
+        <param>
+          <type>async_member_c&lt; Promise, Parameters... &gt;</type>
+          <declname>_func</declname>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_required_thread</declname>
+        </param>
+        <param>
+          <type>Args...</type>
+          <declname>_args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="388" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="388" bodyend="406"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine__enabled_1aa6520009ad04c091256bafccc948d7a8" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Promise</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+          <param>
+            <type>typename Return</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Parameters</declname>
+            <defname>Parameters</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; Return, Promise &gt;</type>
+        <definition>simple_future&lt;Return, Promise&gt; zab::engine_enabled&lt; Base &gt;::proxy</definition>
+        <argsstring>(simple_member&lt; Promise, Return, Parameters... &gt; _func, thread_t _required_thread, Args... _args)</argsstring>
+        <name>proxy</name>
+        <param>
+          <type>simple_member&lt; Promise, Return, Parameters... &gt;</type>
+          <declname>_func</declname>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_required_thread</declname>
+        </param>
+        <param>
+          <type>Args...</type>
+          <declname>_args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="410" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="410" bodyend="432"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine__enabled_1a6a366b9c1e7ca54145d2c8c0eb5fa0ed" prot="protected" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Promise</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+          <param>
+            <type>typename Return</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Parameters</declname>
+            <defname>Parameters</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; Return &gt;</type>
+        <definition>simple_future&lt;Return&gt; zab::engine_enabled&lt; Base &gt;::proxy</definition>
+        <argsstring>(simple_member_c&lt; Promise, Return, Parameters... &gt; _func, thread_t _required_thread, Args... _args) const</argsstring>
+        <name>proxy</name>
+        <param>
+          <type>simple_member_c&lt; Promise, Return, Parameters... &gt;</type>
+          <declname>_func</declname>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_required_thread</declname>
+        </param>
+        <param>
+          <type>Args...</type>
+          <declname>_args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="436" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="436" bodyend="458"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine__enabled_1a1e7a053f67732ce3ee055075e8226a22" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Promise</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+          <param>
+            <type>typename Return</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Parameters</declname>
+            <defname>Parameters</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classzab_1_1reusable__future" kindref="compound">reusable_future</ref>&lt; Return &gt;</type>
+        <definition>reusable_future&lt;Return&gt; zab::engine_enabled&lt; Base &gt;::proxy</definition>
+        <argsstring>(reusable_member&lt; Promise, Return, Parameters... &gt; _func, thread_t _required_thread, Args... _args)</argsstring>
+        <name>proxy</name>
+        <param>
+          <type>reusable_member&lt; Promise, Return, Parameters... &gt;</type>
+          <declname>_func</declname>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_required_thread</declname>
+        </param>
+        <param>
+          <type>Args...</type>
+          <declname>_args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="462" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="462" bodyend="490"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1engine__enabled_1ab0de115f16c08344b467909dd2c8da30" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Promise</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+          <param>
+            <type>typename Return</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Parameters</declname>
+            <defname>Parameters</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classzab_1_1reusable__future" kindref="compound">reusable_future</ref>&lt; Return &gt;</type>
+        <definition>reusable_future&lt;Return&gt; zab::engine_enabled&lt; Base &gt;::proxy</definition>
+        <argsstring>(reusable_member_c&lt; Promise, Return, Parameters... &gt; _func, thread_t _required_thread, Args... _args)</argsstring>
+        <name>proxy</name>
+        <param>
+          <type>reusable_member_c&lt; Promise, Return, Parameters... &gt;</type>
+          <declname>_func</declname>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_required_thread</declname>
+        </param>
+        <param>
+          <type>Args...</type>
+          <declname>_args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="494" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="494" bodyend="522"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This class describes an engine enabled wrapper for class. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Base</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The class to wrap. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>zab::engine_enabled&lt; Base &gt;</label>
+        <link refid="classzab_1_1engine__enabled"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>zab::details::configs</label>
+        <link refid="structzab_1_1details_1_1configs"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>zab::engine_enabled&lt; Base &gt;</label>
+        <link refid="classzab_1_1engine__enabled"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>_ordering</edgelabel>
+          <edgelabel>_thread</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>zab::details::configs</label>
+        <link refid="structzab_1_1details_1_1configs"/>
+      </node>
+      <node id="3">
+        <label>zab::order_t</label>
+        <link refid="structzab_1_1order__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="119" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="119" bodyend="553"/>
+    <listofallmembers>
+      <member refid="classzab_1_1engine__enabled_1acf161ed1323412d2985592b50a6b1f39" prot="protected" virt="non-virtual"><scope>zab::engine_enabled</scope><name>_ordering</name></member>
+      <member refid="classzab_1_1engine__enabled_1aba7ce83ede9c4526365b1f914a9ff894" prot="protected" virt="non-virtual"><scope>zab::engine_enabled</scope><name>_thread</name></member>
+      <member refid="classzab_1_1engine__enabled_1a5e805bcc7940325a07a6ba78e03bfa76" prot="protected" virt="non-virtual"><scope>zab::engine_enabled</scope><name>any_thread</name></member>
+      <member refid="classzab_1_1engine__enabled_1a2454bfe2df66fcee6c4f86d4e8677b94" prot="protected" virt="non-virtual"><scope>zab::engine_enabled</scope><name>async_member</name></member>
+      <member refid="classzab_1_1engine__enabled_1a3fdda8a38d4c067bbb9934ed99525776" prot="protected" virt="non-virtual"><scope>zab::engine_enabled</scope><name>async_member_c</name></member>
+      <member refid="classzab_1_1engine__enabled_1a6e031bb916b02e46038bc961a7a8eb82" prot="private" virt="non-virtual"><scope>zab::engine_enabled</scope><name>Base</name></member>
+      <member refid="classzab_1_1engine__enabled_1a538f1163ef8c8198122f155bf8cc1946" prot="protected" virt="non-virtual"><scope>zab::engine_enabled</scope><name>default_thread</name></member>
+      <member refid="classzab_1_1engine__enabled_1a5d607a99b96c88607256bb85cee6346a" prot="private" virt="non-virtual"><scope>zab::engine_enabled</scope><name>do_main</name></member>
+      <member refid="classzab_1_1engine__enabled_1aade8c806263526a12c425322d8cf86ed" prot="private" virt="non-virtual"><scope>zab::engine_enabled</scope><name>engine_</name></member>
+      <member refid="classzab_1_1engine__enabled_1a80893d57532e83253dbce27738d30d99" prot="public" virt="non-virtual"><scope>zab::engine_enabled</scope><name>engine_enabled</name></member>
+      <member refid="structzab_1_1details_1_1configs_1ab1cfc59a82d9cbb792bb390d27524c8c" prot="public" virt="non-virtual"><scope>zab::engine_enabled</scope><name>kDefaultThread</name></member>
+      <member refid="structzab_1_1details_1_1configs_1ac38d8a4b6c0818e3e0cfc558162b6a63" prot="public" virt="non-virtual"><scope>zab::engine_enabled</scope><name>kInitialiseThread</name></member>
+      <member refid="structzab_1_1details_1_1configs_1a89303251a3a56e12439ada0e27085676" prot="public" virt="non-virtual"><scope>zab::engine_enabled</scope><name>kMainCadence</name></member>
+      <member refid="structzab_1_1details_1_1configs_1a9f93594d89066f9dbd08ae66725b9498" prot="public" virt="non-virtual"><scope>zab::engine_enabled</scope><name>kMainThread</name></member>
+      <member refid="classzab_1_1engine__enabled_1a259d395cdabcf50e69f5386333413c5c" prot="protected" virt="non-virtual"><scope>zab::engine_enabled</scope><name>next</name></member>
+      <member refid="classzab_1_1engine__enabled_1a985dac14994ad7f9b672ebee6f99f9ef" prot="protected" virt="non-virtual"><scope>zab::engine_enabled</scope><name>now</name></member>
+      <member refid="classzab_1_1engine__enabled_1a8691cd5fd0506c1335ae152f65869a8e" prot="protected" virt="non-virtual"><scope>zab::engine_enabled</scope><name>order</name></member>
+      <member refid="classzab_1_1engine__enabled_1a5060e0c0c85df49158531959fb4f23be" prot="protected" virt="non-virtual"><scope>zab::engine_enabled</scope><name>proxy</name></member>
+      <member refid="classzab_1_1engine__enabled_1a1eb13d7ce25756d35514ce2251381044" prot="protected" virt="non-virtual"><scope>zab::engine_enabled</scope><name>proxy</name></member>
+      <member refid="classzab_1_1engine__enabled_1aa6520009ad04c091256bafccc948d7a8" prot="protected" virt="non-virtual"><scope>zab::engine_enabled</scope><name>proxy</name></member>
+      <member refid="classzab_1_1engine__enabled_1a6a366b9c1e7ca54145d2c8c0eb5fa0ed" prot="protected" virt="non-virtual"><scope>zab::engine_enabled</scope><name>proxy</name></member>
+      <member refid="classzab_1_1engine__enabled_1a1e7a053f67732ce3ee055075e8226a22" prot="protected" virt="non-virtual"><scope>zab::engine_enabled</scope><name>proxy</name></member>
+      <member refid="classzab_1_1engine__enabled_1ab0de115f16c08344b467909dd2c8da30" prot="protected" virt="non-virtual"><scope>zab::engine_enabled</scope><name>proxy</name></member>
+      <member refid="classzab_1_1engine__enabled_1a8f5953d0970da89287bd8315790e8826" prot="public" virt="non-virtual"><scope>zab::engine_enabled</scope><name>register_engine</name></member>
+      <member refid="classzab_1_1engine__enabled_1a5b0b1a34b89ef10693e0f5d5af6332b5" prot="protected" virt="non-virtual"><scope>zab::engine_enabled</scope><name>requires</name></member>
+      <member refid="classzab_1_1engine__enabled_1a4f7aa8b5e3b262e5975999df415a283b" prot="protected" virt="non-virtual"><scope>zab::engine_enabled</scope><name>reusable_member</name></member>
+      <member refid="classzab_1_1engine__enabled_1a1de4c35afff03bbdfe1a6e1813a1b44a" prot="protected" virt="non-virtual"><scope>zab::engine_enabled</scope><name>reusable_member_c</name></member>
+      <member refid="classzab_1_1engine__enabled_1afc5813b0a8c1b78262f87cb45f8bcfc2" prot="protected" virt="non-virtual"><scope>zab::engine_enabled</scope><name>simple_member</name></member>
+      <member refid="classzab_1_1engine__enabled_1a0f30db447b23f1e32201f7d10db0452b" prot="protected" virt="non-virtual"><scope>zab::engine_enabled</scope><name>simple_member_c</name></member>
+      <member refid="classzab_1_1engine__enabled_1af2d450a6e5301687a542c5439be08bde" prot="public" virt="non-virtual"><scope>zab::engine_enabled</scope><name>swap</name></member>
+      <member refid="classzab_1_1engine__enabled_1a2916f8852cd332dd033b078c5c90f6be" prot="protected" virt="non-virtual"><scope>zab::engine_enabled</scope><name>thread</name></member>
+      <member refid="classzab_1_1engine__enabled_1af849415b1bd969d50314d14486957103" prot="private" virt="non-virtual"><scope>zab::engine_enabled</scope><name>underlying</name></member>
+      <member refid="classzab_1_1engine__enabled_1a38282bd06d7eb86332f4ff101e3e8355" prot="private" virt="non-virtual"><scope>zab::engine_enabled</scope><name>underlying</name></member>
+      <member refid="classzab_1_1engine__enabled_1a6d844708281a80ac5c0e75c55d5a74bc" prot="public" virt="non-virtual"><scope>zab::engine_enabled</scope><name>~engine_enabled</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

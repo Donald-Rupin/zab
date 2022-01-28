@@ -1,0 +1,572 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1async__file" kind="class" language="C++" prot="public">
+    <compoundname>zab::async_file</compoundname>
+    <includes refid="async__file_8hpp" local="no">async_file.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename ReadType</type>
+        <defval>std::byte</defval>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classzab_1_1async__file_1a764c726461fb63caaf8d269a0e78d15f" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr mode_t</type>
+        <definition>constexpr mode_t zab::async_file&lt; ReadType &gt;::kDefaultMode</definition>
+        <argsstring></argsstring>
+        <name>kDefaultMode</name>
+        <initializer>= S_IRUSR | S_IWUSR</initializer>
+        <briefdescription>
+<para>The defaukt mode for opening files is user read/write. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="187" column="37" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzab_1_1async__file_1a204e4304ed327800b00170f8ab6137f2" prot="private" static="no" mutable="no">
+        <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+        <definition>engine* zab::async_file&lt; ReadType &gt;::engine_</definition>
+        <argsstring></argsstring>
+        <name>engine_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="415" column="20" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="415" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1async__file_1a000eedba69e6dd1cf20d8446419d2b10" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int zab::async_file&lt; ReadType &gt;::file_</definition>
+        <argsstring></argsstring>
+        <name>file_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="416" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="416" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classzab_1_1async__file_1a8772e59fa42709a6eb111b0419f62a9c" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>static auto zab::async_file&lt; ReadType &gt;::relative_dir</definition>
+        <argsstring>()</argsstring>
+        <name>relative_dir</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="148" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="148" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__file_1a1303dd83d363e91f6b044e37594b2ca3" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; bool &gt;</type>
+        <definition>static simple_future&lt;bool&gt; zab::async_file&lt; ReadType &gt;::close</definition>
+        <argsstring>(engine *_engine, int _fd)</argsstring>
+        <name>close</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_fd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="243" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="243" bodyend="272"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__file_1a8a683a3a09eeea80671d646d5d9f5aab" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1async__function" kindref="compound">async_function</ref></type>
+        <definition>static async_function zab::async_file&lt; ReadType &gt;::close_in_background</definition>
+        <argsstring>(engine *_engine, int _fd)</argsstring>
+        <name>close_in_background</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_fd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="275" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="275" bodyend="278"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1async__file_1aa0d7cfdb6ae6d8741add9da76ada55ed" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_file&lt; ReadType &gt;::async_file</definition>
+        <argsstring>(engine *_engine)</argsstring>
+        <name>async_file</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <briefdescription>
+<para>Create a async file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_engine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The engine to use. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="158" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="158" bodyend="158"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__file_1a3741b0f9b1a6dcb492de4fab8a79cbaf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_file&lt; ReadType &gt;::async_file</definition>
+        <argsstring>(const async_file &amp;)=delete</argsstring>
+        <name>async_file</name>
+        <param>
+          <type>const <ref refid="classzab_1_1async__file" kindref="compound">async_file</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="160" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__file_1aac0701ef7bc075d2795bca19b5a0a083" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_file&lt; ReadType &gt;::async_file</definition>
+        <argsstring>(async_file &amp;&amp;_move)</argsstring>
+        <name>async_file</name>
+        <param>
+          <type><ref refid="classzab_1_1async__file" kindref="compound">async_file</ref> &amp;&amp;</type>
+          <declname>_move</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="162" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="162" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__file_1a0e32396638075e58027e6b92e18447ad" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_file&lt; ReadType &gt;::~async_file</definition>
+        <argsstring>()</argsstring>
+        <name>~async_file</name>
+        <briefdescription>
+<para>Closes the file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The acutal clsoing of the file will be flushed to a background process. <computeroutput>co_await</computeroutput>ing on <computeroutput>close()</computeroutput> is reconmended before deconsturction. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="173" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="173" bodyend="181"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__file_1a3d88e227cfb680ae6d422e9f35d8a86a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; bool &gt;</type>
+        <definition>simple_future&lt;bool&gt; zab::async_file&lt; ReadType &gt;::open</definition>
+        <argsstring>(std::string_view _path, file::Option _options, mode_t _mode=kDefaultMode)</argsstring>
+        <name>open</name>
+        <param>
+          <type>std::string_view</type>
+          <declname>_path</declname>
+        </param>
+        <param>
+          <type>file::Option</type>
+          <declname>_options</declname>
+        </param>
+        <param>
+          <type>mode_t</type>
+          <declname>_mode</declname>
+          <defval><ref refid="classzab_1_1async__file_1a764c726461fb63caaf8d269a0e78d15f" kindref="member">kDefaultMode</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="190" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="190" bodyend="193"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__file_1ae182971684dc9fcb92d33a1947dba3ce" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; bool &gt;</type>
+        <definition>simple_future&lt;bool&gt; zab::async_file&lt; ReadType &gt;::open</definition>
+        <argsstring>(std::string_view _path, int _flags, mode_t _mode)</argsstring>
+        <name>open</name>
+        <param>
+          <type>std::string_view</type>
+          <declname>_path</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_flags</declname>
+        </param>
+        <param>
+          <type>mode_t</type>
+          <declname>_mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="196" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="196" bodyend="199"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__file_1aae3cc8d44ba74777820fa12ac812f88c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; bool &gt;</type>
+        <definition>simple_future&lt;bool&gt; zab::async_file&lt; ReadType &gt;::open</definition>
+        <argsstring>(const directory &amp;_dir, std::string_view _path, file::Option _options, mode_t _mode=kDefaultMode)</argsstring>
+        <name>open</name>
+        <param>
+          <type>const directory &amp;</type>
+          <declname>_dir</declname>
+        </param>
+        <param>
+          <type>std::string_view</type>
+          <declname>_path</declname>
+        </param>
+        <param>
+          <type>file::Option</type>
+          <declname>_options</declname>
+        </param>
+        <param>
+          <type>mode_t</type>
+          <declname>_mode</declname>
+          <defval><ref refid="classzab_1_1async__file_1a764c726461fb63caaf8d269a0e78d15f" kindref="member">kDefaultMode</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="202" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="202" bodyend="209"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__file_1ae2e438e9cf57087bd1f27b4f239e87e8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; bool &gt;</type>
+        <definition>simple_future&lt;bool&gt; zab::async_file&lt; ReadType &gt;::open</definition>
+        <argsstring>(const directory &amp;_dir, std::string_view _path, int _flags, mode_t _mode=kDefaultMode)</argsstring>
+        <name>open</name>
+        <param>
+          <type>const directory &amp;</type>
+          <declname>_dir</declname>
+        </param>
+        <param>
+          <type>std::string_view</type>
+          <declname>_path</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_flags</declname>
+        </param>
+        <param>
+          <type>mode_t</type>
+          <declname>_mode</declname>
+          <defval><ref refid="classzab_1_1async__file_1a764c726461fb63caaf8d269a0e78d15f" kindref="member">kDefaultMode</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="212" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="212" bodyend="232"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__file_1a2a54a31d70b5f391ec0886f617ed4972" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; bool &gt;</type>
+        <definition>simple_future&lt;bool&gt; zab::async_file&lt; ReadType &gt;::close</definition>
+        <argsstring>()</argsstring>
+        <name>close</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="235" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="235" bodyend="240"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__file_1a4be74df7c9ab0b0539a4bc5ded8def6e" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; std::vector&lt; ReadType &gt; &gt;</type>
+        <definition>simple_future&lt;std::vector&lt;ReadType&gt; &gt; zab::async_file&lt; ReadType &gt;::read_file</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>read_file</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="281" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="281" bodyend="286"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__file_1a868fae8d8d4359a329ac97d72d4efb94" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; std::vector&lt; ReadType &gt; &gt;</type>
+        <definition>simple_future&lt;std::vector&lt;ReadType&gt; &gt; zab::async_file&lt; ReadType &gt;::read_some</definition>
+        <argsstring>(std::size_t _amount) noexcept</argsstring>
+        <name>read_some</name>
+        <param>
+          <type>std::size_t</type>
+          <declname>_amount</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="289" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="289" bodyend="303"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__file_1a33e1b3344069850ab88e113d74a1a76c" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; std::size_t &gt;</type>
+        <definition>simple_future&lt;std::size_t&gt; zab::async_file&lt; ReadType &gt;::read_some</definition>
+        <argsstring>(std::span&lt; ReadType &gt; _data) noexcept</argsstring>
+        <name>read_some</name>
+        <param>
+          <type>std::span&lt; ReadType &gt;</type>
+          <declname>_data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="306" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="306" bodyend="330"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__file_1a0813809c75cf4eb11d72feae2b0c9f9c" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; bool &gt;</type>
+        <definition>simple_future&lt;bool&gt; zab::async_file&lt; ReadType &gt;::write_to_file</definition>
+        <argsstring>(std::span&lt; const ReadType &gt; _data) noexcept</argsstring>
+        <name>write_to_file</name>
+        <param>
+          <type>std::span&lt; const ReadType &gt;</type>
+          <declname>_data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="333" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="333" bodyend="357"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__file_1a5a5ebc7850e24903658debc2c10b4a36" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zab::async_file&lt; ReadType &gt;::position</definition>
+        <argsstring>(std::size_t _pos, file::Offset _whence=file::Offset::kBegin) noexcept</argsstring>
+        <name>position</name>
+        <param>
+          <type>std::size_t</type>
+          <declname>_pos</declname>
+        </param>
+        <param>
+          <type>file::Offset</type>
+          <declname>_whence</declname>
+          <defval>file::Offset::kBegin</defval>
+        </param>
+        <briefdescription>
+<para>Reset the poistion of the file cursor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">_pos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The amount to move. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">_whence</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Where to move from.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if successful, false otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="368" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="368" bodyend="371"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__file_1a5d12ed22dbefbab2320e5b83805ae23c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::size_t</type>
+        <definition>std::size_t zab::async_file&lt; ReadType &gt;::size</definition>
+        <argsstring>()</argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="374" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="374" bodyend="380"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__file_1a137343468ad1a014572c4042c88bde00" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zab::async_file&lt; ReadType &gt;::good</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>good</name>
+        <briefdescription>
+<para>Checks if there is an error pending on the file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if no error, false otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="388" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="388" bodyend="391"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classzab_1_1async__file_1a9718c3c2897c3152b5c51ea2b1448961" prot="private" static="yes" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr std::size_t</type>
+        <definition>static constexpr std::size_t zab::async_file&lt; ReadType &gt;::size_conversion</definition>
+        <argsstring>(std::size_t _size)</argsstring>
+        <name>size_conversion</name>
+        <param>
+          <type>std::size_t</type>
+          <declname>_size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="396" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="396" bodyend="399"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__file_1a28591c58c85c948368a6d3bf64644932" prot="private" static="yes" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr std::span&lt; std::byte &gt;</type>
+        <definition>static constexpr std::span&lt;std::byte&gt; zab::async_file&lt; ReadType &gt;::convert</definition>
+        <argsstring>(std::span&lt; ReadType &gt; _data, std::size_t _position, std::size_t _total)</argsstring>
+        <name>convert</name>
+        <param>
+          <type>std::span&lt; ReadType &gt;</type>
+          <declname>_data</declname>
+        </param>
+        <param>
+          <type>std::size_t</type>
+          <declname>_position</declname>
+        </param>
+        <param>
+          <type>std::size_t</type>
+          <declname>_total</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="402" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="402" bodyend="405"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__file_1ad3122c4327899fec429d4b999b467d06" prot="private" static="yes" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr std::span&lt; const std::byte &gt;</type>
+        <definition>static constexpr std::span&lt;const std::byte&gt; zab::async_file&lt; ReadType &gt;::convert</definition>
+        <argsstring>(std::span&lt; const ReadType &gt; _data, std::size_t _position, std::size_t _total)</argsstring>
+        <name>convert</name>
+        <param>
+          <type>std::span&lt; const ReadType &gt;</type>
+          <declname>_data</declname>
+        </param>
+        <param>
+          <type>std::size_t</type>
+          <declname>_position</declname>
+        </param>
+        <param>
+          <type>std::size_t</type>
+          <declname>_total</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="408" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="408" bodyend="413"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This class allows for asyncronous file i/o. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The file descriptor associated with <ref refid="classzab_1_1async__file" kindref="compound">async_file</ref> is opened as if by call to fopen() or open(2) with the following flags: <verbatim>   ┌───────────────┬───────────────┬───────────────────────────────┐
+   │  Options      │  fopen() mode │  open() flags                 │
+   ├───────────────┼───────────────┼───────────────────────────────┤
+   │ kRead         │     r         │ O_RDONLY                      │
+   ├───────────────┼───────────────┼───────────────────────────────┤
+   │ kTrunc        │     w         │ O_WRONLY | O_CREAT | O_TRUNC  │
+   ├───────────────┼───────────────┼───────────────────────────────┤
+   │ kAppend       │     a         │ O_WRONLY | O_CREAT | O_APPEND │
+   ├───────────────┼───────────────┼───────────────────────────────┤
+   │ kReadWrite    │     r+        │ O_RDWR                        │
+   ├───────────────┼───────────────┼───────────────────────────────┤
+   │ kRWTruncate   │     w+        │ O_RDWR | O_CREAT | O_TRUNC    │
+   ├───────────────├───────────────┼───────────────────────────────┤
+   │ kRWAppend     │     a+        │ O_RDWR | O_CREAT | O_APPEND   │
+   └───────────────┴───────────────┴───────────────────────────────┘
+</verbatim> </para>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="143" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="143" bodyend="417"/>
+    <listofallmembers>
+      <member refid="classzab_1_1async__file_1aa0d7cfdb6ae6d8741add9da76ada55ed" prot="public" virt="non-virtual"><scope>zab::async_file</scope><name>async_file</name></member>
+      <member refid="classzab_1_1async__file_1a3741b0f9b1a6dcb492de4fab8a79cbaf" prot="public" virt="non-virtual"><scope>zab::async_file</scope><name>async_file</name></member>
+      <member refid="classzab_1_1async__file_1aac0701ef7bc075d2795bca19b5a0a083" prot="public" virt="non-virtual"><scope>zab::async_file</scope><name>async_file</name></member>
+      <member refid="classzab_1_1async__file_1a2a54a31d70b5f391ec0886f617ed4972" prot="public" virt="non-virtual"><scope>zab::async_file</scope><name>close</name></member>
+      <member refid="classzab_1_1async__file_1a1303dd83d363e91f6b044e37594b2ca3" prot="public" virt="non-virtual"><scope>zab::async_file</scope><name>close</name></member>
+      <member refid="classzab_1_1async__file_1a8a683a3a09eeea80671d646d5d9f5aab" prot="public" virt="non-virtual"><scope>zab::async_file</scope><name>close_in_background</name></member>
+      <member refid="classzab_1_1async__file_1a28591c58c85c948368a6d3bf64644932" prot="private" virt="non-virtual"><scope>zab::async_file</scope><name>convert</name></member>
+      <member refid="classzab_1_1async__file_1ad3122c4327899fec429d4b999b467d06" prot="private" virt="non-virtual"><scope>zab::async_file</scope><name>convert</name></member>
+      <member refid="classzab_1_1async__file_1a204e4304ed327800b00170f8ab6137f2" prot="private" virt="non-virtual"><scope>zab::async_file</scope><name>engine_</name></member>
+      <member refid="classzab_1_1async__file_1a000eedba69e6dd1cf20d8446419d2b10" prot="private" virt="non-virtual"><scope>zab::async_file</scope><name>file_</name></member>
+      <member refid="classzab_1_1async__file_1a137343468ad1a014572c4042c88bde00" prot="public" virt="non-virtual"><scope>zab::async_file</scope><name>good</name></member>
+      <member refid="classzab_1_1async__file_1a764c726461fb63caaf8d269a0e78d15f" prot="public" virt="non-virtual"><scope>zab::async_file</scope><name>kDefaultMode</name></member>
+      <member refid="classzab_1_1async__file_1a3d88e227cfb680ae6d422e9f35d8a86a" prot="public" virt="non-virtual"><scope>zab::async_file</scope><name>open</name></member>
+      <member refid="classzab_1_1async__file_1ae182971684dc9fcb92d33a1947dba3ce" prot="public" virt="non-virtual"><scope>zab::async_file</scope><name>open</name></member>
+      <member refid="classzab_1_1async__file_1aae3cc8d44ba74777820fa12ac812f88c" prot="public" virt="non-virtual"><scope>zab::async_file</scope><name>open</name></member>
+      <member refid="classzab_1_1async__file_1ae2e438e9cf57087bd1f27b4f239e87e8" prot="public" virt="non-virtual"><scope>zab::async_file</scope><name>open</name></member>
+      <member refid="classzab_1_1async__file_1a5a5ebc7850e24903658debc2c10b4a36" prot="public" virt="non-virtual"><scope>zab::async_file</scope><name>position</name></member>
+      <member refid="classzab_1_1async__file_1a4be74df7c9ab0b0539a4bc5ded8def6e" prot="public" virt="non-virtual"><scope>zab::async_file</scope><name>read_file</name></member>
+      <member refid="classzab_1_1async__file_1a868fae8d8d4359a329ac97d72d4efb94" prot="public" virt="non-virtual"><scope>zab::async_file</scope><name>read_some</name></member>
+      <member refid="classzab_1_1async__file_1a33e1b3344069850ab88e113d74a1a76c" prot="public" virt="non-virtual"><scope>zab::async_file</scope><name>read_some</name></member>
+      <member refid="classzab_1_1async__file_1a8772e59fa42709a6eb111b0419f62a9c" prot="public" virt="non-virtual"><scope>zab::async_file</scope><name>relative_dir</name></member>
+      <member refid="classzab_1_1async__file_1a5d12ed22dbefbab2320e5b83805ae23c" prot="public" virt="non-virtual"><scope>zab::async_file</scope><name>size</name></member>
+      <member refid="classzab_1_1async__file_1a9718c3c2897c3152b5c51ea2b1448961" prot="private" virt="non-virtual"><scope>zab::async_file</scope><name>size_conversion</name></member>
+      <member refid="classzab_1_1async__file_1a0813809c75cf4eb11d72feae2b0c9f9c" prot="public" virt="non-virtual"><scope>zab::async_file</scope><name>write_to_file</name></member>
+      <member refid="classzab_1_1async__file_1a0e32396638075e58027e6b92e18447ad" prot="public" virt="non-virtual"><scope>zab::async_file</scope><name>~async_file</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

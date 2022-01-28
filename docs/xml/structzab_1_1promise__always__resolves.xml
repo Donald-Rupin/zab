@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structzab_1_1promise__always__resolves" kind="struct" language="C++" prot="public">
+    <compoundname>zab::promise_always_resolves</compoundname>
+    <includes refid="simple__promise_8hpp" local="no">simple_promise.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+    <briefdescription>
+<para>Instructs the Future that the optional return value will always resolve. That way the co_await will return a T&amp;&amp; instead of a std::optional&lt;T&gt;&amp;&amp;. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The return type. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="244" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="244" bodyend="244"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structzab_1_1details_1_1extract__promise__types_3_4" kind="struct" language="C++" prot="public">
+    <compoundname>zab::details::extract_promise_types&lt;&gt;</compoundname>
+    <includes refid="wait__for_8hpp" local="no">wait_for.hpp</includes>
+    <templateparamlist>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structzab_1_1details_1_1extract__promise__types_3_4_1a0c8478b6ea7fba697629274692353964" prot="public" static="no">
+        <type>std::tuple&lt;&gt;</type>
+        <definition>using zab::details::extract_promise_types&lt;&gt;::types =  std::tuple&lt;&gt;</definition>
+        <argsstring></argsstring>
+        <name>types</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/wait_for.hpp" line="161" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/wait_for.hpp" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Base case for recusion. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/wait_for.hpp" line="160" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/wait_for.hpp" bodystart="160" bodyend="162"/>
+    <listofallmembers>
+      <member refid="structzab_1_1details_1_1extract__promise__types_3_4_1a0c8478b6ea7fba697629274692353964" prot="public" virt="non-virtual"><scope>zab::details::extract_promise_types&lt;&gt;</scope><name>types</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

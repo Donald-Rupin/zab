@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structzab_1_1details_1_1no__op" kind="struct" language="C++" prot="public">
+    <compoundname>zab::details::no_op</compoundname>
+    <includes refid="async__barrier_8hpp" local="no">async_barrier.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzab_1_1details_1_1no__op_1afdbdb907ebaadeb9a189f5b42f9145f9" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::details::no_op::operator()</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>operator()</name>
+        <briefdescription>
+<para>Function call operator no-ops. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="68" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="68" bodyend="69"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>No-op phase completion step. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="62" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="62" bodyend="70"/>
+    <listofallmembers>
+      <member refid="structzab_1_1details_1_1no__op_1afdbdb907ebaadeb9a189f5b42f9145f9" prot="public" virt="non-virtual"><scope>zab::details::no_op</scope><name>operator()</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

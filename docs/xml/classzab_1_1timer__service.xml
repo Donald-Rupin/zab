@@ -1,0 +1,318 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1timer__service" kind="class" language="C++" prot="public">
+    <compoundname>zab::timer_service</compoundname>
+    <innerclass refid="structzab_1_1timer__service_1_1await__proxy" prot="public">zab::timer_service::await_proxy</innerclass>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classzab_1_1timer__service_1ae49bfb9d10e7d3221609feb01003eceb" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr auto</type>
+        <definition>constexpr auto zab::timer_service::kNanoInSeconds</definition>
+        <argsstring></argsstring>
+        <name>kNanoInSeconds</name>
+        <initializer>= 1000000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/timer_service.hpp" line="123" column="35" bodyfile="/home/donald/rupin/zab/includes/zab/timer_service.hpp" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzab_1_1timer__service_1a374ef43f63e564dffe546b1e09d4a51b" prot="private" static="no" mutable="no">
+        <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+        <definition>engine* zab::timer_service::engine_</definition>
+        <argsstring></argsstring>
+        <name>engine_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/timer_service.hpp" line="125" column="34" bodyfile="/home/donald/rupin/zab/includes/zab/timer_service.hpp" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1timer__service_1a5840bcc38d65d6ac252a3faa27cc9bfb" prot="private" static="no" mutable="no">
+        <type><ref refid="structzab_1_1pause__pack" kindref="compound">event_loop::io_handle</ref></type>
+        <definition>event_loop::io_handle zab::timer_service::handle_</definition>
+        <argsstring></argsstring>
+        <name>handle_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/timer_service.hpp" line="126" column="35" bodyfile="/home/donald/rupin/zab/includes/zab/timer_service.hpp" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1timer__service_1ac64d88125e7dfe0fae92744429329ed1" prot="private" static="no" mutable="no">
+        <type>std::size_t</type>
+        <definition>std::size_t zab::timer_service::read_buffer_</definition>
+        <argsstring></argsstring>
+        <name>read_buffer_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/timer_service.hpp" line="128" column="25" bodyfile="/home/donald/rupin/zab/includes/zab/timer_service.hpp" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1timer__service_1a6c3d398578b58572757fbc253d8e73ad" prot="private" static="no" mutable="no">
+        <type>std::atomic&lt; int &gt;</type>
+        <definition>std::atomic&lt;int&gt; zab::timer_service::timer_fd_</definition>
+        <argsstring></argsstring>
+        <name>timer_fd_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/timer_service.hpp" line="130" column="25" bodyfile="/home/donald/rupin/zab/includes/zab/timer_service.hpp" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1timer__service_1a825d1b2b121d3901e89f39bde9fe0a40" prot="private" static="no" mutable="no">
+        <type>std::uint64_t</type>
+        <definition>std::uint64_t zab::timer_service::current_</definition>
+        <argsstring></argsstring>
+        <name>current_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/timer_service.hpp" line="132" column="27" bodyfile="/home/donald/rupin/zab/includes/zab/timer_service.hpp" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1timer__service_1ab4a3cb71f12d6079897d5f65d8653fca" prot="private" static="no" mutable="no">
+        <type>std::map&lt; std::uint64_t, std::vector&lt; std::pair&lt; std::coroutine_handle&lt;&gt;, <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref> &gt; &gt; &gt;</type>
+        <definition>std::map&lt;std::uint64_t, std::vector&lt;std::pair&lt;std::coroutine_handle&lt;&gt;, thread_t&gt; &gt; &gt; zab::timer_service::waiting_</definition>
+        <argsstring></argsstring>
+        <name>waiting_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/timer_service.hpp" line="135" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/timer_service.hpp" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1timer__service_1aa1f1fc48c9195284ce3850e95c4fcfbc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::timer_service::timer_service</definition>
+        <argsstring>(engine *_engine)</argsstring>
+        <name>timer_service</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/timer_service.hpp" line="58" column="13" bodyfile="/home/donald/rupin/zab/src/timer_service.cpp" bodystart="82" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1timer__service_1ad894cdff9bf4462f476b09584a4e6cd4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::timer_service::timer_service</definition>
+        <argsstring>(const timer_service &amp;)=delete</argsstring>
+        <name>timer_service</name>
+        <param>
+          <type>const timer_service &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/timer_service.hpp" line="60" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1timer__service_1aa2fd04e7c0eecfbf6a157f4a901d7d1d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::timer_service::timer_service</definition>
+        <argsstring>(timer_service &amp;&amp;)</argsstring>
+        <name>timer_service</name>
+        <param>
+          <type>timer_service &amp;&amp;</type>
+          <defname>_other</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/timer_service.hpp" line="62" column="13" bodyfile="/home/donald/rupin/zab/src/timer_service.cpp" bodystart="94" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1timer__service_1ad2eca9e5f9d8bcee3ef405b3f3104ff4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::timer_service::~timer_service</definition>
+        <argsstring>()</argsstring>
+        <name>~timer_service</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/timer_service.hpp" line="64" column="13" bodyfile="/home/donald/rupin/zab/src/timer_service.cpp" bodystart="102" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1timer__service_1ade8c746b8e8f394dcea111bc2f8b1006" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::timer_service::initialise</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>initialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/timer_service.hpp" line="67" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1timer__service_1a0f5089ad7169125b3f3ea4beb846df6a" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::timer_service::wait</definition>
+        <argsstring>(std::coroutine_handle&lt;&gt; _handle, std::uint64_t _nano_seconds) noexcept</argsstring>
+        <name>wait</name>
+        <param>
+          <type>std::coroutine_handle&lt;&gt;</type>
+          <declname>_handle</declname>
+        </param>
+        <param>
+          <type>std::uint64_t</type>
+          <declname>_nano_seconds</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/timer_service.hpp" line="70" column="13" bodyfile="/home/donald/rupin/zab/src/timer_service.cpp" bodystart="224" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1timer__service_1a4ad78bb80c067008cbc3fba8ed697b41" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::timer_service::wait</definition>
+        <argsstring>(std::coroutine_handle&lt;&gt; _handle, std::uint64_t _nano_seconds, thread_t _thread) noexcept</argsstring>
+        <name>wait</name>
+        <param>
+          <type>std::coroutine_handle&lt;&gt;</type>
+          <declname>_handle</declname>
+        </param>
+        <param>
+          <type>std::uint64_t</type>
+          <declname>_nano_seconds</declname>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_thread</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/timer_service.hpp" line="73" column="13" bodyfile="/home/donald/rupin/zab/src/timer_service.cpp" bodystart="230" bodyend="255"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1timer__service_1a0851444085bfdfd3847f60f566ca7275" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::timer_service::wait_proxy</definition>
+        <argsstring>(std::uint64_t _nano_seconds) noexcept</argsstring>
+        <name>wait_proxy</name>
+        <param>
+          <type>std::uint64_t</type>
+          <declname>_nano_seconds</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/timer_service.hpp" line="90" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/timer_service.hpp" bodystart="90" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1timer__service_1a09ff967a10902ba2e080c88ae0a40c2a" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref></type>
+        <definition>simple_future zab::timer_service::wait_future</definition>
+        <argsstring>(std::uint64_t _nano_seconds) noexcept</argsstring>
+        <name>wait_future</name>
+        <param>
+          <type>std::uint64_t</type>
+          <declname>_nano_seconds</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/timer_service.hpp" line="108" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/timer_service.hpp" bodystart="108" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1timer__service_1a2c4737a5eec1b561d77c2cf57aec32d0" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1async__function" kindref="compound">async_function</ref></type>
+        <definition>async_function zab::timer_service::run</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>run</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/timer_service.hpp" line="116" column="13" bodyfile="/home/donald/rupin/zab/src/timer_service.cpp" bodystart="123" bodyend="198"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzab_1_1timer__service_1a95589da21b1e2fe6ec913a706b0dfbea" prot="private" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::timer_service::change_timer</definition>
+        <argsstring>(std::uint64_t _nano_seconds) noexcept</argsstring>
+        <name>change_timer</name>
+        <param>
+          <type>std::uint64_t</type>
+          <declname>_nano_seconds</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/timer_service.hpp" line="121" column="13" bodyfile="/home/donald/rupin/zab/src/timer_service.cpp" bodystart="201" bodyend="221"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/timer_service.hpp" line="54" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/timer_service.hpp" bodystart="54" bodyend="136"/>
+    <listofallmembers>
+      <member refid="classzab_1_1timer__service_1a95589da21b1e2fe6ec913a706b0dfbea" prot="private" virt="non-virtual"><scope>zab::timer_service</scope><name>change_timer</name></member>
+      <member refid="classzab_1_1timer__service_1a825d1b2b121d3901e89f39bde9fe0a40" prot="private" virt="non-virtual"><scope>zab::timer_service</scope><name>current_</name></member>
+      <member refid="classzab_1_1timer__service_1a374ef43f63e564dffe546b1e09d4a51b" prot="private" virt="non-virtual"><scope>zab::timer_service</scope><name>engine_</name></member>
+      <member refid="classzab_1_1timer__service_1a5840bcc38d65d6ac252a3faa27cc9bfb" prot="private" virt="non-virtual"><scope>zab::timer_service</scope><name>handle_</name></member>
+      <member refid="classzab_1_1timer__service_1ade8c746b8e8f394dcea111bc2f8b1006" prot="public" virt="non-virtual"><scope>zab::timer_service</scope><name>initialise</name></member>
+      <member refid="classzab_1_1timer__service_1ae49bfb9d10e7d3221609feb01003eceb" prot="private" virt="non-virtual"><scope>zab::timer_service</scope><name>kNanoInSeconds</name></member>
+      <member refid="classzab_1_1timer__service_1ac64d88125e7dfe0fae92744429329ed1" prot="private" virt="non-virtual"><scope>zab::timer_service</scope><name>read_buffer_</name></member>
+      <member refid="classzab_1_1timer__service_1a2c4737a5eec1b561d77c2cf57aec32d0" prot="public" virt="non-virtual"><scope>zab::timer_service</scope><name>run</name></member>
+      <member refid="classzab_1_1timer__service_1a6c3d398578b58572757fbc253d8e73ad" prot="private" virt="non-virtual"><scope>zab::timer_service</scope><name>timer_fd_</name></member>
+      <member refid="classzab_1_1timer__service_1aa1f1fc48c9195284ce3850e95c4fcfbc" prot="public" virt="non-virtual"><scope>zab::timer_service</scope><name>timer_service</name></member>
+      <member refid="classzab_1_1timer__service_1ad894cdff9bf4462f476b09584a4e6cd4" prot="public" virt="non-virtual"><scope>zab::timer_service</scope><name>timer_service</name></member>
+      <member refid="classzab_1_1timer__service_1aa2fd04e7c0eecfbf6a157f4a901d7d1d" prot="public" virt="non-virtual"><scope>zab::timer_service</scope><name>timer_service</name></member>
+      <member refid="classzab_1_1timer__service_1a0f5089ad7169125b3f3ea4beb846df6a" prot="public" virt="non-virtual"><scope>zab::timer_service</scope><name>wait</name></member>
+      <member refid="classzab_1_1timer__service_1a4ad78bb80c067008cbc3fba8ed697b41" prot="public" virt="non-virtual"><scope>zab::timer_service</scope><name>wait</name></member>
+      <member refid="classzab_1_1timer__service_1a09ff967a10902ba2e080c88ae0a40c2a" prot="public" virt="non-virtual"><scope>zab::timer_service</scope><name>wait_future</name></member>
+      <member refid="classzab_1_1timer__service_1a0851444085bfdfd3847f60f566ca7275" prot="public" virt="non-virtual"><scope>zab::timer_service</scope><name>wait_proxy</name></member>
+      <member refid="classzab_1_1timer__service_1ab4a3cb71f12d6079897d5f65d8653fca" prot="private" virt="non-virtual"><scope>zab::timer_service</scope><name>waiting_</name></member>
+      <member refid="classzab_1_1timer__service_1ad2eca9e5f9d8bcee3ef405b3f3104ff4" prot="public" virt="non-virtual"><scope>zab::timer_service</scope><name>~timer_service</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

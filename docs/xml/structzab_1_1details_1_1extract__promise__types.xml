@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structzab_1_1details_1_1extract__promise__types" kind="struct" language="C++" prot="public">
+    <compoundname>zab::details::extract_promise_types</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename...</type>
+        <declname>Promises</declname>
+        <defname>Promises</defname>
+      </param>
+    </templateparamlist>
+    <briefdescription>
+<para>Used for getting the return types of a series of futures. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This non-speicialised struct is undefined.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Promises</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The pomises. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/wait_for.hpp" line="91" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/wait_for.hpp" bodystart="91" bodyend="-1"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

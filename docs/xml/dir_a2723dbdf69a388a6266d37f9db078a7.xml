@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_a2723dbdf69a388a6266d37f9db078a7" kind="dir">
+    <compoundname>/home/donald/rupin/zab/includes/zab</compoundname>
+    <innerfile refid="async__barrier_8hpp">async_barrier.hpp</innerfile>
+    <innerfile refid="async__file_8hpp">async_file.hpp</innerfile>
+    <innerfile refid="async__function_8hpp">async_function.hpp</innerfile>
+    <innerfile refid="async__latch_8hpp">async_latch.hpp</innerfile>
+    <innerfile refid="async__mutex_8hpp">async_mutex.hpp</innerfile>
+    <innerfile refid="async__semaphore_8hpp">async_semaphore.hpp</innerfile>
+    <innerfile refid="defer__block__promise_8hpp">defer_block_promise.hpp</innerfile>
+    <innerfile refid="engine_8hpp">engine.hpp</innerfile>
+    <innerfile refid="engine__enabled_8hpp">engine_enabled.hpp</innerfile>
+    <innerfile refid="event_8hpp">event.hpp</innerfile>
+    <innerfile refid="event__loop_8hpp">event_loop.hpp</innerfile>
+    <innerfile refid="execution__promise_8hpp">execution_promise.hpp</innerfile>
+    <innerfile refid="first__of_8hpp">first_of.hpp</innerfile>
+    <innerfile refid="for__each_8hpp">for_each.hpp</innerfile>
+    <innerfile refid="hardware__interface__size_8hpp">hardware_interface_size.hpp</innerfile>
+    <innerfile refid="network__overlay_8hpp">network_overlay.hpp</innerfile>
+    <innerfile refid="observable_8hpp">observable.hpp</innerfile>
+    <innerfile refid="pause_8hpp">pause.hpp</innerfile>
+    <innerfile refid="pause__token_8hpp">pause_token.hpp</innerfile>
+    <innerfile refid="reusable__future_8hpp">reusable_future.hpp</innerfile>
+    <innerfile refid="reusable__promise_8hpp">reusable_promise.hpp</innerfile>
+    <innerfile refid="signal__handler_8hpp">signal_handler.hpp</innerfile>
+    <innerfile refid="simple__future_8hpp">simple_future.hpp</innerfile>
+    <innerfile refid="simple__promise_8hpp">simple_promise.hpp</innerfile>
+    <innerfile refid="spin__lock_8hpp">spin_lock.hpp</innerfile>
+    <innerfile refid="strong__types_8hpp">strong_types.hpp</innerfile>
+    <innerfile refid="tcp__stream_8hpp">tcp_stream.hpp</innerfile>
+    <innerfile refid="timer__service_8hpp">timer_service.hpp</innerfile>
+    <innerfile refid="visitor__promise_8hpp">visitor_promise.hpp</innerfile>
+    <innerfile refid="wait__for_8hpp">wait_for.hpp</innerfile>
+    <innerfile refid="yield_8hpp">yield.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/"/>
+  </compounddef>
+</doxygen>

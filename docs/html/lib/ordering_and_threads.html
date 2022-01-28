@@ -1,0 +1,348 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Ordering and Threads &mdash; ZAB 0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="engine_enabled" href="engine_enabled.html" />
+    <link rel="prev" title="engine" href="engine.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ZAB
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="core_library.html">Core Library</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="engine.html">engine</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Ordering and Threads</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#order-t">order_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#thread-t">thread_t</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="engine_enabled.html">engine_enabled</a></li>
+<li class="toctree-l3"><a class="reference internal" href="event_loop.html">event_loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="signal_handling.html">Signal Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="coroutines.html">Coroutines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="async_primitives.html">Asynchronous Primitives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="async_sync.html">Asynchronous Synchronisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="observable.html">Observables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_io.html">File IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ZAB</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="lib_root.html">ZAB Documentation</a> &raquo;</li>
+        
+          <li><a href="core_library.html">Core Library</a> &raquo;</li>
+        
+      <li>Ordering and Threads</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/lib/ordering_and_threads.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ordering-and-threads">
+<span id="id1"></span><h1>Ordering and Threads<a class="headerlink" href="#ordering-and-threads" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="order-t">
+<h2>order_t<a class="headerlink" href="#order-t" title="Permalink to this headline">¶</a></h2>
+<p>An <code class="docutils literal notranslate"><span class="pre">order_t</span></code> is a strongly typed <code class="docutils literal notranslate"><span class="pre">std::size_t</span></code>. This specifies the delay to apply in the event loop in nanoseconds (0 for no delay).</p>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab7order_tE">
+<span id="_CPPv3N3zab7order_tE"></span><span id="_CPPv2N3zab7order_tE"></span><span id="zab::order_t"></span><span class="target" id="structzab_1_1order__t"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">order_t</span></span></span><a class="headerlink" href="#_CPPv4N3zab7order_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A struct for providing strict typing for ordering. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3zab7order_tssERK7order_t">
+<span id="_CPPv3NK3zab7order_tssERK7order_t"></span><span id="_CPPv2NK3zab7order_tssERK7order_t"></span><span class="target" id="structzab_1_1order__t_1af8e31b771fc4b2b02465f6ab14b0bfdb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;=&gt;</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab7order_tE" title="zab::order_t"><span class="n"><span class="pre">order_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3zab7order_tssERK7order_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I_NSt8integralEENK3zab7order_tssEDaK9Intergral">
+<span id="_CPPv3I_NSt8integralEENK3zab7order_tssEK9Intergral"></span><span id="_CPPv2I_NSt8integralEENK3zab7order_tssEK9Intergral"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">integral</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Intergral</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structzab_1_1order__t_1af14cf2392ae931455d558df539575365"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;=&gt;</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_NSt8integralEENK3zab7order_tssEDaK9Intergral" title="zab::order_t::operator&lt;=&gt;::Intergral"><span class="n"><span class="pre">Intergral</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_number</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I_NSt8integralEENK3zab7order_tssEDaK9Intergral" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab7order_t6order_E">
+<span id="_CPPv3N3zab7order_t6order_E"></span><span id="_CPPv2N3zab7order_t6order_E"></span><span id="zab::order_t::order___std::uint64_t"></span><span class="target" id="structzab_1_1order__t_1a5ce9c350dfca9f6e0dc7c6de82bdc750"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">order_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N3zab7order_t6order_E" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="structzab_1_1order__t_1ad12cf7dc070cadbda534bfab4fc239f2"></span><span class="sig-name descname"><span class="pre">inline</span> <span class="pre">friend</span> <span class="pre">constexpr</span> <span class="pre">friend</span> <span class="pre">auto</span> <span class="pre">operator+</span> <span class="pre">(order_t</span> <span class="pre">_lhs,</span> <span class="pre">order_t</span> <span class="pre">_rhs)</span> <span class="pre">noexcept</span></span></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="structzab_1_1order__t_1a36e9ae74c43492032921bd0a23456d48"></span><span class="sig-name descname"><span class="pre">inline</span> <span class="pre">friend</span> <span class="pre">constexpr</span> <span class="pre">friend</span> <span class="pre">auto</span> <span class="pre">operator-</span> <span class="pre">(order_t</span> <span class="pre">_lhs,</span> <span class="pre">order_t</span> <span class="pre">_rhs)</span> <span class="pre">noexcept</span></span></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="thread-t">
+<h2>thread_t<a class="headerlink" href="#thread-t" title="Permalink to this headline">¶</a></h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">thread_t</span></code> is a strongly typed <code class="docutils literal notranslate"><span class="pre">std::uint16_t</span></code> which is used to select a thread to be used. This can have different meaning in different contexts.  Typically <code class="docutils literal notranslate"><span class="pre">thread_t::any_thread()</span></code> can be used to select which thread currently has the least amount of work to do. Thread bounds are not checked, so specifying an index larger than the number of threads in the <code class="docutils literal notranslate"><span class="pre">engine</span></code> is undefined behavior.</p>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab8thread_tE">
+<span id="_CPPv3N3zab8thread_tE"></span><span id="_CPPv2N3zab8thread_tE"></span><span id="zab::thread_t"></span><span class="target" id="structzab_1_1thread__t"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">thread_t</span></span></span><a class="headerlink" href="#_CPPv4N3zab8thread_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A struct for providing strict typing of thread ids’. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab8thread_t7thread_E">
+<span id="_CPPv3N3zab8thread_t7thread_E"></span><span id="_CPPv2N3zab8thread_t7thread_E"></span><span id="zab::thread_t::thread___std::uint16_t"></span><span class="target" id="structzab_1_1thread__t_1ab127b4494e0ba8f77cb40bfee6a4f794"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">uint16_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">thread_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab8thread_t10kAnyThreadE" title="zab::thread_t::kAnyThread"><span class="n"><span class="pre">kAnyThread</span></span></a><a class="headerlink" href="#_CPPv4N3zab8thread_t7thread_E" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab8thread_t10any_threadEv">
+<span id="_CPPv3N3zab8thread_t10any_threadEv"></span><span id="_CPPv2N3zab8thread_t10any_threadEv"></span><span id="zab::thread_t::any_threadCE"></span><span class="target" id="structzab_1_1thread__t_1a24d1dd67dd5529493217cbd8646f48a6"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">any_thread</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab8thread_t10any_threadEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab8thread_t10kAnyThreadE">
+<span id="_CPPv3N3zab8thread_t10kAnyThreadE"></span><span id="_CPPv2N3zab8thread_t10kAnyThreadE"></span><span id="zab::thread_t::kAnyThread__auto"></span><span class="target" id="structzab_1_1thread__t_1a2f161cb6b3e332b4ac5fffa23df942ff"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kAnyThread</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">numeric_limits</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">uint16_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">max</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><a class="headerlink" href="#_CPPv4N3zab8thread_t10kAnyThreadE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="structzab_1_1thread__t_1a40dc50f68e770502c527e1c6f4acd98e"></span><span class="sig-name descname"><span class="pre">friend</span> <span class="pre">constexpr</span> <span class="pre">friend</span> <span class="pre">bool</span> <span class="pre">operator==</span> <span class="pre">(const</span> <span class="pre">thread_t</span> <span class="pre">_first,</span> <span class="pre">const</span> <span class="pre">thread_t</span> <span class="pre">_second)=default</span></span></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="structzab_1_1thread__t_1ab4783a229d5b780581e8e200fac2869b"></span><span class="sig-name descname"><span class="pre">friend</span> <span class="pre">constexpr</span> <span class="pre">friend</span> <span class="pre">bool</span> <span class="pre">operator!=</span> <span class="pre">(const</span> <span class="pre">thread_t</span> <span class="pre">_first,</span> <span class="pre">const</span> <span class="pre">thread_t</span> <span class="pre">_second)=default</span></span></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="structzab_1_1thread__t_1ae0b484631e0cec16b3bee651972b9b00"></span><span class="sig-name descname"><span class="pre">inline</span> <span class="pre">friend</span> <span class="pre">constexpr</span> <span class="pre">friend</span> <span class="pre">auto</span> <span class="pre">operator&lt;=&gt;</span> <span class="pre">(const</span> <span class="pre">thread_t</span> <span class="pre">_first,</span> <span class="pre">const</span> <span class="pre">thread_t</span> <span class="pre">_second)</span></span></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="structzab_1_1thread__t_1a39eaa00209eac8555993971116fdca3f"></span><span class="sig-name descname"><span class="pre">template&lt;std::integral</span> <span class="pre">T&gt;</span> <span class="pre">inline</span> <span class="pre">friend</span> <span class="pre">constexpr</span> <span class="pre">friend</span> <span class="pre">auto</span> <span class="pre">operator&lt;=&gt;</span> <span class="pre">(const</span> <span class="pre">thread_t</span> <span class="pre">_first,</span> <span class="pre">const</span> <span class="pre">T</span> <span class="pre">_number)</span></span></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="structzab_1_1thread__t_1a5a1f767b8fba3aa25526fc4d78d433a7"></span><span class="sig-name descname"><span class="pre">template&lt;std::integral</span> <span class="pre">T&gt;</span> <span class="pre">inline</span> <span class="pre">friend</span> <span class="pre">constexpr</span> <span class="pre">friend</span> <span class="pre">bool</span> <span class="pre">operator==</span> <span class="pre">(const</span> <span class="pre">thread_t</span> <span class="pre">_first,</span> <span class="pre">const</span> <span class="pre">T</span> <span class="pre">_second)</span></span></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="structzab_1_1thread__t_1ab000b67ab20838ba4c0a084f36d65a49"></span><span class="sig-name descname"><span class="pre">template&lt;std::integral</span> <span class="pre">T&gt;</span> <span class="pre">inline</span> <span class="pre">friend</span> <span class="pre">constexpr</span> <span class="pre">friend</span> <span class="pre">bool</span> <span class="pre">operator!=</span> <span class="pre">(const</span> <span class="pre">thread_t</span> <span class="pre">&amp;_first,</span> <span class="pre">const</span> <span class="pre">T</span> <span class="pre">_second)</span></span></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="engine_enabled.html" class="btn btn-neutral float-right" title="engine_enabled" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="engine.html" class="btn btn-neutral float-left" title="engine" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Donald Rupin.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

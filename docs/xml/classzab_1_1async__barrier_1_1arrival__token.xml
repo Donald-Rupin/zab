@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1async__barrier_1_1arrival__token" kind="class" language="C++" prot="public">
+    <compoundname>zab::async_barrier::arrival_token</compoundname>
+    <includes refid="async__barrier_8hpp" local="no">async_barrier.hpp</includes>
+    <innerclass refid="structzab_1_1async__barrier_1_1arrival__token_1_1InternalState" prot="private">zab::async_barrier::arrival_token::InternalState</innerclass>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classzab_1_1async__barrier_1_1arrival__token_1ac815e1bb8acfae89b7fcec6db4c06c5c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class async_barrier</definition>
+        <argsstring></argsstring>
+        <name>async_barrier</name>
+        <param>
+          <type><ref refid="classzab_1_1async__barrier" kindref="compound">async_barrier</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="181" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzab_1_1async__barrier_1_1arrival__token_1add46cdbe19f670184199692a8ea308ec" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; InternalState &gt;</type>
+        <definition>std::unique_ptr&lt;InternalState&gt; zab::async_barrier&lt; CompletionFunction &gt;::arrival_token::phase_complete_</definition>
+        <argsstring></argsstring>
+        <name>phase_complete_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="223" column="37" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1async__barrier_1_1arrival__token_1a32197ad82a667ddc137fef8f9a476f3b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_barrier&lt; CompletionFunction &gt;::arrival_token::~arrival_token</definition>
+        <argsstring>()=default</argsstring>
+        <name>~arrival_token</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="185" column="21"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzab_1_1async__barrier_1_1arrival__token_1abddadd33591c5786b20d87a2113be807" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::async_barrier&lt; CompletionFunction &gt;::arrival_token::arrival_token</definition>
+        <argsstring>()</argsstring>
+        <name>arrival_token</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="189" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="189" bodyend="190"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__barrier_1_1arrival__token_1a193c934c11d46ac513d2e0d1a68291e8" prot="private" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zab::async_barrier&lt; CompletionFunction &gt;::arrival_token::await_suspend</definition>
+        <argsstring>(std::coroutine_handle&lt;&gt; _awaiter) noexcept</argsstring>
+        <name>await_suspend</name>
+        <param>
+          <type>std::coroutine_handle&lt;&gt;</type>
+          <declname>_awaiter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="193" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="193" bodyend="201"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__barrier_1_1arrival__token_1a5c235bf99745424ff1039ae1048c0744" prot="private" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zab::async_barrier&lt; CompletionFunction &gt;::arrival_token::await_ready</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>await_ready</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="204" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="204" bodyend="208"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1async__barrier_1_1arrival__token_1a119de1d8f0cabf411bf83cd934a7dd54" prot="private" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::async_barrier&lt; CompletionFunction &gt;::arrival_token::await_resume</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>await_resume</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="211" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="211" bodyend="212"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This class describes an arrival token used for arriving and suspending later. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="179" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="179" bodyend="224"/>
+    <listofallmembers>
+      <member refid="classzab_1_1async__barrier_1_1arrival__token_1abddadd33591c5786b20d87a2113be807" prot="private" virt="non-virtual"><scope>zab::async_barrier::arrival_token</scope><name>arrival_token</name></member>
+      <member refid="classzab_1_1async__barrier_1_1arrival__token_1ac815e1bb8acfae89b7fcec6db4c06c5c" prot="private" virt="non-virtual"><scope>zab::async_barrier::arrival_token</scope><name>async_barrier</name></member>
+      <member refid="classzab_1_1async__barrier_1_1arrival__token_1a5c235bf99745424ff1039ae1048c0744" prot="private" virt="non-virtual"><scope>zab::async_barrier::arrival_token</scope><name>await_ready</name></member>
+      <member refid="classzab_1_1async__barrier_1_1arrival__token_1a119de1d8f0cabf411bf83cd934a7dd54" prot="private" virt="non-virtual"><scope>zab::async_barrier::arrival_token</scope><name>await_resume</name></member>
+      <member refid="classzab_1_1async__barrier_1_1arrival__token_1a193c934c11d46ac513d2e0d1a68291e8" prot="private" virt="non-virtual"><scope>zab::async_barrier::arrival_token</scope><name>await_suspend</name></member>
+      <member refid="classzab_1_1async__barrier_1_1arrival__token_1add46cdbe19f670184199692a8ea308ec" prot="private" virt="non-virtual"><scope>zab::async_barrier::arrival_token</scope><name>phase_complete_</name></member>
+      <member refid="classzab_1_1async__barrier_1_1arrival__token_1a32197ad82a667ddc137fef8f9a476f3b" prot="public" virt="non-virtual"><scope>zab::async_barrier::arrival_token</scope><name>~arrival_token</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,312 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>async_latch &mdash; ZAB 0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="async_barrier" href="async_barrier.html" />
+    <link rel="prev" title="async_mutex" href="async_mutex.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ZAB
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_library.html">Core Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coroutines.html">Coroutines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="async_primitives.html">Asynchronous Primitives</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="async_sync.html">Asynchronous Synchronisation</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pause_token.html">pause_token</a></li>
+<li class="toctree-l3"><a class="reference internal" href="async_counting_semaphore.html">async_counting_semaphore</a></li>
+<li class="toctree-l3"><a class="reference internal" href="async_binary_semaphore.html">async_binary_semaphore</a></li>
+<li class="toctree-l3"><a class="reference internal" href="async_mutex.html">async_mutex</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">async_latch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="async_barrier.html">async_barrier</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="observable.html">Observables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_io.html">File IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ZAB</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="lib_root.html">ZAB Documentation</a> &raquo;</li>
+        
+          <li><a href="async_sync.html">Asynchronous Synchronisation</a> &raquo;</li>
+        
+      <li>async_latch</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/lib/async_latch.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="async-latch">
+<span id="id1"></span><h1>async_latch<a class="headerlink" href="#async-latch" title="Permalink to this headline">¶</a></h1>
+<p>An <cite>async_latch</cite> is the equivalent of the <a class="reference external" href="https://en.cppreference.com/w/cpp/thread/latch">std::latch</a>.</p>
+<blockquote>
+<div><p>The latch class is a downward counter of type std::ptrdiff_t which can be used to synchronize threads. The value of the counter is initialized on creation. _Coroutines will be <a href="#id3"><span class="problematic" id="id4">suspended_</span></a> on the latch until the counter is decremented to zero. There is no possibility to increase or reset the counter, which makes the latch a single-use barrier.</p>
+<p>Concurrent invocations of the member functions of latch, except for the destructor, do not introduce data races.</p>
+</div></blockquote>
+<p><a class="reference internal" href="wait_for.html#wait-for"><span class="std std-ref">wait_for</span></a> is an good example for where latches are useful. In particular the ability to use within the same thread multiple times.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">async_function</span><span class="o">&lt;&gt;</span>
+<span class="n">your_class</span><span class="o">::</span><span class="n">do_work</span><span class="p">(</span><span class="n">thread_t</span> <span class="n">_thread</span><span class="p">,</span> <span class="n">async_latch</span><span class="o">&amp;</span> <span class="n">_latch</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="cm">/* Move into our thread */</span>
+    <span class="k">co_await</span> <span class="nf">yield</span><span class="p">(</span><span class="n">_thread</span><span class="p">);</span>
+
+    <span class="cm">/* Do some pre-work or something... */</span>
+
+    <span class="k">co_await</span> <span class="n">_latch</span><span class="p">.</span><span class="n">arrive_and_wait</span><span class="p">();</span>
+
+    <span class="cm">/* Do some work... */</span>
+<span class="p">}</span>
+
+<span class="n">async_function</span><span class="o">&lt;&gt;</span>
+<span class="n">your_class</span><span class="o">::</span><span class="n">spawn_threads</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="k">auto</span> <span class="n">threads</span> <span class="o">=</span> <span class="n">engine_</span><span class="o">-&gt;</span><span class="n">number_of_workers</span><span class="p">();</span>
+    <span class="n">async_latch</span> <span class="nf">latch</span><span class="p">(</span><span class="n">engine_</span><span class="p">,</span> <span class="n">threads</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+
+    <span class="cm">/* Create worker [logical] threads 0 - n */</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">uint16_t</span> <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">threads</span><span class="p">;</span> <span class="o">++</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">do_work</span><span class="p">(</span><span class="n">thread_t</span><span class="p">{</span><span class="n">t</span><span class="p">},</span> <span class="n">latch</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">co_await</span> <span class="n">_latch</span><span class="p">.</span><span class="n">arrive_and_wait</span><span class="p">();</span>
+
+    <span class="cm">/* If we get here, all coroutines are in the correct thread  */</span>
+    <span class="cm">/* and completed their pre-work */</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab11async_latchE">
+<span id="_CPPv3N3zab11async_latchE"></span><span id="_CPPv2N3zab11async_latchE"></span><span id="zab::async_latch"></span><span class="target" id="classzab_1_1async__latch"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">async_latch</span></span></span><a class="headerlink" href="#_CPPv4N3zab11async_latchE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab11async_latch11async_latchEP6engineNSt9ptrdiff_tE">
+<span id="_CPPv3N3zab11async_latch11async_latchEP6engineNSt9ptrdiff_tE"></span><span id="_CPPv2N3zab11async_latch11async_latchEP6engineNSt9ptrdiff_tE"></span><span id="zab::async_latch::async_latch__engineP.std::ptrdiff_t"></span><span class="target" id="classzab_1_1async__latch_1ad9dc19b2a7c5dea345475c0726c400e5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">async_latch</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ptrdiff_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_amount</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab11async_latch11async_latchEP6engineNSt9ptrdiff_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab11async_latchD0Ev">
+<span id="_CPPv3N3zab11async_latchD0Ev"></span><span id="_CPPv2N3zab11async_latchD0Ev"></span><span id="zab::async_latch::~async_latch"></span><span class="target" id="classzab_1_1async__latch_1a29fed4ce7ecd2cfb156c92593a419a02"></span><span class="sig-name descname"><span class="n"><span class="pre">~async_latch</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3zab11async_latchD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab11async_latch10count_downENSt9ptrdiff_tE">
+<span id="_CPPv3N3zab11async_latch10count_downENSt9ptrdiff_tE"></span><span id="_CPPv2N3zab11async_latch10count_downENSt9ptrdiff_tE"></span><span id="zab::async_latch::count_down__std::ptrdiff_t"></span><span class="target" id="classzab_1_1async__latch_1a284fe5deeb2cfe87abb18438b41237a5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">count_down</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ptrdiff_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_amount</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab11async_latch10count_downENSt9ptrdiff_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab11async_latch8try_waitEv">
+<span id="_CPPv3N3zab11async_latch8try_waitEv"></span><span id="_CPPv2N3zab11async_latch8try_waitEv"></span><span id="zab::async_latch::try_wait"></span><span class="target" id="classzab_1_1async__latch_1a5a0a87689a53001d5b08add0353285fc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">try_wait</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab11async_latch8try_waitEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab11async_latch4waitEv">
+<span id="_CPPv3N3zab11async_latch4waitEv"></span><span id="_CPPv2N3zab11async_latch4waitEv"></span><span id="zab::async_latch::wait"></span><span class="target" id="classzab_1_1async__latch_1a3dc30f513d909ffffd993af2b153f06d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">wait</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab11async_latch4waitEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab11async_latch15arrive_and_waitENSt9ptrdiff_tE">
+<span id="_CPPv3N3zab11async_latch15arrive_and_waitENSt9ptrdiff_tE"></span><span id="_CPPv2N3zab11async_latch15arrive_and_waitENSt9ptrdiff_tE"></span><span id="zab::async_latch::arrive_and_wait__std::ptrdiff_t"></span><span class="target" id="classzab_1_1async__latch_1a280bd2894d3f85e00f378eb6cdae4ed7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">arrive_and_wait</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ptrdiff_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_amount</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab11async_latch15arrive_and_waitENSt9ptrdiff_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="async_barrier.html" class="btn btn-neutral float-right" title="async_barrier" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="async_mutex.html" class="btn btn-neutral float-left" title="async_mutex" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Donald Rupin.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,497 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>event_loop &mdash; ZAB 0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Signal Handling" href="signal_handling.html" />
+    <link rel="prev" title="engine_enabled" href="engine_enabled.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ZAB
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="core_library.html">Core Library</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="engine.html">engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ordering_and_threads.html">Ordering and Threads</a></li>
+<li class="toctree-l3"><a class="reference internal" href="engine_enabled.html">engine_enabled</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">event_loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="signal_handling.html">Signal Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="coroutines.html">Coroutines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="async_primitives.html">Asynchronous Primitives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="async_sync.html">Asynchronous Synchronisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="observable.html">Observables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_io.html">File IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ZAB</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="lib_root.html">ZAB Documentation</a> &raquo;</li>
+        
+          <li><a href="core_library.html">Core Library</a> &raquo;</li>
+        
+      <li>event_loop</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/lib/event_loop.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="event-loop">
+<span id="id1"></span><h1>event_loop<a class="headerlink" href="#event-loop" title="Permalink to this headline">¶</a></h1>
+<p>AB is powered by <a class="reference external" href="https://github.com/axboe/liburing">liburing</a> which is a userspace wrapper for <a class="reference external" href="https://kernel.dk/io_uring.pdf">io_uring</a> An <code class="docutils literal notranslate"><span class="pre">event_loop</span></code> loop exists for every <code class="docutils literal notranslate"><span class="pre">engine</span></code> thread in ZAB. This thread loops on the completion queue waiting for completed io requests then fowarding the results to and resuming the respective coroutines. User space events (those submitted by <code class="docutils literal notranslate"><span class="pre">engine::resume</span></code> and family) are submitted to the <code class="docutils literal notranslate"><span class="pre">event_loop</span></code> via an event_fd. User code should only do short computations or <code class="docutils literal notranslate"><span class="pre">yield</span></code> long running computation in the <code class="docutils literal notranslate"><span class="pre">event_loop</span></code> to ensure IO completions are reported back in a timely manner.</p>
+<p>In this release the following io_uring calls are supported in ZAB:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://linux.die.net/man/2/openat">open_at</a></p></li>
+<li><p><a class="reference external" href="https://linux.die.net/man/2/close">close</a></p></li>
+<li><p><a class="reference external" href="https://linux.die.net/man/2/read">read</a></p></li>
+<li><p><a class="reference external" href="https://linux.die.net/man/2/readv">read_v</a></p></li>
+<li><p><a class="reference external" href="https://linux.die.net/man/2/write">write</a></p></li>
+<li><p><a class="reference external" href="https://linux.die.net/man/2/writev">write_v</a></p></li>
+<li><p><a class="reference external" href="https://linux.die.net/man/2/recv">recv</a></p></li>
+<li><p><a class="reference external" href="https://linux.die.net/man/2/send">send</a></p></li>
+<li><p><a class="reference external" href="https://linux.die.net/man/2/accept">accept</a></p></li>
+<li><p><a class="reference external" href="https://linux.die.net/man/2/connect">connect</a></p></li>
+</ul>
+<p>As in <code class="docutils literal notranslate"><span class="pre">liburing</span></code> options can be attempted to be canclled. Each io_uring call has two overloads:
+1. A simple future that has a <code class="docutils literal notranslate"><span class="pre">io_handle</span></code> out value which will be set to the cancellation handle on suspension.
+2. A void function that expects a <code class="docutils literal notranslate"><span class="pre">io_handle</span></code> prefilled with the suspended coroutines handle. In either case, the value can be passed to <code class="docutils literal notranslate"><span class="pre">cancel_event</span></code> to attempt a cancle.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">io_handle</span></code> is an alias to a <code class="docutils literal notranslate"><span class="pre">pause_pack*</span></code> which can be obtained through the <code class="docutils literal notranslate"><span class="pre">zab::pause(...)</span></code> function.</p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loopE">
+<span id="_CPPv3N3zab10event_loopE"></span><span id="_CPPv2N3zab10event_loopE"></span><span id="zab::event_loop"></span><span class="target" id="classzab_1_1event__loop"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">event_loop</span></span></span><a class="headerlink" href="#_CPPv4N3zab10event_loopE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This class implements an asynchronous <code class="docutils literal notranslate"><span class="pre">epoll</span></code> based descriptor notification service. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop13CancelResultsE">
+<span id="_CPPv3N3zab10event_loop13CancelResultsE"></span><span id="_CPPv2N3zab10event_loop13CancelResultsE"></span><span class="target" id="classzab_1_1event__loop_1a5d0e2838123ad0907963fc9e5f31b772"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CancelResults</span></span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop13CancelResultsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop13CancelResults5kDoneE">
+<span id="_CPPv3N3zab10event_loop13CancelResults5kDoneE"></span><span id="_CPPv2N3zab10event_loop13CancelResults5kDoneE"></span><span class="target" id="classzab_1_1event__loop_1a5d0e2838123ad0907963fc9e5f31b772a9e2024e27d037d51bb46ef86d2e0ea4d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kDone</span></span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop13CancelResults5kDoneE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop13CancelResults9kNotFoundE">
+<span id="_CPPv3N3zab10event_loop13CancelResults9kNotFoundE"></span><span id="_CPPv2N3zab10event_loop13CancelResults9kNotFoundE"></span><span class="target" id="classzab_1_1event__loop_1a5d0e2838123ad0907963fc9e5f31b772ab096e4f92f6c4184d188166e8f156fbb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kNotFound</span></span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop13CancelResults9kNotFoundE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop13CancelResults6kTriedE">
+<span id="_CPPv3N3zab10event_loop13CancelResults6kTriedE"></span><span id="_CPPv2N3zab10event_loop13CancelResults6kTriedE"></span><span class="target" id="classzab_1_1event__loop_1a5d0e2838123ad0907963fc9e5f31b772a662060693f074df0c3ca4ecae9626990"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kTried</span></span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop13CancelResults6kTriedE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop13CancelResults7kFailedE">
+<span id="_CPPv3N3zab10event_loop13CancelResults7kFailedE"></span><span id="_CPPv2N3zab10event_loop13CancelResults7kFailedE"></span><span class="target" id="classzab_1_1event__loop_1a5d0e2838123ad0907963fc9e5f31b772ab62fa3c9492b6dae76c23d6dfa466611"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kFailed</span></span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop13CancelResults7kFailedE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop13CancelResults8kUnknownE">
+<span id="_CPPv3N3zab10event_loop13CancelResults8kUnknownE"></span><span id="_CPPv2N3zab10event_loop13CancelResults8kUnknownE"></span><span class="target" id="classzab_1_1event__loop_1a5d0e2838123ad0907963fc9e5f31b772a25c2dc47991b3df171ed5192bcf70390"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kUnknown</span></span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop13CancelResults8kUnknownE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop9io_handleE">
+<span id="_CPPv3N3zab10event_loop9io_handleE"></span><span id="_CPPv2N3zab10event_loop9io_handleE"></span><span class="target" id="classzab_1_1event__loop_1ac56a602dcda3544421672c93f8a455dd"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">io_handle</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="pause.html#_CPPv4N3zab10pause_packE" title="zab::pause_pack"><span class="n"><span class="pre">pause_pack</span></span></a><span class="p"><span class="pre">*</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop9io_handleE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop10event_loopEv">
+<span id="_CPPv3N3zab10event_loop10event_loopEv"></span><span id="_CPPv2N3zab10event_loop10event_loopEv"></span><span id="zab::event_loop::event_loop"></span><span class="target" id="classzab_1_1event__loop_1a9024ff7da0075bc65be27b9268e3c1ea"></span><span class="sig-name descname"><span class="n"><span class="pre">event_loop</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10event_loop10event_loopEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructs a new instance that will register to this engine. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_engine</strong> – The engine. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loopD0Ev">
+<span id="_CPPv3N3zab10event_loopD0Ev"></span><span id="_CPPv2N3zab10event_loopD0Ev"></span><span id="zab::event_loop::~event_loop"></span><span class="target" id="classzab_1_1event__loop_1a93dcda18bf9fdb34e180b58bb00582c2"></span><span class="sig-name descname"><span class="n"><span class="pre">~event_loop</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10event_loopD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Destroys the object and cleans up the resources. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop7open_atEiKNSt11string_viewEi6mode_tP9io_handle">
+<span id="_CPPv3N3zab10event_loop7open_atEiKNSt11string_viewEi6mode_tP9io_handle"></span><span id="_CPPv2N3zab10event_loop7open_atEiKNSt11string_viewEi6mode_tP9io_handle"></span><span id="zab::event_loop::open_at__i.std::string_viewC.i.mode_t.io_handleP"></span><span class="target" id="classzab_1_1event__loop_1aef1f6cef1ba7d8273bae847e5b92c4c9"></span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">open_at</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_dfd</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_path</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_flags</span></span>, <span class="n"><span class="pre">mode_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_mode</span></span>, <a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_cancle_token</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop7open_atEiKNSt11string_viewEi6mode_tP9io_handle" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop7open_atE9io_handleiKNSt11string_viewEi6mode_t">
+<span id="_CPPv3N3zab10event_loop7open_atE9io_handleiKNSt11string_viewEi6mode_t"></span><span id="_CPPv2N3zab10event_loop7open_atE9io_handleiKNSt11string_viewEi6mode_t"></span><span id="zab::event_loop::open_at__io_handle.i.std::string_viewC.i.mode_t"></span><span class="target" id="classzab_1_1event__loop_1a137b09c177df2316f345d4ec99db2b47"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">open_at</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_cancle_token</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_dfd</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_path</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_flags</span></span>, <span class="n"><span class="pre">mode_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_mode</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop7open_atE9io_handleiKNSt11string_viewEi6mode_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop5closeEiP9io_handle">
+<span id="_CPPv3N3zab10event_loop5closeEiP9io_handle"></span><span id="_CPPv2N3zab10event_loop5closeEiP9io_handle"></span><span id="zab::event_loop::close__i.io_handleP"></span><span class="target" id="classzab_1_1event__loop_1a4191f78fc5c2bd786070f66743d781c6"></span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">close</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_fd</span></span>, <a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_cancle_token</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop5closeEiP9io_handle" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop5closeE9io_handlei">
+<span id="_CPPv3N3zab10event_loop5closeE9io_handlei"></span><span id="_CPPv2N3zab10event_loop5closeE9io_handlei"></span><span id="zab::event_loop::close__io_handle.i"></span><span class="target" id="classzab_1_1event__loop_1a1dfe02f82e68f9cda046ec4507f26f36"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">close</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_cancle_token</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_fd</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop5closeE9io_handlei" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop4readEiNSt4spanINSt4byteEEE5off_tP9io_handle">
+<span id="_CPPv3N3zab10event_loop4readEiNSt4spanINSt4byteEEE5off_tP9io_handle"></span><span id="_CPPv2N3zab10event_loop4readEiNSt4spanINSt4byteEEE5off_tP9io_handle"></span><span id="zab::event_loop::read__i.std::span:std::byte:.off_t.io_handleP"></span><span class="target" id="classzab_1_1event__loop_1aec0f1eedc3db85ca7147a0f18bac11cf"></span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_fd</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">byte</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_buffer</span></span>, <span class="n"><span class="pre">off_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_offset</span></span>, <a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_cancle_token</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop4readEiNSt4spanINSt4byteEEE5off_tP9io_handle" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop4readE9io_handleiNSt4spanINSt4byteEEE5off_t">
+<span id="_CPPv3N3zab10event_loop4readE9io_handleiNSt4spanINSt4byteEEE5off_t"></span><span id="_CPPv2N3zab10event_loop4readE9io_handleiNSt4spanINSt4byteEEE5off_t"></span><span id="zab::event_loop::read__io_handle.i.std::span:std::byte:.off_t"></span><span class="target" id="classzab_1_1event__loop_1a9862df32dc9a5393170b71d383838e02"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_cancle_token</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_fd</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">byte</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_buffer</span></span>, <span class="n"><span class="pre">off_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_offset</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop4readE9io_handleiNSt4spanINSt4byteEEE5off_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop10fixed_readEiNSt4spanINSt4byteEEE5off_tiP9io_handle">
+<span id="_CPPv3N3zab10event_loop10fixed_readEiNSt4spanINSt4byteEEE5off_tiP9io_handle"></span><span id="_CPPv2N3zab10event_loop10fixed_readEiNSt4spanINSt4byteEEE5off_tiP9io_handle"></span><span id="zab::event_loop::fixed_read__i.std::span:std::byte:.off_t.i.io_handleP"></span><span class="target" id="classzab_1_1event__loop_1af9d7b0e54e654f6d83582b04eb42c883"></span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fixed_read</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_fd</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">byte</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_buffer</span></span>, <span class="n"><span class="pre">off_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_offset</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_buf_index</span></span>, <a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_cancle_token</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop10fixed_readEiNSt4spanINSt4byteEEE5off_tiP9io_handle" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop10fixed_readE9io_handleiNSt4spanINSt4byteEEE5off_ti">
+<span id="_CPPv3N3zab10event_loop10fixed_readE9io_handleiNSt4spanINSt4byteEEE5off_ti"></span><span id="_CPPv2N3zab10event_loop10fixed_readE9io_handleiNSt4spanINSt4byteEEE5off_ti"></span><span id="zab::event_loop::fixed_read__io_handle.i.std::span:std::byte:.off_t.i"></span><span class="target" id="classzab_1_1event__loop_1a59e5a9e8560353634a56b42951c01a94"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fixed_read</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_cancle_token</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_fd</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">byte</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_buffer</span></span>, <span class="n"><span class="pre">off_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_offset</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_buf_index</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop10fixed_readE9io_handleiNSt4spanINSt4byteEEE5off_ti" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop6read_vEiPK5iovecj5off_tP9io_handle">
+<span id="_CPPv3N3zab10event_loop6read_vEiPK5iovecj5off_tP9io_handle"></span><span id="_CPPv2N3zab10event_loop6read_vEiPK5iovecj5off_tP9io_handle"></span><span id="zab::event_loop::read_v__i.iovecCP.unsigned.off_t.io_handleP"></span><span class="target" id="classzab_1_1event__loop_1a02376b6b07cced37cddb14724b341fd6"></span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read_v</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_fd</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">iovec</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_iovecs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_nr_vecs</span></span>, <span class="n"><span class="pre">off_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_offset</span></span>, <a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_cancle_token</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop6read_vEiPK5iovecj5off_tP9io_handle" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop6read_vE9io_handleiPK5iovecj5off_t">
+<span id="_CPPv3N3zab10event_loop6read_vE9io_handleiPK5iovecj5off_t"></span><span id="_CPPv2N3zab10event_loop6read_vE9io_handleiPK5iovecj5off_t"></span><span id="zab::event_loop::read_v__io_handle.i.iovecCP.unsigned.off_t"></span><span class="target" id="classzab_1_1event__loop_1a6ba8e04ead99fe8a0403c0c2c5ca0f54"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read_v</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_cancle_token</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_fd</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">iovec</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_iovecs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_nr_vecs</span></span>, <span class="n"><span class="pre">off_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_offset</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop6read_vE9io_handleiPK5iovecj5off_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop5writeEiNSt4spanIKNSt4byteEEE5off_tP9io_handle">
+<span id="_CPPv3N3zab10event_loop5writeEiNSt4spanIKNSt4byteEEE5off_tP9io_handle"></span><span id="_CPPv2N3zab10event_loop5writeEiNSt4spanIKNSt4byteEEE5off_tP9io_handle"></span><span id="zab::event_loop::write__i.std::span:std::byteC:.off_t.io_handleP"></span><span class="target" id="classzab_1_1event__loop_1ad667054ede54dd8a968f170822d00324"></span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">write</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_fd</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">byte</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_buffer</span></span>, <span class="n"><span class="pre">off_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_offset</span></span>, <a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_cancle_token</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop5writeEiNSt4spanIKNSt4byteEEE5off_tP9io_handle" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop5writeE9io_handleiNSt4spanIKNSt4byteEEE5off_t">
+<span id="_CPPv3N3zab10event_loop5writeE9io_handleiNSt4spanIKNSt4byteEEE5off_t"></span><span id="_CPPv2N3zab10event_loop5writeE9io_handleiNSt4spanIKNSt4byteEEE5off_t"></span><span id="zab::event_loop::write__io_handle.i.std::span:std::byteC:.off_t"></span><span class="target" id="classzab_1_1event__loop_1a00ebd5beb64bc0c1a51117cd70e316f2"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">write</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_cancle_token</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_fd</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">byte</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_buffer</span></span>, <span class="n"><span class="pre">off_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_offset</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop5writeE9io_handleiNSt4spanIKNSt4byteEEE5off_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop11fixed_writeEiNSt4spanIKNSt4byteEEE5off_tiP9io_handle">
+<span id="_CPPv3N3zab10event_loop11fixed_writeEiNSt4spanIKNSt4byteEEE5off_tiP9io_handle"></span><span id="_CPPv2N3zab10event_loop11fixed_writeEiNSt4spanIKNSt4byteEEE5off_tiP9io_handle"></span><span id="zab::event_loop::fixed_write__i.std::span:std::byteC:.off_t.i.io_handleP"></span><span class="target" id="classzab_1_1event__loop_1afff6f31f0505244d9094f4490bf98448"></span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fixed_write</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_fd</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">byte</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_buffer</span></span>, <span class="n"><span class="pre">off_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_offset</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_buf_index</span></span>, <a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_cancle_token</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop11fixed_writeEiNSt4spanIKNSt4byteEEE5off_tiP9io_handle" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop11fixed_writeE9io_handleiNSt4spanIKNSt4byteEEE5off_ti">
+<span id="_CPPv3N3zab10event_loop11fixed_writeE9io_handleiNSt4spanIKNSt4byteEEE5off_ti"></span><span id="_CPPv2N3zab10event_loop11fixed_writeE9io_handleiNSt4spanIKNSt4byteEEE5off_ti"></span><span id="zab::event_loop::fixed_write__io_handle.i.std::span:std::byteC:.off_t.i"></span><span class="target" id="classzab_1_1event__loop_1a4dd239bdb8ac3de5529302d3fa40cfc5"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fixed_write</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_cancle_token</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_fd</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">byte</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_buffer</span></span>, <span class="n"><span class="pre">off_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_offset</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_buf_index</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop11fixed_writeE9io_handleiNSt4spanIKNSt4byteEEE5off_ti" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop7write_vEiPK5iovecj5off_tP9io_handle">
+<span id="_CPPv3N3zab10event_loop7write_vEiPK5iovecj5off_tP9io_handle"></span><span id="_CPPv2N3zab10event_loop7write_vEiPK5iovecj5off_tP9io_handle"></span><span id="zab::event_loop::write_v__i.iovecCP.unsigned.off_t.io_handleP"></span><span class="target" id="classzab_1_1event__loop_1a6b304ef590760f9913ce01b6980cffc6"></span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">write_v</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_fd</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">iovec</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_iovecs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_nr_vecs</span></span>, <span class="n"><span class="pre">off_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_offset</span></span>, <a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_cancle_token</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop7write_vEiPK5iovecj5off_tP9io_handle" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop7write_vE9io_handleiPK5iovecj5off_t">
+<span id="_CPPv3N3zab10event_loop7write_vE9io_handleiPK5iovecj5off_t"></span><span id="_CPPv2N3zab10event_loop7write_vE9io_handleiPK5iovecj5off_t"></span><span id="zab::event_loop::write_v__io_handle.i.iovecCP.unsigned.off_t"></span><span class="target" id="classzab_1_1event__loop_1a349196a781f20f52a2dc3ae7d43445a6"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">write_v</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_cancle_token</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_fd</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">iovec</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_iovecs</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_nr_vecs</span></span>, <span class="n"><span class="pre">off_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_offset</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop7write_vE9io_handleiPK5iovecj5off_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop4recvEiNSt4spanINSt4byteEEEiP9io_handle">
+<span id="_CPPv3N3zab10event_loop4recvEiNSt4spanINSt4byteEEEiP9io_handle"></span><span id="_CPPv2N3zab10event_loop4recvEiNSt4spanINSt4byteEEEiP9io_handle"></span><span id="zab::event_loop::recv__i.std::span:std::byte:.i.io_handleP"></span><span class="target" id="classzab_1_1event__loop_1a1c017a5b7825cb764085945f3f6a5a14"></span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">recv</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sockfd</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">byte</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_buffer</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_flags</span></span>, <a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_cancle_token</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop4recvEiNSt4spanINSt4byteEEEiP9io_handle" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop4recvE9io_handleiNSt4spanINSt4byteEEEi">
+<span id="_CPPv3N3zab10event_loop4recvE9io_handleiNSt4spanINSt4byteEEEi"></span><span id="_CPPv2N3zab10event_loop4recvE9io_handleiNSt4spanINSt4byteEEEi"></span><span id="zab::event_loop::recv__io_handle.i.std::span:std::byte:.i"></span><span class="target" id="classzab_1_1event__loop_1a12ceab5e19b5274b6c892c7a2a2bd151"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">recv</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_cancle_token</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sockfd</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">byte</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_buffer</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_flags</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop4recvE9io_handleiNSt4spanINSt4byteEEEi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop4sendEiNSt4spanIKNSt4byteEEEiP9io_handle">
+<span id="_CPPv3N3zab10event_loop4sendEiNSt4spanIKNSt4byteEEEiP9io_handle"></span><span id="_CPPv2N3zab10event_loop4sendEiNSt4spanIKNSt4byteEEEiP9io_handle"></span><span id="zab::event_loop::send__i.std::span:std::byteC:.i.io_handleP"></span><span class="target" id="classzab_1_1event__loop_1a29a1749c5222d7c3e39ab2387f6b23d9"></span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">send</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sockfd</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">byte</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_buffer</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_flags</span></span>, <a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_cancle_token</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop4sendEiNSt4spanIKNSt4byteEEEiP9io_handle" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop4sendE9io_handleiNSt4spanIKNSt4byteEEEi">
+<span id="_CPPv3N3zab10event_loop4sendE9io_handleiNSt4spanIKNSt4byteEEEi"></span><span id="_CPPv2N3zab10event_loop4sendE9io_handleiNSt4spanIKNSt4byteEEEi"></span><span id="zab::event_loop::send__io_handle.i.std::span:std::byteC:.i"></span><span class="target" id="classzab_1_1event__loop_1a7ddeacd26cce79963a7d581f324391a8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">send</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_cancle_token</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sockfd</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">byte</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_buffer</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_flags</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop4sendE9io_handleiNSt4spanIKNSt4byteEEEi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop6acceptEiP8sockaddrP9socklen_tiP9io_handle">
+<span id="_CPPv3N3zab10event_loop6acceptEiP8sockaddrP9socklen_tiP9io_handle"></span><span id="_CPPv2N3zab10event_loop6acceptEiP8sockaddrP9socklen_tiP9io_handle"></span><span id="zab::event_loop::accept__i.sockaddrP.socklen_tP.i.io_handleP"></span><span class="target" id="classzab_1_1event__loop_1aafdb41f9431b8888d8c871958e983b46"></span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">accept</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_fd</span></span>, <span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">sockaddr</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_addr</span></span>, <span class="n"><span class="pre">socklen_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_addrlen</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_flag_</span></span>, <a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_cancle_token</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop6acceptEiP8sockaddrP9socklen_tiP9io_handle" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop6acceptE9io_handleiP8sockaddrP9socklen_ti">
+<span id="_CPPv3N3zab10event_loop6acceptE9io_handleiP8sockaddrP9socklen_ti"></span><span id="_CPPv2N3zab10event_loop6acceptE9io_handleiP8sockaddrP9socklen_ti"></span><span id="zab::event_loop::accept__io_handle.i.sockaddrP.socklen_tP.i"></span><span class="target" id="classzab_1_1event__loop_1ad051764ed6779e808b8ad177e1b258cd"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">accept</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_cancle_token</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_fd</span></span>, <span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">sockaddr</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_addr</span></span>, <span class="n"><span class="pre">socklen_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_addrlen</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_flag_</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop6acceptE9io_handleiP8sockaddrP9socklen_ti" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop7connectEiP8sockaddr9socklen_tP9io_handle">
+<span id="_CPPv3N3zab10event_loop7connectEiP8sockaddr9socklen_tP9io_handle"></span><span id="_CPPv2N3zab10event_loop7connectEiP8sockaddr9socklen_tP9io_handle"></span><span id="zab::event_loop::connect__i.sockaddrP.socklen_t.io_handleP"></span><span class="target" id="classzab_1_1event__loop_1a430449079ef48139243956127a8d1e17"></span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">connect</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_fd</span></span>, <span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">sockaddr</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_addr</span></span>, <span class="n"><span class="pre">socklen_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_addrlen</span></span>, <a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_cancle_token</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop7connectEiP8sockaddr9socklen_tP9io_handle" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop7connectE9io_handleiP8sockaddr9socklen_t">
+<span id="_CPPv3N3zab10event_loop7connectE9io_handleiP8sockaddr9socklen_t"></span><span id="_CPPv2N3zab10event_loop7connectE9io_handleiP8sockaddr9socklen_t"></span><span id="zab::event_loop::connect__io_handle.i.sockaddrP.socklen_t"></span><span class="target" id="classzab_1_1event__loop_1a24259ab27e826dc7c09b4c094356e96a"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">connect</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_cancle_token</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_fd</span></span>, <span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">sockaddr</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_addr</span></span>, <span class="n"><span class="pre">socklen_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_addrlen</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop7connectE9io_handleiP8sockaddr9socklen_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop12cancel_eventE9io_handlebNSt9uintptr_tE">
+<span id="_CPPv3N3zab10event_loop12cancel_eventE9io_handlebNSt9uintptr_tE"></span><span id="_CPPv2N3zab10event_loop12cancel_eventE9io_handlebNSt9uintptr_tE"></span><span id="zab::event_loop::cancel_event__io_handle.b.std::uintptr_t"></span><span class="target" id="classzab_1_1event__loop_1a993f83991b5ffbf7fa2ebf3d108411f2"></span><span class="n"><span class="pre">guaranteed_future</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3zab10event_loop13CancelResultsE" title="zab::event_loop::CancelResults"><span class="n"><span class="pre">CancelResults</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cancel_event</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_key</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_resume</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">uintptr_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_cancel_code</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">numeric_limits</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">uintptr_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">max</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop12cancel_eventE9io_handlebNSt9uintptr_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop21submit_pending_eventsEv">
+<span id="_CPPv3N3zab10event_loop21submit_pending_eventsEv"></span><span id="_CPPv2N3zab10event_loop21submit_pending_eventsEv"></span><span id="zab::event_loop::submit_pending_events"></span><span class="target" id="classzab_1_1event__loop_1ae25e4a78d86f4ed9d4556df11b9b8267"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">submit_pending_events</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop21submit_pending_eventsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop10user_eventE5event">
+<span id="_CPPv3N3zab10event_loop10user_eventE5event"></span><span id="_CPPv2N3zab10event_loop10user_eventE5event"></span><span id="zab::event_loop::user_event__event"></span><span class="target" id="classzab_1_1event__loop_1afd606404e270b80d879a80b339825712"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">user_event</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">event</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_handle</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop10user_eventE5event" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3zab10event_loop10event_sizeEv">
+<span id="_CPPv3NK3zab10event_loop10event_sizeEv"></span><span id="_CPPv2NK3zab10event_loop10event_sizeEv"></span><span id="zab::event_loop::event_sizeC"></span><span class="target" id="classzab_1_1event__loop_1aca4da2777fd0a03b164a7776a2f7511d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">event_size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3zab10event_loop10event_sizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop17get_stop_functionEv">
+<span id="_CPPv3N3zab10event_loop17get_stop_functionEv"></span><span id="_CPPv2N3zab10event_loop17get_stop_functionEv"></span><span id="zab::event_loop::get_stop_function"></span><span class="target" id="classzab_1_1event__loop_1a67ff2b4cfb9dce63dd3c7db9b5720440"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_stop_function</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop17get_stop_functionEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop3runENSt10stop_tokenE">
+<span id="_CPPv3N3zab10event_loop3runENSt10stop_tokenE"></span><span id="_CPPv2N3zab10event_loop3runENSt10stop_tokenE"></span><span id="zab::event_loop::run__std::stop_token"></span><span class="target" id="classzab_1_1event__loop_1a6ace768c190a3d6f2e938dae35d529b7"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">run</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">stop_token</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_st</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop3runENSt10stop_tokenE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop4wakeEv">
+<span id="_CPPv3N3zab10event_loop4wakeEv"></span><span id="_CPPv2N3zab10event_loop4wakeEv"></span><span id="zab::event_loop::wake"></span><span class="target" id="classzab_1_1event__loop_1aba1520833f362c9a83074b42408f0248"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">wake</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10event_loop4wakeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop18claim_fixed_bufferEv">
+<span id="_CPPv3N3zab10event_loop18claim_fixed_bufferEv"></span><span id="_CPPv2N3zab10event_loop18claim_fixed_bufferEv"></span><span id="zab::event_loop::claim_fixed_buffer"></span><span class="target" id="classzab_1_1event__loop_1a08fcc03963fab68d5a1181d5da9c21a1"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">byte</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">claim_fixed_buffer</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10event_loop18claim_fixed_bufferEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop20release_fixed_bufferENSt4pairINSt4spanINSt4byteEEENSt6size_tEEE">
+<span id="_CPPv3N3zab10event_loop20release_fixed_bufferENSt4pairINSt4spanINSt4byteEEENSt6size_tEEE"></span><span id="_CPPv2N3zab10event_loop20release_fixed_bufferENSt4pairINSt4spanINSt4byteEEENSt6size_tEEE"></span><span id="zab::event_loop::release_fixed_buffer__std::pair:std::span:std::byte:.std::s:"></span><span class="target" id="classzab_1_1event__loop_1ab2444c587902438ad86bf8ff689dca51"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">release_fixed_buffer</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">byte</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_buffer</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10event_loop20release_fixed_bufferENSt4pairINSt4spanINSt4byteEEENSt6size_tEEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop8clean_upE9io_handlebNSt9uintptr_tE">
+<span id="_CPPv3N3zab10event_loop8clean_upE9io_handlebNSt9uintptr_tE"></span><span id="_CPPv2N3zab10event_loop8clean_upE9io_handlebNSt9uintptr_tE"></span><span id="zab::event_loop::clean_up__io_handle.b.std::uintptr_t"></span><span class="target" id="classzab_1_1event__loop_1a71699b25ae03cee9ed3004d3c6ab4e69"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">clean_up</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10event_loop9io_handleE" title="zab::event_loop::io_handle"><span class="n"><span class="pre">io_handle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_key</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_resume</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">uintptr_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_cancel_code</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">numeric_limits</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">uintptr_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">max</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop8clean_upE9io_handlebNSt9uintptr_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loop10kQueueSizeE">
+<span id="_CPPv3N3zab10event_loop10kQueueSizeE"></span><span id="_CPPv2N3zab10event_loop10kQueueSizeE"></span><span id="zab::event_loop::kQueueSize__auto"></span><span class="target" id="classzab_1_1event__loop_1a631391026e3a798279048ce2dc81e0c3"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kQueueSize</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">4096</span></span><a class="headerlink" href="#_CPPv4N3zab10event_loop10kQueueSizeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="signal_handling.html" class="btn btn-neutral float-right" title="Signal Handling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="engine_enabled.html" class="btn btn-neutral float-left" title="engine_enabled" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Donald Rupin.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

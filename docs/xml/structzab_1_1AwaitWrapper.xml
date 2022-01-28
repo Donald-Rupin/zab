@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structzab_1_1AwaitWrapper" kind="struct" language="C++" prot="public">
+    <compoundname>zab::AwaitWrapper</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzab_1_1AwaitWrapper_1a57e8761a978c327d84a8c1b9eaa996c2" prot="public" static="no" mutable="no">
+        <type>T &amp;</type>
+        <definition>T&amp; zab::AwaitWrapper&lt; T &gt;::wrapper_</definition>
+        <argsstring></argsstring>
+        <name>wrapper_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/first_of.hpp" line="113" column="15" bodyfile="/home/donald/rupin/zab/includes/zab/first_of.hpp" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzab_1_1AwaitWrapper_1a80d3e1c4f7c69f5af5b58527813443f5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::AwaitWrapper&lt; T &gt;::AwaitWrapper</definition>
+        <argsstring>(T &amp;_wrapper)</argsstring>
+        <name>AwaitWrapper</name>
+        <param>
+          <type>T &amp;</type>
+          <declname>_wrapper</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/first_of.hpp" line="109" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/first_of.hpp" bodystart="109" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="structzab_1_1AwaitWrapper_1ac5dc8dd2cc94aa983adf7ac4a826fd20" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::AwaitWrapper&lt; T &gt;::operator co_await</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>operator co_await</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/first_of.hpp" line="111" column="18" bodyfile="/home/donald/rupin/zab/includes/zab/first_of.hpp" bodystart="111" bodyend="111"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/first_of.hpp" line="107" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/first_of.hpp" bodystart="107" bodyend="114"/>
+    <listofallmembers>
+      <member refid="structzab_1_1AwaitWrapper_1a80d3e1c4f7c69f5af5b58527813443f5" prot="public" virt="non-virtual"><scope>zab::AwaitWrapper</scope><name>AwaitWrapper</name></member>
+      <member refid="structzab_1_1AwaitWrapper_1ac5dc8dd2cc94aa983adf7ac4a826fd20" prot="public" virt="non-virtual"><scope>zab::AwaitWrapper</scope><name>operator co_await</name></member>
+      <member refid="structzab_1_1AwaitWrapper_1a57e8761a978c327d84a8c1b9eaa996c2" prot="public" virt="non-virtual"><scope>zab::AwaitWrapper</scope><name>wrapper_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,502 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>tcp_stream &mdash; ZAB 0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="tcp_acceptor" href="tcp_acceptor.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ZAB
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_library.html">Core Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coroutines.html">Coroutines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="async_primitives.html">Asynchronous Primitives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="async_sync.html">Asynchronous Synchronisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="observable.html">Observables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_io.html">File IO</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="networking.html">Networking</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="tcp_connector.html">tcp_connector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tcp_acceptor.html">tcp_acceptor</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">tcp_stream</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ZAB</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="lib_root.html">ZAB Documentation</a> &raquo;</li>
+        
+          <li><a href="networking.html">Networking</a> &raquo;</li>
+        
+      <li>tcp_stream</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/lib/tcp_stream.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tcp-stream">
+<span id="id1"></span><h1>tcp_stream<a class="headerlink" href="#tcp-stream" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">tcp_stream</span></code> represents the a duplex network stream for writing and reading data. <code class="docutils literal notranslate"><span class="pre">read</span></code>, <code class="docutils literal notranslate"><span class="pre">shutdown</span></code> and <code class="docutils literal notranslate"><span class="pre">cancel</span></code> are not thread safe. Deconstruction or moving the <code class="docutils literal notranslate"><span class="pre">tcp_stream</span></code> while in use results in undefined behavior. A user should make sure to ensure to <code class="docutils literal notranslate"><span class="pre">shutdown</span></code> and wait for any operations to leave the functions before deconstructing the object.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">async_function</span><span class="o">&lt;&gt;</span>
+<span class="n">your_class</span><span class="o">::</span><span class="n">run_stream</span><span class="p">(</span><span class="n">tcp_stream</span><span class="o">&amp;&amp;</span> <span class="n">_stream</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="cm">/* Save locally so doesnt go out of scope when we suspend */</span>
+    <span class="n">tcp_stream</span> <span class="nf">stream</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">_stream</span><span class="p">));</span>
+
+    <span class="k">auto</span> <span class="n">data_to_send</span> <span class="o">=</span> <span class="s">&quot;hello world&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">written</span> <span class="o">=</span> <span class="k">co_await</span> <span class="n">stream</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">data_to_send</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">written</span> <span class="o">==</span> <span class="o">::</span><span class="n">strlen</span><span class="p">(</span><span class="n">data_to_send</span><span class="p">))</span> <span class="p">{</span>
+
+        <span class="cm">/* Get 1 byte back as confirmation */</span>
+        <span class="k">auto</span> <span class="n">buffer_opt</span> <span class="o">=</span> <span class="k">co_await</span> <span class="n">stream</span><span class="p">.</span><span class="n">Read</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+        <span class="cm">/* Read can return less then requested but not more... */</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">buffer_opt</span> <span class="o">&amp;&amp;</span> <span class="n">buffer_opt</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">())</span> <span class="p">{</span>
+            <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Received: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">buffer_opt</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="cm">/* Ensure we shut it down! (flushes all writes and wakes any readers) */</span>
+    <span class="k">co_await</span> <span class="n">stream</span><span class="p">.</span><span class="n">shut_down</span><span class="p">();</span>
+
+    <span class="cm">/* RAII will clean up for us! */</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_streamE">
+<span id="_CPPv3N3zab10tcp_streamE"></span><span id="_CPPv2N3zab10tcp_streamE"></span><span id="zab::tcp_stream"></span><span class="target" id="classzab_1_1tcp__stream"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">tcp_stream</span></span></span><a class="headerlink" href="#_CPPv4N3zab10tcp_streamE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This class represents the a duplex network stream for writing and reading data. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_stream10tcp_streamEv">
+<span id="_CPPv3N3zab10tcp_stream10tcp_streamEv"></span><span id="_CPPv2N3zab10tcp_stream10tcp_streamEv"></span><span id="zab::tcp_stream::tcp_stream"></span><span class="target" id="classzab_1_1tcp__stream_1ab2533e557f7503c6308349b9d9124a60"></span><span class="sig-name descname"><span class="n"><span class="pre">tcp_stream</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3zab10tcp_stream10tcp_streamEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructs the stream an empty state. Use of any member functions except assignment is undefined behavior. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_stream10tcp_streamEP6enginei">
+<span id="_CPPv3N3zab10tcp_stream10tcp_streamEP6enginei"></span><span id="_CPPv2N3zab10tcp_stream10tcp_streamEP6enginei"></span><span id="zab::tcp_stream::tcp_stream__engineP.i"></span><span class="target" id="classzab_1_1tcp__stream_1a8d76b99f8fe7202addcf802c9ea87f7c"></span><span class="sig-name descname"><span class="n"><span class="pre">tcp_stream</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_fd</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10tcp_stream10tcp_streamEP6enginei" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructs the stream bound to a socket referred to by _fd. </p>
+<p>This class is designed around the invariant that the socket is operating in blocking mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_engine</strong> – The engine to use. </p></li>
+<li><p><strong>_fd</strong> – <strong>[in]</strong> The socket to use. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_stream10tcp_streamERK10tcp_stream">
+<span id="_CPPv3N3zab10tcp_stream10tcp_streamERK10tcp_stream"></span><span id="_CPPv2N3zab10tcp_stream10tcp_streamERK10tcp_stream"></span><span id="zab::tcp_stream::tcp_stream__tcp_streamCR"></span><span class="target" id="classzab_1_1tcp__stream_1a455e459357743ba54059555e6078d23b"></span><span class="sig-name descname"><span class="n"><span class="pre">tcp_stream</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab10tcp_stream10tcp_streamERK10tcp_stream" title="zab::tcp_stream::tcp_stream"><span class="n"><span class="pre">tcp_stream</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_copy</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab10tcp_stream10tcp_streamERK10tcp_stream" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Cannot copy a stream. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_copy</strong> – <strong>[in]</strong> The copy </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_stream10tcp_streamERR10tcp_stream">
+<span id="_CPPv3N3zab10tcp_stream10tcp_streamERR10tcp_stream"></span><span id="_CPPv2N3zab10tcp_stream10tcp_streamERR10tcp_stream"></span><span id="zab::tcp_stream::tcp_stream__tcp_streamRR"></span><span class="target" id="classzab_1_1tcp__stream_1acab104a5a2bed236db5791aa852326f3"></span><span class="sig-name descname"><span class="n"><span class="pre">tcp_stream</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10tcp_stream10tcp_streamERR10tcp_stream" title="zab::tcp_stream::tcp_stream"><span class="n"><span class="pre">tcp_stream</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_move</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10tcp_stream10tcp_streamERR10tcp_stream" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Move construct a stream. </p>
+<p>Moving a stream that is in use results in undefined behavior.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_move</strong> – The move </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_streamD0Ev">
+<span id="_CPPv3N3zab10tcp_streamD0Ev"></span><span id="_CPPv2N3zab10tcp_streamD0Ev"></span><span id="zab::tcp_stream::~tcp_stream"></span><span class="target" id="classzab_1_1tcp__stream_1a5f4020bbcb39365ce2db0f90efcc5748"></span><span class="sig-name descname"><span class="n"><span class="pre">~tcp_stream</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10tcp_streamD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Destroys the stream. </p>
+<p>The user needs to ensure oprations have exited before deconsturction. If the stream is in use when it is deconstructed, this will result in undefined behavior.</p>
+<p>The user should also await <code class="docutils literal notranslate"><span class="pre">shutdown</span></code> before deconstruction of a stream. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>          If `shutdown` is not awaited before deconstruction, the internal state
+</pre></div>
+</div>
+ of the stream is deconstructed at a later time. Essentially, ownership of the internal state is given to a background fibre that will attempt to do a similar thing to <code class="docutils literal notranslate"><span class="pre">shutdown</span></code>. This means that the sockets life time will linger past the deconstruction of the stream as the background process attempts to gracefully socket close. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_stream8shutdownEv">
+<span id="_CPPv3N3zab10tcp_stream8shutdownEv"></span><span id="_CPPv2N3zab10tcp_stream8shutdownEv"></span><span id="zab::tcp_stream::shutdown"></span><span class="target" id="classzab_1_1tcp__stream_1af139dbb426941c9c5d678a2d5538c4d6"></span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">shutdown</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10tcp_stream8shutdownEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Shutdown the stream. </p>
+<p>This requires that no reads or writes are in progress. The shutdown process is: 1) Destroy the internal state. 2) Call ::shutdown(SHUT_WR) to notify client that we are shutting down 3) Attempt to wait for the write buffer to be flushed 4) Attempt to drain the read buffer and client to acknowledge shutdown</p>
+<p>For applications that require reliable delivery of data, the <a class="reference internal" href="#classzab_1_1tcp__stream"><span class="std std-ref">tcp_stream</span></a> tries its best to ensure that all data is delivered. The user should wait for all writes to return. Although, like that of any socket programming, we cannot garrenty delivery to the client side application (only that we tried to send it and try to ensure write buffers are flushed). Most application level protocols will include some form of acknowledgement in the case of required reliable delivery and this is above the scope of this class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An awaitable that returns after all steps are complete. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_stream4readE6size_t">
+<span id="_CPPv3N3zab10tcp_stream4readE6size_t"></span><span id="_CPPv2N3zab10tcp_stream4readE6size_t"></span><span id="zab::tcp_stream::read__s"></span><span class="target" id="classzab_1_1tcp__stream_1a5e53580e782155c907eb2e998e13bdb2"></span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_amount</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10tcp_stream4readE6size_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Attempt to read data from the stream. </p>
+<p>This function will suspend the calling coroutine until _amount data is read, an error occurs or it is cancelled.</p>
+<p>This function can return less then _amount when an error ro cancel occurs.</p>
+<p>The user should ensure that this function has exited before deconstruction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_amount</strong> – <strong>[in]</strong> The amount to read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The data read if successful, std::nullopt if an error. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_stream4readENSt4spanIcEE">
+<span id="_CPPv3N3zab10tcp_stream4readENSt4spanIcEE"></span><span id="_CPPv2N3zab10tcp_stream4readENSt4spanIcEE"></span><span id="zab::tcp_stream::read__std::span:c:"></span><span class="target" id="classzab_1_1tcp__stream_1af28b149e8e899f383bdcbef517b86d77"></span><span class="n"><span class="pre">guaranteed_future</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_data</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10tcp_stream4readENSt4spanIcEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Attempt to read data from the stream. </p>
+<p>This function will suspend the calling coroutine until _data.size() data is read or an error occurs.</p>
+<p>This function can return less then _amount when an error ro cancel occurs.</p>
+<p>The user should ensure that this function has exited before deconstruction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_amount</strong> – <strong>[in]</strong> The amount to read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The data read if successful, std::nullopt if an error. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_stream9read_someE6size_t">
+<span id="_CPPv3N3zab10tcp_stream9read_someE6size_t"></span><span id="_CPPv2N3zab10tcp_stream9read_someE6size_t"></span><span id="zab::tcp_stream::read_some__s"></span><span class="target" id="classzab_1_1tcp__stream_1aa1c25dab0b7a32d3a8443485b27a2f7d"></span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read_some</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_max</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10tcp_stream9read_someE6size_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Attempt to read up _max data from the stream. </p>
+<p>This function will suspend the calling coroutine until some data is read or an error occurs.</p>
+<p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>        <span class="n">The</span> <span class="n">user</span> <span class="n">should</span> <span class="n">ensure</span> <span class="n">that</span> <span class="n">this</span> <span class="n">function</span> <span class="n">has</span> <span class="n">exited</span> <span class="n">before</span>
+        <span class="n">deconstruction</span><span class="o">.</span>
+</pre></div>
+</div>
+ </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_max</strong> – <strong>[in]</strong> The amount to read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The data read if successful, std::nullopt if an error. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_stream9read_someENSt4spanIcEE">
+<span id="_CPPv3N3zab10tcp_stream9read_someENSt4spanIcEE"></span><span id="_CPPv2N3zab10tcp_stream9read_someENSt4spanIcEE"></span><span id="zab::tcp_stream::read_some__std::span:c:"></span><span class="target" id="classzab_1_1tcp__stream_1ac50120d1ed9d089bb42b36bb9a5308dc"></span><span class="n"><span class="pre">guaranteed_future</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read_some</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_data</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10tcp_stream9read_someENSt4spanIcEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Attempt to read up _data.size() data from the stream. </p>
+<p>This function will suspend the calling coroutine until some data is read or an error occurs.</p>
+<p>The user should ensure that this function has exited before deconstruction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_max</strong> – <strong>[in]</strong> The amount to read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The data read if successful, std::nullopt if an error. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_stream5writeENSt4spanIKcEE">
+<span id="_CPPv3N3zab10tcp_stream5writeENSt4spanIKcEE"></span><span id="_CPPv2N3zab10tcp_stream5writeENSt4spanIKcEE"></span><span id="zab::tcp_stream::write__std::span:cC:"></span><span class="target" id="classzab_1_1tcp__stream_1a1916dac0c1cf2c553e6f6491d0856a65"></span><span class="n"><span class="pre">guaranteed_future</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">write</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_data</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10tcp_stream5writeENSt4spanIKcEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Write some data to the stream waiting for the data to make it to the OS write buffer. </p>
+<p>The life time of the data held by the span must last longer then the call to this function.</p>
+<p>The data actually written may be different to the amount given due to a stream error or cancellation.</p>
+<p>Calls to writes are not atomic.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_data</strong> – <strong>[in]</strong> The view of the data to send.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The amount of data written. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_stream11write_fixedENSt4spanIKNSt4byteEEEi">
+<span id="_CPPv3N3zab10tcp_stream11write_fixedENSt4spanIKNSt4byteEEEi"></span><span id="_CPPv2N3zab10tcp_stream11write_fixedENSt4spanIKNSt4byteEEEi"></span><span id="zab::tcp_stream::write_fixed__std::span:std::byteC:.i"></span><span class="target" id="classzab_1_1tcp__stream_1adbfda95924f1f306502079c4a27708b7"></span><span class="n"><span class="pre">guaranteed_future</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">write_fixed</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">byte</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_data</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_index</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10tcp_stream11write_fixedENSt4spanIKNSt4byteEEEi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_stream10read_fixedENSt4spanINSt4byteEEEi">
+<span id="_CPPv3N3zab10tcp_stream10read_fixedENSt4spanINSt4byteEEEi"></span><span id="_CPPv2N3zab10tcp_stream10read_fixedENSt4spanINSt4byteEEEi"></span><span id="zab::tcp_stream::read_fixed__std::span:std::byte:.i"></span><span class="target" id="classzab_1_1tcp__stream_1a2f50e10f76644d64bbf21047d082006c"></span><span class="n"><span class="pre">guaranteed_future</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read_fixed</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">span</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">byte</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_data</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_index</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10tcp_stream10read_fixedENSt4spanINSt4byteEEEi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_stream10get_readerEP10op_control">
+<span id="_CPPv3N3zab10tcp_stream10get_readerEP10op_control"></span><span id="_CPPv2N3zab10tcp_stream10get_readerEP10op_control"></span><span id="zab::tcp_stream::get_reader__op_controlP"></span><span class="target" id="classzab_1_1tcp__stream_1a1e47b06770dc9ce38de5b3db9fedd78c"></span><a class="reference internal" href="reusable_future.html#_CPPv4I0_N7details11ReoccurringEEN3zab15reusable_futureE" title="zab::reusable_future"><span class="n"><span class="pre">reusable_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_reader</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10tcp_stream10op_controlE" title="zab::tcp_stream::op_control"><span class="n"><span class="pre">op_control</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_oc</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10tcp_stream10get_readerEP10op_control" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_stream10get_writerEP10op_control">
+<span id="_CPPv3N3zab10tcp_stream10get_writerEP10op_control"></span><span id="_CPPv2N3zab10tcp_stream10get_writerEP10op_control"></span><span id="zab::tcp_stream::get_writer__op_controlP"></span><span class="target" id="classzab_1_1tcp__stream_1add1975f3395e7a17bc2f902b01a43b7f"></span><a class="reference internal" href="reusable_future.html#_CPPv4I0_N7details11ReoccurringEEN3zab15reusable_futureE" title="zab::reusable_future"><span class="n"><span class="pre">reusable_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_writer</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10tcp_stream10op_controlE" title="zab::tcp_stream::op_control"><span class="n"><span class="pre">op_control</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_oc</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10tcp_stream10get_writerEP10op_control" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_stream6cancelEv">
+<span id="_CPPv3N3zab10tcp_stream6cancelEv"></span><span id="_CPPv2N3zab10tcp_stream6cancelEv"></span><span id="zab::tcp_stream::cancel"></span><span class="target" id="classzab_1_1tcp__stream_1ac1c8588a719a8a202d4c7ae4c1e725dd"></span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cancel</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10tcp_stream6cancelEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Immediately cancles all operations. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3zab10tcp_stream10last_errorEv">
+<span id="_CPPv3NK3zab10tcp_stream10last_errorEv"></span><span id="_CPPv2NK3zab10tcp_stream10last_errorEv"></span><span id="zab::tcp_stream::last_errorC"></span><span class="target" id="classzab_1_1tcp__stream_1a94888dc5208bd92bb7d818469c38ad80"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">last_error</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3zab10tcp_stream10last_errorEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get the last error from an operation. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The last error. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_stream16clear_last_errorEv">
+<span id="_CPPv3N3zab10tcp_stream16clear_last_errorEv"></span><span id="_CPPv2N3zab10tcp_stream16clear_last_errorEv"></span><span id="zab::tcp_stream::clear_last_error"></span><span class="target" id="classzab_1_1tcp__stream_1a25fe7b5e2c8799dde96dedce3243136a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">clear_last_error</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10tcp_stream16clear_last_errorEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Clears the last error. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_stream4swapER10tcp_streamR10tcp_stream">
+<span id="_CPPv3N3zab10tcp_stream4swapER10tcp_streamR10tcp_stream"></span><span id="_CPPv2N3zab10tcp_stream4swapER10tcp_streamR10tcp_stream"></span><span id="zab::tcp_stream::swap__tcp_streamR.tcp_streamR"></span><span class="target" id="classzab_1_1tcp__stream_1a82e52448ea02bf92ab78cb847017602b"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">swap</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10tcp_streamE" title="zab::tcp_stream"><span class="n"><span class="pre">tcp_stream</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_first</span></span>, <a class="reference internal" href="#_CPPv4N3zab10tcp_streamE" title="zab::tcp_stream"><span class="n"><span class="pre">tcp_stream</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_second</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10tcp_stream4swapER10tcp_streamR10tcp_stream" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Swap two connectors. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_first</strong> – The first </p></li>
+<li><p><strong>_second</strong> – The second </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_stream10op_controlE">
+<span id="_CPPv3N3zab10tcp_stream10op_controlE"></span><span id="_CPPv2N3zab10tcp_stream10op_controlE"></span><span id="zab::tcp_stream::op_control"></span><span class="target" id="structzab_1_1tcp__stream_1_1op__control"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">op_control</span></span></span><a class="headerlink" href="#_CPPv4N3zab10tcp_stream10op_controlE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_stream10op_control5data_E">
+<span id="_CPPv3N3zab10tcp_stream10op_control5data_E"></span><span id="_CPPv2N3zab10tcp_stream10op_control5data_E"></span><span id="zab::tcp_stream::op_control::data___std::byteP"></span><span class="target" id="structzab_1_1tcp__stream_1_1op__control_1a3de3330b1fc920dcc332174ae108444c"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">byte</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">data_</span></span></span><a class="headerlink" href="#_CPPv4N3zab10tcp_stream10op_control5data_E" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_stream10op_control5size_E">
+<span id="_CPPv3N3zab10tcp_stream10op_control5size_E"></span><span id="_CPPv2N3zab10tcp_stream10op_control5size_E"></span><span id="zab::tcp_stream::op_control::size___std::s"></span><span class="target" id="structzab_1_1tcp__stream_1_1op__control_1a241471644ddde985ad9d68c4c4df10f8"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size_</span></span></span><a class="headerlink" href="#_CPPv4N3zab10tcp_stream10op_control5size_E" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="tcp_acceptor.html" class="btn btn-neutral float-left" title="tcp_acceptor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Donald Rupin.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

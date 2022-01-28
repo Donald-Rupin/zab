@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1simple__promise_3_01bool_01_4" kind="class" language="C++" prot="public">
+    <compoundname>zab::simple_promise&lt; bool &gt;</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">zab::simple_common&lt; simple_promise&lt; bool &gt; &gt;</basecompoundref>
+    <includes refid="simple__promise_8hpp" local="no">simple_promise.hpp</includes>
+    <templateparamlist>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classzab_1_1simple__promise_3_01bool_01_4_1aba9f45b8b25791dc6cef2ce0c272d66a" prot="public" static="no">
+        <type>bool</type>
+        <definition>using zab::simple_promise&lt; bool &gt;::returns =  bool</definition>
+        <argsstring></argsstring>
+        <name>returns</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="323" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="323" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzab_1_1simple__promise_3_01bool_01_4_1a1ce22d46b065c0941066a22d4e790ae8" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool zab::simple_promise&lt; bool &gt;::return_value_</definition>
+        <argsstring></argsstring>
+        <name>return_value_</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="346" column="18" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="346" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1simple__promise_3_01bool_01_4_1aaf18514a5ddc5cc804847f8239042256" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::simple_promise&lt; bool &gt;::simple_promise</definition>
+        <argsstring>()=default</argsstring>
+        <name>simple_promise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="325" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1simple__promise_3_01bool_01_4_1a671e2e77a3c0004351a1b7a9cd51cfa0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::simple_promise&lt; bool &gt;::~simple_promise</definition>
+        <argsstring>()=default</argsstring>
+        <name>~simple_promise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="327" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1simple__promise_3_01bool_01_4_1ac71c591ac6c34933140f5b33f17f9acd" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>returns</type>
+        <definition>returns zab::simple_promise&lt; bool &gt;::data</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="330" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="330" bodyend="333"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1simple__promise_3_01bool_01_4_1a0b7eed04f88e24eb2e5cff6db93ccd2d" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::simple_promise&lt; bool &gt;::return_value</definition>
+        <argsstring>(bool _result) noexcept</argsstring>
+        <name>return_value</name>
+        <param>
+          <type>bool</type>
+          <declname>_result</declname>
+        </param>
+        <briefdescription>
+<para>The coroutine has finished. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="339" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="339" bodyend="342"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>An optimised promise for promising a bool. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="319" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="319" bodyend="347"/>
+    <listofallmembers>
+      <member refid="classzab_1_1simple__common_1ab772a146a1fadaf56c30f41c68ec9284" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; bool &gt;</scope><name>complete</name></member>
+      <member refid="classzab_1_1simple__promise_3_01bool_01_4_1ac71c591ac6c34933140f5b33f17f9acd" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; bool &gt;</scope><name>data</name></member>
+      <member refid="classzab_1_1simple__common_1a4a0978f9233dda5c907155f793db6afe" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; bool &gt;</scope><name>final_suspend</name></member>
+      <member refid="classzab_1_1simple__common_1a2fb0f6479190f926a05d1e502dd45a1f" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; bool &gt;</scope><name>get_return_object</name></member>
+      <member refid="classzab_1_1simple__common_1acfb27f21499a377ee9d144fa8385a7d6" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; bool &gt;</scope><name>initial_suspend</name></member>
+      <member refid="classzab_1_1simple__common_1a71be4e797d23e4099c5036c5876f9845" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; bool &gt;</scope><name>is_complete</name></member>
+      <member refid="classzab_1_1simple__promise_3_01bool_01_4_1a0b7eed04f88e24eb2e5cff6db93ccd2d" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; bool &gt;</scope><name>return_value</name></member>
+      <member refid="classzab_1_1simple__promise_3_01bool_01_4_1a1ce22d46b065c0941066a22d4e790ae8" prot="private" virt="non-virtual"><scope>zab::simple_promise&lt; bool &gt;</scope><name>return_value_</name></member>
+      <member refid="classzab_1_1simple__promise_3_01bool_01_4_1aba9f45b8b25791dc6cef2ce0c272d66a" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; bool &gt;</scope><name>returns</name></member>
+      <member refid="classzab_1_1simple__common_1a785a7eb5104909f68c4cd80d4d0b2210" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; bool &gt;</scope><name>set_underlying</name></member>
+      <member refid="classzab_1_1simple__common_1a8c4fff11d8a379f9c57e633532a5a07d" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; bool &gt;</scope><name>simple_common</name></member>
+      <member refid="classzab_1_1simple__promise_3_01bool_01_4_1aaf18514a5ddc5cc804847f8239042256" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; bool &gt;</scope><name>simple_promise</name></member>
+      <member refid="classzab_1_1simple__common_1ad8231a492550fda1e52d2a8e7e69efa8" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; bool &gt;</scope><name>underlying</name></member>
+      <member refid="classzab_1_1simple__common_1a65343cd0bce64c263727d5cffe9b5190" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; bool &gt;</scope><name>unhandled_exception</name></member>
+      <member refid="classzab_1_1simple__common_1aa0bd8b34ed3ff4603e2ffcc2cf2fadd4" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; bool &gt;</scope><name>~simple_common</name></member>
+      <member refid="classzab_1_1simple__promise_3_01bool_01_4_1a671e2e77a3c0004351a1b7a9cd51cfa0" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; bool &gt;</scope><name>~simple_promise</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

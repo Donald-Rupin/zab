@@ -1,0 +1,722 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespacezab" kind="namespace" language="C++">
+    <compoundname>zab</compoundname>
+    <innerclass refid="classzab_1_1async__barrier" prot="public">zab::async_barrier</innerclass>
+    <innerclass refid="structzab_1_1directory" prot="public">zab::directory</innerclass>
+    <innerclass refid="classzab_1_1async__file" prot="public">zab::async_file</innerclass>
+    <innerclass refid="classzab_1_1async__function" prot="public">zab::async_function</innerclass>
+    <innerclass refid="classzab_1_1async__latch" prot="public">zab::async_latch</innerclass>
+    <innerclass refid="classzab_1_1async__mutex" prot="public">zab::async_mutex</innerclass>
+    <innerclass refid="classzab_1_1async__counting__semaphore" prot="public">zab::async_counting_semaphore</innerclass>
+    <innerclass refid="classzab_1_1async__counting__semaphore_3_011_01_4" prot="public">zab::async_counting_semaphore&lt; 1 &gt;</innerclass>
+    <innerclass refid="structzab_1_1defer__block" prot="public">zab::defer_block</innerclass>
+    <innerclass refid="structzab_1_1purge__block" prot="public">zab::purge_block</innerclass>
+    <innerclass refid="classzab_1_1defer__block__promise" prot="public">zab::defer_block_promise</innerclass>
+    <innerclass refid="classzab_1_1engine" prot="public">zab::engine</innerclass>
+    <innerclass refid="classzab_1_1engine__enabled" prot="public">zab::engine_enabled</innerclass>
+    <innerclass refid="classzab_1_1event__loop" prot="public">zab::event_loop</innerclass>
+    <innerclass refid="classzab_1_1execution__promise" prot="public">zab::execution_promise</innerclass>
+    <innerclass refid="structzab_1_1AwaitWrapper" prot="public">zab::AwaitWrapper</innerclass>
+    <innerclass refid="classzab_1_1tcp__acceptor" prot="public">zab::tcp_acceptor</innerclass>
+    <innerclass refid="classzab_1_1tcp__connector" prot="public">zab::tcp_connector</innerclass>
+    <innerclass refid="classzab_1_1observable" prot="public">zab::observable</innerclass>
+    <innerclass refid="structzab_1_1pause__pack" prot="public">zab::pause_pack</innerclass>
+    <innerclass refid="classzab_1_1pause__token" prot="public">zab::pause_token</innerclass>
+    <innerclass refid="classzab_1_1reusable__future" prot="public">zab::reusable_future</innerclass>
+    <innerclass refid="classzab_1_1reusable__promise" prot="public">zab::reusable_promise</innerclass>
+    <innerclass refid="classzab_1_1reusable__promise_3_01void_01_4" prot="public">zab::reusable_promise&lt; void &gt;</innerclass>
+    <innerclass refid="classzab_1_1signal__handler" prot="public">zab::signal_handler</innerclass>
+    <innerclass refid="structzab_1_1promise__void" prot="public">zab::promise_void</innerclass>
+    <innerclass refid="structzab_1_1deduce__type" prot="public">zab::deduce_type</innerclass>
+    <innerclass refid="structzab_1_1deduce__type_3_01void_01_4" prot="public">zab::deduce_type&lt; void &gt;</innerclass>
+    <innerclass refid="classzab_1_1simple__future" prot="public">zab::simple_future</innerclass>
+    <innerclass refid="classzab_1_1simple__common" prot="public">zab::simple_common</innerclass>
+    <innerclass refid="classzab_1_1simple__promise" prot="public">zab::simple_promise</innerclass>
+    <innerclass refid="structzab_1_1promise__always__resolves" prot="public">zab::promise_always_resolves</innerclass>
+    <innerclass refid="classzab_1_1simple__promise_3_01promise__always__resolves_3_01T_01_4_01_4" prot="public">zab::simple_promise&lt; promise_always_resolves&lt; T &gt; &gt;</innerclass>
+    <innerclass refid="classzab_1_1simple__promise_3_01void_01_4" prot="public">zab::simple_promise&lt; void &gt;</innerclass>
+    <innerclass refid="classzab_1_1simple__promise_3_01bool_01_4" prot="public">zab::simple_promise&lt; bool &gt;</innerclass>
+    <innerclass refid="structzab_1_1spin__lock" prot="public">zab::spin_lock</innerclass>
+    <innerclass refid="structzab_1_1recursive__spin__lock" prot="public">zab::recursive_spin_lock</innerclass>
+    <innerclass refid="structzab_1_1thread__t" prot="public">zab::thread_t</innerclass>
+    <innerclass refid="structzab_1_1order__t" prot="public">zab::order_t</innerclass>
+    <innerclass refid="classzab_1_1tcp__stream" prot="public">zab::tcp_stream</innerclass>
+    <innerclass refid="classzab_1_1timer__service" prot="public">zab::timer_service</innerclass>
+    <innerclass refid="classzab_1_1visitor__promise" prot="public">zab::visitor_promise</innerclass>
+    <innerclass refid="classzab_1_1visitor__promise_3_01void_01_4" prot="public">zab::visitor_promise&lt; void &gt;</innerclass>
+    <innernamespace refid="namespacezab_1_1details">zab::details</innernamespace>
+    <innernamespace refid="namespacezab_1_1file">zab::file</innernamespace>
+    <innernamespace refid="namespacezab_1_1order">zab::order</innernamespace>
+    <innernamespace refid="namespacezab_1_1thread">zab::thread</innernamespace>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="for__each_8hpp_1a68b916f4722dbf416c134292c7477f5f" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>for_ctl</name>
+        <enumvalue id="for__each_8hpp_1a68b916f4722dbf416c134292c7477f5fab1cec4b5157c0bc35a95b44a2c1a36f0" prot="public">
+          <name>kBreak</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="for__each_8hpp_1a68b916f4722dbf416c134292c7477f5fa234b41cc8342dc898d9100f4ca35098d" prot="public">
+          <name>kContinue</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Controls for the for_each method, used to continue or break. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/for_each.hpp" line="51" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/for_each.hpp" bodystart="51" bodyend="54"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="async__semaphore_8hpp_1ab8d7e7aa8d2419caa6aed39301bd4d51" prot="public" static="no">
+        <type>async_counting_semaphore&lt; 1 &gt;</type>
+        <definition>using zab::async_binary_semaphore = typedef async_counting_semaphore&lt;1&gt;</definition>
+        <argsstring></argsstring>
+        <name>async_binary_semaphore</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="424" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="424" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="event_8hpp_1ac8a21fdfecb60bb7e00dfb6d62feeed5" prot="public" static="no">
+        <type>std::coroutine_handle&lt;&gt;</type>
+        <definition>using zab::event = typedef std::coroutine_handle&lt;&gt;</definition>
+        <argsstring></argsstring>
+        <name>event</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event.hpp" line="49" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/event.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="simple__future_8hpp_1aadd31e08f84d24f721410cf5c92efaa2" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; <ref refid="structzab_1_1promise__always__resolves" kindref="compound">promise_always_resolves</ref>&lt; T &gt;, <ref refid="classzab_1_1simple__promise" kindref="compound">simple_promise</ref>&lt; <ref refid="structzab_1_1promise__always__resolves" kindref="compound">promise_always_resolves</ref>&lt; T &gt; &gt;&gt;</type>
+        <definition>using zab::guaranteed_future = typedef simple_future&lt;promise_always_resolves&lt;T&gt;, simple_promise&lt;promise_always_resolves&lt;T&gt; &gt;&gt;</definition>
+        <argsstring></argsstring>
+        <name>guaranteed_future</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Conveince for when the promise will always resolve. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_future.hpp" line="224" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/simple_future.hpp" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="visitor__promise_8hpp_1aed43df122c3d1840c2dc205e84d1824c" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+            <defval>void</defval>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; T, visitor_promise&lt; T &gt; &gt;</type>
+        <definition>using zab::visitor_future = typedef simple_future&lt;T, visitor_promise&lt;T&gt; &gt;</definition>
+        <argsstring></argsstring>
+        <name>visitor_future</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/visitor_promise.hpp" line="49" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/visitor_promise.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="for__each_8hpp_1ab86f7a59e8aa820062fbfb09262d1c8d" prot="public" static="no" mutable="no">
+        <type>P &amp;&amp;</type>
+        <definition>P&amp;&amp; zab::_reusable</definition>
+        <argsstring></argsstring>
+        <name>_reusable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/for_each.hpp" line="78" column="8" bodyfile="/home/donald/rupin/zab/includes/zab/for_each.hpp" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="first__of_8hpp_1a56c5f1c9f912bc6781ad8990a752234d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename...</type>
+            <declname>Promises</declname>
+            <defname>Promises</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">guaranteed_future</ref>&lt; typename details::one_of_these&lt; typename <ref refid="structzab_1_1details_1_1extract__promise__types" kindref="compound">details::extract_promise_types</ref>&lt; Promises... &gt;::types &gt;::types &gt;</type>
+        <definition>guaranteed_future&lt;typename details::one_of_these&lt; typename details::extract_promise_types&lt;Promises...&gt;::types&gt;::types&gt; zab::first_of</definition>
+        <argsstring>(engine *_engine, Promises &amp;&amp;... _args)</argsstring>
+        <name>first_of</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <param>
+          <type>Promises &amp;&amp;...</type>
+          <declname>_args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/first_of.hpp" line="119" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/first_of.hpp" bodystart="119" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="function" id="for__each_8hpp_1af936a752463508e573b945cd68539ce2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>typename P</type>
+          </param>
+          <param>
+            <type>typename Functor</type>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>zab::requires</definition>
+        <argsstring>((std::is_same_v&lt; std::result_of_t&lt; Functor(typename reusable_future&lt; T, P &gt;::return_value)&gt;, void &gt;||std::is_same_v&lt; std::result_of_t&lt; Functor(typename reusable_future&lt; T, P &gt;::return_value)&gt;, for_ctl &gt;)) simple_future&lt;&gt; for_each(reusable_future&lt; T</argsstring>
+        <name>requires</name>
+        <param>
+          <type>(std::is_same_v&lt; std::result_of_t&lt; Functor(typename <ref refid="classzab_1_1reusable__future" kindref="compound">reusable_future</ref>&lt; T, P &gt;::return_value)&gt;, void &gt;||std::is_same_v&lt; std::result_of_t&lt; Functor(typename <ref refid="classzab_1_1reusable__future" kindref="compound">reusable_future</ref>&lt; T, P &gt;::return_value)&gt;, for_ctl &gt;)</type>
+        </param>
+        <briefdescription>
+<para>Iterate through results of the resuable_future giving the results to the callback. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Resumes when the function signals completion.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">_reusable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The reusable future. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">_functor</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The functor give the results.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The template type for the <ref refid="classzab_1_1reusable__future" kindref="compound">reusable_future</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>P</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The promise type for the <ref refid="classzab_1_1reusable__future" kindref="compound">reusable_future</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Functor</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The functor to use. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/for_each.hpp" line="70" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="pause_8hpp_1ab90d90ea032482bdf2006a0318e7bb62" prot="public" static="no" const="no" explicit="no" inline="no" refqual="rvalue" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Functor</type>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>zab::requires</definition>
+        <argsstring>(std::is_nothrow_invocable_v&lt; Functor, pause_pack * &gt;) inline auto pause(Functor &amp;&amp;_func) noexcept</argsstring>
+        <name>requires</name>
+        <param>
+          <type>std::is_nothrow_invocable_v&lt; Functor, <ref refid="structzab_1_1pause__pack" kindref="compound">pause_pack</ref> * &gt;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/pause.hpp" line="66" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/pause.hpp" bodystart="66" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="pause_8hpp_1a4eeff482493e4a80f8054e2df402a222" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::unpause</definition>
+        <argsstring>(engine *_engine, pause_pack &amp;_pause, order_t _order) noexcept</argsstring>
+        <name>unpause</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1pause__pack" kindref="compound">pause_pack</ref> &amp;</type>
+          <declname>_pause</declname>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1order__t" kindref="compound">order_t</ref></type>
+          <declname>_order</declname>
+        </param>
+        <briefdescription>
+<para>Continues a paused corountine. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_pause</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The pause pack to resume. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">_order</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The ordering to apply. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/src/pause.cpp" line="46" column="5" bodyfile="/home/donald/rupin/zab/src/pause.cpp" bodystart="46" bodyend="49" declfile="/home/donald/rupin/zab/includes/zab/pause.hpp" declline="117" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="pause_8hpp_1a2b20a3101db006fd04b8afafcd7c06ef" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::unpause</definition>
+        <argsstring>(engine *_engine, pause_pack &amp;_pause) noexcept</argsstring>
+        <name>unpause</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1pause__pack" kindref="compound">pause_pack</ref> &amp;</type>
+          <declname>_pause</declname>
+        </param>
+        <briefdescription>
+<para>Continues a paused corountine. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_pause</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The pause pack to resume. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/src/pause.cpp" line="52" column="5" bodyfile="/home/donald/rupin/zab/src/pause.cpp" bodystart="52" bodyend="55" declfile="/home/donald/rupin/zab/includes/zab/pause.hpp" declline="125" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="strong__types_8hpp_1abac9540a54b97954710d4e0abb6b77c5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream&amp; zab::operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const thread_t _thread)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_thread</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="110" column="12" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="111" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="wait__for_8hpp_1a616774f77dfa9b6abd36b9908b6d10ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename...</type>
+            <declname>Promises</declname>
+            <defname>Promises</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">guaranteed_future</ref>&lt; typename <ref refid="structzab_1_1details_1_1extract__promise__types" kindref="compound">details::extract_promise_types</ref>&lt; Promises... &gt;::types &gt;</type>
+        <definition>guaranteed_future&lt;typename details::extract_promise_types&lt;Promises...&gt;::types&gt; zab::wait_for</definition>
+        <argsstring>(engine *_engine, Promises &amp;&amp;... _args)</argsstring>
+        <name>wait_for</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <param>
+          <type>Promises &amp;&amp;...</type>
+          <declname>_args</declname>
+        </param>
+        <briefdescription>
+<para>Given a variable amount of simple_promises, calls them in parallel and returns the results after all have complete. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_engine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The engine to use for setting up. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">_thread</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The thread to return into. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The simple_promises</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Promises</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The types of the simple_promises.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A guaranteed_future that promises to get all of the results. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/wait_for.hpp" line="235" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/wait_for.hpp" bodystart="235" bodyend="276"/>
+      </memberdef>
+      <memberdef kind="function" id="wait__for_8hpp_1a168c653aff066ad010f15b9aafb08fe3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">guaranteed_future</ref>&lt; std::vector&lt; typename <ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; T &gt;::return_value &gt; &gt;</type>
+        <definition>guaranteed_future&lt;std::vector&lt;typename simple_future&lt;T&gt;::return_value&gt; &gt; zab::wait_for</definition>
+        <argsstring>(engine *_engine, std::vector&lt; simple_future&lt; T &gt;&gt; &amp;&amp;_args)</argsstring>
+        <name>wait_for</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; T &gt;&gt; &amp;&amp;</type>
+          <declname>_args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/wait_for.hpp" line="280" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/wait_for.hpp" bodystart="280" bodyend="316"/>
+      </memberdef>
+      <memberdef kind="function" id="yield_8hpp_1a383d0db798c9eb98b287c081ae320c97" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::yield</definition>
+        <argsstring>(engine *_engine)</argsstring>
+        <name>yield</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <briefdescription>
+<para>Yields execution of the current coroutine. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">_engine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The engine to yield into.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A co_await&apos;ble structure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/yield.hpp" line="55" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/yield.hpp" bodystart="55" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="yield_8hpp_1aad5233dcad320a5538ea8f70d01a6c08" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::yield</definition>
+        <argsstring>(engine *_engine, thread_t _thread)</argsstring>
+        <name>yield</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_thread</declname>
+        </param>
+        <briefdescription>
+<para>Yields execution of the current coroutine. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">_engine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The engine to yield into. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">_thread</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The thread to resume in.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A co_await&apos;ble structure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/yield.hpp" line="102" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/yield.hpp" bodystart="102" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="yield_8hpp_1a7a8463b3d87768de2433fecf2226e794" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::yield</definition>
+        <argsstring>(engine *_engine, order_t _order, thread_t _thread)</argsstring>
+        <name>yield</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1order__t" kindref="compound">order_t</ref></type>
+          <declname>_order</declname>
+        </param>
+        <param>
+          <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_thread</declname>
+        </param>
+        <briefdescription>
+<para>Yields execution of the current coroutine. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">_engine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The engine to yield into. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">_order</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The orderring to apply to the event loop. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">_thread</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The thread to resume in.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A co_await&apos;ble structure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/yield.hpp" line="151" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/yield.hpp" bodystart="151" bodyend="192"/>
+      </memberdef>
+      <memberdef kind="function" id="network__overlay_8cpp_1ae35268e933a8b4e80e32beb88e1cfde4" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::swap</definition>
+        <argsstring>(tcp_acceptor &amp;_first, tcp_acceptor &amp;_second) noexcept</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="classzab_1_1tcp__acceptor" kindref="compound">tcp_acceptor</ref> &amp;</type>
+          <declname>_first</declname>
+        </param>
+        <param>
+          <type><ref refid="classzab_1_1tcp__acceptor" kindref="compound">tcp_acceptor</ref> &amp;</type>
+          <declname>_second</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_first</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The first </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_second</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The second </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/src/network_overlay.cpp" line="124" column="5" bodyfile="/home/donald/rupin/zab/src/network_overlay.cpp" bodystart="124" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="network__overlay_8cpp_1aae97c66d8a00d00a194d828524149ec4" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::swap</definition>
+        <argsstring>(tcp_connector &amp;_first, tcp_connector &amp;_second) noexcept</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="classzab_1_1tcp__connector" kindref="compound">tcp_connector</ref> &amp;</type>
+          <declname>_first</declname>
+        </param>
+        <param>
+          <type><ref refid="classzab_1_1tcp__connector" kindref="compound">tcp_connector</ref> &amp;</type>
+          <declname>_second</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_first</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The first </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_second</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The second </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/src/network_overlay.cpp" line="142" column="5" bodyfile="/home/donald/rupin/zab/src/network_overlay.cpp" bodystart="142" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp__stream_8cpp_1a3547fc5ab49e90332fd1e402559d8b12" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::swap</definition>
+        <argsstring>(tcp_stream &amp;_first, tcp_stream &amp;_second) noexcept</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="classzab_1_1tcp__stream" kindref="compound">tcp_stream</ref> &amp;</type>
+          <declname>_first</declname>
+        </param>
+        <param>
+          <type><ref refid="classzab_1_1tcp__stream" kindref="compound">tcp_stream</ref> &amp;</type>
+          <declname>_second</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_first</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The first </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_second</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The second </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/src/tcp_stream.cpp" line="143" column="5" bodyfile="/home/donald/rupin/zab/src/tcp_stream.cpp" bodystart="143" bodyend="150"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="55" column="1"/>
+  </compounddef>
+</doxygen>

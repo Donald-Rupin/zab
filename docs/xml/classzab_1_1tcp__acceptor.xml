@@ -1,0 +1,449 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1tcp__acceptor" kind="class" language="C++" prot="public">
+    <compoundname>zab::tcp_acceptor</compoundname>
+    <includes refid="network__overlay_8hpp" local="no">network_overlay.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzab_1_1tcp__acceptor_1a8c5288499f5cd2cb109c9be61e22e65d" prot="private" static="no" mutable="no">
+        <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+        <definition>engine* zab::tcp_acceptor::engine_</definition>
+        <argsstring></argsstring>
+        <name>engine_</name>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" line="224" column="34" bodyfile="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1tcp__acceptor_1a84057b288e354e72c03e2ef2c241a9c8" prot="private" static="no" mutable="no">
+        <type><ref refid="structzab_1_1pause__pack" kindref="compound">event_loop::io_handle</ref></type>
+        <definition>event_loop::io_handle zab::tcp_acceptor::cancel_token_</definition>
+        <argsstring></argsstring>
+        <name>cancel_token_</name>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" line="225" column="35" bodyfile="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1tcp__acceptor_1ae4de72170835fd1c745c872b7f80e3f0" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int zab::tcp_acceptor::acceptor_</definition>
+        <argsstring></argsstring>
+        <name>acceptor_</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" line="226" column="35" bodyfile="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1tcp__acceptor_1a24b4f7eecc9f51fb8b5cd88fd5a00d4f" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int zab::tcp_acceptor::last_error_</definition>
+        <argsstring></argsstring>
+        <name>last_error_</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" line="227" column="35" bodyfile="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1tcp__acceptor_1a4e5777877a9420fc6135f1d05a927618" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::tcp_acceptor::tcp_acceptor</definition>
+        <argsstring>()=default</argsstring>
+        <name>tcp_acceptor</name>
+        <briefdescription>
+<para>Constructs a new instance in an empty state. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>        If this constructor is used, use of `listen` and `accept`,
+        will result in undefined behavior until `register_engine`
+        is called with a valid engine.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" line="77" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__acceptor_1a71c7b568fb16d3b80f53d8b598bc79de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::tcp_acceptor::tcp_acceptor</definition>
+        <argsstring>(engine *_engine)</argsstring>
+        <name>tcp_acceptor</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <briefdescription>
+<para>Constructs a new instance in an empty state but with an engine registered. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_engine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The engine to register. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" line="86" column="13" bodyfile="/home/donald/rupin/zab/src/network_overlay.cpp" bodystart="106" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__acceptor_1af0dab6efdd923f6af62cdec6a0e42438" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::tcp_acceptor::tcp_acceptor</definition>
+        <argsstring>(tcp_acceptor &amp;&amp;_move)</argsstring>
+        <name>tcp_acceptor</name>
+        <param>
+          <type><ref refid="classzab_1_1tcp__acceptor" kindref="compound">tcp_acceptor</ref> &amp;&amp;</type>
+          <declname>_move</declname>
+        </param>
+        <briefdescription>
+<para>Move construct a new instance. The parameter is essentially swapped with default constructed instance. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_move</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The <ref refid="classzab_1_1tcp__acceptor" kindref="compound">tcp_acceptor</ref> to move. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" line="95" column="13" bodyfile="/home/donald/rupin/zab/src/network_overlay.cpp" bodystart="114" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__acceptor_1af8f7e2392b8b36073f388007299f8b56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::tcp_acceptor::tcp_acceptor</definition>
+        <argsstring>(const tcp_acceptor &amp;_copy)=delete</argsstring>
+        <name>tcp_acceptor</name>
+        <param>
+          <type>const <ref refid="classzab_1_1tcp__acceptor" kindref="compound">tcp_acceptor</ref> &amp;</type>
+          <declname>_copy</declname>
+        </param>
+        <briefdescription>
+<para>Cant copy it. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">_copy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The copy </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" line="103" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__acceptor_1acfd3317397b48be92d02bd81cfea7bdf" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::tcp_acceptor::register_engine</definition>
+        <argsstring>(engine *_engine) noexcept</argsstring>
+        <name>register_engine</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" line="106" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" bodystart="106" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__acceptor_1aebe22ea3566c66747d0389eaa0f733c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzab_1_1tcp__acceptor" kindref="compound">tcp_acceptor</ref> &amp;</type>
+        <definition>tcp_acceptor &amp; zab::tcp_acceptor::operator=</definition>
+        <argsstring>(tcp_acceptor &amp;&amp;_move)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type><ref refid="classzab_1_1tcp__acceptor" kindref="compound">tcp_acceptor</ref> &amp;&amp;</type>
+          <declname>_move</declname>
+        </param>
+        <briefdescription>
+<para>Move Assignment operator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_move</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The acceptor to move.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The result of the assignment </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" line="119" column="13" bodyfile="/home/donald/rupin/zab/src/network_overlay.cpp" bodystart="117" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__acceptor_1a815eaa1c4b4c6d10fceb4ccab267069e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::tcp_acceptor::~tcp_acceptor</definition>
+        <argsstring>()</argsstring>
+        <name>~tcp_acceptor</name>
+        <briefdescription>
+<para>Destroys the acceptor, closing its socket. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" line="134" column="13" bodyfile="/home/donald/rupin/zab/src/network_overlay.cpp" bodystart="96" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__acceptor_1a71422211cbb518344ebeacd8bc4bf00f" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zab::tcp_acceptor::listen</definition>
+        <argsstring>(int _family, std::uint16_t _port, int _backlog) noexcept</argsstring>
+        <name>listen</name>
+        <param>
+          <type>int</type>
+          <declname>_family</declname>
+        </param>
+        <param>
+          <type>std::uint16_t</type>
+          <declname>_port</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_backlog</declname>
+        </param>
+        <briefdescription>
+<para>listen for incoming tcp connections of a given family, on a given port. The socket used will have <computeroutput>SO_REUSEADDR</computeroutput> set. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>AF_INET and AF_INET6 are the valid values for family.</para>
+<para>Port is given in host order endianness.</para>
+<para>"The backlog argument defines the maximum length to which the queue of pending connections for sockfd may grow. If a connection request arrives when the queue is full, the client may receive an error with an indication of ECONNREFUSED or, if the underlying protocol supports retransmission, the request may be ignored so that a later reattempt at connection succeeds." - listen(2)</para>
+<para><computeroutput>last_error</computeroutput> is set on failure.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">_family</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The ip family. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">_port</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The port to bind too. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">_backlog</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The size of the tcp backlog.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if successful, false otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" line="160" column="13" bodyfile="/home/donald/rupin/zab/src/network_overlay.cpp" bodystart="204" bodyend="261"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__acceptor_1abfd0af66c0698fcbd1ae636b8cebc521" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; <ref refid="classzab_1_1tcp__stream" kindref="compound">tcp_stream</ref> &gt;</type>
+        <definition>simple_future&lt; tcp_stream &gt; zab::tcp_acceptor::accept</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>accept</name>
+        <briefdescription>
+<para>Await for a connection to come in. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The timeout can be used to resume the suspended coroutine early. The number is in nanoseconds and -1 means no timeout.</para>
+<para>This function should not be called in the io thread.</para>
+<para>This function will return into the thread it was called in. If this function is called in the io thread or any non-engine thread, it will join kAnyThread.</para>
+<para>This function is thread safe and can be utilised by many threads. Although error retreival will not work if multple threads fail.</para>
+<para><computeroutput>last_error</computeroutput> is set on failure.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">_timeout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The timeout to use.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>[through co_await] An optional <ref refid="classzab_1_1tcp__stream" kindref="compound">tcp_stream</ref> that is set to the accepted connection on success, or std::nullopt on failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" line="186" column="13" bodyfile="/home/donald/rupin/zab/src/network_overlay.cpp" bodystart="264" bodyend="288"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__acceptor_1a4040017ab4d2db4ff00ec4a8fa919c56" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1reusable__future" kindref="compound">reusable_future</ref>&lt; <ref refid="classzab_1_1tcp__stream" kindref="compound">tcp_stream</ref> &gt;</type>
+        <definition>reusable_future&lt; tcp_stream &gt; zab::tcp_acceptor::get_accepter</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>get_accepter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" line="189" column="13" bodyfile="/home/donald/rupin/zab/src/network_overlay.cpp" bodystart="291" bodyend="327"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__acceptor_1ac38602a83d850bf1b3ef89a56ac21a0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; bool &gt;</type>
+        <definition>simple_future&lt; bool &gt; zab::tcp_acceptor::cancel</definition>
+        <argsstring>()</argsstring>
+        <name>cancel</name>
+        <briefdescription>
+<para>Cancels any opertions suspended. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function can be called from any thread. <verbatim>        Use of any created `descriptor_op&apos;s` after concellation is undefined
+        behaviour.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" line="201" column="13" bodyfile="/home/donald/rupin/zab/src/network_overlay.cpp" bodystart="151" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__acceptor_1a200599336bffe491fc83e58ac5a4b6a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; bool &gt;</type>
+        <definition>simple_future&lt; bool &gt; zab::tcp_acceptor::close</definition>
+        <argsstring>()</argsstring>
+        <name>close</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" line="204" column="13" bodyfile="/home/donald/rupin/zab/src/network_overlay.cpp" bodystart="167" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__acceptor_1a0a741d54e87823b8c9939ccd131a9f4d" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int zab::tcp_acceptor::last_error</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>last_error</name>
+        <briefdescription>
+<para>Retrieve the last value of errno recorded after the acceptor failed an operation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This operation also clears the error code.</para>
+<para><simplesect kind="return"><para>errno. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" line="215" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" bodystart="215" bodyend="220"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classzab_1_1tcp__acceptor_1a29193b248e50b7468877453bd96c4547" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void swap</definition>
+        <argsstring>(tcp_acceptor &amp;_first, tcp_acceptor &amp;_second) noexcept</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="classzab_1_1tcp__acceptor" kindref="compound">tcp_acceptor</ref> &amp;</type>
+          <declname>_first</declname>
+        </param>
+        <param>
+          <type><ref refid="classzab_1_1tcp__acceptor" kindref="compound">tcp_acceptor</ref> &amp;</type>
+          <declname>_second</declname>
+        </param>
+        <briefdescription>
+<para>Swap two acceptors. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_first</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The first </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_second</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The second </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" line="128" column="13" bodyfile="/home/donald/rupin/zab/src/network_overlay.cpp" bodystart="124" bodyend="130"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This class allows for asynchronous server based socket operations. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The methods of the class are essentially asynchronous equivalents to socket(2), bind(2), listen(2) and accept(2) </para>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" line="66" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/network_overlay.hpp" bodystart="66" bodyend="228"/>
+    <listofallmembers>
+      <member refid="classzab_1_1tcp__acceptor_1abfd0af66c0698fcbd1ae636b8cebc521" prot="public" virt="non-virtual"><scope>zab::tcp_acceptor</scope><name>accept</name></member>
+      <member refid="classzab_1_1tcp__acceptor_1ae4de72170835fd1c745c872b7f80e3f0" prot="private" virt="non-virtual"><scope>zab::tcp_acceptor</scope><name>acceptor_</name></member>
+      <member refid="classzab_1_1tcp__acceptor_1ac38602a83d850bf1b3ef89a56ac21a0a" prot="public" virt="non-virtual"><scope>zab::tcp_acceptor</scope><name>cancel</name></member>
+      <member refid="classzab_1_1tcp__acceptor_1a84057b288e354e72c03e2ef2c241a9c8" prot="private" virt="non-virtual"><scope>zab::tcp_acceptor</scope><name>cancel_token_</name></member>
+      <member refid="classzab_1_1tcp__acceptor_1a200599336bffe491fc83e58ac5a4b6a9" prot="public" virt="non-virtual"><scope>zab::tcp_acceptor</scope><name>close</name></member>
+      <member refid="classzab_1_1tcp__acceptor_1a8c5288499f5cd2cb109c9be61e22e65d" prot="private" virt="non-virtual"><scope>zab::tcp_acceptor</scope><name>engine_</name></member>
+      <member refid="classzab_1_1tcp__acceptor_1a4040017ab4d2db4ff00ec4a8fa919c56" prot="public" virt="non-virtual"><scope>zab::tcp_acceptor</scope><name>get_accepter</name></member>
+      <member refid="classzab_1_1tcp__acceptor_1a0a741d54e87823b8c9939ccd131a9f4d" prot="public" virt="non-virtual"><scope>zab::tcp_acceptor</scope><name>last_error</name></member>
+      <member refid="classzab_1_1tcp__acceptor_1a24b4f7eecc9f51fb8b5cd88fd5a00d4f" prot="private" virt="non-virtual"><scope>zab::tcp_acceptor</scope><name>last_error_</name></member>
+      <member refid="classzab_1_1tcp__acceptor_1a71422211cbb518344ebeacd8bc4bf00f" prot="public" virt="non-virtual"><scope>zab::tcp_acceptor</scope><name>listen</name></member>
+      <member refid="classzab_1_1tcp__acceptor_1aebe22ea3566c66747d0389eaa0f733c3" prot="public" virt="non-virtual"><scope>zab::tcp_acceptor</scope><name>operator=</name></member>
+      <member refid="classzab_1_1tcp__acceptor_1acfd3317397b48be92d02bd81cfea7bdf" prot="public" virt="non-virtual"><scope>zab::tcp_acceptor</scope><name>register_engine</name></member>
+      <member refid="classzab_1_1tcp__acceptor_1a29193b248e50b7468877453bd96c4547" prot="public" virt="non-virtual"><scope>zab::tcp_acceptor</scope><name>swap</name></member>
+      <member refid="classzab_1_1tcp__acceptor_1a4e5777877a9420fc6135f1d05a927618" prot="public" virt="non-virtual"><scope>zab::tcp_acceptor</scope><name>tcp_acceptor</name></member>
+      <member refid="classzab_1_1tcp__acceptor_1a71c7b568fb16d3b80f53d8b598bc79de" prot="public" virt="non-virtual"><scope>zab::tcp_acceptor</scope><name>tcp_acceptor</name></member>
+      <member refid="classzab_1_1tcp__acceptor_1af0dab6efdd923f6af62cdec6a0e42438" prot="public" virt="non-virtual"><scope>zab::tcp_acceptor</scope><name>tcp_acceptor</name></member>
+      <member refid="classzab_1_1tcp__acceptor_1af8f7e2392b8b36073f388007299f8b56" prot="public" virt="non-virtual"><scope>zab::tcp_acceptor</scope><name>tcp_acceptor</name></member>
+      <member refid="classzab_1_1tcp__acceptor_1a815eaa1c4b4c6d10fceb4ccab267069e" prot="public" virt="non-virtual"><scope>zab::tcp_acceptor</scope><name>~tcp_acceptor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

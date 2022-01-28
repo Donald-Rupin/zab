@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>yield &mdash; ZAB 0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pause" href="pause.html" />
+    <link rel="prev" title="Asynchronous Primitives" href="async_primitives.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ZAB
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_library.html">Core Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coroutines.html">Coroutines</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="async_primitives.html">Asynchronous Primitives</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">yield</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pause.html">pause</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wait_for.html">wait_for</a></li>
+<li class="toctree-l3"><a class="reference internal" href="first_of.html">first_of</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proxy.html">proxy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="async_sync.html">Asynchronous Synchronisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="observable.html">Observables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_io.html">File IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ZAB</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="lib_root.html">ZAB Documentation</a> &raquo;</li>
+        
+          <li><a href="async_primitives.html">Asynchronous Primitives</a> &raquo;</li>
+        
+      <li>yield</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/lib/yield.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="yield">
+<span id="id1"></span><h1>yield<a class="headerlink" href="#yield" title="Permalink to this headline">¶</a></h1>
+<p>Defer computation of the current function by passing control back to the event loop. This defers the execution of the function without blocking the event loop. User are able to specifiy a delay to the yield or specify a thread to return into.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">async_function</span><span class="o">&lt;&gt;</span>
+<span class="n">your_class</span><span class="o">::</span><span class="n">delay</span><span class="p">()</span> <span class="k">noexcept</span>
+<span class="p">{</span>
+    <span class="cm">/* wait 10 seconds then resume in thread 2. */</span>
+    <span class="k">co_await</span> <span class="nf">yield</span><span class="p">(</span>
+        <span class="n">order</span><span class="o">::</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="n">order</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+        <span class="n">thread_t</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span>
+        <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>Classes that inherit from <a class="reference internal" href="engine_enabled.html#engine-enabled"><span class="std std-ref">engine_enabled</span></a> can forgo the <code class="docutils literal notranslate"><span class="pre">engine*</span></code> paremeter.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab5yieldEP6engine">
+<span id="_CPPv3N3zab5yieldEP6engine"></span><span id="_CPPv2N3zab5yieldEP6engine"></span><span id="zab::yield__engineP"></span><span class="target" id="yield_8hpp_1a383d0db798c9eb98b287c081ae320c97"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">yield</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab5yieldEP6engine" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Yields execution of the current coroutine. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_engine</strong> – <strong>[in]</strong> The engine to yield into.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A co_await’ble structure. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab5yieldEP6engine8thread_t">
+<span id="_CPPv3N3zab5yieldEP6engine8thread_t"></span><span id="_CPPv2N3zab5yieldEP6engine8thread_t"></span><span id="zab::yield__engineP.thread_t"></span><span class="target" id="yield_8hpp_1aad5233dcad320a5538ea8f70d01a6c08"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">yield</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span>, <a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_thread</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab5yieldEP6engine8thread_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Yields execution of the current coroutine. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_engine</strong> – <strong>[in]</strong> The engine to yield into. </p></li>
+<li><p><strong>_thread</strong> – <strong>[in]</strong> The thread to resume in.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A co_await’ble structure. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab5yieldEP6engine7order_t8thread_t">
+<span id="_CPPv3N3zab5yieldEP6engine7order_t8thread_t"></span><span id="_CPPv2N3zab5yieldEP6engine7order_t8thread_t"></span><span id="zab::yield__engineP.order_t.thread_t"></span><span class="target" id="yield_8hpp_1a7a8463b3d87768de2433fecf2226e794"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">yield</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span>, <a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab7order_tE" title="zab::order_t"><span class="n"><span class="pre">order_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_order</span></span>, <a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_thread</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab5yieldEP6engine7order_t8thread_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Yields execution of the current coroutine. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>_engine</strong> – <strong>[in]</strong> The engine to yield into. </p></li>
+<li><p><strong>_order</strong> – <strong>[in]</strong> The orderring to apply to the event loop. </p></li>
+<li><p><strong>_thread</strong> – <strong>[in]</strong> The thread to resume in.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A co_await’ble structure. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="pause.html" class="btn btn-neutral float-right" title="pause" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="async_primitives.html" class="btn btn-neutral float-left" title="Asynchronous Primitives" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Donald Rupin.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

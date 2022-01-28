@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structzab_1_1directory" kind="struct" language="C++" prot="public">
+    <compoundname>zab::directory</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzab_1_1directory_1aca496f6f1acd5616e3cb701af3f5386a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int zab::directory::dfd_</definition>
+        <argsstring></argsstring>
+        <name>dfd_</name>
+        <initializer>= AT_FDCWD</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="57" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="56" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="56" bodyend="58"/>
+    <listofallmembers>
+      <member refid="structzab_1_1directory_1aca496f6f1acd5616e3cb701af3f5386a" prot="public" virt="non-virtual"><scope>zab::directory</scope><name>dfd_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

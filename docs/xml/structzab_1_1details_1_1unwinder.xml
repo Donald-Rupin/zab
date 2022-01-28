@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structzab_1_1details_1_1unwinder" kind="struct" language="C++" prot="public">
+    <compoundname>zab::details::unwinder</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzab_1_1details_1_1unwinder_1a5ecc7014f019ba3cfaf9e41a97a9b440" prot="public" static="no" mutable="no">
+        <type>std::shared_ptr&lt; std::atomic&lt; <ref refid="structzab_1_1pause__pack" kindref="compound">zab::pause_pack</ref> * &gt; &gt;</type>
+        <definition>std::shared_ptr&lt;std::atomic&lt;zab::pause_pack*&gt; &gt; zab::details::unwinder::data_</definition>
+        <argsstring></argsstring>
+        <name>data_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/first_of.hpp" line="101" column="33" bodyfile="/home/donald/rupin/zab/includes/zab/first_of.hpp" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzab_1_1details_1_1unwinder_1add1e0cfa0d60146f7a6ca9aaf1d2f54e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::details::unwinder::unwinder</definition>
+        <argsstring>(std::shared_ptr&lt; std::atomic&lt; zab::pause_pack * &gt;&gt; _data)</argsstring>
+        <name>unwinder</name>
+        <param>
+          <type>std::shared_ptr&lt; std::atomic&lt; <ref refid="structzab_1_1pause__pack" kindref="compound">zab::pause_pack</ref> * &gt;&gt;</type>
+          <declname>_data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/first_of.hpp" line="88" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/first_of.hpp" bodystart="88" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="structzab_1_1details_1_1unwinder_1a1e236bfe52f5a98479f03040d436eeb7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::details::unwinder::~unwinder</definition>
+        <argsstring>()</argsstring>
+        <name>~unwinder</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/first_of.hpp" line="92" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/first_of.hpp" bodystart="92" bodyend="99"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/first_of.hpp" line="86" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/first_of.hpp" bodystart="86" bodyend="102"/>
+    <listofallmembers>
+      <member refid="structzab_1_1details_1_1unwinder_1a5ecc7014f019ba3cfaf9e41a97a9b440" prot="public" virt="non-virtual"><scope>zab::details::unwinder</scope><name>data_</name></member>
+      <member refid="structzab_1_1details_1_1unwinder_1add1e0cfa0d60146f7a6ca9aaf1d2f54e" prot="public" virt="non-virtual"><scope>zab::details::unwinder</scope><name>unwinder</name></member>
+      <member refid="structzab_1_1details_1_1unwinder_1a1e236bfe52f5a98479f03040d436eeb7" prot="public" virt="non-virtual"><scope>zab::details::unwinder</scope><name>~unwinder</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

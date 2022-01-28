@@ -1,0 +1,309 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1reusable__promise_3_01void_01_4" kind="class" language="C++" prot="public">
+    <compoundname>zab::reusable_promise&lt; void &gt;</compoundname>
+    <templateparamlist>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="classzab_1_1reusable__promise_3_01void_01_4_1aee623a184f4c7328dfdc2ca5e7528ff7" prot="public" static="no" strong="no">
+        <type></type>
+        <name>State</name>
+        <enumvalue id="classzab_1_1reusable__promise_3_01void_01_4_1aee623a184f4c7328dfdc2ca5e7528ff7af1ce5685606f32eb0f754b9031a0f066" prot="public">
+          <name>kEmpty</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classzab_1_1reusable__promise_3_01void_01_4_1aee623a184f4c7328dfdc2ca5e7528ff7a1b8c8edcfe55ee86cef0ccb8819cd008" prot="public">
+          <name>kItem</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classzab_1_1reusable__promise_3_01void_01_4_1aee623a184f4c7328dfdc2ca5e7528ff7a8bf649f6a16c427439b94b9508b8d61d" prot="public">
+          <name>kComplete</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" line="418" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" bodystart="418" bodyend="422"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classzab_1_1reusable__promise_3_01void_01_4_1a29628ace2f59fda081f275c0b8d297ec" prot="public" static="no">
+        <type>void</type>
+        <definition>using zab::reusable_promise&lt; void &gt;::returns =  void</definition>
+        <argsstring></argsstring>
+        <name>returns</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" line="290" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classzab_1_1reusable__promise_3_01void_01_4_1a976811e960b7d7b11365af29671d651e" prot="public" static="no" mutable="no">
+        <type>std::coroutine_handle</type>
+        <definition>std::coroutine_handle zab::reusable_promise&lt; void &gt;::underlying_</definition>
+        <argsstring></argsstring>
+        <name>underlying_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" line="424" column="14" bodyfile="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" bodystart="424" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1reusable__promise_3_01void_01_4_1ac6abdc0ab4349385dd2f00b28aeab1a9" prot="public" static="no" mutable="no">
+        <type>State</type>
+        <definition>State zab::reusable_promise&lt; void &gt;::state_</definition>
+        <argsstring></argsstring>
+        <name>state_</name>
+        <initializer>= kEmpty</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" line="425" column="37" bodyfile="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" bodystart="425" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1reusable__promise_3_01void_01_4_1aad63b1d8d070474ed6acdea9cf4ce968" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zab::reusable_promise&lt; void &gt;::complete</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>complete</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" line="293" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" bodystart="293" bodyend="296"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1reusable__promise_3_01void_01_4_1a7c83c51988398088577f9466fe859acf" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zab::reusable_promise&lt; void &gt;::value_ready</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>value_ready</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" line="299" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" bodystart="299" bodyend="302"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1reusable__promise_3_01void_01_4_1a963bfb142d6da6261aa0e5a5361b3e32" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::reusable_promise&lt; void &gt;::data</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" line="305" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" bodystart="305" bodyend="306"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1reusable__promise_3_01void_01_4_1aba8ae7db7aab2b6445a60dd494b916ac" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::reusable_promise&lt; void &gt;::set_underlying</definition>
+        <argsstring>(std::coroutine_handle&lt;&gt; _under) noexcept</argsstring>
+        <name>set_underlying</name>
+        <param>
+          <type>std::coroutine_handle&lt;&gt;</type>
+          <declname>_under</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" line="309" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" bodystart="309" bodyend="313"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1reusable__promise_3_01void_01_4_1a300886bc4b0f5a3c1fedaa3a39318fb3" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::reusable_promise&lt; void &gt;::prepare</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>prepare</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" line="316" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" bodystart="316" bodyend="319"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1reusable__promise_3_01void_01_4_1a16e397ba9dee3001b299f0dcf1f70f07" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::reusable_promise&lt; void &gt;::force_completion</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>force_completion</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" line="322" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" bodystart="322" bodyend="325"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1reusable__promise_3_01void_01_4_1aeaa24530697fd6af49c8675f4a8c0aab" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::reusable_promise&lt; void &gt;::get_return_object</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>get_return_object</name>
+        <briefdescription>
+<para>Gets the coroutine handle from <computeroutput>this</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The coroutine handle. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" line="333" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" bodystart="333" bodyend="336"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1reusable__promise_3_01void_01_4_1a3f271299693753caf7f6582da54311b7" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::reusable_promise&lt; void &gt;::initial_suspend</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>initial_suspend</name>
+        <briefdescription>
+<para>Always suspend execution of the promise. wait for it to be co_awaited. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>A <computeroutput>std::suspend_always</computeroutput> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" line="344" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" bodystart="344" bodyend="347"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1reusable__promise_3_01void_01_4_1a3ef7a96148ad311aa90a7963c58db078" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::reusable_promise&lt; void &gt;::final_suspend</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>final_suspend</name>
+        <briefdescription>
+<para>Final suspension of Promise resumes the underlying coroutine that co_awaited the <computeroutput>reusable_promise</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>A structure for resuming the underlying coroutine. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" line="356" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" bodystart="356" bodyend="387"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1reusable__promise_3_01void_01_4_1abdce7f11294e27a48b1e82974665c435" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::reusable_promise&lt; void &gt;::return_void</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>return_void</name>
+        <briefdescription>
+<para>Returns a nullopt. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">&lt;unnamed&gt;</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Unused. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" line="395" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" bodystart="395" bodyend="398"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1reusable__promise_3_01void_01_4_1a774f43d29efb8b5cf8d421d1551aa5a7" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::reusable_promise&lt; void &gt;::yield_value</definition>
+        <argsstring>(promise_void) noexcept</argsstring>
+        <name>yield_value</name>
+        <param>
+          <type><ref refid="structzab_1_1promise__void" kindref="compound">promise_void</ref></type>
+        </param>
+        <briefdescription>
+<para>yield a nullopt. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">&lt;unnamed&gt;</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Unused. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" line="406" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" bodystart="406" bodyend="410"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1reusable__promise_3_01void_01_4_1a16d81abcd4e47616935f76c1c8e6b8ef" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::reusable_promise&lt; void &gt;::unhandled_exception</definition>
+        <argsstring>()</argsstring>
+        <name>unhandled_exception</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" line="413" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" bodystart="413" bodyend="416"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" line="286" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/reusable_promise.hpp" bodystart="286" bodyend="426"/>
+    <listofallmembers>
+      <member refid="classzab_1_1reusable__promise_3_01void_01_4_1aad63b1d8d070474ed6acdea9cf4ce968" prot="public" virt="non-virtual"><scope>zab::reusable_promise&lt; void &gt;</scope><name>complete</name></member>
+      <member refid="classzab_1_1reusable__promise_3_01void_01_4_1a963bfb142d6da6261aa0e5a5361b3e32" prot="public" virt="non-virtual"><scope>zab::reusable_promise&lt; void &gt;</scope><name>data</name></member>
+      <member refid="classzab_1_1reusable__promise_3_01void_01_4_1a3ef7a96148ad311aa90a7963c58db078" prot="public" virt="non-virtual"><scope>zab::reusable_promise&lt; void &gt;</scope><name>final_suspend</name></member>
+      <member refid="classzab_1_1reusable__promise_3_01void_01_4_1a16e397ba9dee3001b299f0dcf1f70f07" prot="public" virt="non-virtual"><scope>zab::reusable_promise&lt; void &gt;</scope><name>force_completion</name></member>
+      <member refid="classzab_1_1reusable__promise_3_01void_01_4_1aeaa24530697fd6af49c8675f4a8c0aab" prot="public" virt="non-virtual"><scope>zab::reusable_promise&lt; void &gt;</scope><name>get_return_object</name></member>
+      <member refid="classzab_1_1reusable__promise_3_01void_01_4_1a3f271299693753caf7f6582da54311b7" prot="public" virt="non-virtual"><scope>zab::reusable_promise&lt; void &gt;</scope><name>initial_suspend</name></member>
+      <member refid="classzab_1_1reusable__promise_3_01void_01_4_1aee623a184f4c7328dfdc2ca5e7528ff7a8bf649f6a16c427439b94b9508b8d61d" prot="public" virt="non-virtual"><scope>zab::reusable_promise&lt; void &gt;</scope><name>kComplete</name></member>
+      <member refid="classzab_1_1reusable__promise_3_01void_01_4_1aee623a184f4c7328dfdc2ca5e7528ff7af1ce5685606f32eb0f754b9031a0f066" prot="public" virt="non-virtual"><scope>zab::reusable_promise&lt; void &gt;</scope><name>kEmpty</name></member>
+      <member refid="classzab_1_1reusable__promise_3_01void_01_4_1aee623a184f4c7328dfdc2ca5e7528ff7a1b8c8edcfe55ee86cef0ccb8819cd008" prot="public" virt="non-virtual"><scope>zab::reusable_promise&lt; void &gt;</scope><name>kItem</name></member>
+      <member refid="classzab_1_1reusable__promise_3_01void_01_4_1a300886bc4b0f5a3c1fedaa3a39318fb3" prot="public" virt="non-virtual"><scope>zab::reusable_promise&lt; void &gt;</scope><name>prepare</name></member>
+      <member refid="classzab_1_1reusable__promise_3_01void_01_4_1abdce7f11294e27a48b1e82974665c435" prot="public" virt="non-virtual"><scope>zab::reusable_promise&lt; void &gt;</scope><name>return_void</name></member>
+      <member refid="classzab_1_1reusable__promise_3_01void_01_4_1a29628ace2f59fda081f275c0b8d297ec" prot="public" virt="non-virtual"><scope>zab::reusable_promise&lt; void &gt;</scope><name>returns</name></member>
+      <member refid="classzab_1_1reusable__promise_3_01void_01_4_1aba8ae7db7aab2b6445a60dd494b916ac" prot="public" virt="non-virtual"><scope>zab::reusable_promise&lt; void &gt;</scope><name>set_underlying</name></member>
+      <member refid="classzab_1_1reusable__promise_3_01void_01_4_1aee623a184f4c7328dfdc2ca5e7528ff7" prot="public" virt="non-virtual"><scope>zab::reusable_promise&lt; void &gt;</scope><name>State</name></member>
+      <member refid="classzab_1_1reusable__promise_3_01void_01_4_1ac6abdc0ab4349385dd2f00b28aeab1a9" prot="public" virt="non-virtual"><scope>zab::reusable_promise&lt; void &gt;</scope><name>state_</name></member>
+      <member refid="classzab_1_1reusable__promise_3_01void_01_4_1a976811e960b7d7b11365af29671d651e" prot="public" virt="non-virtual"><scope>zab::reusable_promise&lt; void &gt;</scope><name>underlying_</name></member>
+      <member refid="classzab_1_1reusable__promise_3_01void_01_4_1a16d81abcd4e47616935f76c1c8e6b8ef" prot="public" virt="non-virtual"><scope>zab::reusable_promise&lt; void &gt;</scope><name>unhandled_exception</name></member>
+      <member refid="classzab_1_1reusable__promise_3_01void_01_4_1a7c83c51988398088577f9466fe859acf" prot="public" virt="non-virtual"><scope>zab::reusable_promise&lt; void &gt;</scope><name>value_ready</name></member>
+      <member refid="classzab_1_1reusable__promise_3_01void_01_4_1a774f43d29efb8b5cf8d421d1551aa5a7" prot="public" virt="non-virtual"><scope>zab::reusable_promise&lt; void &gt;</scope><name>yield_value</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

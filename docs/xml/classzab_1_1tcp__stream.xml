@@ -1,0 +1,574 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1tcp__stream" kind="class" language="C++" prot="public">
+    <compoundname>zab::tcp_stream</compoundname>
+    <includes refid="tcp__stream_8hpp" local="no">tcp_stream.hpp</includes>
+    <innerclass refid="structzab_1_1tcp__stream_1_1op__control" prot="public">zab::tcp_stream::op_control</innerclass>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzab_1_1tcp__stream_1aa5c2d47f69bb7234ddfaccc5b57671bb" prot="private" static="no" mutable="no">
+        <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+        <definition>engine* zab::tcp_stream::engine_</definition>
+        <argsstring></argsstring>
+        <name>engine_</name>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="299" column="34" bodyfile="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1tcp__stream_1a8048a333a0a8335dd495f7815ee013e0" prot="private" static="no" mutable="no">
+        <type><ref refid="structzab_1_1pause__pack" kindref="compound">event_loop::io_handle</ref></type>
+        <definition>event_loop::io_handle zab::tcp_stream::cancel_token_</definition>
+        <argsstring></argsstring>
+        <name>cancel_token_</name>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="300" column="35" bodyfile="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1tcp__stream_1a94ae80d2161136edaf3144f152384c60" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int zab::tcp_stream::connection_</definition>
+        <argsstring></argsstring>
+        <name>connection_</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="301" column="35" bodyfile="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1tcp__stream_1a38bab1ca6ee72cedc206e9023f72bd4a" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int zab::tcp_stream::last_error_</definition>
+        <argsstring></argsstring>
+        <name>last_error_</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="302" column="35" bodyfile="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1tcp__stream_1ab2533e557f7503c6308349b9d9124a60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::tcp_stream::tcp_stream</definition>
+        <argsstring>()=default</argsstring>
+        <name>tcp_stream</name>
+        <briefdescription>
+<para>Constructs the stream an empty state. Use of any member functions except assignment is undefined behavior. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="74" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__stream_1a8d76b99f8fe7202addcf802c9ea87f7c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::tcp_stream::tcp_stream</definition>
+        <argsstring>(engine *_engine, int _fd)</argsstring>
+        <name>tcp_stream</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_fd</declname>
+        </param>
+        <briefdescription>
+<para>Constructs the stream bound to a socket referred to by _fd. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This class is designed around the invariant that the socket is operating in blocking mode.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_engine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The engine to use. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">_fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The socket to use. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="86" column="13" bodyfile="/home/donald/rupin/zab/src/tcp_stream.cpp" bodystart="131" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__stream_1a455e459357743ba54059555e6078d23b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::tcp_stream::tcp_stream</definition>
+        <argsstring>(const tcp_stream &amp;_copy)=delete</argsstring>
+        <name>tcp_stream</name>
+        <param>
+          <type>const <ref refid="classzab_1_1tcp__stream" kindref="compound">tcp_stream</ref> &amp;</type>
+          <declname>_copy</declname>
+        </param>
+        <briefdescription>
+<para>Cannot copy a stream. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">_copy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The copy </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="93" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__stream_1acab104a5a2bed236db5791aa852326f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::tcp_stream::tcp_stream</definition>
+        <argsstring>(tcp_stream &amp;&amp;_move)</argsstring>
+        <name>tcp_stream</name>
+        <param>
+          <type><ref refid="classzab_1_1tcp__stream" kindref="compound">tcp_stream</ref> &amp;&amp;</type>
+          <declname>_move</declname>
+        </param>
+        <briefdescription>
+<para>Move construct a stream. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Moving a stream that is in use results in undefined behavior.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_move</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The move </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="102" column="13" bodyfile="/home/donald/rupin/zab/src/tcp_stream.cpp" bodystart="135" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__stream_1a5f4020bbcb39365ce2db0f90efcc5748" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::tcp_stream::~tcp_stream</definition>
+        <argsstring>()</argsstring>
+        <name>~tcp_stream</name>
+        <briefdescription>
+<para>Destroys the stream. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The user needs to ensure oprations have exited before deconsturction. If the stream is in use when it is deconstructed, this will result in undefined behavior.</para>
+<para>The user should also await <computeroutput>shutdown</computeroutput> before deconstruction of a stream. <verbatim>          If `shutdown` is not awaited before deconstruction, the internal state
+</verbatim> of the stream is deconstructed at a later time. Essentially, ownership of the internal state is given to a background fibre that will attempt to do a similar thing to <computeroutput>shutdown</computeroutput>. This means that the sockets life time will linger past the deconstruction of the stream as the background process attempts to gracefully socket close. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="123" column="13" bodyfile="/home/donald/rupin/zab/src/tcp_stream.cpp" bodystart="137" bodyend="140"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__stream_1af139dbb426941c9c5d678a2d5538c4d6" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref></type>
+        <definition>simple_future zab::tcp_stream::shutdown</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>shutdown</name>
+        <briefdescription>
+<para>Shutdown the stream. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This requires that no reads or writes are in progress. The shutdown process is: 1) Destroy the internal state. 2) Call ::shutdown(SHUT_WR) to notify client that we are shutting down 3) Attempt to wait for the write buffer to be flushed 4) Attempt to drain the read buffer and client to acknowledge shutdown</para>
+<para>For applications that require reliable delivery of data, the <ref refid="classzab_1_1tcp__stream" kindref="compound">tcp_stream</ref> tries its best to ensure that all data is delivered. The user should wait for all writes to return. Although, like that of any socket programming, we cannot garrenty delivery to the client side application (only that we tried to send it and try to ensure write buffers are flushed). Most application level protocols will include some form of acknowledgement in the case of required reliable delivery and this is above the scope of this class.</para>
+<para><simplesect kind="return"><para>An awaitable that returns after all steps are complete. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="158" column="13" bodyfile="/home/donald/rupin/zab/src/tcp_stream.cpp" bodystart="153" bodyend="160"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__stream_1a5e53580e782155c907eb2e998e13bdb2" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; std::vector&lt; char &gt; &gt;</type>
+        <definition>simple_future&lt; std::vector&lt; char &gt; &gt; zab::tcp_stream::read</definition>
+        <argsstring>(size_t _amount) noexcept</argsstring>
+        <name>read</name>
+        <param>
+          <type>size_t</type>
+          <declname>_amount</declname>
+        </param>
+        <briefdescription>
+<para>Attempt to read data from the stream. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function will suspend the calling coroutine until _amount data is read, an error occurs or it is cancelled.</para>
+<para>This function can return less then _amount when an error ro cancel occurs.</para>
+<para>The user should ensure that this function has exited before deconstruction.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">_amount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The amount to read.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The data read if successful, std::nullopt if an error. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="177" column="13" bodyfile="/home/donald/rupin/zab/src/tcp_stream.cpp" bodystart="163" bodyend="172"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__stream_1af28b149e8e899f383bdcbef517b86d77" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">guaranteed_future</ref>&lt; std::size_t &gt;</type>
+        <definition>guaranteed_future&lt; std::size_t &gt; zab::tcp_stream::read</definition>
+        <argsstring>(std::span&lt; char &gt; _data) noexcept</argsstring>
+        <name>read</name>
+        <param>
+          <type>std::span&lt; char &gt;</type>
+          <declname>_data</declname>
+        </param>
+        <briefdescription>
+<para>Attempt to read data from the stream. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function will suspend the calling coroutine until _data.size() data is read or an error occurs.</para>
+<para>This function can return less then _amount when an error ro cancel occurs.</para>
+<para>The user should ensure that this function has exited before deconstruction.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">_amount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The amount to read.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The data read if successful, std::nullopt if an error. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="197" column="13" bodyfile="/home/donald/rupin/zab/src/tcp_stream.cpp" bodystart="175" bodyend="191"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__stream_1aa1c25dab0b7a32d3a8443485b27a2f7d" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; std::vector&lt; char &gt; &gt;</type>
+        <definition>simple_future&lt; std::vector&lt; char &gt; &gt; zab::tcp_stream::read_some</definition>
+        <argsstring>(size_t _max) noexcept</argsstring>
+        <name>read_some</name>
+        <param>
+          <type>size_t</type>
+          <declname>_max</declname>
+        </param>
+        <briefdescription>
+<para>Attempt to read up _max data from the stream. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function will suspend the calling coroutine until some data is read or an error occurs.</para>
+<para><verbatim>        The user should ensure that this function has exited before
+        deconstruction.
+</verbatim> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">_max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The amount to read.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The data read if successful, std::nullopt if an error. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="214" column="13" bodyfile="/home/donald/rupin/zab/src/tcp_stream.cpp" bodystart="194" bodyend="206"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__stream_1ac50120d1ed9d089bb42b36bb9a5308dc" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">guaranteed_future</ref>&lt; std::size_t &gt;</type>
+        <definition>guaranteed_future&lt; std::size_t &gt; zab::tcp_stream::read_some</definition>
+        <argsstring>(std::span&lt; char &gt; _data) noexcept</argsstring>
+        <name>read_some</name>
+        <param>
+          <type>std::span&lt; char &gt;</type>
+          <declname>_data</declname>
+        </param>
+        <briefdescription>
+<para>Attempt to read up _data.size() data from the stream. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function will suspend the calling coroutine until some data is read or an error occurs.</para>
+<para>The user should ensure that this function has exited before deconstruction.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">_max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The amount to read.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The data read if successful, std::nullopt if an error. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="230" column="13" bodyfile="/home/donald/rupin/zab/src/tcp_stream.cpp" bodystart="209" bodyend="223"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__stream_1a1916dac0c1cf2c553e6f6491d0856a65" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">guaranteed_future</ref>&lt; std::size_t &gt;</type>
+        <definition>guaranteed_future&lt; size_t &gt; zab::tcp_stream::write</definition>
+        <argsstring>(std::span&lt; const char &gt; _data) noexcept</argsstring>
+        <name>write</name>
+        <param>
+          <type>std::span&lt; const char &gt;</type>
+          <declname>_data</declname>
+        </param>
+        <briefdescription>
+<para>Write some data to the stream waiting for the data to make it to the OS write buffer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The life time of the data held by the span must last longer then the call to this function.</para>
+<para>The data actually written may be different to the amount given due to a stream error or cancellation.</para>
+<para>Calls to writes are not atomic.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The view of the data to send.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The amount of data written. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="250" column="13" bodyfile="/home/donald/rupin/zab/src/tcp_stream.cpp" bodystart="272" bodyend="296"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__stream_1adbfda95924f1f306502079c4a27708b7" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">guaranteed_future</ref>&lt; std::size_t &gt;</type>
+        <definition>guaranteed_future&lt; std::size_t &gt; zab::tcp_stream::write_fixed</definition>
+        <argsstring>(std::span&lt; const std::byte &gt; _data, int _index) noexcept</argsstring>
+        <name>write_fixed</name>
+        <param>
+          <type>std::span&lt; const std::byte &gt;</type>
+          <declname>_data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="253" column="13" bodyfile="/home/donald/rupin/zab/src/tcp_stream.cpp" bodystart="345" bodyend="370"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__stream_1a2f50e10f76644d64bbf21047d082006c" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">guaranteed_future</ref>&lt; std::size_t &gt;</type>
+        <definition>guaranteed_future&lt; std::size_t &gt; zab::tcp_stream::read_fixed</definition>
+        <argsstring>(std::span&lt; std::byte &gt; _data, int _index) noexcept</argsstring>
+        <name>read_fixed</name>
+        <param>
+          <type>std::span&lt; std::byte &gt;</type>
+          <declname>_data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="256" column="13" bodyfile="/home/donald/rupin/zab/src/tcp_stream.cpp" bodystart="257" bodyend="269"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__stream_1a1e47b06770dc9ce38de5b3db9fedd78c" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1reusable__future" kindref="compound">reusable_future</ref>&lt; std::size_t &gt;</type>
+        <definition>reusable_future&lt; std::size_t &gt; zab::tcp_stream::get_reader</definition>
+        <argsstring>(op_control *_oc) noexcept</argsstring>
+        <name>get_reader</name>
+        <param>
+          <type>op_control *</type>
+          <declname>_oc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="264" column="13" bodyfile="/home/donald/rupin/zab/src/tcp_stream.cpp" bodystart="226" bodyend="254"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__stream_1add1975f3395e7a17bc2f902b01a43b7f" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1reusable__future" kindref="compound">reusable_future</ref>&lt; std::size_t &gt;</type>
+        <definition>reusable_future&lt; std::size_t &gt; zab::tcp_stream::get_writer</definition>
+        <argsstring>(op_control *_oc) noexcept</argsstring>
+        <name>get_writer</name>
+        <param>
+          <type>op_control *</type>
+          <declname>_oc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="267" column="13" bodyfile="/home/donald/rupin/zab/src/tcp_stream.cpp" bodystart="299" bodyend="342"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__stream_1ac1c8588a719a8a202d4c7ae4c1e725dd" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; bool &gt;</type>
+        <definition>simple_future&lt; bool &gt; zab::tcp_stream::cancel</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>cancel</name>
+        <briefdescription>
+<para>Immediately cancles all operations. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="274" column="13" bodyfile="/home/donald/rupin/zab/src/tcp_stream.cpp" bodystart="373" bodyend="384"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__stream_1a94888dc5208bd92bb7d818469c38ad80" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int zab::tcp_stream::last_error</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>last_error</name>
+        <briefdescription>
+<para>Get the last error from an operation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The last error. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="282" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" bodystart="282" bodyend="285"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1tcp__stream_1a25fe7b5e2c8799dde96dedce3243136a" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::tcp_stream::clear_last_error</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>clear_last_error</name>
+        <briefdescription>
+<para>Clears the last error. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="292" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" bodystart="292" bodyend="295"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classzab_1_1tcp__stream_1a82e52448ea02bf92ab78cb847017602b" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void swap</definition>
+        <argsstring>(tcp_stream &amp;_first, tcp_stream &amp;_second) noexcept</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="classzab_1_1tcp__stream" kindref="compound">tcp_stream</ref> &amp;</type>
+          <declname>_first</declname>
+        </param>
+        <param>
+          <type><ref refid="classzab_1_1tcp__stream" kindref="compound">tcp_stream</ref> &amp;</type>
+          <declname>_second</declname>
+        </param>
+        <briefdescription>
+<para>Swap two connectors. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_first</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The first </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_second</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The second </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="132" column="13" bodyfile="/home/donald/rupin/zab/src/tcp_stream.cpp" bodystart="143" bodyend="150"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This class represents the a duplex network stream for writing and reading data. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" line="65" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/tcp_stream.hpp" bodystart="65" bodyend="303"/>
+    <listofallmembers>
+      <member refid="classzab_1_1tcp__stream_1ac1c8588a719a8a202d4c7ae4c1e725dd" prot="public" virt="non-virtual"><scope>zab::tcp_stream</scope><name>cancel</name></member>
+      <member refid="classzab_1_1tcp__stream_1a8048a333a0a8335dd495f7815ee013e0" prot="private" virt="non-virtual"><scope>zab::tcp_stream</scope><name>cancel_token_</name></member>
+      <member refid="classzab_1_1tcp__stream_1a25fe7b5e2c8799dde96dedce3243136a" prot="public" virt="non-virtual"><scope>zab::tcp_stream</scope><name>clear_last_error</name></member>
+      <member refid="classzab_1_1tcp__stream_1a94ae80d2161136edaf3144f152384c60" prot="private" virt="non-virtual"><scope>zab::tcp_stream</scope><name>connection_</name></member>
+      <member refid="classzab_1_1tcp__stream_1aa5c2d47f69bb7234ddfaccc5b57671bb" prot="private" virt="non-virtual"><scope>zab::tcp_stream</scope><name>engine_</name></member>
+      <member refid="classzab_1_1tcp__stream_1a1e47b06770dc9ce38de5b3db9fedd78c" prot="public" virt="non-virtual"><scope>zab::tcp_stream</scope><name>get_reader</name></member>
+      <member refid="classzab_1_1tcp__stream_1add1975f3395e7a17bc2f902b01a43b7f" prot="public" virt="non-virtual"><scope>zab::tcp_stream</scope><name>get_writer</name></member>
+      <member refid="classzab_1_1tcp__stream_1a94888dc5208bd92bb7d818469c38ad80" prot="public" virt="non-virtual"><scope>zab::tcp_stream</scope><name>last_error</name></member>
+      <member refid="classzab_1_1tcp__stream_1a38bab1ca6ee72cedc206e9023f72bd4a" prot="private" virt="non-virtual"><scope>zab::tcp_stream</scope><name>last_error_</name></member>
+      <member refid="classzab_1_1tcp__stream_1a5e53580e782155c907eb2e998e13bdb2" prot="public" virt="non-virtual"><scope>zab::tcp_stream</scope><name>read</name></member>
+      <member refid="classzab_1_1tcp__stream_1af28b149e8e899f383bdcbef517b86d77" prot="public" virt="non-virtual"><scope>zab::tcp_stream</scope><name>read</name></member>
+      <member refid="classzab_1_1tcp__stream_1a2f50e10f76644d64bbf21047d082006c" prot="public" virt="non-virtual"><scope>zab::tcp_stream</scope><name>read_fixed</name></member>
+      <member refid="classzab_1_1tcp__stream_1aa1c25dab0b7a32d3a8443485b27a2f7d" prot="public" virt="non-virtual"><scope>zab::tcp_stream</scope><name>read_some</name></member>
+      <member refid="classzab_1_1tcp__stream_1ac50120d1ed9d089bb42b36bb9a5308dc" prot="public" virt="non-virtual"><scope>zab::tcp_stream</scope><name>read_some</name></member>
+      <member refid="classzab_1_1tcp__stream_1af139dbb426941c9c5d678a2d5538c4d6" prot="public" virt="non-virtual"><scope>zab::tcp_stream</scope><name>shutdown</name></member>
+      <member refid="classzab_1_1tcp__stream_1a82e52448ea02bf92ab78cb847017602b" prot="public" virt="non-virtual"><scope>zab::tcp_stream</scope><name>swap</name></member>
+      <member refid="classzab_1_1tcp__stream_1ab2533e557f7503c6308349b9d9124a60" prot="public" virt="non-virtual"><scope>zab::tcp_stream</scope><name>tcp_stream</name></member>
+      <member refid="classzab_1_1tcp__stream_1a8d76b99f8fe7202addcf802c9ea87f7c" prot="public" virt="non-virtual"><scope>zab::tcp_stream</scope><name>tcp_stream</name></member>
+      <member refid="classzab_1_1tcp__stream_1a455e459357743ba54059555e6078d23b" prot="public" virt="non-virtual"><scope>zab::tcp_stream</scope><name>tcp_stream</name></member>
+      <member refid="classzab_1_1tcp__stream_1acab104a5a2bed236db5791aa852326f3" prot="public" virt="non-virtual"><scope>zab::tcp_stream</scope><name>tcp_stream</name></member>
+      <member refid="classzab_1_1tcp__stream_1a1916dac0c1cf2c553e6f6491d0856a65" prot="public" virt="non-virtual"><scope>zab::tcp_stream</scope><name>write</name></member>
+      <member refid="classzab_1_1tcp__stream_1adbfda95924f1f306502079c4a27708b7" prot="public" virt="non-virtual"><scope>zab::tcp_stream</scope><name>write_fixed</name></member>
+      <member refid="classzab_1_1tcp__stream_1a5f4020bbcb39365ce2db0f90efcc5748" prot="public" virt="non-virtual"><scope>zab::tcp_stream</scope><name>~tcp_stream</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

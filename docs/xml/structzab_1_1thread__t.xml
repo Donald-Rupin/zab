@@ -1,0 +1,220 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structzab_1_1thread__t" kind="struct" language="C++" prot="public">
+    <compoundname>zab::thread_t</compoundname>
+    <includes refid="strong__types_8hpp" local="no">strong_types.hpp</includes>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="structzab_1_1thread__t_1a2f161cb6b3e332b4ac5fffa23df942ff" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr auto</type>
+        <definition>constexpr auto zab::thread_t::kAnyThread</definition>
+        <argsstring></argsstring>
+        <name>kAnyThread</name>
+        <initializer>= std::numeric_limits&lt;std::uint16_t&gt;::max() - 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="52" column="35" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzab_1_1thread__t_1ab127b4494e0ba8f77cb40bfee6a4f794" prot="public" static="no" mutable="no">
+        <type>std::uint16_t</type>
+        <definition>std::uint16_t zab::thread_t::thread_</definition>
+        <argsstring></argsstring>
+        <name>thread_</name>
+        <initializer>= kAnyThread</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="53" column="35" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structzab_1_1thread__t_1a24d1dd67dd5529493217cbd8646f48a6" prot="public" static="yes" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+        <definition>static constexpr thread_t zab::thread_t::any_thread</definition>
+        <argsstring>()</argsstring>
+        <name>any_thread</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="56" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="56" bodyend="59"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="structzab_1_1thread__t_1a40dc50f68e770502c527e1c6f4acd98e" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>constexpr friend bool</type>
+        <definition>constexpr friend bool operator==</definition>
+        <argsstring>(const thread_t _first, const thread_t _second)=default</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_first</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_second</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="62" column="13"/>
+      </memberdef>
+      <memberdef kind="friend" id="structzab_1_1thread__t_1ab4783a229d5b780581e8e200fac2869b" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>constexpr friend bool</type>
+        <definition>constexpr friend bool operator!=</definition>
+        <argsstring>(const thread_t _first, const thread_t _second)=default</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_first</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_second</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="65" column="13"/>
+      </memberdef>
+      <memberdef kind="friend" id="structzab_1_1thread__t_1ae0b484631e0cec16b3bee651972b9b00" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr friend auto</type>
+        <definition>constexpr friend auto operator&lt;=&gt;</definition>
+        <argsstring>(const thread_t _first, const thread_t _second)</argsstring>
+        <name>operator&lt;=&gt;</name>
+        <param>
+          <type>const <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_first</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_second</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="67" column="30" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="68" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="friend" id="structzab_1_1thread__t_1a39eaa00209eac8555993971116fdca3f" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>std::integral</type>
+            <declname>T</declname>
+            <defname>T</defname>
+          </param>
+        </templateparamlist>
+        <type>constexpr friend auto</type>
+        <definition>constexpr friend auto operator&lt;=&gt;</definition>
+        <argsstring>(const thread_t _first, const T _number)</argsstring>
+        <name>operator&lt;=&gt;</name>
+        <param>
+          <type>const <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_first</declname>
+        </param>
+        <param>
+          <type>const T</type>
+          <declname>_number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="74" column="30" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="75" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="friend" id="structzab_1_1thread__t_1a5a1f767b8fba3aa25526fc4d78d433a7" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>std::integral</type>
+            <declname>T</declname>
+            <defname>T</defname>
+          </param>
+        </templateparamlist>
+        <type>constexpr friend bool</type>
+        <definition>constexpr friend bool operator==</definition>
+        <argsstring>(const thread_t _first, const T _second)</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_first</declname>
+        </param>
+        <param>
+          <type>const T</type>
+          <declname>_second</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="82" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="82" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="friend" id="structzab_1_1thread__t_1ab000b67ab20838ba4c0a084f36d65a49" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>std::integral</type>
+            <declname>T</declname>
+            <defname>T</defname>
+          </param>
+        </templateparamlist>
+        <type>constexpr friend bool</type>
+        <definition>constexpr friend bool operator!=</definition>
+        <argsstring>(const thread_t &amp;_first, const T _second)</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref> &amp;</type>
+          <declname>_first</declname>
+        </param>
+        <param>
+          <type>const T</type>
+          <declname>_second</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="89" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="89" bodyend="92"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A struct for providing strict typing of thread ids&apos;. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="51" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="51" bodyend="93"/>
+    <listofallmembers>
+      <member refid="structzab_1_1thread__t_1a24d1dd67dd5529493217cbd8646f48a6" prot="public" virt="non-virtual"><scope>zab::thread_t</scope><name>any_thread</name></member>
+      <member refid="structzab_1_1thread__t_1a2f161cb6b3e332b4ac5fffa23df942ff" prot="public" virt="non-virtual"><scope>zab::thread_t</scope><name>kAnyThread</name></member>
+      <member refid="structzab_1_1thread__t_1ab4783a229d5b780581e8e200fac2869b" prot="public" virt="non-virtual"><scope>zab::thread_t</scope><name>operator!=</name></member>
+      <member refid="structzab_1_1thread__t_1ab000b67ab20838ba4c0a084f36d65a49" prot="public" virt="non-virtual"><scope>zab::thread_t</scope><name>operator!=</name></member>
+      <member refid="structzab_1_1thread__t_1ae0b484631e0cec16b3bee651972b9b00" prot="public" virt="non-virtual"><scope>zab::thread_t</scope><name>operator&lt;=&gt;</name></member>
+      <member refid="structzab_1_1thread__t_1a39eaa00209eac8555993971116fdca3f" prot="public" virt="non-virtual"><scope>zab::thread_t</scope><name>operator&lt;=&gt;</name></member>
+      <member refid="structzab_1_1thread__t_1a40dc50f68e770502c527e1c6f4acd98e" prot="public" virt="non-virtual"><scope>zab::thread_t</scope><name>operator==</name></member>
+      <member refid="structzab_1_1thread__t_1a5a1f767b8fba3aa25526fc4d78d433a7" prot="public" virt="non-virtual"><scope>zab::thread_t</scope><name>operator==</name></member>
+      <member refid="structzab_1_1thread__t_1ab127b4494e0ba8f77cb40bfee6a4f794" prot="public" virt="non-virtual"><scope>zab::thread_t</scope><name>thread_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structzab_1_1async__barrier_1_1arrival__token_1_1InternalState" kind="struct" language="C++" prot="private">
+    <compoundname>zab::async_barrier::arrival_token::InternalState</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzab_1_1async__barrier_1_1arrival__token_1_1InternalState_1a2d4916aafaa75674b51bb9c75558a319" prot="public" static="no" mutable="no">
+        <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+        <definition>thread_t zab::async_barrier&lt; CompletionFunction &gt;::arrival_token::InternalState::thread_</definition>
+        <argsstring></argsstring>
+        <name>thread_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="216" column="38" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzab_1_1async__barrier_1_1arrival__token_1_1InternalState_1ac37ea34ffff345a9c086148b973d1fe5" prot="public" static="no" mutable="no">
+        <type>std::uintptr_t</type>
+        <definition>std::uintptr_t zab::async_barrier&lt; CompletionFunction &gt;::arrival_token::InternalState::next_</definition>
+        <argsstring></argsstring>
+        <name>next_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="218" column="44" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzab_1_1async__barrier_1_1arrival__token_1_1InternalState_1a3c37ff448c73b6503265af065d191173" prot="public" static="no" mutable="no">
+        <type>std::atomic&lt; void * &gt;</type>
+        <definition>std::atomic&lt;void*&gt; zab::async_barrier&lt; CompletionFunction &gt;::arrival_token::InternalState::handle_</definition>
+        <argsstring></argsstring>
+        <name>handle_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="220" column="41" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>zab::thread_t</label>
+        <link refid="structzab_1_1thread__t"/>
+      </node>
+      <node id="1">
+        <label>zab::async_barrier&lt; CompletionFunction &gt;::arrival_token::InternalState</label>
+        <childnode refid="2" relation="usage">
+          <edgelabel>thread_</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="214" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="214" bodyend="221"/>
+    <listofallmembers>
+      <member refid="structzab_1_1async__barrier_1_1arrival__token_1_1InternalState_1a3c37ff448c73b6503265af065d191173" prot="public" virt="non-virtual"><scope>zab::async_barrier::arrival_token::InternalState</scope><name>handle_</name></member>
+      <member refid="structzab_1_1async__barrier_1_1arrival__token_1_1InternalState_1ac37ea34ffff345a9c086148b973d1fe5" prot="public" virt="non-virtual"><scope>zab::async_barrier::arrival_token::InternalState</scope><name>next_</name></member>
+      <member refid="structzab_1_1async__barrier_1_1arrival__token_1_1InternalState_1a2d4916aafaa75674b51bb9c75558a319" prot="public" virt="non-virtual"><scope>zab::async_barrier::arrival_token::InternalState</scope><name>thread_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structzab_1_1promise__void" kind="struct" language="C++" prot="public">
+    <compoundname>zab::promise_void</compoundname>
+    <includes refid="simple__future_8hpp" local="no">simple_future.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzab_1_1promise__void_1a5721f44043a94990c9fea8186359edcf" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::promise_void::operator&lt;=&gt;</definition>
+        <argsstring>(const promise_void &amp;) const =default</argsstring>
+        <name>operator&lt;=&gt;</name>
+        <param>
+          <type>const <ref refid="structzab_1_1promise__void" kindref="compound">promise_void</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_future.hpp" line="54" column="13"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>An empty struct for void promises. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/simple_future.hpp" line="53" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/simple_future.hpp" bodystart="53" bodyend="56"/>
+    <listofallmembers>
+      <member refid="structzab_1_1promise__void_1a5721f44043a94990c9fea8186359edcf" prot="public" virt="non-virtual"><scope>zab::promise_void</scope><name>operator&lt;=&gt;</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

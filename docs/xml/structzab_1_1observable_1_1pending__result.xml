@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structzab_1_1observable_1_1pending__result" kind="struct" language="C++" prot="public">
+    <compoundname>zab::observable::pending_result</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzab_1_1observable_1_1pending__result_1acec4f4c7aad0d11d48d88dcd73093495" prot="public" static="no" mutable="no">
+        <type>async_latch *</type>
+        <definition>async_latch* zab::observable&lt; Args &gt;::pending_result::latch_</definition>
+        <argsstring></argsstring>
+        <name>latch_</name>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/observable.hpp" line="65" column="41" bodyfile="/home/donald/rupin/zab/includes/zab/observable.hpp" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzab_1_1observable_1_1pending__result_1a64bfcb127a3549e501ff6a510b4faf8b" prot="public" static="no" mutable="no">
+        <type>std::tuple&lt; Args... &gt; *</type>
+        <definition>std::tuple&lt;Args...&gt;* zab::observable&lt; Args &gt;::pending_result::items_</definition>
+        <argsstring></argsstring>
+        <name>items_</name>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/observable.hpp" line="66" column="32" bodyfile="/home/donald/rupin/zab/includes/zab/observable.hpp" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzab_1_1observable_1_1pending__result_1ac33736d88b5db35d93e881a116c83ef2" prot="public" static="no" mutable="no">
+        <type>pending_result *</type>
+        <definition>pending_result* zab::observable&lt; Args &gt;::pending_result::next_</definition>
+        <argsstring></argsstring>
+        <name>next_</name>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/observable.hpp" line="67" column="41" bodyfile="/home/donald/rupin/zab/includes/zab/observable.hpp" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/observable.hpp" line="64" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/observable.hpp" bodystart="64" bodyend="68"/>
+    <listofallmembers>
+      <member refid="structzab_1_1observable_1_1pending__result_1a64bfcb127a3549e501ff6a510b4faf8b" prot="public" virt="non-virtual"><scope>zab::observable::pending_result</scope><name>items_</name></member>
+      <member refid="structzab_1_1observable_1_1pending__result_1acec4f4c7aad0d11d48d88dcd73093495" prot="public" virt="non-virtual"><scope>zab::observable::pending_result</scope><name>latch_</name></member>
+      <member refid="structzab_1_1observable_1_1pending__result_1ac33736d88b5db35d93e881a116c83ef2" prot="public" virt="non-virtual"><scope>zab::observable::pending_result</scope><name>next_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

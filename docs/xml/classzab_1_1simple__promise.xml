@@ -1,0 +1,240 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1simple__promise" kind="class" language="C++" prot="public">
+    <compoundname>zab::simple_promise</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">zab::simple_common&lt; simple_promise&lt; void &gt; &gt;</basecompoundref>
+    <includes refid="simple__promise_8hpp" local="no">simple_promise.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+        <defval>void</defval>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classzab_1_1simple__promise_1a11d1e22fe078954b34e90b580a4ad3a4" prot="public" static="no">
+        <type>std::optional&lt; T &gt;</type>
+        <definition>using zab::simple_promise&lt; T &gt;::returns =  std::optional&lt;T&gt;</definition>
+        <argsstring></argsstring>
+        <name>returns</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="172" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzab_1_1simple__promise_1a00a43521f8dc6ccfeccf473bdba38658" prot="private" static="no" mutable="no">
+        <type>returns</type>
+        <definition>returns zab::simple_promise&lt; T &gt;::data_</definition>
+        <argsstring></argsstring>
+        <name>data_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="232" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="232" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1simple__promise_1a6b62927cc0c50acbb1780cf645610e29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::simple_promise&lt; T &gt;::simple_promise</definition>
+        <argsstring>()=default</argsstring>
+        <name>simple_promise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="174" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1simple__promise_1a11f4a01f759b1089ada5b434524fe995" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::simple_promise&lt; T &gt;::~simple_promise</definition>
+        <argsstring>()=default</argsstring>
+        <name>~simple_promise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="176" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1simple__promise_1a96ff8aac82cec83681a7c75c47b1e6ef" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>returns &amp;&amp;</type>
+        <definition>returns&amp;&amp; zab::simple_promise&lt; T &gt;::data</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="179" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="179" bodyend="182"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1simple__promise_1aea04fe77fa91e701e519e0e1492ba4b7" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void zab::simple_promise&lt; T &gt;::return_value</definition>
+        <argsstring>(Args &amp;&amp;... _args) noexcept</argsstring>
+        <name>return_value</name>
+        <param>
+          <type>Args &amp;&amp;...</type>
+          <declname>_args</declname>
+        </param>
+        <briefdescription>
+<para>Creates the promised object from some values. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>One day they may support <computeroutput>co_return x y z;</computeroutput></para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The arguments to construct T with.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The types of the arguments. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="195" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="195" bodyend="198"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1simple__promise_1a18866119f58da2479640faa50554bb5f" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::simple_promise&lt; T &gt;::return_value</definition>
+        <argsstring>(returns &amp;&amp;_move) noexcept</argsstring>
+        <name>return_value</name>
+        <param>
+          <type>returns &amp;&amp;</type>
+          <declname>_move</declname>
+        </param>
+        <briefdescription>
+<para>Construct the optional of T. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_move</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The optional to move. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="206" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="206" bodyend="209"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1simple__promise_1a1cf604c1481e56ca399cf34c0b84a50e" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::simple_promise&lt; T &gt;::return_value</definition>
+        <argsstring>(std::nullopt_t) noexcept</argsstring>
+        <name>return_value</name>
+        <param>
+          <type>std::nullopt_t</type>
+        </param>
+        <briefdescription>
+<para>No value is returned. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="216" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="216" bodyend="217"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1simple__promise_1a948f56f8bd8e6f2f19dc64507875cbc7" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::simple_promise&lt; T &gt;::return_value</definition>
+        <argsstring>(const returns &amp;_copy) noexcept</argsstring>
+        <name>return_value</name>
+        <param>
+          <type>const returns &amp;</type>
+          <declname>_copy</declname>
+        </param>
+        <briefdescription>
+<para>Construct the optional of T. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">_copy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The optional to copy </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="225" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="225" bodyend="228"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The promise of some value used be <computeroutput><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref></computeroutput>&apos;s. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The type of the promised value. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="168" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="168" bodyend="233"/>
+    <listofallmembers>
+      <member refid="classzab_1_1simple__common_1ab772a146a1fadaf56c30f41c68ec9284" prot="public" virt="non-virtual"><scope>zab::simple_promise</scope><name>complete</name></member>
+      <member refid="classzab_1_1simple__promise_1a96ff8aac82cec83681a7c75c47b1e6ef" prot="public" virt="non-virtual"><scope>zab::simple_promise</scope><name>data</name></member>
+      <member refid="classzab_1_1simple__promise_1a00a43521f8dc6ccfeccf473bdba38658" prot="private" virt="non-virtual"><scope>zab::simple_promise</scope><name>data_</name></member>
+      <member refid="classzab_1_1simple__common_1a4a0978f9233dda5c907155f793db6afe" prot="public" virt="non-virtual"><scope>zab::simple_promise</scope><name>final_suspend</name></member>
+      <member refid="classzab_1_1simple__common_1a2fb0f6479190f926a05d1e502dd45a1f" prot="public" virt="non-virtual"><scope>zab::simple_promise</scope><name>get_return_object</name></member>
+      <member refid="classzab_1_1simple__common_1acfb27f21499a377ee9d144fa8385a7d6" prot="public" virt="non-virtual"><scope>zab::simple_promise</scope><name>initial_suspend</name></member>
+      <member refid="classzab_1_1simple__common_1a71be4e797d23e4099c5036c5876f9845" prot="public" virt="non-virtual"><scope>zab::simple_promise</scope><name>is_complete</name></member>
+      <member refid="classzab_1_1simple__promise_1aea04fe77fa91e701e519e0e1492ba4b7" prot="public" virt="non-virtual"><scope>zab::simple_promise</scope><name>return_value</name></member>
+      <member refid="classzab_1_1simple__promise_1a18866119f58da2479640faa50554bb5f" prot="public" virt="non-virtual"><scope>zab::simple_promise</scope><name>return_value</name></member>
+      <member refid="classzab_1_1simple__promise_1a1cf604c1481e56ca399cf34c0b84a50e" prot="public" virt="non-virtual"><scope>zab::simple_promise</scope><name>return_value</name></member>
+      <member refid="classzab_1_1simple__promise_1a948f56f8bd8e6f2f19dc64507875cbc7" prot="public" virt="non-virtual"><scope>zab::simple_promise</scope><name>return_value</name></member>
+      <member refid="classzab_1_1simple__promise_1a11d1e22fe078954b34e90b580a4ad3a4" prot="public" virt="non-virtual"><scope>zab::simple_promise</scope><name>returns</name></member>
+      <member refid="classzab_1_1simple__common_1a785a7eb5104909f68c4cd80d4d0b2210" prot="public" virt="non-virtual"><scope>zab::simple_promise</scope><name>set_underlying</name></member>
+      <member refid="classzab_1_1simple__common_1a8c4fff11d8a379f9c57e633532a5a07d" prot="public" virt="non-virtual"><scope>zab::simple_promise</scope><name>simple_common</name></member>
+      <member refid="classzab_1_1simple__promise_1a6b62927cc0c50acbb1780cf645610e29" prot="public" virt="non-virtual"><scope>zab::simple_promise</scope><name>simple_promise</name></member>
+      <member refid="classzab_1_1simple__common_1ad8231a492550fda1e52d2a8e7e69efa8" prot="public" virt="non-virtual"><scope>zab::simple_promise</scope><name>underlying</name></member>
+      <member refid="classzab_1_1simple__common_1a65343cd0bce64c263727d5cffe9b5190" prot="public" virt="non-virtual"><scope>zab::simple_promise</scope><name>unhandled_exception</name></member>
+      <member refid="classzab_1_1simple__common_1aa0bd8b34ed3ff4603e2ffcc2cf2fadd4" prot="public" virt="non-virtual"><scope>zab::simple_promise</scope><name>~simple_common</name></member>
+      <member refid="classzab_1_1simple__promise_1a11f4a01f759b1089ada5b434524fe995" prot="public" virt="non-virtual"><scope>zab::simple_promise</scope><name>~simple_promise</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

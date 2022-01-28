@@ -1,0 +1,248 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1observable" kind="class" language="C++" prot="public">
+    <compoundname>zab::observable</compoundname>
+    <basecompoundref refid="classzab_1_1engine__enabled" prot="public" virt="non-virtual">zab::engine_enabled&lt; observable&lt; Args... &gt; &gt;</basecompoundref>
+    <innerclass refid="structzab_1_1observable_1_1internal__observer" prot="public">zab::observable::internal_observer</innerclass>
+    <innerclass refid="classzab_1_1observable_1_1observer" prot="public">zab::observable::observer</innerclass>
+    <innerclass refid="structzab_1_1observable_1_1pending__result" prot="public">zab::observable::pending_result</innerclass>
+    <templateparamlist>
+      <param>
+        <type>typename...</type>
+        <declname>Args</declname>
+        <defname>Args</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classzab_1_1observable_1a7a431ac86ac90ec9d43e227df19df724" prot="public" static="no">
+        <type><ref refid="classzab_1_1engine__enabled" kindref="compound">engine_enabled</ref>&lt; observable&lt; Args... &gt; &gt;</type>
+        <definition>using zab::observable&lt; Args &gt;::super =  engine_enabled&lt;observable&lt;Args...&gt; &gt;</definition>
+        <argsstring></argsstring>
+        <name>super</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/observable.hpp" line="60" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/observable.hpp" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzab_1_1observable_1a9f59e2c2aec00f5c67f8be00d0d53976" prot="private" static="no" mutable="no">
+        <type>async_mutex</type>
+        <definition>async_mutex zab::observable&lt; Args &gt;::mtx_</definition>
+        <argsstring></argsstring>
+        <name>mtx_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/observable.hpp" line="318" column="60" bodyfile="/home/donald/rupin/zab/includes/zab/observable.hpp" bodystart="318" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1observable_1a6974f18da5fa45a11dd6274217c00946" prot="private" static="no" mutable="no">
+        <type>std::deque&lt; std::unique_ptr&lt; internal_observer &gt; &gt;</type>
+        <definition>std::deque&lt;std::unique_ptr&lt;internal_observer&gt; &gt; zab::observable&lt; Args &gt;::observers_</definition>
+        <argsstring></argsstring>
+        <name>observers_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/observable.hpp" line="319" column="24" bodyfile="/home/donald/rupin/zab/includes/zab/observable.hpp" bodystart="319" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1observable_1a0b70a732041fd1c943f5e28ff310368b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::observable&lt; Args &gt;::observable</definition>
+        <argsstring>(engine *_engine)</argsstring>
+        <name>observable</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/observable.hpp" line="62" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/observable.hpp" bodystart="62" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1observable_1a714886225c0f9588c10f7bc0107600ae" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename...</type>
+            <declname>PArgs</declname>
+            <defname>PArgs</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref></type>
+        <definition>simple_future zab::observable&lt; Args &gt;::emit</definition>
+        <argsstring>(PArgs &amp;&amp;... _args)</argsstring>
+        <name>emit</name>
+        <param>
+          <type>PArgs &amp;&amp;...</type>
+          <declname>_args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/observable.hpp" line="200" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/observable.hpp" bodystart="200" bodyend="255"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1observable_1a11ff3bf5681b6c111e7518904efcac33" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename...</type>
+            <declname>PArgs</declname>
+            <defname>PArgs</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classzab_1_1async__function" kindref="compound">async_function</ref></type>
+        <definition>async_function zab::observable&lt; Args &gt;::async_emit</definition>
+        <argsstring>(PArgs &amp;&amp;... _args)</argsstring>
+        <name>async_emit</name>
+        <param>
+          <type>PArgs &amp;&amp;...</type>
+          <declname>_args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/observable.hpp" line="259" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/observable.hpp" bodystart="259" bodyend="262"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1observable_1a8461702bf6f66e56033069fc655608b7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">guaranteed_future</ref>&lt; observer &gt;</type>
+        <definition>guaranteed_future&lt;observer&gt; zab::observable&lt; Args &gt;::connect</definition>
+        <argsstring>()</argsstring>
+        <name>connect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/observable.hpp" line="265" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/observable.hpp" bodystart="265" bodyend="272"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1observable_1a5bbea69a94eb54e41f3eba35b55709a7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref></type>
+        <definition>simple_future zab::observable&lt; Args &gt;::disconnect</definition>
+        <argsstring>(observer &amp;_observer)</argsstring>
+        <name>disconnect</name>
+        <param>
+          <type>observer &amp;</type>
+          <declname>_observer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/observable.hpp" line="275" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/observable.hpp" bodystart="275" bodyend="297"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1observable_1a4b0b9c17f32451c8a248de41ce6d921c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref></type>
+        <definition>simple_future zab::observable&lt; Args &gt;::await_disconnect</definition>
+        <argsstring>()</argsstring>
+        <name>await_disconnect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/observable.hpp" line="300" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/observable.hpp" bodystart="300" bodyend="312"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>zab::details::configs</label>
+        <link refid="structzab_1_1details_1_1configs"/>
+      </node>
+      <node id="2">
+        <label>zab::engine_enabled&lt; observable&lt; Args... &gt; &gt;</label>
+        <link refid="classzab_1_1engine__enabled"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zab::observable&lt; Args &gt;</label>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>zab::details::configs</label>
+        <link refid="structzab_1_1details_1_1configs"/>
+      </node>
+      <node id="2">
+        <label>zab::engine_enabled&lt; observable&lt; Args... &gt; &gt;</label>
+        <link refid="classzab_1_1engine__enabled"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zab::observable&lt; Args &gt;</label>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/donald/rupin/zab/includes/zab/observable.hpp" line="56" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/observable.hpp" bodystart="56" bodyend="320"/>
+    <listofallmembers>
+      <member refid="classzab_1_1engine__enabled_1acf161ed1323412d2985592b50a6b1f39" prot="protected" virt="non-virtual"><scope>zab::observable</scope><name>_ordering</name></member>
+      <member refid="classzab_1_1engine__enabled_1aba7ce83ede9c4526365b1f914a9ff894" prot="protected" virt="non-virtual"><scope>zab::observable</scope><name>_thread</name></member>
+      <member refid="classzab_1_1engine__enabled_1a5e805bcc7940325a07a6ba78e03bfa76" prot="protected" virt="non-virtual"><scope>zab::observable</scope><name>any_thread</name></member>
+      <member refid="classzab_1_1observable_1a11ff3bf5681b6c111e7518904efcac33" prot="public" virt="non-virtual"><scope>zab::observable</scope><name>async_emit</name></member>
+      <member refid="classzab_1_1engine__enabled_1a2454bfe2df66fcee6c4f86d4e8677b94" prot="protected" virt="non-virtual"><scope>zab::observable</scope><name>async_member</name></member>
+      <member refid="classzab_1_1engine__enabled_1a3fdda8a38d4c067bbb9934ed99525776" prot="protected" virt="non-virtual"><scope>zab::observable</scope><name>async_member_c</name></member>
+      <member refid="classzab_1_1observable_1a4b0b9c17f32451c8a248de41ce6d921c" prot="public" virt="non-virtual"><scope>zab::observable</scope><name>await_disconnect</name></member>
+      <member refid="classzab_1_1observable_1a8461702bf6f66e56033069fc655608b7" prot="public" virt="non-virtual"><scope>zab::observable</scope><name>connect</name></member>
+      <member refid="classzab_1_1engine__enabled_1a538f1163ef8c8198122f155bf8cc1946" prot="protected" virt="non-virtual"><scope>zab::observable</scope><name>default_thread</name></member>
+      <member refid="classzab_1_1observable_1a5bbea69a94eb54e41f3eba35b55709a7" prot="public" virt="non-virtual"><scope>zab::observable</scope><name>disconnect</name></member>
+      <member refid="classzab_1_1observable_1a714886225c0f9588c10f7bc0107600ae" prot="public" virt="non-virtual"><scope>zab::observable</scope><name>emit</name></member>
+      <member refid="classzab_1_1engine__enabled_1a80893d57532e83253dbce27738d30d99" prot="public" virt="non-virtual"><scope>zab::observable</scope><name>engine_enabled</name></member>
+      <member refid="structzab_1_1details_1_1configs_1ab1cfc59a82d9cbb792bb390d27524c8c" prot="public" virt="non-virtual"><scope>zab::observable</scope><name>kDefaultThread</name></member>
+      <member refid="structzab_1_1details_1_1configs_1ac38d8a4b6c0818e3e0cfc558162b6a63" prot="public" virt="non-virtual"><scope>zab::observable</scope><name>kInitialiseThread</name></member>
+      <member refid="structzab_1_1details_1_1configs_1a89303251a3a56e12439ada0e27085676" prot="public" virt="non-virtual"><scope>zab::observable</scope><name>kMainCadence</name></member>
+      <member refid="structzab_1_1details_1_1configs_1a9f93594d89066f9dbd08ae66725b9498" prot="public" virt="non-virtual"><scope>zab::observable</scope><name>kMainThread</name></member>
+      <member refid="classzab_1_1observable_1a9f59e2c2aec00f5c67f8be00d0d53976" prot="private" virt="non-virtual"><scope>zab::observable</scope><name>mtx_</name></member>
+      <member refid="classzab_1_1engine__enabled_1a259d395cdabcf50e69f5386333413c5c" prot="protected" virt="non-virtual"><scope>zab::observable</scope><name>next</name></member>
+      <member refid="classzab_1_1engine__enabled_1a985dac14994ad7f9b672ebee6f99f9ef" prot="protected" virt="non-virtual"><scope>zab::observable</scope><name>now</name></member>
+      <member refid="classzab_1_1observable_1a0b70a732041fd1c943f5e28ff310368b" prot="public" virt="non-virtual"><scope>zab::observable</scope><name>observable</name></member>
+      <member refid="classzab_1_1observable_1a6974f18da5fa45a11dd6274217c00946" prot="private" virt="non-virtual"><scope>zab::observable</scope><name>observers_</name></member>
+      <member refid="classzab_1_1engine__enabled_1a8691cd5fd0506c1335ae152f65869a8e" prot="protected" virt="non-virtual"><scope>zab::observable</scope><name>order</name></member>
+      <member refid="classzab_1_1engine__enabled_1a5060e0c0c85df49158531959fb4f23be" prot="protected" virt="non-virtual"><scope>zab::observable</scope><name>proxy</name></member>
+      <member refid="classzab_1_1engine__enabled_1a1eb13d7ce25756d35514ce2251381044" prot="protected" virt="non-virtual"><scope>zab::observable</scope><name>proxy</name></member>
+      <member refid="classzab_1_1engine__enabled_1aa6520009ad04c091256bafccc948d7a8" prot="protected" virt="non-virtual"><scope>zab::observable</scope><name>proxy</name></member>
+      <member refid="classzab_1_1engine__enabled_1a6a366b9c1e7ca54145d2c8c0eb5fa0ed" prot="protected" virt="non-virtual"><scope>zab::observable</scope><name>proxy</name></member>
+      <member refid="classzab_1_1engine__enabled_1a1e7a053f67732ce3ee055075e8226a22" prot="protected" virt="non-virtual"><scope>zab::observable</scope><name>proxy</name></member>
+      <member refid="classzab_1_1engine__enabled_1ab0de115f16c08344b467909dd2c8da30" prot="protected" virt="non-virtual"><scope>zab::observable</scope><name>proxy</name></member>
+      <member refid="classzab_1_1engine__enabled_1a8f5953d0970da89287bd8315790e8826" prot="public" virt="non-virtual"><scope>zab::observable</scope><name>register_engine</name></member>
+      <member refid="classzab_1_1engine__enabled_1a5b0b1a34b89ef10693e0f5d5af6332b5" prot="protected" virt="non-virtual"><scope>zab::observable</scope><name>requires</name></member>
+      <member refid="classzab_1_1engine__enabled_1a4f7aa8b5e3b262e5975999df415a283b" prot="protected" virt="non-virtual"><scope>zab::observable</scope><name>reusable_member</name></member>
+      <member refid="classzab_1_1engine__enabled_1a1de4c35afff03bbdfe1a6e1813a1b44a" prot="protected" virt="non-virtual"><scope>zab::observable</scope><name>reusable_member_c</name></member>
+      <member refid="classzab_1_1engine__enabled_1afc5813b0a8c1b78262f87cb45f8bcfc2" prot="protected" virt="non-virtual"><scope>zab::observable</scope><name>simple_member</name></member>
+      <member refid="classzab_1_1engine__enabled_1a0f30db447b23f1e32201f7d10db0452b" prot="protected" virt="non-virtual"><scope>zab::observable</scope><name>simple_member_c</name></member>
+      <member refid="classzab_1_1observable_1a7a431ac86ac90ec9d43e227df19df724" prot="public" virt="non-virtual"><scope>zab::observable</scope><name>super</name></member>
+      <member refid="classzab_1_1engine__enabled_1a2916f8852cd332dd033b078c5c90f6be" prot="protected" virt="non-virtual"><scope>zab::observable</scope><name>thread</name></member>
+      <member refid="classzab_1_1engine__enabled_1a6d844708281a80ac5c0e75c55d5a74bc" prot="public" virt="non-virtual"><scope>zab::observable</scope><name>~engine_enabled</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespacezab_1_1order" kind="namespace" language="C++">
+    <compoundname>zab::order</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="strong__types_8hpp_1a999b1309aeb26e6ed1c4873e27b7b28c" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>constexpr <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref></type>
+        <definition>constexpr order_t zab::order::seconds</definition>
+        <argsstring>(std::uint64_t _number) noexcept</argsstring>
+        <name>seconds</name>
+        <param>
+          <type>std::uint64_t</type>
+          <declname>_number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="153" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="153" bodyend="156"/>
+      </memberdef>
+      <memberdef kind="function" id="strong__types_8hpp_1abc9e62000fe7258d27470383829dbda6" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>constexpr <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref></type>
+        <definition>constexpr order_t zab::order::milli</definition>
+        <argsstring>(std::uint64_t _number) noexcept</argsstring>
+        <name>milli</name>
+        <param>
+          <type>std::uint64_t</type>
+          <declname>_number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="159" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="159" bodyend="162"/>
+      </memberdef>
+      <memberdef kind="function" id="strong__types_8hpp_1a8f4040b70c6aa1d7831db4bdc8a4b5df" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>constexpr <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref></type>
+        <definition>constexpr order_t zab::order::now</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>now</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="165" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="165" bodyend="168"/>
+      </memberdef>
+      <memberdef kind="function" id="strong__types_8hpp_1a19a37d9a144266a961fe6552f1fa9b96" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="structzab_1_1order__t" kindref="compound">order_t</ref></type>
+        <definition>order_t zab::order::in_seconds</definition>
+        <argsstring>(std::uint64_t _number) noexcept</argsstring>
+        <name>in_seconds</name>
+        <param>
+          <type>std::uint64_t</type>
+          <declname>_number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="171" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="171" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="strong__types_8hpp_1ab215560c6604d0a5c41da3705d0a1fe3" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="structzab_1_1order__t" kindref="compound">order_t</ref></type>
+        <definition>order_t zab::order::in_milli</definition>
+        <argsstring>(std::uint64_t _number) noexcept</argsstring>
+        <name>in_milli</name>
+        <param>
+          <type>std::uint64_t</type>
+          <declname>_number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="177" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="177" bodyend="180"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="150" column="5"/>
+  </compounddef>
+</doxygen>

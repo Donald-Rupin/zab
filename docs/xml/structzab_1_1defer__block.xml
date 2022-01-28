@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structzab_1_1defer__block" kind="struct" language="C++" prot="public">
+    <compoundname>zab::defer_block</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzab_1_1defer__block_1a3b0bd3ca86ef66c9145d5ba37631c963" prot="public" static="no" mutable="no">
+        <type>T</type>
+        <definition>T zab::defer_block&lt; T &gt;::defered_</definition>
+        <argsstring></argsstring>
+        <name>defered_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" line="49" column="15" bodyfile="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzab_1_1defer__block_1abb1fc919a9a988529185f4fbb8f22314" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::defer_block&lt; T &gt;::defer_block</definition>
+        <argsstring>(T &amp;&amp;_defer)</argsstring>
+        <name>defer_block</name>
+        <param>
+          <type>T &amp;&amp;</type>
+          <declname>_defer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" line="47" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" bodystart="47" bodyend="47"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" line="45" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/defer_block_promise.hpp" bodystart="45" bodyend="50"/>
+    <listofallmembers>
+      <member refid="structzab_1_1defer__block_1abb1fc919a9a988529185f4fbb8f22314" prot="public" virt="non-virtual"><scope>zab::defer_block</scope><name>defer_block</name></member>
+      <member refid="structzab_1_1defer__block_1a3b0bd3ca86ef66c9145d5ba37631c963" prot="public" virt="non-virtual"><scope>zab::defer_block</scope><name>defered_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

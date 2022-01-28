@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1pause__token" kind="class" language="C++" prot="public">
+    <compoundname>zab::pause_token</compoundname>
+    <innerclass refid="structzab_1_1pause__token_1_1pauser" prot="private">zab::pause_token::pauser</innerclass>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classzab_1_1pause__token_1afdd0d2ffaad7395db6922a935f3a42b9" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr std::uintptr_t</type>
+        <definition>constexpr std::uintptr_t zab::pause_token::kUnpausedFlag</definition>
+        <argsstring></argsstring>
+        <name>kUnpausedFlag</name>
+        <initializer>= 0b1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="156" column="45" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classzab_1_1pause__token_1a266512500989669dfb707d614c7f4e46" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct</type>
+        <definition>friend struct pauser</definition>
+        <argsstring></argsstring>
+        <name>pauser</name>
+        <param>
+          <type>pauser</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="158" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzab_1_1pause__token_1a9621d67d3b3d451f8fb92a9c1a1c6ffa" prot="private" static="no" mutable="no">
+        <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+        <definition>engine* zab::pause_token::engine_</definition>
+        <argsstring></argsstring>
+        <name>engine_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="160" column="20" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1pause__token_1a3028ed0dc38d4752c10115d4b5b4d757" prot="private" static="no" mutable="no">
+        <type>std::atomic&lt; std::uintptr_t &gt;</type>
+        <definition>std::atomic&lt;std::uintptr_t&gt; zab::pause_token::resuming_</definition>
+        <argsstring></argsstring>
+        <name>resuming_</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="162" column="25" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1pause__token_1a28a1e9d071dbe5981c0573ce760f5502" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::pause_token::pause_token</definition>
+        <argsstring>(engine *_engine)</argsstring>
+        <name>pause_token</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="76" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="76" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1pause__token_1a07af4cb6ac43bae42ec8de8aa921fcc0" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zab::pause_token::paused</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>paused</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="79" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="79" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1pause__token_1abf30bc402dbb30189eba3696b8581f36" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::pause_token::pause</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>pause</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="85" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="85" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1pause__token_1aea8bb5113eb01392fbaa6e6557ea15c6" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::pause_token::unpause</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>unpause</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="99" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="99" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1pause__token_1a88357e5e552ea674bdc48ee553cf4ec3" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>pauser</type>
+        <definition>pauser zab::pause_token::operator co_await</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>operator co_await</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="120" column="20" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="120" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1pause__token_1a6dbf858bf34d85d2f8d8e3411d1150e1" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zab::pause_token::pause</definition>
+        <argsstring>(pauser *pauser_) noexcept</argsstring>
+        <name>pause</name>
+        <param>
+          <type>pauser *</type>
+          <declname>pauser_</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="123" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="123" bodyend="152"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="47" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="47" bodyend="163"/>
+    <listofallmembers>
+      <member refid="classzab_1_1pause__token_1a9621d67d3b3d451f8fb92a9c1a1c6ffa" prot="private" virt="non-virtual"><scope>zab::pause_token</scope><name>engine_</name></member>
+      <member refid="classzab_1_1pause__token_1afdd0d2ffaad7395db6922a935f3a42b9" prot="private" virt="non-virtual"><scope>zab::pause_token</scope><name>kUnpausedFlag</name></member>
+      <member refid="classzab_1_1pause__token_1a88357e5e552ea674bdc48ee553cf4ec3" prot="public" virt="non-virtual"><scope>zab::pause_token</scope><name>operator co_await</name></member>
+      <member refid="classzab_1_1pause__token_1abf30bc402dbb30189eba3696b8581f36" prot="public" virt="non-virtual"><scope>zab::pause_token</scope><name>pause</name></member>
+      <member refid="classzab_1_1pause__token_1a6dbf858bf34d85d2f8d8e3411d1150e1" prot="public" virt="non-virtual"><scope>zab::pause_token</scope><name>pause</name></member>
+      <member refid="classzab_1_1pause__token_1a28a1e9d071dbe5981c0573ce760f5502" prot="public" virt="non-virtual"><scope>zab::pause_token</scope><name>pause_token</name></member>
+      <member refid="classzab_1_1pause__token_1a07af4cb6ac43bae42ec8de8aa921fcc0" prot="public" virt="non-virtual"><scope>zab::pause_token</scope><name>paused</name></member>
+      <member refid="classzab_1_1pause__token_1a266512500989669dfb707d614c7f4e46" prot="private" virt="non-virtual"><scope>zab::pause_token</scope><name>pauser</name></member>
+      <member refid="classzab_1_1pause__token_1a3028ed0dc38d4752c10115d4b5b4d757" prot="private" virt="non-virtual"><scope>zab::pause_token</scope><name>resuming_</name></member>
+      <member refid="classzab_1_1pause__token_1aea8bb5113eb01392fbaa6e6557ea15c6" prot="public" virt="non-virtual"><scope>zab::pause_token</scope><name>unpause</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
