@@ -4,6 +4,8 @@
 event_loop
 ==========
 
+--------------------------
+
 AB is powered by `liburing <https://github.com/axboe/liburing>`_ which is a userspace wrapper for `io_uring <https://kernel.dk/io_uring.pdf>`_ An ``event_loop`` loop exists for every ``engine`` thread in ZAB. This thread loops on the completion queue waiting for completed io requests then fowarding the results to and resuming the respective coroutines. User space events (those submitted by ``engine::resume`` and family) are submitted to the ``event_loop`` via an event_fd. User code should only do short computations or ``yield`` long running computation in the ``event_loop`` to ensure IO completions are reported back in a timely manner.  
 
 In this release the following io_uring calls are supported in ZAB:
@@ -24,6 +26,8 @@ As in ``liburing`` options can be attempted to be canclled. Each io_uring call h
 2. A void function that expects a ``io_handle`` prefilled with the suspended coroutines handle. In either case, the value can be passed to ``cancel_event`` to attempt a cancle. 
 
 A ``io_handle`` is an alias to a ``pause_pack*`` which can be obtained through the ``zab::pause(...)`` function.
+
+--------------------------
 
 .. doxygenclass:: zab::event_loop
    :members:

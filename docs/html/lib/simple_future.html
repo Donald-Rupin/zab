@@ -87,7 +87,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -109,6 +109,7 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
             
@@ -182,10 +183,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="simple-future">
+
+<div class="section" id="simple-future">
 <span id="id1"></span><h1>simple_future<a class="headerlink" href="#simple-future" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
 <p>A function can mark itself as a coroutine by having a return type of <code class="docutils literal notranslate"><span class="pre">simple_future&lt;T,</span> <span class="pre">Promise&gt;</span></code>. The purpose of a simple_future is to provide a method for asynchronous functions to have a return type. Since the <code class="docutils literal notranslate"><span class="pre">simple_future&lt;T&gt;</span></code> may exhibit asynchronous behaviour the return type must be accessed through <code class="docutils literal notranslate"><span class="pre">co_await</span></code>. A <code class="docutils literal notranslate"><span class="pre">simple_future&lt;T&gt;</span></code> will wake up the waiting coroutine and return a value to it be using the <code class="docutils literal notranslate"><span class="pre">co_return</span></code> keyword.</p>
 <p>The promise type for an <code class="docutils literal notranslate"><span class="pre">simple_future&lt;T&gt;</span></code> must satisfy the <code class="docutils literal notranslate"><span class="pre">Returnable</span></code> concept. The default promise type is the <a class="reference internal" href="simple_promise.html#simple-promise"><span class="std std-ref">simple_promise</span></a>.</p>
+<hr class="docutils" />
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span> <span class="o">=</span> <span class="kt">void</span><span class="o">&gt;</span>
@@ -228,6 +232,7 @@
 </div>
 <p>The return type is taken from <cite>Promise::ReturnType</cite>.</p>
 <p><cite>Note:</cite> A <code class="docutils literal notranslate"><span class="pre">simple_future</span></code> may return to you in a different thread than was entered (if the application explitelty does the swap in the body). <a class="reference internal" href="proxy.html#proxy"><span class="std std-ref">proxy</span></a> can be used for simple thread coordination.</p>
+<hr class="docutils" />
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE">
 <span id="_CPPv3I0_N7details10ReturnableEEN3zab13simple_futureE"></span><span id="_CPPv2I0_N7details10ReturnableEEN3zab13simple_futureE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Returnable</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Promise</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="simple_promise.html#_CPPv4I0EN3zab14simple_promiseE" title="zab::simple_promise"><span class="n"><span class="pre">simple_promise</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1simple__future"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">simple_future</span></span></span><a class="headerlink" href="#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="Permalink to this definition">¶</a><br /></dt>
@@ -331,6 +336,11 @@
 </dd></dl>
 
 </div>
+
+<hr>
+</hr>
+
+<p></p>
 
 
            </div>

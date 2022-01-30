@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block body %}
+{% if pagename == 'posts/blog_home' %}
+{% include 'sidebar_page.html' %}
+{% else %}
+{{ body }}
+<hr>
+</hr>
+{% include 'postcard.html' %}
+<p></p>
+{% endif %}
+{% endblock %}

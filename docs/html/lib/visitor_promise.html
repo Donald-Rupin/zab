@@ -87,7 +87,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -111,6 +111,7 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
             
@@ -184,11 +185,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="vistor-promise">
+
+<div class="section" id="vistor-promise">
 <span id="visitor-promise"></span><h1>vistor_promise<a class="headerlink" href="#vistor-promise" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
 <p>A <code class="docutils literal notranslate"><span class="pre">visitor_promise&lt;T&gt;</span></code> is an extension of <a class="reference internal" href="simple_promise.html#simple-promise"><span class="std std-ref">simple_promise</span></a> that allows deferred execution of some function/s to “visit” or “preview” the returned type. <code class="docutils literal notranslate"><span class="pre">visitor_promise&lt;T&gt;</span></code> satisfies the <code class="docutils literal notranslate"><span class="pre">Returnable</span></code> concept.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">visitor_promise&lt;T&gt;</span></code> allows the user to save a/many callable/s of signature <code class="docutils literal notranslate"><span class="pre">void(T&amp;)</span></code> which will executed during the final suspend phase of the coroutine (after <code class="docutils literal notranslate"><span class="pre">co_return</span></code> is called). If multiple callable’s are saved, they will be executed in reverse order of deferment.</p>
 <p>A code block can be deferred by using the <code class="docutils literal notranslate"><span class="pre">co_yield</span> <span class="pre">(VistorBlock&lt;T&gt;)</span></code> operator. All deferred code blocks can be removed through the <code class="docutils literal notranslate"><span class="pre">co_yeild</span> <span class="pre">(purge_block)</span></code> operator. These operators do not actually suspend the coroutine.</p>
+<hr class="docutils" />
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
@@ -217,6 +221,7 @@
 </pre></div>
 </div>
 </div>
+<hr class="docutils" />
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3zab15visitor_promiseE">
 <span id="_CPPv3I0EN3zab15visitor_promiseE"></span><span id="_CPPv2I0EN3zab15visitor_promiseE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1visitor__promise"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">visitor_promise</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="simple_promise.html#_CPPv4I0EN3zab14simple_promiseE" title="zab::simple_promise"><span class="n"><span class="pre">simple_promise</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0EN3zab15visitor_promiseE" title="Permalink to this definition">¶</a><br /></dt>
@@ -256,6 +261,11 @@
 </dd></dl>
 
 </div>
+
+<hr>
+</hr>
+
+<p></p>
 
 
            </div>

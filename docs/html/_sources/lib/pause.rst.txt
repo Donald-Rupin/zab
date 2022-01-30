@@ -4,7 +4,11 @@
 pause
 =====
 
+--------------------------
+
 Pause the execution of the current coroutine until it is manually resumed. Useful for deferring for an unspecified or unknown amount of time. For example, waiting for the user to do something. 
+
+--------------------------
 
 .. code-block:: c++
     :caption: Example
@@ -30,6 +34,8 @@ Pause the execution of the current coroutine until it is manually resumed. Usefu
         assert(return_pp.thread_.thread_ == 1);
     }
 
+--------------------------
+
 A ``pause_pack`` has a non-owning reference to the coroutines state and also provides two options to set for resumption: The data to return and the thread to resume in.  
 
 
@@ -38,13 +44,20 @@ A ``pause_pack`` has a non-owning reference to the coroutines state and also pro
    :protected-members:
    :undoc-members:
 
+--------------------------
+
 ``pause(...)`` will give the Functor a non-owner ptr to the pause_pack. This ptr is valid until ``unpause`` has been called with it. 
 
 //TODO: fix doxygen generation of functions with concepts...
 
+
 .. doxygenfunction:: zab::pause(Functor&&)
 
+--------------------------
+
 After the coroutine has been paused ``thread_`` and ``data_`` can be set to the desired state and then the coroutine can be resumed using ``unpause(...)``. This resumption is thread-safe so may be called in any thread, but the coroutine will be resumed in the thread specified by  ``thread_``.
+
+
 
 .. doxygenfunction:: zab::unpause(engine *, pause_pack&, order_t)
 

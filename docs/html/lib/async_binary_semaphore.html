@@ -87,7 +87,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -108,6 +108,7 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
             
@@ -179,8 +180,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="async-binary-semaphore">
+
+<div class="section" id="async-binary-semaphore">
 <span id="id1"></span><h1>async_binary_semaphore<a class="headerlink" href="#async-binary-semaphore" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
 <p>A <code class="docutils literal notranslate"><span class="pre">async_binary_semaphore</span></code> is the equivalent of the <a class="reference external" href="https://en.cppreference.com/w/cpp/thread/counting_semaphore">std::binary_semaphore</a>.</p>
 <blockquote>
 <div><p>binary_semaphore is an alias for specialization of std::counting_semaphore with LeastMaxValue being 1. Implementations may implement binary_semaphore more efficiently than the default implementation of std::counting_semaphore.</p>
@@ -191,6 +194,7 @@
 </dd>
 </dl>
 <p>For mutual exclusion see <a class="reference internal" href="async_mutex.html#async-mutex"><span class="std std-ref">async_mutex</span></a>.</p>
+<hr class="docutils" />
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">simple_future</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span> <span class="n">your_class</span><span class="o">::</span><span class="n">get_work</span><span class="p">();</span>
@@ -239,6 +243,7 @@
 </pre></div>
 </div>
 </div>
+<hr class="docutils" />
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab22async_binary_semaphoreE">
 <span id="_CPPv3N3zab22async_binary_semaphoreE"></span><span id="_CPPv2N3zab22async_binary_semaphoreE"></span><span class="target" id="async__semaphore_8hpp_1ab8d7e7aa8d2419caa6aed39301bd4d51"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">async_binary_semaphore</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4IEN3zab24async_counting_semaphoreIXL1EEEE" title="zab::async_counting_semaphore&lt;1&gt;"><span class="n"><span class="pre">async_counting_semaphore</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3zab22async_binary_semaphoreE" title="Permalink to this definition">¶</a><br /></dt>
@@ -330,6 +335,11 @@
 </dd></dl>
 
 </div>
+
+<hr>
+</hr>
+
+<p></p>
 
 
            </div>

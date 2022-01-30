@@ -87,7 +87,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -108,6 +108,7 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
             
@@ -179,12 +180,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="pause-token">
+
+<div class="section" id="pause-token">
 <span id="id1"></span><h1>pause_token<a class="headerlink" href="#pause-token" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
 <p>A <code class="docutils literal notranslate"><span class="pre">pause_token</span></code> is the only synchronisation class in ZAB that has no standard library equivalent. It is used for pauseing and unpausing coroutines in a thread safe manner. All <code class="docutils literal notranslate"><span class="pre">pause_token</span></code> functions except the deconstructor are thread safe. The <code class="docutils literal notranslate"><span class="pre">pause_token</span></code> is constructed in a paused state.</p>
 <p>If paused, coroutines that <code class="docutils literal notranslate"><span class="pre">co_await</span></code> the <code class="docutils literal notranslate"><span class="pre">pause_token</span></code> will have their execution suspended. Otherwise, <code class="docutils literal notranslate"><span class="pre">co_await</span></code> no-ops.</p>
 <p>If the <code class="docutils literal notranslate"><span class="pre">pause_token</span></code> changes from a paused state to an unpaused state, all coroutines that had their execution suspended will be resumed in the <cite>same</cite> thread they were suspended in.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">pause_token</span></code> is re-usable and can be switched between paused and unpaused states. There is no maximum number of coroutines that can be suspended. Although, unpausing is linear in the number of suspended coroutines.</p>
+<hr class="docutils" />
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">async_function</span><span class="o">&lt;&gt;</span>
@@ -219,6 +223,7 @@
 </pre></div>
 </div>
 </div>
+<hr class="docutils" />
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab11pause_tokenE">
 <span id="_CPPv3N3zab11pause_tokenE"></span><span id="_CPPv2N3zab11pause_tokenE"></span><span id="zab::pause_token"></span><span class="target" id="classzab_1_1pause__token"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">pause_token</span></span></span><a class="headerlink" href="#_CPPv4N3zab11pause_tokenE" title="Permalink to this definition">¶</a><br /></dt>
@@ -258,6 +263,11 @@
 </dd></dl>
 
 </div>
+
+<hr>
+</hr>
+
+<p></p>
 
 
            </div>

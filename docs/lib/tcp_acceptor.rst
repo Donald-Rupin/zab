@@ -2,9 +2,13 @@
 
 ============
 tcp_acceptor
-============
+========
+
+--------------------------
 
 The ``tcp_acceptor`` represents the traditional server side of a connection. It will listen for connections on an inbound port. Deconstruction or moving the ``tcp_acceptor`` while in use results in undefined behavior. 
+
+--------------------------
 
 .. code-block:: c++
     :caption: Example
@@ -32,6 +36,8 @@ The ``tcp_acceptor`` represents the traditional server side of a connection. It 
             }
         }
     }
+
+--------------------------
 
 .. doxygenclass:: zab::tcp_acceptor
    :members:

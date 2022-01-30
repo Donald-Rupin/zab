@@ -87,7 +87,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -109,6 +109,7 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
             
@@ -182,11 +183,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="reusable-future">
+
+<div class="section" id="reusable-future">
 <span id="id1"></span><h1>reusable_future<a class="headerlink" href="#reusable-future" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
 <p>A function can mark itself as a coroutine by having a return type of <code class="docutils literal notranslate"><span class="pre">reusable_future&lt;T,</span> <span class="pre">Promise&gt;</span></code>. A reusable future is essentially <code class="docutils literal notranslate"><span class="pre">simple_future&lt;T,</span> <span class="pre">Promise&gt;</span></code> that can be <code class="docutils literal notranslate"><span class="pre">co_await</span></code>’ed multiple times. The return type is always wrapped in an <code class="docutils literal notranslate"><span class="pre">std::optional</span></code> since the <code class="docutils literal notranslate"><span class="pre">reusable_future&lt;T,</span> <span class="pre">Promise&gt;</span></code> may have finished or hit an error. A user can use the <code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">complete()</span></code> to distinguish the two. A <code class="docutils literal notranslate"><span class="pre">reusable_future&lt;T,</span> <span class="pre">Promise&gt;</span></code> can be viewed as a generator that may exhibit asynchronous behavior. A <code class="docutils literal notranslate"><span class="pre">reusable_future&lt;T&gt;</span></code> will wake up the waiting coroutine and return a value to when the <code class="docutils literal notranslate"><span class="pre">Promise</span></code> uses either the <code class="docutils literal notranslate"><span class="pre">co_yield</span></code> or <code class="docutils literal notranslate"><span class="pre">co_return</span></code> keywords. <code class="docutils literal notranslate"><span class="pre">co_yield</span></code> will return a value, but allow a the <code class="docutils literal notranslate"><span class="pre">reusable_future&lt;T,</span> <span class="pre">Promise&gt;</span></code> to be <code class="docutils literal notranslate"><span class="pre">co_await``ed</span> <span class="pre">again.</span> <span class="pre">``co_return</span></code> will complete the coroutine and any further <code class="docutils literal notranslate"><span class="pre">co_await</span></code> attempts on the <code class="docutils literal notranslate"><span class="pre">reusable_future&lt;T,</span> <span class="pre">Promise&gt;</span></code> will fail.</p>
 <p>The difference in use cases between using a <code class="docutils literal notranslate"><span class="pre">simple_future&lt;T.</span> <span class="pre">Promise&gt;</span></code> many times and having a single <code class="docutils literal notranslate"><span class="pre">reusable_future&lt;T,</span> <span class="pre">Promise&gt;</span></code> is that a <code class="docutils literal notranslate"><span class="pre">reusable_future&lt;T,</span> <span class="pre">Promise&gt;</span></code> can store state about its context between value returns.</p>
 <p>The promise type for an <code class="docutils literal notranslate"><span class="pre">reusable_future&lt;T,</span> <span class="pre">Promise&gt;</span></code> must satisfy the <code class="docutils literal notranslate"><span class="pre">Reoccurring</span></code> concept. The default promise type is the <a class="reference internal" href="reusable_promise.html#reusable-promise"><span class="std std-ref">reusable_promise</span></a>.</p>
+<hr class="docutils" />
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">simple_future</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span>
@@ -243,6 +247,7 @@
 </pre></div>
 </div>
 </div>
+<hr class="docutils" />
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4I0_N7details11ReoccurringEEN3zab15reusable_futureE">
 <span id="_CPPv3I0_N7details11ReoccurringEEN3zab15reusable_futureE"></span><span id="_CPPv2I0_N7details11ReoccurringEEN3zab15reusable_futureE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Reoccurring</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Promise</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="reusable_promise.html#_CPPv4I0EN3zab16reusable_promiseE" title="zab::reusable_promise"><span class="n"><span class="pre">reusable_promise</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0_N7details11ReoccurringEEN3zab15reusable_futureE" title="zab::reusable_future::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1reusable__future"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">reusable_future</span></span></span><a class="headerlink" href="#_CPPv4I0_N7details11ReoccurringEEN3zab15reusable_futureE" title="Permalink to this definition">¶</a><br /></dt>
@@ -377,6 +382,11 @@
 </dd></dl>
 
 </div>
+
+<hr>
+</hr>
+
+<p></p>
 
 
            </div>

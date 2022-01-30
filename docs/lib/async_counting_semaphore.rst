@@ -4,6 +4,9 @@
 async_counting_semaphore
 ========================
 
+--------------------------
+
+
 A ``async_counting_semaphore`` is the equivalent of the `std::counting_semaphore <https://en.cppreference.com/w/cpp/thread/counting_semaphore>`_.
 
     A counting_semaphore is a lightweight synchronization primitive that can control access to a shared resource. Unlike a std::mutex, a counting_semaphore allows more than one concurrent access to the same resource, for at least LeastMaxValue concurrent accessors. The program is ill-formed if LeastMaxValue is negative.
@@ -11,6 +14,9 @@ A ``async_counting_semaphore`` is the equivalent of the `std::counting_semaphore
     A counting_semaphore contains an internal counter initialized by the constructor. This counter is decremented by calls to _operator co_await_, and is incremented by calls to release(). When the counter is zero, operator co_await suspends until the counter is incremented, but try_acquire() does not block; 
 
 ``try_acquire_for()`` and ``try_acquire_until()`` are not included in this interface.
+
+--------------------------
+
 
 .. code-block:: c++
    :caption: Example
@@ -61,6 +67,9 @@ A ``async_counting_semaphore`` is the equivalent of the `std::counting_semaphore
          sem.release(to_wake_up);
       }
    }
+
+--------------------------
+
 
 .. doxygenclass:: zab::async_counting_semaphore
    :members:

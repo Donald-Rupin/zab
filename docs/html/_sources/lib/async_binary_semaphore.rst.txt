@@ -4,6 +4,9 @@
 async_binary_semaphore
 ======================
 
+--------------------------
+
+
 A ``async_binary_semaphore`` is the equivalent of the `std::binary_semaphore <https://en.cppreference.com/w/cpp/thread/counting_semaphore>`_. 
 
     binary_semaphore is an alias for specialization of std::counting_semaphore with LeastMaxValue being 1. Implementations may implement binary_semaphore more efficiently than the default implementation of std::counting_semaphore.
@@ -14,6 +17,9 @@ Note:
     Semaphores are also often used for the semantics of signalling/notifying rather than mutual exclusion, by initializing the semaphore with 0 and thus blocking the receiver(s) that try to acquire(), until the notifier "signals" by invoking release(n).
 
 For mutual exclusion see :ref:`async_mutex`.
+
+--------------------------
+
 
 .. code-block:: c++
     :caption: Example
@@ -62,8 +68,10 @@ For mutual exclusion see :ref:`async_mutex`.
         }
     }
 
+--------------------------
 
 .. doxygentypedef:: zab::async_binary_semaphore
+
 
 .. doxygenclass:: zab::async_counting_semaphore< 1 >
    :members:

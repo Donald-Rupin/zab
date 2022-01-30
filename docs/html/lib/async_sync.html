@@ -87,7 +87,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -108,6 +108,7 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
             
@@ -177,8 +178,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="asynchronous-synchronisation">
+
+<div class="section" id="asynchronous-synchronisation">
 <span id="async-sync"></span><h1>Asynchronous Synchronisation<a class="headerlink" href="#asynchronous-synchronisation" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
 <p>ZAB provides synconisation mechanisms similar to those provided by the <a class="reference external" href="https://en.cppreference.com/w/cpp/thread">C++ standard thread support library</a>. The main difference is that these synchronisation mechanisms are <cite>non-blocking</cite> in terms of the event loop. This allows mutual exclusion and thread co-ordination without interfering with the event loops. This also allows the same thread to “wait” or “co-ordinate” with itself. For example, the same thread may have different coroutines all blocking on the same <code class="docutils literal notranslate"><span class="pre">async_mutex</span></code>.</p>
 <div class="toctree-wrapper compound">
 <ul>
@@ -194,6 +197,11 @@
 </ul>
 </div>
 </div>
+
+<hr>
+</hr>
+
+<p></p>
 
 
            </div>

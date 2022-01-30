@@ -87,7 +87,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -107,6 +107,7 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
             
@@ -178,9 +179,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="pause">
+
+<div class="section" id="pause">
 <span id="id1"></span><h1>pause<a class="headerlink" href="#pause" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
 <p>Pause the execution of the current coroutine until it is manually resumed. Useful for deferring for an unspecified or unknown amount of time. For example, waiting for the user to do something.</p>
+<hr class="docutils" />
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">async_function</span>
@@ -206,6 +210,7 @@
 </pre></div>
 </div>
 </div>
+<hr class="docutils" />
 <p>A <code class="docutils literal notranslate"><span class="pre">pause_pack</span></code> has a non-owning reference to the coroutines state and also provides two options to set for resumption: The data to return and the thread to resume in.</p>
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10pause_packE">
@@ -237,12 +242,14 @@
 </div>
 </dd></dl>
 
+<hr class="docutils" />
 <p><code class="docutils literal notranslate"><span class="pre">pause(...)</span></code> will give the Functor a non-owner ptr to the pause_pack. This ptr is valid until <code class="docutils literal notranslate"><span class="pre">unpause</span></code> has been called with it.</p>
 <p>//TODO: fix doxygen generation of functions with concepts…</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>doxygenfunction: Cannot find function “zab::pause” in doxygen xml output for project “ZAB” from directory: xml</p>
 </div>
+<hr class="docutils" />
 <p>After the coroutine has been paused <code class="docutils literal notranslate"><span class="pre">thread_</span></code> and <code class="docutils literal notranslate"><span class="pre">data_</span></code> can be set to the desired state and then the coroutine can be resumed using <code class="docutils literal notranslate"><span class="pre">unpause(...)</span></code>. This resumption is thread-safe so may be called in any thread, but the coroutine will be resumed in the thread specified by  <code class="docutils literal notranslate"><span class="pre">thread_</span></code>.</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab7unpauseEP6engineR10pause_pack7order_t">
@@ -270,6 +277,11 @@
 </dd></dl>
 
 </div>
+
+<hr>
+</hr>
+
+<p></p>
 
 
            </div>

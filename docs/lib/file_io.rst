@@ -8,6 +8,7 @@ The ``async_file`` provides simple asynchronous read/write operations to the use
 
 ``async_file`` usage in an ``engine_enabled`` class:
 
+--------------------------
 
 .. code-block:: c++
     :caption: Example
@@ -46,6 +47,8 @@ The ``async_file`` provides simple asynchronous read/write operations to the use
             success = co_await file.close();
         }
     }
+
+--------------------------
 
 .. doxygenclass:: zab::async_file
    :members:

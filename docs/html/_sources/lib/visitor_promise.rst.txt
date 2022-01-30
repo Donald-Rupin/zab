@@ -4,11 +4,15 @@
 vistor_promise
 ==============
 
+--------------------------
+
 A ``visitor_promise<T>`` is an extension of :ref:`simple_promise` that allows deferred execution of some function/s to "visit" or "preview" the returned type. ``visitor_promise<T>`` satisfies the ``Returnable`` concept.  
 
 The ``visitor_promise<T>`` allows the user to save a/many callable/s of signature ``void(T&)`` which will executed during the final suspend phase of the coroutine (after ``co_return`` is called). If multiple callable's are saved, they will be executed in reverse order of deferment.
 
 A code block can be deferred by using the ``co_yield (VistorBlock<T>)`` operator. All deferred code blocks can be removed through the ``co_yeild (purge_block)`` operator. These operators do not actually suspend the coroutine.
+
+--------------------------
 
 .. code-block:: c++
     :caption: Example
@@ -36,6 +40,8 @@ A code block can be deferred by using the ``co_yield (VistorBlock<T>)`` operator
         co_return 2;
         /* The defer blocks will run after this return... */
     }
+
+--------------------------
 
 .. doxygenclass:: zab::visitor_promise
    :members:

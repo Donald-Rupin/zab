@@ -4,6 +4,8 @@
 proxy
 =====
 
+--------------------------
+
 A ``proxy`` is a way for classes to expose asynchronous functions through their public interface that have thread based pre and post conditions. A ``proxy`` to a member function places the path of execution into the indicated thread before calling/re-entering the member function then returning the path of execution to the calling thread on exiting. In the case of ``simple_futures<T>`` and ``reusable_futures<T>`` this switch occurs on ``co_await``. If you are already in the correct thread, the proxy code no-ops. 
 
 A proxy can only be used by classes that inherit form :ref:`engine_enabled`.
@@ -18,7 +20,10 @@ The gerneral format for a proxy call is:
         ARGS2...
     );
 
+
 Where ``ARGS1`` is constructible from ``ARGS2``. NOTE: ``ARGS2`` is always taken by copy because using parameter packs with universal references and stacked coroutines almost always ends in undefined behavior. If your member function takes references, it will be references to the proxy created arguments, not the caller arguments. For ``simple_futures<T>`` and ``reusable_futures<T>`` this is recommended, as the proxy created arguments are guarantied to live longer then the member coroutine, and reduces an extra copy.  For ``async_function``, since there is no waiting, the copied parameters will live until the first suspension.
+
+--------------------------
 
 An example of using proxy with a ``simple_future<T>`` is:
 

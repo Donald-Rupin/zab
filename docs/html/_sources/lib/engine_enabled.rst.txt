@@ -4,6 +4,8 @@
 engine_enabled
 ==============
 
+--------------------------
+
 
 ``engine_enabled<Base>`` is a helper class that uses `CRTP <https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern>`_ to aid in setting up you classes for easy use of the ``engine`` class. It also provides configurations and member function bindings to remove common boiler plate.
 
@@ -13,15 +15,21 @@ If the base class satisisfies the ``details::HasMain<F>`` concept (has a ``void 
 
 The base class can configure its bindings by overiding the members ``zab::details::configs`` which is a parent of ``engine_enabled<Base>``.
 
+--------------------------
+
 .. doxygenstruct:: zab::details::configs
    :members:
    :protected-members:
    :undoc-members:
 
 
+
+
 zab::engine_enabled
 -------------------
 The ``engine_enabled<Base>`` provides easy access to :ref:`async_primitives` and use of the ``proxy`` primitive. 
+
+--------------------------
 
 .. doxygenclass:: zab::engine_enabled
    :members:

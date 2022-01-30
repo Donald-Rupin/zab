@@ -87,7 +87,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -100,10 +100,7 @@
 <li class="toctree-l3"><a class="reference internal" href="async_binary_semaphore.html">async_binary_semaphore</a></li>
 <li class="toctree-l3"><a class="reference internal" href="async_mutex.html">async_mutex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="async_latch.html">async_latch</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">async_barrier</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#unbounded-use-of-async-barrier">Unbounded use of async_barrier</a></li>
-</ul>
-</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">async_barrier</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="observable.html">Observables</a></li>
@@ -111,6 +108,7 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
             
@@ -182,8 +180,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="async-barrier">
+
+<div class="section" id="async-barrier">
 <span id="id1"></span><h1>async_barrier<a class="headerlink" href="#async-barrier" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
 <p>A <code class="docutils literal notranslate"><span class="pre">async`barrier</span></code> is the equivalent of the <a class="reference external" href="https://en.cppreference.com/w/cpp/thread/barrier">std::barrier</a>.</p>
 <blockquote>
 <div><p>The class template std::barrier provides a thread-coordination mechanism that allows at most an expected number of threads to <cite>suspend</cite> until the expected number of threads arrive at the barrier. Unlike std::latch, barriers are reusable: once the arriving threads are <cite>resumed</cite> from a barrier phase’s synchronization point, the same barrier can be reused.</p>
@@ -207,6 +207,7 @@
 + The <code class="docutils literal notranslate"><span class="pre">arrival`token</span></code> can live past its own phase and the next phase without causing undefined behavior
 + There is no corresponding <code class="docutils literal notranslate"><span class="pre">wait(arrival`token&amp;&amp;)</span></code> function and suspension can be achieved by <code class="docutils literal notranslate"><span class="pre">co`await``ing</span> <span class="pre">the</span> <span class="pre">``arrival`token</span></code>.</p>
 <p>With <code class="docutils literal notranslate"><span class="pre">async`barrier</span></code> the completion function is allowed to be asynchronous. If the completion function satisfies <code class="docutils literal notranslate"><span class="pre">NoThrowAwaitable</span></code> the barrier will <code class="docutils literal notranslate"><span class="pre">co`await</span></code> the function before continuing.</p>
+<hr class="docutils" />
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">simple_future</span><span class="o">&lt;&gt;</span>
@@ -281,6 +282,7 @@
 <p>In terms of function guaranties, the “current phase” is not the currently executing phase, but the phase that its arrival frame will form part of. This is important when considering when a function strongly happens-before the start of the phase completion step for the current phase.</p>
 <p>For example, a barrier that has a <code class="docutils literal notranslate"><span class="pre">barrier</span> <span class="pre">count</span></code> of 5, there might be 15 frames currently suspended at the barrier. This would be very rare and would require some odd thread scheduling by the OS (priority inversion limiting the control thread) or user code blocking the control thread. Essentially, the exhibited behavior would be as expected: as if the 10 extra frames have not suspended yet but are about to. The control thread calls the completion function then will resume the first 5 frames. If the amount of left over frames is greater then <code class="docutils literal notranslate"><span class="pre">barrier</span> <span class="pre">count</span></code> a new control thread is picked to repeat. The application would see: <code class="docutils literal notranslate"><span class="pre">[completion_function()</span> <span class="pre">-&gt;</span> <span class="pre">process</span> <span class="pre">5</span> <span class="pre">-&gt;</span> <span class="pre">completion_function()</span> <span class="pre">-</span> <span class="pre">&gt;</span> <span class="pre">process</span> <span class="pre">5</span> <span class="pre">-&gt;</span> <span class="pre">completion_function()</span> <span class="pre">-&gt;</span> <span class="pre">process</span> <span class="pre">5]</span></code> in rapid succession.</p>
 <p>The use of <code class="docutils literal notranslate"><span class="pre">arrive_and_drop()</span></code> seemingly adheres to the standard, but in the presence queued phase waiting might behave oddly according to your application. According to the published <code class="docutils literal notranslate"><span class="pre">std::barrier</span></code>, <code class="docutils literal notranslate"><span class="pre">arrive_and_drop()</span></code> does not block. So this function will never block even if the drop in count does not count towards the next executing phase. In the above example, <code class="docutils literal notranslate"><span class="pre">arrive_and_drop()</span></code> could be called before the first phase is complete, but it applies to the last phase queued. This means that <code class="docutils literal notranslate"><span class="pre">arrive_and_drop()</span></code> returns, but the phase it applies to has not yet started. In this case the application would see: <code class="docutils literal notranslate"><span class="pre">[completion_function()</span> <span class="pre">-&gt;</span> <span class="pre">process</span> <span class="pre">5</span> <span class="pre">-&gt;</span> <span class="pre">completion_function()</span> <span class="pre">-</span> <span class="pre">&gt;</span> <span class="pre">process</span> <span class="pre">5</span> <span class="pre">-&gt;</span> <span class="pre">completion_function()</span> <span class="pre">-&gt;</span> <span class="pre">process</span> <span class="pre">5</span> <span class="pre">-&gt;</span> <span class="pre">decrement</span> <span class="pre">barrier</span> <span class="pre">count]</span></code> in rapid succession but <code class="docutils literal notranslate"><span class="pre">arrive_and_drop()</span></code> may return before this occurs.</p>
+<hr class="docutils" />
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4I_N7details9SequencerEEN3zab13async_barrierE">
 <span id="_CPPv3I_N7details9SequencerEEN3zab13async_barrierE"></span><span id="_CPPv2I_N7details9SequencerEEN3zab13async_barrierE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Sequencer</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CompletionFunction</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">no_op</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1async__barrier"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">async_barrier</span></span></span><a class="headerlink" href="#_CPPv4I_N7details9SequencerEEN3zab13async_barrierE" title="Permalink to this definition">¶</a><br /></dt>
@@ -422,6 +424,11 @@
 
 </div>
 </div>
+
+<hr>
+</hr>
+
+<p></p>
 
 
            </div>

@@ -87,7 +87,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -100,6 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
             
@@ -169,11 +170,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="observables">
+
+<div class="section" id="observables">
 <span id="observable"></span><h1>Observables<a class="headerlink" href="#observables" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
 <p>An <code class="docutils literal notranslate"><span class="pre">observable&lt;Args...&gt;</span></code> represents a thread safe publish/subscribe system. The to main operations are <code class="docutils literal notranslate"><span class="pre">emit</span></code> and <code class="docutils literal notranslate"><span class="pre">connect</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">emit</span></code> is a <code class="docutils literal notranslate"><span class="pre">simple_future&lt;&gt;</span></code> that safely resumes all waiting subscribers allowing them access to the given parameters. For safety the parameters of emit and forwarded into a safe location. As to ensure no copies are made, move objects in as arguments. <code class="docutils literal notranslate"><span class="pre">emit</span></code> will resume the caller only once <cite>all</cite> observers have received the publish, and have finished with the data. There is a <code class="docutils literal notranslate"><span class="pre">async_emit</span></code> for pushing ab <code class="docutils literal notranslate"><span class="pre">emit</span></code> in the background. Deconstruction of the <code class="docutils literal notranslate"><span class="pre">observable&lt;Args...&gt;</span></code> when <code class="docutils literal notranslate"><span class="pre">async_emit</span></code> are running is undefined behavior.</p>
 <p><code class="docutils literal notranslate"><span class="pre">connect</span></code> is a <code class="docutils literal notranslate"><span class="pre">simple_future&lt;&gt;</span></code> that safely subscribes to an <code class="docutils literal notranslate"><span class="pre">observable&lt;Args...&gt;</span></code> and returns an <code class="docutils literal notranslate"><span class="pre">observer</span></code> that can be used to await for publishes. <code class="docutils literal notranslate"><span class="pre">co_await</span> <span class="pre">observer</span></code> on resumption will return an <code class="docutils literal notranslate"><span class="pre">observer_guard</span></code> that ensures the lifetime of the published values. The published values can be accessed through <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">std::tuple&lt;Args...&gt;&amp;</span> <span class="pre">observer_guard::event()</span></code>.</p>
+<hr class="docutils" />
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">string_observable</span> <span class="o">=</span> <span class="n">observable</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">;</span>
@@ -209,6 +213,7 @@
 </pre></div>
 </div>
 </div>
+<hr class="docutils" />
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4IDpEN3zab10observableE">
 <span id="_CPPv3IDpEN3zab10observableE"></span><span id="_CPPv2IDpEN3zab10observableE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Args</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1observable"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">observable</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="engine_enabled.html#_CPPv4I0EN3zab14engine_enabledE" title="zab::engine_enabled"><span class="n"><span class="pre">engine_enabled</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpEN3zab10observableE" title="zab::observable"><span class="n"><span class="pre">observable</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpEN3zab10observableE" title="zab::observable::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4IDpEN3zab10observableE" title="Permalink to this definition">¶</a><br /></dt>
@@ -389,6 +394,11 @@
 </dd></dl>
 
 </div>
+
+<hr>
+</hr>
+
+<p></p>
 
 
            </div>

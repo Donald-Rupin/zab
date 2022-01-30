@@ -4,6 +4,9 @@
 async_mutex
 ===========
 
+--------------------------
+
+
 The ``async_mutex`` is a merger of a `std::mutex <https://en.cppreference.com/w/cpp/thread/mutex>`_ and a `std::lock_guard <https://en.cppreference.com/w/cpp/thread/lock_guard>`_. 
 
     The mutex class is a synchronization primitive that can be used to protect shared data from being simultaneously accessed by multiple _coroutines_.
@@ -30,6 +33,9 @@ With regards to the return value of ``operator co_await``, ``async_lock_guard``:
 
     The lock_guard class is non-copyable. 
 
+--------------------------
+
+
 .. code-block:: c++
     :caption: Example
 
@@ -54,6 +60,9 @@ With regards to the return value of ``operator co_await``, ``async_lock_guard``:
         /* Note: resumption of blocked coroutines is not done here */
         /* Resumption is yielded and performed later...            */
     }
+
+--------------------------
+
 
 .. doxygenclass:: zab::async_mutex
    :members:

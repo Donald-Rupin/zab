@@ -30,7 +30,9 @@ release = '0'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [ "breathe"]
+extensions = [ "breathe",
+    "ablog",
+    "sphinx.ext.intersphinx"]
 
 breathe_projects = {
     "ZAB Project": "./xml"
@@ -38,11 +40,20 @@ breathe_projects = {
 
 breathe_default_project = "ZAB"
 
-exhale_args = {
-   "containmentFolder": "./api",
-   "rootFileName": "library_root.rst",
-   "doxygenStripFromPath": "../includes",
-   "rootFileTitle": "ZAB Documentation"
+blog_post_pattern = "posts/*.rst"
+
+html_theme_options = {
+    'analytics_anonymize_ip': False,
+    'logo_only': False,
+    'display_version': True,
+    'prev_next_buttons_location': 'bottom',
+    'style_external_links': False,
+    # Toc options
+    'collapse_navigation': True,
+    'sticky_navigation': True,
+    'navigation_depth': 5,
+    'includehidden': True,
+    'titles_only': True
 }
 
 # Add any paths that contain templates here, relative to this directory.

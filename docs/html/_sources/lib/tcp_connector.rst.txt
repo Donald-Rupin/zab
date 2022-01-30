@@ -4,7 +4,11 @@
 tcp_connector
 =============
 
+--------------------------
+
 The ``tcp_connector`` represents the traditional client side of a connection. It will attempt to connect to a listening host. Deconstruction or moving the ``tcp_connector`` while in use results in undefined behavior. 
+
+--------------------------
 
 .. code-block:: c++
     :caption: Example
@@ -44,6 +48,8 @@ The ``tcp_connector`` represents the traditional client side of a connection. It
             freeaddrinfo(addr);
         }
     }
+
+--------------------------
 
 .. doxygenclass:: zab::tcp_connector
    :members:

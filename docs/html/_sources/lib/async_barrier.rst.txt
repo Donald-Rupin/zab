@@ -4,6 +4,8 @@
 async_barrier
 ==============
 
+--------------------------
+
 A ``async`barrier`` is the equivalent of the `std::barrier <https://en.cppreference.com/w/cpp/thread/barrier>`_.
 
 
@@ -27,6 +29,8 @@ The implementation differs (so far) in terms of ``arrival`token`` and the use of
 + There is no corresponding ``wait(arrival`token&&)`` function and suspension can be achieved by ``co`await``ing the ``arrival`token``. 
 
 With ``async`barrier`` the completion function is allowed to be asynchronous. If the completion function satisfies ``NoThrowAwaitable`` the barrier will ``co`await`` the function before continuing. 
+
+--------------------------
 
 .. code-block:: c++
     :caption: Example
@@ -109,6 +113,7 @@ For example, a barrier that has a ``barrier count`` of 5, there might be 15 fram
 
 The use of ``arrive_and_drop()`` seemingly adheres to the standard, but in the presence queued phase waiting might behave oddly according to your application. According to the published ``std::barrier``, ``arrive_and_drop()`` does not block. So this function will never block even if the drop in count does not count towards the next executing phase. In the above example, ``arrive_and_drop()`` could be called before the first phase is complete, but it applies to the last phase queued. This means that ``arrive_and_drop()`` returns, but the phase it applies to has not yet started. In this case the application would see: ``[completion_function() -> process 5 -> completion_function() - > process 5 -> completion_function() -> process 5 -> decrement barrier count]`` in rapid succession but ``arrive_and_drop()`` may return before this occurs.
 
+--------------------------
 
 .. doxygenclass:: zab::async_barrier
    :members:

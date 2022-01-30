@@ -87,7 +87,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -111,6 +111,7 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
             
@@ -184,10 +185,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="reusable-promise">
+
+<div class="section" id="reusable-promise">
 <span id="id1"></span><h1>reusable_promise<a class="headerlink" href="#reusable-promise" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
 <p>A <code class="docutils literal notranslate"><span class="pre">reusable_promise&lt;T&gt;</span></code> allows a coroutine to return values to the caller multiple times. <code class="docutils literal notranslate"><span class="pre">reusable_promise&lt;T&gt;</span></code> satisfies the <code class="docutils literal notranslate"><span class="pre">Reoccurring</span></code> concept.</p>
 <p>The coroutine key words available are <code class="docutils literal notranslate"><span class="pre">co_yield</span> <span class="pre">(ARG)</span></code>, <code class="docutils literal notranslate"><span class="pre">co_return</span> <span class="pre">(ARG)</span></code> where T is constructible from <code class="docutils literal notranslate"><span class="pre">ARG</span></code>, and <code class="docutils literal notranslate"><span class="pre">co_yield</span> <span class="pre">(std::nullopt_t)</span></code>, <code class="docutils literal notranslate"><span class="pre">co_return</span> <span class="pre">(std::nullopt_t)</span></code> in the case the promise cannot be fulfilled.</p>
+<hr class="docutils" />
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3zab16reusable_promiseE">
 <span id="_CPPv3I0EN3zab16reusable_promiseE"></span><span id="_CPPv2I0EN3zab16reusable_promiseE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1reusable__promise"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">reusable_promise</span></span></span><a class="headerlink" href="#_CPPv4I0EN3zab16reusable_promiseE" title="Permalink to this definition">¶</a><br /></dt>
@@ -408,13 +412,18 @@
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise6state_E">
-<span id="_CPPv3N3zab16reusable_promise6state_E"></span><span id="_CPPv2N3zab16reusable_promise6state_E"></span><span id="zab::reusable_promise::state___State"></span><span class="target" id="classzab_1_1reusable__promise_1a4380be92988945faa2cd587af0fdcde3"></span><a class="reference internal" href="#_CPPv4N3zab16reusable_promise5StateE" title="zab::reusable_promise::State"><span class="n"><span class="pre">State</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">state_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab16reusable_promise5State6kEmptyE" title="zab::reusable_promise::kEmpty"><span class="n"><span class="pre">kEmpty</span></span></a><a class="headerlink" href="#_CPPv4N3zab16reusable_promise6state_E" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise6state_E"></span><span id="_CPPv2N3zab16reusable_promise6state_E"></span><span id="zab::reusable_promise::state___State"></span><span class="target" id="classzab_1_1reusable__promise_1a4380be92988945faa2cd587af0fdcde3"></span><a class="reference internal" href="#_CPPv4N3zab16reusable_promise5StateE" title="zab::reusable_promise::State"><span class="n"><span class="pre">State</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">state_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">kEmpty</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise6state_E" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
 </dd></dl>
 
 </div>
+
+<hr>
+</hr>
+
+<p></p>
 
 
            </div>

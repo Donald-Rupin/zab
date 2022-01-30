@@ -87,7 +87,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -107,6 +107,7 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
             
@@ -178,9 +179,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="yield">
+
+<div class="section" id="yield">
 <span id="id1"></span><h1>yield<a class="headerlink" href="#yield" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
 <p>Defer computation of the current function by passing control back to the event loop. This defers the execution of the function without blocking the event loop. User are able to specifiy a delay to the yield or specify a thread to return into.</p>
+<hr class="docutils" />
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">async_function</span><span class="o">&lt;&gt;</span>
@@ -196,6 +200,7 @@
 </div>
 </div>
 <p>Classes that inherit from <a class="reference internal" href="engine_enabled.html#engine-enabled"><span class="std std-ref">engine_enabled</span></a> can forgo the <code class="docutils literal notranslate"><span class="pre">engine*</span></code> paremeter.</p>
+<hr class="docutils" />
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab5yieldEP6engine">
 <span id="_CPPv3N3zab5yieldEP6engine"></span><span id="_CPPv2N3zab5yieldEP6engine"></span><span id="zab::yield__engineP"></span><span class="target" id="yield_8hpp_1a383d0db798c9eb98b287c081ae320c97"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">yield</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab5yieldEP6engine" title="Permalink to this definition">¶</a><br /></dt>
@@ -246,6 +251,11 @@
 </dd></dl>
 
 </div>
+
+<hr>
+</hr>
+
+<p></p>
 
 
            </div>

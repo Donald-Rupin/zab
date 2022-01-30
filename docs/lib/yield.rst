@@ -4,7 +4,11 @@
 yield
 =====
 
+--------------------------
+
 Defer computation of the current function by passing control back to the event loop. This defers the execution of the function without blocking the event loop. User are able to specifiy a delay to the yield or specify a thread to return into.
+
+--------------------------
 
 .. code-block:: c++
     :caption: Example
@@ -20,6 +24,8 @@ Defer computation of the current function by passing control back to the event l
     }
 
 Classes that inherit from :ref:`engine_enabled` can forgo the ``engine*`` paremeter. 
+
+--------------------------
 
 .. doxygenfunction:: zab::yield(engine *)
 

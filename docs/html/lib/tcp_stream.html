@@ -41,7 +41,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="tcp_acceptor" href="tcp_acceptor.html" /> 
+    <link rel="next" title="Recent Articles" href="../posts/blog_home.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="tcp_acceptor.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -86,7 +87,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -98,12 +99,12 @@
 <li class="toctree-l2"><a class="reference internal" href="file_io.html">File IO</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="networking.html">Networking</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="tcp_connector.html">tcp_connector</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tcp_acceptor.html">tcp_acceptor</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">tcp_stream</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
             
@@ -175,8 +176,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="tcp-stream">
+
+<div class="section" id="tcp-stream">
 <span id="id1"></span><h1>tcp_stream<a class="headerlink" href="#tcp-stream" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
 <p>The <code class="docutils literal notranslate"><span class="pre">tcp_stream</span></code> represents the a duplex network stream for writing and reading data. <code class="docutils literal notranslate"><span class="pre">read</span></code>, <code class="docutils literal notranslate"><span class="pre">shutdown</span></code> and <code class="docutils literal notranslate"><span class="pre">cancel</span></code> are not thread safe. Deconstruction or moving the <code class="docutils literal notranslate"><span class="pre">tcp_stream</span></code> while in use results in undefined behavior. A user should make sure to ensure to <code class="docutils literal notranslate"><span class="pre">shutdown</span></code> and wait for any operations to leave the functions before deconstructing the object.</p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
@@ -208,6 +211,7 @@
 </pre></div>
 </div>
 </div>
+<hr class="docutils" />
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10tcp_streamE">
 <span id="_CPPv3N3zab10tcp_streamE"></span><span id="_CPPv2N3zab10tcp_streamE"></span><span id="zab::tcp_stream"></span><span class="target" id="classzab_1_1tcp__stream"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">tcp_stream</span></span></span><a class="headerlink" href="#_CPPv4N3zab10tcp_streamE" title="Permalink to this definition">¶</a><br /></dt>
@@ -452,13 +456,19 @@
 
 </div>
 
+<hr>
+</hr>
+
+<p></p>
+
 
            </div>
            
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="tcp_acceptor.html" class="btn btn-neutral float-left" title="tcp_acceptor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../posts/blog_home.html" class="btn btn-neutral float-right" title="Recent Articles" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="tcp_acceptor.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

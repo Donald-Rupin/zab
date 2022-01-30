@@ -87,15 +87,10 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Geting Started</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#building">Building</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#adding-to-your-project">Adding to your project</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#example-usage">Example Usage</a></li>
-</ul>
-</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Geting Started</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core_library.html">Core Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="coroutines.html">Coroutines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="async_primitives.html">Asynchronous Primitives</a></li>
@@ -105,6 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
             
@@ -174,10 +170,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="geting-started">
+
+<div class="section" id="geting-started">
 <span id="getting-started"></span><h1>Geting Started<a class="headerlink" href="#geting-started" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<div class="section" id="code">
+<h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/Donald-Rupin/zab">Github Repository</a></p>
 <div class="section" id="building">
-<h2>Building<a class="headerlink" href="#building" title="Permalink to this headline">¶</a></h2>
+<h3>Building<a class="headerlink" href="#building" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
 <p>Portability has not been the primary focus in the creation of <strong>ZAB</strong>. Any and all help with porting and verifying ZAB works across different platforms and compilers is much appreciated.</p>
 <p>Built Tested on:</p>
 <ul class="simple">
@@ -198,7 +200,8 @@ ctest
 <p>Standard <cite>make</cite> also works if you do not want to use ninja.</p>
 </div>
 <div class="section" id="adding-to-your-project">
-<h2>Adding to your project<a class="headerlink" href="#adding-to-your-project" title="Permalink to this headline">¶</a></h2>
+<h3>Adding to your project<a class="headerlink" href="#adding-to-your-project" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
 <p>Using cmake you can just add the project as a subdirector (git submole works well.):</p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">cmake file</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
@@ -226,7 +229,8 @@ ctest
 </div>
 </div>
 <div class="section" id="example-usage">
-<h2>Example Usage<a class="headerlink" href="#example-usage" title="Permalink to this headline">¶</a></h2>
+<h3>Example Usage<a class="headerlink" href="#example-usage" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Usage in you engine_enable class</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cm">/* An asynchronous function that returns nothing - it can return execution without finishing itself */</span>
@@ -388,6 +392,12 @@ ctest
 </div>
 </div>
 </div>
+</div>
+
+<hr>
+</hr>
+
+<p></p>
 
 
            </div>

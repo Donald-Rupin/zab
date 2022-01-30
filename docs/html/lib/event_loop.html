@@ -87,7 +87,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -107,6 +107,7 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
             
@@ -178,8 +179,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="event-loop">
+
+<div class="section" id="event-loop">
 <span id="id1"></span><h1>event_loop<a class="headerlink" href="#event-loop" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
 <p>AB is powered by <a class="reference external" href="https://github.com/axboe/liburing">liburing</a> which is a userspace wrapper for <a class="reference external" href="https://kernel.dk/io_uring.pdf">io_uring</a> An <code class="docutils literal notranslate"><span class="pre">event_loop</span></code> loop exists for every <code class="docutils literal notranslate"><span class="pre">engine</span></code> thread in ZAB. This thread loops on the completion queue waiting for completed io requests then fowarding the results to and resuming the respective coroutines. User space events (those submitted by <code class="docutils literal notranslate"><span class="pre">engine::resume</span></code> and family) are submitted to the <code class="docutils literal notranslate"><span class="pre">event_loop</span></code> via an event_fd. User code should only do short computations or <code class="docutils literal notranslate"><span class="pre">yield</span></code> long running computation in the <code class="docutils literal notranslate"><span class="pre">event_loop</span></code> to ensure IO completions are reported back in a timely manner.</p>
 <p>In this release the following io_uring calls are supported in ZAB:</p>
 <ul class="simple">
@@ -198,6 +201,7 @@
 1. A simple future that has a <code class="docutils literal notranslate"><span class="pre">io_handle</span></code> out value which will be set to the cancellation handle on suspension.
 2. A void function that expects a <code class="docutils literal notranslate"><span class="pre">io_handle</span></code> prefilled with the suspended coroutines handle. In either case, the value can be passed to <code class="docutils literal notranslate"><span class="pre">cancel_event</span></code> to attempt a cancle.</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">io_handle</span></code> is an alias to a <code class="docutils literal notranslate"><span class="pre">pause_pack*</span></code> which can be obtained through the <code class="docutils literal notranslate"><span class="pre">zab::pause(...)</span></code> function.</p>
+<hr class="docutils" />
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10event_loopE">
 <span id="_CPPv3N3zab10event_loopE"></span><span id="_CPPv2N3zab10event_loopE"></span><span id="zab::event_loop"></span><span class="target" id="classzab_1_1event__loop"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">event_loop</span></span></span><a class="headerlink" href="#_CPPv4N3zab10event_loopE" title="Permalink to this definition">¶</a><br /></dt>
@@ -445,6 +449,11 @@
 </dd></dl>
 
 </div>
+
+<hr>
+</hr>
+
+<p></p>
 
 
            </div>

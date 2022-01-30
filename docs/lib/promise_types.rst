@@ -4,6 +4,8 @@
 Promise Types
 =============
 
+--------------------------
+
 Promise types are used to configure the functionality of coroutine body and to define how return/yield results make it to the underlying :ref:`task_types`.
 
 .. toctree::

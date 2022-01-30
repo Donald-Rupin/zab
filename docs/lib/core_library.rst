@@ -4,6 +4,9 @@
 Core Library
 ############
 
+--------------------------
+
+
 ZAB provides methods for creating generic events, signal handling, and file/network IO. ZAB also ensures thread safety for cross-thread events and communication.
 
 .. toctree::

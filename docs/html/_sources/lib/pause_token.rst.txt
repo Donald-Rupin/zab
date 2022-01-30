@@ -4,6 +4,8 @@
 pause_token
 ===========
 
+--------------------------
+
 A ``pause_token`` is the only synchronisation class in ZAB that has no standard library equivalent. It is used for pauseing and unpausing coroutines in a thread safe manner. All ``pause_token`` functions except the deconstructor are thread safe. The ``pause_token`` is constructed in a paused state.
 
 If paused, coroutines that ``co_await`` the ``pause_token`` will have their execution suspended. Otherwise, ``co_await`` no-ops.
@@ -11,6 +13,8 @@ If paused, coroutines that ``co_await`` the ``pause_token`` will have their exec
 If the ``pause_token`` changes from a paused state to an unpaused state, all coroutines that had their execution suspended will be resumed in the `same` thread they were suspended in. 
 
 The ``pause_token`` is re-usable and can be switched between paused and unpaused states. There is no maximum number of coroutines that can be suspended. Although, unpausing is linear in the number of suspended coroutines. 
+
+--------------------------
 
 .. code-block:: c++
     :caption: Example
@@ -44,6 +48,8 @@ The ``pause_token`` is re-usable and can be switched between paused and unpaused
         std::cout << "Putting to work\n";
         pt.unpause();
     }
+
+--------------------------
 
 .. doxygenclass:: zab::pause_token
    :members:

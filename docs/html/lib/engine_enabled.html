@@ -87,17 +87,14 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="core_library.html">Core Library</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="engine.html">engine</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ordering_and_threads.html">Ordering and Threads</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">engine_enabled</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#zab-engine-enabled">zab::engine_enabled</a></li>
-</ul>
-</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">engine_enabled</a></li>
 <li class="toctree-l3"><a class="reference internal" href="event_loop.html">event_loop</a></li>
 <li class="toctree-l3"><a class="reference internal" href="signal_handling.html">Signal Handling</a></li>
 </ul>
@@ -110,6 +107,7 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
             
@@ -181,12 +179,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="engine-enabled">
+
+<div class="section" id="engine-enabled">
 <span id="id1"></span><h1>engine_enabled<a class="headerlink" href="#engine-enabled" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
 <p><code class="docutils literal notranslate"><span class="pre">engine_enabled&lt;Base&gt;</span></code> is a helper class that uses <a class="reference external" href="https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern">CRTP</a> to aid in setting up you classes for easy use of the <code class="docutils literal notranslate"><span class="pre">engine</span></code> class. It also provides configurations and member function bindings to remove common boiler plate.</p>
 <p>If the base class satisisfies the <code class="docutils literal notranslate"><span class="pre">details::HasInitialise&lt;F&gt;</span></code> concept (has a <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">initialise()</span> <span class="pre">noexcept</span></code>) method, this method will be called on engine start.</p>
 <p>If the base class satisisfies the <code class="docutils literal notranslate"><span class="pre">details::HasMain&lt;F&gt;</span></code> concept (has a <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">main()</span> <span class="pre">noexcept</span></code>) method, this method will be called on a loop of cadence kMainCadence.</p>
 <p>The base class can configure its bindings by overiding the members <code class="docutils literal notranslate"><span class="pre">zab::details::configs</span></code> which is a parent of <code class="docutils literal notranslate"><span class="pre">engine_enabled&lt;Base&gt;</span></code>.</p>
+<hr class="docutils" />
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab7details7configsE">
 <span id="_CPPv3N3zab7details7configsE"></span><span id="_CPPv2N3zab7details7configsE"></span><span id="zab::details::configs"></span><span class="target" id="structzab_1_1details_1_1configs"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">configs</span></span></span><a class="headerlink" href="#_CPPv4N3zab7details7configsE" title="Permalink to this definition">¶</a><br /></dt>
@@ -221,6 +222,7 @@
 <div class="section" id="zab-engine-enabled">
 <h2>zab::engine_enabled<a class="headerlink" href="#zab-engine-enabled" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">engine_enabled&lt;Base&gt;</span></code> provides easy access to <a class="reference internal" href="async_primitives.html#async-primitives"><span class="std std-ref">Asynchronous Primitives</span></a> and use of the <code class="docutils literal notranslate"><span class="pre">proxy</span></code> primitive.</p>
+<hr class="docutils" />
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3zab14engine_enabledE">
 <span id="_CPPv3I0EN3zab14engine_enabledE"></span><span id="_CPPv2I0EN3zab14engine_enabledE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Base</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1engine__enabled"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">engine_enabled</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3zab7details7configsE" title="zab::details::configs"><span class="n"><span class="pre">configs</span></span></a><a class="headerlink" href="#_CPPv4I0EN3zab14engine_enabledE" title="Permalink to this definition">¶</a><br /></dt>
@@ -448,6 +450,11 @@
 
 </div>
 </div>
+
+<hr>
+</hr>
+
+<p></p>
 
 
            </div>

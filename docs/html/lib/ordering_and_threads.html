@@ -87,17 +87,13 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="core_library.html">Core Library</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="engine.html">engine</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Ordering and Threads</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#order-t">order_t</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#thread-t">thread_t</a></li>
-</ul>
-</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Ordering and Threads</a></li>
 <li class="toctree-l3"><a class="reference internal" href="engine_enabled.html">engine_enabled</a></li>
 <li class="toctree-l3"><a class="reference internal" href="event_loop.html">event_loop</a></li>
 <li class="toctree-l3"><a class="reference internal" href="signal_handling.html">Signal Handling</a></li>
@@ -111,6 +107,7 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
             
@@ -182,11 +179,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="ordering-and-threads">
+
+<div class="section" id="ordering-and-threads">
 <span id="id1"></span><h1>Ordering and Threads<a class="headerlink" href="#ordering-and-threads" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
 <div class="section" id="order-t">
 <h2>order_t<a class="headerlink" href="#order-t" title="Permalink to this headline">¶</a></h2>
 <p>An <code class="docutils literal notranslate"><span class="pre">order_t</span></code> is a strongly typed <code class="docutils literal notranslate"><span class="pre">std::size_t</span></code>. This specifies the delay to apply in the event loop in nanoseconds (0 for no delay).</p>
+<hr class="docutils" />
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab7order_tE">
 <span id="_CPPv3N3zab7order_tE"></span><span id="_CPPv2N3zab7order_tE"></span><span id="zab::order_t"></span><span class="target" id="structzab_1_1order__t"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">order_t</span></span></span><a class="headerlink" href="#_CPPv4N3zab7order_tE" title="Permalink to this definition">¶</a><br /></dt>
@@ -231,6 +231,7 @@
 <div class="section" id="thread-t">
 <h2>thread_t<a class="headerlink" href="#thread-t" title="Permalink to this headline">¶</a></h2>
 <p>A <code class="docutils literal notranslate"><span class="pre">thread_t</span></code> is a strongly typed <code class="docutils literal notranslate"><span class="pre">std::uint16_t</span></code> which is used to select a thread to be used. This can have different meaning in different contexts.  Typically <code class="docutils literal notranslate"><span class="pre">thread_t::any_thread()</span></code> can be used to select which thread currently has the least amount of work to do. Thread bounds are not checked, so specifying an index larger than the number of threads in the <code class="docutils literal notranslate"><span class="pre">engine</span></code> is undefined behavior.</p>
+<hr class="docutils" />
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab8thread_tE">
 <span id="_CPPv3N3zab8thread_tE"></span><span id="_CPPv2N3zab8thread_tE"></span><span id="zab::thread_t"></span><span class="target" id="structzab_1_1thread__t"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">thread_t</span></span></span><a class="headerlink" href="#_CPPv4N3zab8thread_tE" title="Permalink to this definition">¶</a><br /></dt>
@@ -296,6 +297,11 @@
 
 </div>
 </div>
+
+<hr>
+</hr>
+
+<p></p>
 
 
            </div>

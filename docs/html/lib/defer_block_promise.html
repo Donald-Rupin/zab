@@ -87,7 +87,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -111,6 +111,7 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
             
@@ -184,13 +185,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="defer-block-promise">
+
+<div class="section" id="defer-block-promise">
 <span id="id1"></span><h1>defer_block_promise<a class="headerlink" href="#defer-block-promise" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
 <p>A <code class="docutils literal notranslate"><span class="pre">defer_block_promise</span></code> is an extension of <code class="docutils literal notranslate"><span class="pre">execution_promise</span></code> that allows deferred execution of some function/s.  <code class="docutils literal notranslate"><span class="pre">defer_block_promise</span></code> satisfies the <code class="docutils literal notranslate"><span class="pre">Execution</span></code> concept.</p>
 <p>The coroutine key words available are <code class="docutils literal notranslate"><span class="pre">co_return</span> <span class="pre">(void)</span></code>, <code class="docutils literal notranslate"><span class="pre">co_yield</span> <span class="pre">(defer_block)</span></code>, <code class="docutils literal notranslate"><span class="pre">co_yeild</span> <span class="pre">(purge_block)</span></code>. The coroutine can also suspend using <code class="docutils literal notranslate"><span class="pre">co_await</span> <span class="pre">(AwaitableProxy)</span></code>.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">defer_block_promise</span></code> allows the user to save a/many callable/s of signature <code class="docutils literal notranslate"><span class="pre">void(void)</span></code> which will executed during the final suspend phase of the coroutine (after <code class="docutils literal notranslate"><span class="pre">co_return</span></code> is called). If multiple callable’s are saved, they will be executed in reverse order of deferment.</p>
 <p>A code block can be deferred by using the <code class="docutils literal notranslate"><span class="pre">co_yield</span> <span class="pre">(defer_block)</span></code> operator. All deferred code blocks can be removed through the <code class="docutils literal notranslate"><span class="pre">co_yeild</span> <span class="pre">(purge_block)</span></code> operator. These operators do not actually suspend the coroutine.</p>
 <p>Access to local variables in the functions scope is more or less undefined behavior. For example, capturing from the function scope by reference. The deconstuctors will have been called but the memory would have not been de-allocated. Accessing local variables with trivial / no de-constructors (ints) is not a memory violation. Experimentation indicates correct behavior although optimizations present or future could easier mess it up. Accessing local variables with non-trivial de-constructors is undefined behavior.</p>
+<hr class="docutils" />
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">async_function</span><span class="o">&lt;</span><span class="n">defer_block_promise</span><span class="o">&gt;</span>
@@ -229,6 +233,7 @@
 </pre></div>
 </div>
 </div>
+<hr class="docutils" />
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab19defer_block_promiseE">
 <span id="_CPPv3N3zab19defer_block_promiseE"></span><span id="_CPPv2N3zab19defer_block_promiseE"></span><span id="zab::defer_block_promise"></span><span class="target" id="classzab_1_1defer__block__promise"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">defer_block_promise</span></span></span><a class="headerlink" href="#_CPPv4N3zab19defer_block_promiseE" title="Permalink to this definition">¶</a><br /></dt>
@@ -298,6 +303,11 @@
 </dd></dl>
 
 </div>
+
+<hr>
+</hr>
+
+<p></p>
 
 
            </div>

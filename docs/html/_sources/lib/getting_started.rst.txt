@@ -4,9 +4,16 @@
 Geting Started
 ==============
 
+--------------------------
+
+Code
+____
+`Github Repository <https://github.com/Donald-Rupin/zab>`_
 
 Building
 ********
+
+--------------------------
 
 Portability has not been the primary focus in the creation of **ZAB**. Any and all help with porting and verifying ZAB works across different platforms and compilers is much appreciated. 
 
@@ -31,6 +38,8 @@ Standard `make` also works if you do not want to use ninja.
 
 Adding to your project
 **********************
+
+--------------------------
 
 Using cmake you can just add the project as a subdirector (git submole works well.):
 
@@ -59,6 +68,9 @@ Using cmake you can just add the project as a subdirector (git submole works wel
 
 Example Usage
 *************
+
+--------------------------
+
 .. code-block:: c++
     :caption: Usage in you engine_enable class
 

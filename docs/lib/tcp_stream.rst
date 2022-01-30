@@ -4,6 +4,8 @@
 tcp_stream
 ==========
 
+--------------------------
+
 The ``tcp_stream`` represents the a duplex network stream for writing and reading data. ``read``, ``shutdown`` and ``cancel`` are not thread safe. Deconstruction or moving the ``tcp_stream`` while in use results in undefined behavior. A user should make sure to ensure to ``shutdown`` and wait for any operations to leave the functions before deconstructing the object.
 
 .. code-block:: c++
@@ -34,6 +36,8 @@ The ``tcp_stream`` represents the a duplex network stream for writing and readin
 
         /* RAII will clean up for us! */
     }
+
+--------------------------
 
 .. doxygenclass:: zab::tcp_stream
    :members:

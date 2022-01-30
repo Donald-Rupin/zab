@@ -4,9 +4,15 @@
 async_function
 ==============
 
+--------------------------
+
+
 A function can mark itself as a coroutine by having a return type of ``async_function``. 
 
 The promise type for an ``async_function`` must satisfy the ``Execution`` concept. The default promise type is the :ref:`execution_promise`.
+
+--------------------------
+
 
 .. code-block:: c++
     :caption: Example
@@ -17,6 +23,7 @@ The promise type for an ``async_function`` must satisfy the ``Execution`` concep
         /* async behaviour goes here... */
     }
 
+--------------------------
 
 .. doxygenclass:: zab::async_function
    :members:

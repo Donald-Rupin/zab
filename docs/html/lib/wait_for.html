@@ -87,7 +87,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -107,6 +107,7 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
             
@@ -178,9 +179,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="wait-for">
+
+<div class="section" id="wait-for">
 <span id="id1"></span><h1>wait_for<a class="headerlink" href="#wait-for" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
 <p>Creates a <code class="docutils literal notranslate"><span class="pre">simple_future</span></code> out of a series of <code class="docutils literal notranslate"><span class="pre">simple_future</span></code> s or <code class="docutils literal notranslate"><span class="pre">reusable_future</span></code> s. This function will run all passed <code class="docutils literal notranslate"><span class="pre">simple_future</span></code> s in parallel and return the results after all have complete. The dynamic overload requires all <code class="docutils literal notranslate"><span class="pre">simple_future</span></code> s are of the same type.</p>
+<hr class="docutils" />
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span> <span class="o">=</span> <span class="kt">void</span><span class="o">&gt;</span>
@@ -208,6 +212,7 @@
 </div>
 </div>
 <p>Unlike other <code class="docutils literal notranslate"><span class="pre">simple_futures&lt;T&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">wait_for</span></code> will always return the caller in the same thread as internally it uses an <a class="reference internal" href="async_latch.html#async-latch"><span class="std std-ref">async_latch</span></a>. Coroutine arguments are thread safe, so can return in any thread they choose.</p>
+<hr class="docutils" />
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4IDpEN3zab8wait_forE17guaranteed_futureIN7details21extract_promise_typesIDp8PromisesE5typesEEP6engineDpRR8Promises">
 <span id="_CPPv3IDpEN3zab8wait_forEP6engineDpRR8Promises"></span><span id="_CPPv2IDpEN3zab8wait_forEP6engineDpRR8Promises"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Promises</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="wait__for_8hpp_1a616774f77dfa9b6abd36b9908b6d10ff"></span><span class="n"><span class="pre">guaranteed_future</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">extract_promise_types</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpEN3zab8wait_forE17guaranteed_futureIN7details21extract_promise_typesIDp8PromisesE5typesEEP6engineDpRR8Promises" title="zab::wait_for::Promises"><span class="n"><span class="pre">Promises</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">types</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">wait_for</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span>, <a class="reference internal" href="#_CPPv4IDpEN3zab8wait_forE17guaranteed_futureIN7details21extract_promise_typesIDp8PromisesE5typesEEP6engineDpRR8Promises" title="zab::wait_for::Promises"><span class="n"><span class="pre">Promises</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IDpEN3zab8wait_forE17guaranteed_futureIN7details21extract_promise_typesIDp8PromisesE5typesEEP6engineDpRR8Promises" title="Permalink to this definition">¶</a><br /></dt>
@@ -235,6 +240,11 @@
 <dd></dd></dl>
 
 </div>
+
+<hr>
+</hr>
+
+<p></p>
 
 
            </div>
