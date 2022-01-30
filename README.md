@@ -2,7 +2,7 @@
 
 ![example workflow](https://github.com/Donald-Rupin/zab/actions/workflows/cmake.yml/badge.svg)
 
-[Home Page}(https://donald-rupin.github.io/zab/html/index.html)
+[Home Page](https://donald-rupin.github.io/zab/html/index.html)
 
 A high-performance framework for building asynchronous and multi-threaded programs. 
 
