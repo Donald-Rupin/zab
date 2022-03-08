@@ -4,6 +4,9 @@
 async_latch
 ===========
 
+--------------------------
+
+
 An `async_latch` is the equivalent of the `std::latch <https://en.cppreference.com/w/cpp/thread/latch>`_.
 
     The latch class is a downward counter of type std::ptrdiff_t which can be used to synchronize threads. The value of the counter is initialized on creation. _Coroutines will be suspended_ on the latch until the counter is decremented to zero. There is no possibility to increase or reset the counter, which makes the latch a single-use barrier. 
@@ -11,6 +14,9 @@ An `async_latch` is the equivalent of the `std::latch <https://en.cppreference.c
     Concurrent invocations of the member functions of latch, except for the destructor, do not introduce data races. 
 
 :ref:`wait_for` is an good example for where latches are useful. In particular the ability to use within the same thread multiple times.
+
+--------------------------
+
 
 .. code-block:: c++
     :caption: Example
@@ -44,6 +50,9 @@ An `async_latch` is the equivalent of the `std::latch <https://en.cppreference.c
         /* If we get here, all coroutines are in the correct thread  */
         /* and completed their pre-work */
     }
+
+--------------------------
+
 
 .. doxygenclass:: zab::async_latch
    :members:
