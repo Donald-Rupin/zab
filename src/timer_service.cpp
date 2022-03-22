@@ -69,7 +69,7 @@ namespace zab {
             {
                 auto rc = co_await _engine->get_event_loop().close(_fd);
 
-                if (rc && *rc == 0) { _fd = 0; }
+                if (rc == 0) { _fd = 0; }
                 else
                 {
                     std::cerr << kErrorMessage << " (1)\n";

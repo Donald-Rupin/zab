@@ -127,6 +127,11 @@ namespace zab {
     void
     engine::start() noexcept
     {
+        /* The main thread can just use the first one. */
+        /* There will be no race since this thread will block untill */
+        /* the other threads start.  */
+        this_thead_ = thread_t{0};
+
         std::latch lat(configs_.threads_ + 1);
         for (std::uint16_t i = 0; i < configs_.threads_; ++i)
         {

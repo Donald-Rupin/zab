@@ -77,24 +77,6 @@ namespace zab {
             }
         }
 
-        /* Args must be by copy, otherwise we take a reference to the call stack */
-        template <typename FunctionCallType, FunctionCallType Function, typename... Args>
-        inline simple_future<int>
-        do_op_impl(event_loop::io_handle* _cancle_token, struct io_uring* _ring, Args... _args)
-        {
-            pause_pack pp = co_await zab::pause(
-                [_cancle_token, _ring, _args...](event_loop::io_handle _pp) mutable noexcept
-                {
-                    if (_cancle_token) { *_cancle_token = _pp; }
-                    do_op_impl<FunctionCallType, Function>(
-                        _pp,
-                        _ring,
-                        std::forward<Args>(_args)...);
-                });
-
-            co_return pp.data_;
-        }
-
 #define do_op(function, ...) do_op_impl<decltype(function), function>(__VA_ARGS__)
     }   // namespace
 
@@ -175,24 +157,6 @@ namespace zab {
         io_uring_submit(ring_.get());
     }
 
-    simple_future<int>
-    event_loop::open_at(
-        int                    _dfd,
-        const std::string_view _path,
-        int                    _flags,
-        mode_t                 _mode,
-        io_handle*             _cancle_token) noexcept
-    {
-        return do_op(
-            &io_uring_prep_openat,
-            _cancle_token,
-            ring_.get(),
-            _dfd,
-            _path.data(),
-            _flags,
-            (mode_t) _mode);
-    }
-
     void
     event_loop::open_at(
         io_handle              _cancle_token,
@@ -211,33 +175,10 @@ namespace zab {
             (mode_t) _mode);
     }
 
-    simple_future<int>
-    event_loop::close(int _fd, io_handle* _cancle_token) noexcept
-    {
-        return do_op(&io_uring_prep_close, _cancle_token, ring_.get(), _fd);
-    }
-
     void
     event_loop::close(io_handle _cancle_token, int _fd) noexcept
     {
         return do_op(&io_uring_prep_close, _cancle_token, ring_.get(), _fd);
-    }
-
-    simple_future<int>
-    event_loop::read(
-        int                  _fd,
-        std::span<std::byte> _buffer,
-        off_t                _offset,
-        io_handle*           _cancle_token) noexcept
-    {
-        return do_op(
-            &io_uring_prep_read,
-            _cancle_token,
-            ring_.get(),
-            _fd,
-            (char*) _buffer.data(),
-            _buffer.size(),
-            _offset);
     }
 
     void
@@ -257,24 +198,6 @@ namespace zab {
             _offset);
     }
 
-    simple_future<int>
-    event_loop::read_v(
-        int                 _fd,
-        const struct iovec* _iovecs,
-        unsigned            _nr_vecs,
-        off_t               _offset,
-        io_handle*          _cancle_token) noexcept
-    {
-        return do_op(
-            &io_uring_prep_readv,
-            _cancle_token,
-            ring_.get(),
-            _fd,
-            _iovecs,
-            _nr_vecs,
-            _offset);
-    }
-
     void
     event_loop::read_v(
         io_handle           _cancle_token,
@@ -291,25 +214,6 @@ namespace zab {
             _iovecs,
             _nr_vecs,
             _offset);
-    }
-
-    simple_future<int>
-    event_loop::fixed_read(
-        int                  _fd,
-        std::span<std::byte> _buffer,
-        off_t                _offset,
-        int                  _buf_index,
-        io_handle*           _cancle_token) noexcept
-    {
-        return do_op(
-            &io_uring_prep_read_fixed,
-            _cancle_token,
-            ring_.get(),
-            _fd,
-            (char*) _buffer.data(),
-            _buffer.size(),
-            _offset,
-            _buf_index);
     }
 
     void
@@ -331,23 +235,6 @@ namespace zab {
             _buf_index);
     }
 
-    simple_future<int>
-    event_loop::write(
-        int                        _fd,
-        std::span<const std::byte> _buffer,
-        off_t                      _offset,
-        io_handle*                 _cancle_token) noexcept
-    {
-        return do_op(
-            &io_uring_prep_write,
-            _cancle_token,
-            ring_.get(),
-            _fd,
-            (const char*) _buffer.data(),
-            _buffer.size(),
-            _offset);
-    }
-
     void
     event_loop::write(
         io_handle                  _cancle_token,
@@ -362,24 +249,6 @@ namespace zab {
             _fd,
             (const char*) _buffer.data(),
             _buffer.size(),
-            _offset);
-    }
-
-    simple_future<int>
-    event_loop::write_v(
-        int                 _fd,
-        const struct iovec* _iovecs,
-        unsigned            _nr_vecs,
-        off_t               _offset,
-        io_handle*          _cancle_token) noexcept
-    {
-        return do_op(
-            &io_uring_prep_writev,
-            _cancle_token,
-            ring_.get(),
-            _fd,
-            _iovecs,
-            _nr_vecs,
             _offset);
     }
 
@@ -401,25 +270,6 @@ namespace zab {
             _offset);
     }
 
-    simple_future<int>
-    event_loop::fixed_write(
-        int                        _fd,
-        std::span<const std::byte> _buffer,
-        off_t                      _offset,
-        int                        _buf_index,
-        io_handle*                 _cancle_token) noexcept
-    {
-        return do_op(
-            &io_uring_prep_write_fixed,
-            _cancle_token,
-            ring_.get(),
-            _fd,
-            (const char*) _buffer.data(),
-            _buffer.size(),
-            _offset,
-            _buf_index);
-    }
-
     void
     event_loop::fixed_write(
         io_handle                  _cancle_token,
@@ -439,23 +289,6 @@ namespace zab {
             _buf_index);
     }
 
-    simple_future<int>
-    event_loop::recv(
-        int                  sockfd,
-        std::span<std::byte> _buffer,
-        int                  _flags,
-        io_handle*           _cancle_token) noexcept
-    {
-        return do_op(
-            &io_uring_prep_recv,
-            _cancle_token,
-            ring_.get(),
-            sockfd,
-            (char*) _buffer.data(),
-            _buffer.size(),
-            _flags);
-    }
-
     void
     event_loop::recv(
         io_handle            _cancle_token,
@@ -469,23 +302,6 @@ namespace zab {
             ring_.get(),
             sockfd,
             (char*) _buffer.data(),
-            _buffer.size(),
-            _flags);
-    }
-
-    simple_future<int>
-    event_loop::send(
-        int                        sockfd,
-        std::span<const std::byte> _buffer,
-        int                        _flags,
-        io_handle*                 _cancle_token) noexcept
-    {
-        return do_op(
-            &io_uring_prep_send,
-            _cancle_token,
-            ring_.get(),
-            sockfd,
-            (const char*) _buffer.data(),
             _buffer.size(),
             _flags);
     }
@@ -507,24 +323,6 @@ namespace zab {
             _flags);
     }
 
-    simple_future<int>
-    event_loop::accept(
-        int              _fd,
-        struct sockaddr* _addr,
-        socklen_t*       _addrlen,
-        int              _flags,
-        io_handle*       _cancle_token) noexcept
-    {
-        return do_op(
-            &io_uring_prep_accept,
-            _cancle_token,
-            ring_.get(),
-            _fd,
-            _addr,
-            _addrlen,
-            _flags);
-    }
-
     void
     event_loop::accept(
         io_handle        _cancle_token,
@@ -543,16 +341,6 @@ namespace zab {
             _flags);
     }
 
-    simple_future<int>
-    event_loop::connect(
-        int              _fd,
-        struct sockaddr* _addr,
-        socklen_t        _addrlen,
-        io_handle*       _cancle_token) noexcept
-    {
-        return do_op(&io_uring_prep_connect, _cancle_token, ring_.get(), _fd, _addr, _addrlen);
-    }
-
     void
     event_loop::connect(
         io_handle        _cancle_token,
@@ -563,33 +351,42 @@ namespace zab {
         return do_op(&io_uring_prep_connect, _cancle_token, ring_.get(), _fd, _addr, _addrlen);
     }
 
-    auto
-    event_loop::cancel_event(io_handle _key, bool _resume, std::uintptr_t _cancel_code) noexcept
-        -> guaranteed_future<CancelResults>
+    void
+    event_loop::cancel_event(io_handle _cancle_token, io_handle _key) noexcept
     {
         auto* sqe = io_uring_get_sqe(ring_.get());
-
-        if (!sqe) { co_return CancelResults::kFailed; }
-
-        sqe->opcode = IORING_OP_ASYNC_CANCEL;
-        sqe->addr   = reinterpret_cast<std::uintptr_t>(_key);
-
-        clean_up(_key, _resume, _cancel_code);
-
-        auto pp = co_await zab::pause([&](auto* _pp) noexcept { io_uring_sqe_set_data(sqe, _pp); });
-
-        if (!pp.data_) { co_return CancelResults::kDone; }
-        else if (pp.data_ == ENOENT)
+        if (!sqe) [[unlikely]]
         {
-            co_return CancelResults::kNotFound;
-        }
-        else if (pp.data_ == EALREADY)
-        {
-            co_return CancelResults::kTried;
+            _cancle_token->data_ = ENOMEM;
+            _cancle_token->handle_.resume();
         }
         else
         {
-            co_return CancelResults::kUnknown;
+            sqe->opcode = IORING_OP_ASYNC_CANCEL;
+            sqe->addr   = reinterpret_cast<std::uintptr_t>(_key);
+            io_uring_sqe_set_data(sqe, _cancle_token);
+        }
+    }
+
+    auto
+    event_loop::cancel_code(std::intptr_t _result) noexcept -> CancelResult
+    {
+        if (!_result) { return CancelResult::kDone; }
+        else if (_result == ENOENT)
+        {
+            return CancelResult::kNotFound;
+        }
+        else if (_result == EALREADY)
+        {
+            return CancelResult::kTried;
+        }
+        else if (_result == ENOMEM)
+        {
+            return CancelResult::kFailed;
+        }
+        else
+        {
+            return CancelResult::kUnknown;
         }
     }
 

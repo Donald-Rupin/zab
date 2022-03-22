@@ -40,6 +40,7 @@
 #include <utility>
 
 #include "zab/engine.hpp"
+#include "zab/generic_awaitable.hpp"
 #include "zab/strong_types.hpp"
 
 namespace zab {
@@ -52,42 +53,13 @@ namespace zab {
      * @return     A co_await'ble structure.
      */
     inline auto
-    yield(engine* _engine)
+    yield(engine* _engine) noexcept
     {
-        struct YieldImpl {
-
-                auto operator co_await() const noexcept
-                {
-                    struct {
-
-                            void
-                            await_suspend(std::coroutine_handle<> _awaiter) noexcept
-                            {
-                                yield_->engine_->resume(_awaiter);
-                            }
-
-                            bool
-                            await_ready() const noexcept
-                            {
-                                return false;
-                            }
-
-                            void
-                            await_resume() const noexcept
-                            { }
-
-                            const YieldImpl* yield_;
-
-                    } yield_awaitable{.yield_ = this};
-
-                    return yield_awaitable;
-                }
-
-                engine* engine_;
-
-        } yield{.engine_ = _engine};
-
-        return yield;
+        return co_awaitable(
+            [_engine]<typename T>(T _handle) noexcept
+            {
+                if constexpr (is_suspend<T>()) { _engine->resume(_handle); }
+            });
     }
 
     /**
@@ -99,43 +71,13 @@ namespace zab {
      * @return     A co_await'ble structure.
      */
     inline auto
-    yield(engine* _engine, thread_t _thread)
+    yield(engine* _engine, thread_t _thread) noexcept
     {
-        struct YieldImpl {
-
-                auto operator co_await() const noexcept
-                {
-                    struct {
-
-                            void
-                            await_suspend(std::coroutine_handle<> _awaiter) noexcept
-                            {
-                                yield_->engine_->thread_resume(_awaiter, yield_->thread_);
-                            }
-
-                            bool
-                            await_ready() const noexcept
-                            {
-                                return false;
-                            }
-
-                            void
-                            await_resume() const noexcept
-                            { }
-
-                            const YieldImpl* yield_;
-
-                    } yield_awaitable{.yield_ = this};
-
-                    return yield_awaitable;
-                }
-
-                engine*  engine_;
-                thread_t thread_;
-
-        } yield{.engine_ = _engine, .thread_ = _thread};
-
-        return yield;
+        return co_awaitable(
+            [_engine, _thread]<typename T>(T _handle) noexcept
+            {
+                if constexpr (is_suspend<T>()) { _engine->thread_resume(_handle, _thread); }
+            });
     }
 
     /**
@@ -148,47 +90,16 @@ namespace zab {
      * @return     A co_await'ble structure.
      */
     inline auto
-    yield(engine* _engine, order_t _order, thread_t _thread)
+    yield(engine* _engine, order_t _order, thread_t _thread) noexcept
     {
-        struct YieldImpl {
-
-                auto operator co_await() const noexcept
+        return co_awaitable(
+            [_engine, _order, _thread]<typename T>(T _handle) noexcept
+            {
+                if constexpr (is_suspend<T>())
                 {
-                    struct {
-
-                            void
-                            await_suspend(std::coroutine_handle<> _awaiter) noexcept
-                            {
-                                yield_->engine_->delayed_resume(
-                                    _awaiter,
-                                    yield_->order_,
-                                    yield_->thread_);
-                            }
-
-                            bool
-                            await_ready() const noexcept
-                            {
-                                return false;
-                            }
-
-                            void
-                            await_resume() const noexcept
-                            { }
-
-                            const YieldImpl* yield_;
-
-                    } yield_awaitable{.yield_ = this};
-
-                    return yield_awaitable;
+                    _engine->delayed_resume(_handle, _order, _thread);
                 }
-
-                engine*  engine_;
-                order_t  order_;
-                thread_t thread_;
-
-        } yield{.engine_ = _engine, .order_ = _order, .thread_ = _thread};
-
-        return yield;
+            });
     }
 
 }   // namespace zab

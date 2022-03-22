@@ -104,7 +104,7 @@ namespace zab {
                 &handle_);
             handle_ = nullptr;
 
-            if (rc && *rc == sizeof(buffer))
+            if (rc == sizeof(buffer))
             {
                 int signal = static_cast<int>(buffer);
 

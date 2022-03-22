@@ -39,9 +39,8 @@
 
 #include <coroutine>
 #include <utility>
-// DELETE
-#include <iostream>
 
+#include "zab/generic_awaitable.hpp"
 #include "zab/strong_types.hpp"
 
 namespace zab {
@@ -67,44 +66,22 @@ namespace zab {
     inline auto
     pause(Functor&& _func) noexcept
     {
-        struct {
-                auto operator co_await() const noexcept
+        return co_awaitable(
+            [pp       = pause_pack{},
+             function = std::forward<Functor>(_func)]<typename T>(T _handle) mutable noexcept
+            {
+                if constexpr (is_suspend<T>())
                 {
-                    struct {
-                            void
-                            await_suspend(std::coroutine_handle<> _awaiter) noexcept
-                            {
-                                pp_.handle_ = _awaiter;
-                                function_(&pp_);
-                            }
-
-                            bool
-                            await_ready() const noexcept
-                            {
-                                return false;
-                            }
-
-                            pause_pack
-                            await_resume() const noexcept
-                            {
-                                pause_pack ret = pp_;
-                                ret.handle_    = nullptr;
-                                return ret;
-                            }
-
-                            pause_pack pp_;
-                            Functor    function_;
-
-                    } awaiter{pause_pack{}, std::move(function_)};
-
-                    return awaiter;
+                    pp.handle_ = _handle;
+                    function(&pp);
                 }
-
-                Functor function_;
-
-        } wait_for{std::forward<Functor>(_func)};
-
-        return wait_for;
+                else if constexpr (is_resume<T>())
+                {
+                    pause_pack ret = pp;
+                    ret.handle_    = nullptr;
+                    return ret;
+                }
+            });
     }
 
     /**

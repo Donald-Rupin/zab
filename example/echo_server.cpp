@@ -48,8 +48,8 @@
 #include "zab/engine_enabled.hpp"
 #include "zab/event_loop.hpp"
 #include "zab/for_each.hpp"
-#include "zab/network_overlay.hpp"
 #include "zab/strong_types.hpp"
+#include "zab/tcp_networking.hpp"
 #include "zab/tcp_stream.hpp"
 
 namespace zab_example {
@@ -82,23 +82,23 @@ namespace zab_example {
             zab::async_function<>
             run_acceptor()
             {
+                struct sockaddr_storage _address;
+                socklen_t               _length = sizeof(_address);
+
                 int connection_count = 0;
                 if (acceptor_.listen(AF_INET, port_, 10))
                 {
-                    co_await zab::for_each(
-                        acceptor_.get_accepter(),
-                        [&](auto&& _stream) noexcept -> zab::for_ctl
+                    while (true)
+                    {
+                        auto stream =
+                            co_await acceptor_.accept((struct sockaddr*) &_address, &_length);
+
+                        if (stream) { run_stream(connection_count++, std::move(*stream)); }
+                        else
                         {
-                            if (_stream)
-                            {
-                                run_stream(connection_count++, std::move(*_stream));
-                                return zab::for_ctl::kContinue;
-                            }
-                            else
-                            {
-                                return zab::for_ctl::kBreak;
-                            }
-                        });
+                            break;
+                        }
+                    }
                 }
                 else
                 {
@@ -107,21 +107,21 @@ namespace zab_example {
             }
 
             zab::async_function<>
-            run_stream(int _connection_count, zab::tcp_stream _stream)
+            run_stream(int _connection_count, zab::tcp_stream<std::byte> _stream)
             {
                 zab::thread_t thread{
                     (std::uint16_t)(_connection_count % engine_->number_of_workers())};
                 /* Lets load balance connections between available threads... */
                 co_await yield(thread);
 
+                std::vector<std::byte> data(1028 * 1028);
                 while (!_stream.last_error())
                 {
-                    auto data = co_await _stream.read_some(1028 * 1028);
+                    auto amount = co_await _stream.read_some(data);
 
-                    if (data) { co_await _stream.write(*data); }
+                    if (amount > 0) { co_await _stream.write({data.data(), (std::size_t) amount}); }
                     else
                     {
-
                         break;
                     }
                 }

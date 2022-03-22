@@ -46,6 +46,8 @@
 #include <vector>
 
 #include "zab/engine.hpp"
+#include "zab/generic_awaitable.hpp"
+#include "zab/memory_type.hpp"
 #include "zab/simple_future.hpp"
 #include "zab/strong_types.hpp"
 #include "zab/yield.hpp"
@@ -119,8 +121,11 @@ namespace zab {
     /**
      * @brief      This class allows for asyncronous file i/o.
      *
-     * @details    The file descriptor associated with async_file is opened as if
-     * by call to fopen() or open(2) with the following flags:
+     * @details    async_file does not provide any synchronisation for file ops.
+     *             async_file must be used within an engine thread.
+     *
+     *        The file descriptor associated with async_file is opened as if
+     *        by call to fopen() or open(2) with the following flags:
      *
      *        ┌───────────────┬───────────────┬───────────────────────────────┐
      *        │  Options      │  fopen() mode │  open() flags                 │
@@ -139,16 +144,21 @@ namespace zab {
      *        └───────────────┴───────────────┴───────────────────────────────┘
      *
      */
-    template <typename ReadType = std::byte>
+    template <MemoryType ReadType = std::byte>
     class async_file {
 
         public:
 
+            /**
+             * @brief Dummy directory to specify the path is relative.
+             *
+             * @return directory
+             */
             static auto
             relative_dir()
             {
                 return directory{.dfd_ = AT_FDCWD};
-            };
+            }
 
             /**
              * @brief      Create a async file.
@@ -157,11 +167,37 @@ namespace zab {
              */
             async_file(engine* _engine) : engine_(_engine) { }
 
+            /**
+             * @brief Files are not copyable.
+             *
+             */
             async_file(const async_file&) = delete;
 
+            /**
+             * @brief Construct a new async_file object taking the file descriptor from another
+             *        async_file.
+             *
+             * @param _move The async_file to move.
+             */
             async_file(async_file&& _move) : engine_(_move.engine_), file_(_move.file_)
             {
                 _move.file_ = 0;
+            }
+
+            /**
+             * @brief Move assignment for an async_file.
+             *
+             * @param _move_op
+             * @return async_file&
+             */
+            async_file&
+            operator=(async_file&& _move_op)
+            {
+                engine_ = _move_op.engine_;
+                if (file_) { close_in_background(engine_, file_); }
+
+                file_          = _move_op.file_;
+                _move_op.file_ = 0;
             }
 
             /**
@@ -181,179 +217,381 @@ namespace zab {
             }
 
             /**
-             * @brief The defaukt mode for opening files is user read/write
+             * @brief The default mode for opening files is user read/write
              *
              */
             static constexpr mode_t kDefaultMode = S_IRUSR | S_IWUSR;
 
-            simple_future<bool>
-            open(std::string_view _path, file::Option _options, mode_t _mode = kDefaultMode)
+            /**
+             * @brief Opens a file relative to this proccess cwd.
+             *
+             * @param _path The relative path of the file.
+             * @param _options The zab options to apply.
+             * @param _mode The open mode.
+             * @return co_awaitable The awaitable instance for opening the file.
+             *                      Async returns the success.
+             */
+            ZAB_ASYNC_RETURN(bool)
+            open(
+                std::string_view _path,
+                file::Option     _options,
+                mode_t           _mode = kDefaultMode) noexcept
             {
                 return open(relative_dir(), _path, file::open_options(_options), _mode);
             }
 
-            simple_future<bool>
-            open(std::string_view _path, int _flags, mode_t _mode)
+            /**
+             * @brief Opens a file relative to this proccess cwd.
+             *
+             * @param _path The relative path of the file.
+             * @param _flags The flags to apply.
+             * @param _mode The open mode.
+             * @return co_awaitable The awaitable instance for opening the file.
+             *                      Async returns the success.
+             */
+            ZAB_ASYNC_RETURN(bool)
+            open(std::string_view _path, int _flags, mode_t _mode) noexcept
             {
                 return open(relative_dir(), _path, _flags, _mode);
             }
 
-            simple_future<bool>
+            /**
+             * @brief Opens a file relative to the directory given.
+             *
+             * @param directory The directory.
+             * @param _path The relative path of the file.
+             * @param _options The zab options to apply.
+             * @param _mode The open mode.
+             * @return co_awaitable The awaitable instance for opening the file.
+             *                      Async returns the success.
+             */
+            ZAB_ASYNC_RETURN(bool)
             open(
                 const directory& _dir,
                 std::string_view _path,
                 file::Option     _options,
-                mode_t           _mode = kDefaultMode)
+                mode_t           _mode = kDefaultMode) noexcept
             {
                 return open(_dir, _path, file::open_options(_options), _mode);
             }
 
-            simple_future<bool>
+            /**
+             * @brief Opens a file relative to the directory given.
+             *
+             * @param directory The directory.
+             * @param _path The relative path of the file.
+             * @param _flags The flags to apply.
+             * @param _mode The open mode.
+             * @return co_awaitable The awaitable instance for opening the file.
+             *                      Async returns the success.
+             */
+            ZAB_ASYNC_RETURN(bool)
             open(
+                const directory& _dir,
+                std::string_view _path,
+                int              _flags,
+                mode_t           _mode = kDefaultMode) noexcept
+            {
+                return co_awaitable(
+                    [this, ret = pause_pack{}, dfd = _dir.dfd_, _path, _flags, _mode]<typename T>(
+                        T _handle) mutable noexcept
+                    {
+                        if constexpr (is_suspend<T>())
+                        {
+                            ret.handle_ = _handle;
+                            engine_->get_event_loop().open_at(&ret, dfd, _path, _flags, _mode);
+                        }
+                        else if constexpr (is_ready<T>())
+                        {
+                            return _mode == 0 && ((_flags & O_CREAT) || (_flags & O_TMPFILE));
+                        }
+                        else
+                        {
+                            if (ret.data_ > 0)
+                            {
+                                file_ = ret.data_;
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                    });
+            }
+
+            /**
+             * @brief Opens a file relative to the directory given.
+             *
+             * @param _engine The engine to use.
+             * @param directory The directory.
+             * @param _path The relative path of the file.
+             * @param _flags The flags to apply.
+             * @param _mode The open mode.
+             * @return co_awaitable The awaitable instance for opening the file.
+             *                      Async returns the success.
+             */
+            static ZAB_ASYNC_RETURN(bool) open(
+                engine*          _engine,
                 const directory& _dir,
                 std::string_view _path,
                 int              _flags,
                 mode_t           _mode = kDefaultMode)
             {
-                if (_mode == 0 && ((_flags & O_CREAT) || (_flags & O_TMPFILE))) { co_return false; }
+                return co_awaitable(
+                    [ret = pause_pack{},
+                     _engine,
+                     dfd = _dir.dfd_,
+                     _path,
+                     _flags,
+                     _mode]<typename T>(T _handle) mutable noexcept
+                    {
+                        if constexpr (is_suspend<T>())
+                        {
+                            ret.handle_ = _handle;
+                            _engine->get_event_loop().open_at(&ret, dfd, _path, _flags, _mode);
+                        }
+                        else if constexpr (is_resume<T>())
+                        {
+                            std::optional<async_file> result;
+                            if (ret.data_ > 0)
+                            {
+                                result.emplace(_engine);
+                                result->file_ = ret.data_;
+                            }
 
-                auto rc =
-                    co_await engine_->get_event_loop().open_at(_dir.dfd_, _path, _flags, _mode);
-
-                if (rc && *rc >= 0)
-                {
-                    file_ = *rc;
-                    co_return true;
-                }
-                else
-                {
-                    co_return false;
-                }
+                            return result;
+                        }
+                    });
             }
 
-            simple_future<bool>
-            close()
+            /**
+             * @brief Attempts to close the file.
+             *
+             * @return co_awaitable The awaitable instance for closing the file.
+             *                      Async returns the success.
+             */
+            ZAB_ASYNC_RETURN(bool)
+            close() noexcept
             {
                 auto tmp = file_;
                 file_    = 0;
                 return close(engine_, tmp);
             }
 
-            static simple_future<bool>
-            close(engine* _engine, int _fd)
+            /**
+             * @brief Attempts to close the file.
+             *
+             * @param _engine The engine to operate within.
+             * @param _fd The file descriptor to close.
+             * @return co_awaitable The awaitable instance for closing the file.
+             *                      Async returns the success.
+             */
+            static ZAB_ASYNC_RETURN(bool) close(engine* _engine, int _fd) noexcept
             {
-                struct cu {
-                        ~cu()
+                return co_awaitable(
+                    [ret = pause_pack{.data_ = -1}, _engine, _fd]<typename T>(
+                        T _handle) mutable noexcept
+                    {
+                        if constexpr (is_suspend<T>())
                         {
-                            if (fd_)
-                            {
-                                if (::close(fd_) < 0)
-                                {
-                                    std::cerr << "async_file failed to close a file descriptor\n";
-                                }
-                            }
+                            ret.handle_ = _handle;
+                            _engine->get_event_loop().close(&ret, _fd);
                         }
-                        int& fd_;
-                } cleaner{_fd};
-
-                if (_engine->current_id() == thread_t::any_thread())
-                {
-                    co_await yield(_engine, thread_t::any_thread());
-                }
-
-                auto rc = co_await _engine->get_event_loop().close(_fd);
-                _fd     = 0;
-
-                if (rc && !*rc) { co_return true; }
-                else
-                {
-                    co_return false;
-                }
+                        else if constexpr (is_resume<T>())
+                        {
+                            return !ret.data_;
+                        }
+                    });
             }
 
+            /**
+             * @brief Attempts to close the file in the background.
+             *
+             * @details Cannot report failures to the user.
+             *
+             * @param _engine The engine to operate within.
+             * @param _fd The file descriptor to close.
+             * @return async_function<> The async function that is running.
+             */
             static async_function<>
             close_in_background(engine* _engine, int _fd)
             {
-                co_await close(_engine, _fd);
+                auto s = co_await close(_engine, _fd);
+                if (!s)
+                {
+                    if (::close(_fd) < 0)
+                    {
+                        std::cerr << "async_file failed to close a file descriptor\n";
+                    }
+                }
             }
 
+            /**
+             * @brief Reads the entire files contents into a vector.
+             *
+             * @return simple_future<std::vector<ReadType>>
+             */
             simple_future<std::vector<ReadType>>
             read_file() noexcept
             {
                 auto file_size = lseek(file_, 0, static_cast<int>(file::Offset::kEnd));
                 lseek(file_, 0, static_cast<int>(file::Offset::kBegin));
-                return read_some(file_size);
-            }
 
-            simple_future<std::vector<ReadType>>
-            read_some(std::size_t _amount) noexcept
-            {
-                std::vector<ReadType> data(_amount);
-                auto                  size = co_await read_some(data);
+                std::vector<ReadType> data(file_size);
 
-                if (size)
+                decltype(file_size) current = 0;
+                while (current != file_size)
                 {
-                    data.resize(*size);
-                    co_return data;
-                }
-                else
-                {
-                    co_return std::nullopt;
-                }
-            }
+                    auto size = co_await read_some(data, current);
 
-            simple_future<std::size_t>
-            read_some(std::span<ReadType> _data) noexcept
-            {
-                auto        current    = lseek(file_, 0, static_cast<int>(file::Offset::kCurrent));
-                const auto  total_size = size_conversion(_data.size());
-                std::size_t total      = 0;
-                while (total != total_size)
-                {
-                    auto to_read = std::min<std::size_t>(
-                        total_size - total,
-                        std::numeric_limits<std::int32_t>::max() - 1);
-
-                    auto rc = co_await engine_->get_event_loop().read(
-                        file_,
-                        convert(_data, total, to_read),
-                        current + total);
-
-                    if (rc && *rc > 0) { total += *rc; }
+                    if (size) { current += *size; }
                     else
                     {
+                        data.resize(current);
                         break;
                     }
                 }
 
-                co_return total;
+                co_return data;
             }
 
-            simple_future<bool>
+            /**
+             * @brief Reads up to _amount bytes of data from the file.
+             *
+             * @details May read less then _amount bytes.
+             *
+             * @param _amount The maximum amount to read.
+             * @return co_awaitable The awaitable instance for reading some data.
+             *                      Async returns the amount of bytes read.
+             */
+            ZAB_ASYNC_RETURN(std::optional<std::vector<ReadType>>)
+            read_some(std::int32_t _amount) noexcept
+            {
+                return co_awaitable(
+                    [this,
+                     ret  = pause_pack{.data_ = -1},
+                     data = std::vector<ReadType>(_amount)]<typename T>(T _handle) mutable noexcept
+                    {
+                        if constexpr (is_suspend<T>())
+                        {
+                            ret.handle_ = _handle;
+                            engine_->get_event_loop()
+                                .read(&ret, file_, convert(data, data.size()), 0);
+                        }
+                        else if constexpr (is_resume<T>())
+                        {
+                            std::optional<std::vector<ReadType>> result;
+                            if (ret.data_ >= 0)
+                            {
+                                data.resize(ret.data_);
+                                result.emplace(std::move(data));
+                            }
+
+                            return result;
+                        }
+                    });
+            }
+
+            /**
+             * @brief Reads up to `_data - _off_set` bytes of data from the file.
+             *
+             * @details May read less then `_data - _off_set` bytes.
+             *
+             * @param _data The buffer to read data into.
+             * @param _off_set The offset for where to read data into the buffer.
+             * @return co_awaitable The awaitable instance for reading some data.
+             *                      Async returns the amount of bytes read.
+             */
+            ZAB_ASYNC_RETURN(std::optional<std::size_t>)
+            read_some(std::span<ReadType> _data, std::int32_t _off_set = 0) noexcept
+            {
+                return co_awaitable(
+                    [this, ret = pause_pack{.data_ = -1}, _data, _off_set]<typename T>(
+                        T _handle) mutable noexcept
+                    {
+                        if constexpr (is_suspend<T>())
+                        {
+                            auto to_read = std::min<std::size_t>(
+                                _data.size() - _off_set,
+                                std::numeric_limits<std::int32_t>::max() - 1);
+
+                            ret.handle_ = _handle;
+                            engine_->get_event_loop()
+                                .read(&ret, file_, convert(_data, _off_set + to_read), _off_set);
+                        }
+                        else if constexpr (is_resume<T>())
+                        {
+                            std::optional<std::size_t> result;
+                            if (ret.data_ >= 0) { result.emplace(std::move(ret.data_)); }
+
+                            return result;
+                        }
+                    });
+            }
+
+            /**
+             * @brief Write the content of _data to the file.
+             *
+             * @details Only writes less then _data.size bytes if the write operation fails.
+             *
+             * @param _data The buffer to write from.
+             * @return guaranteed_future<std::size_t>
+             */
+            guaranteed_future<std::size_t>
             write_to_file(std::span<const ReadType> _data) noexcept
             {
-                auto        current    = lseek(file_, 0, static_cast<int>(file::Offset::kCurrent));
-                const auto  total_size = size_conversion(_data.size());
-                std::size_t total      = 0;
-                while (total != total_size)
+                const std::size_t total   = _data.size();
+                std::size_t       current = 0;
+                while (current != total)
                 {
-                    auto to_write = std::min<std::size_t>(
-                        total_size - total,
-                        std::numeric_limits<std::int32_t>::max() - 1);
+                    auto rc = co_await write_some(_data, current);
 
-                    auto rc = co_await engine_->get_event_loop().write(
-                        file_,
-                        convert(_data, total, to_write),
-                        current + total);
-
-                    if (rc && *rc > 0) { total += *rc; }
+                    if (rc && *rc > 0) { current += *rc; }
                     else
                     {
                         break;
                     }
                 }
 
-                co_return total;
+                co_return current;
+            }
+
+            /**
+             * @brief Writes up to `_data.size() - _off_set` bytes of data to the file.
+             *
+             * @details May write less then `_data - _off_set` bytes without an error occuring.
+             *
+             * @param _data The buffer to write data from.
+             * @param _off_set The offset for where to write data from the buffer.
+             * @return co_awaitable The awaitable instance for writing some data.
+             *                      Async returns the amount of bytes written.
+             */
+            ZAB_ASYNC_RETURN(std::optional<std::size_t>)
+            write_some(std::span<const ReadType> _data, std::int32_t _off_set = 0) noexcept
+            {
+                return co_awaitable(
+                    [this, ret = pause_pack{.data_ = -1}, _data, _off_set]<typename T>(
+                        T _handle) mutable noexcept
+                    {
+                        if constexpr (is_suspend<T>())
+                        {
+                            auto to_write = std::min<std::size_t>(
+                                _data.size() - _off_set,
+                                std::numeric_limits<std::int32_t>::max() - 1);
+
+                            ret.handle_ = _handle;
+                            engine_->get_event_loop()
+                                .write(&ret, file_, convert(_data, _off_set + to_write), _off_set);
+                        }
+                        else if constexpr (is_resume<T>())
+                        {
+                            std::optional<std::size_t> result;
+                            if (ret.data_ >= 0) { result.emplace(std::move(ret.data_)); }
+
+                            return result;
+                        }
+                    });
             }
 
             /**
@@ -370,6 +608,11 @@ namespace zab {
                 return lseek(file_, _pos, static_cast<int>(_whence)) >= 0;
             }
 
+            /**
+             * @brief Computes the size of the file.
+             *
+             * @return std::size_t The size of the file.
+             */
             std::size_t
             size()
             {
@@ -392,24 +635,16 @@ namespace zab {
 
         private:
 
-            static inline constexpr std::size_t
-            size_conversion(std::size_t _size)
-            {
-                return _size / sizeof(ReadType);
-            }
-
             static inline constexpr std::span<std::byte>
-            convert(std::span<ReadType> _data, std::size_t _position, std::size_t _total)
+            convert(std::span<ReadType> _data, std::size_t _total)
             {
-                return std::span<std::byte>((std::byte*) (_data.data() + _position), _total);
+                return std::span<std::byte>((std::byte*) (_data.data()), _total);
             }
 
             static inline constexpr std::span<const std::byte>
-            convert(std::span<const ReadType> _data, std::size_t _position, std::size_t _total)
+            convert(std::span<const ReadType> _data, std::size_t _total)
             {
-                return std::span<const std::byte>(
-                    (const std::byte*) (_data.data() + _position),
-                    _total);
+                return std::span<const std::byte>((const std::byte*) (_data.data()), _total);
             }
 
             engine* engine_;
