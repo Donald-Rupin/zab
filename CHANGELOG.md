@@ -5,6 +5,19 @@ All notable changes to this project are documented in this file.
 See the [Keep a Changelog formatting convention](https://keepachangelog.com/en/1.0.0/) for a guide on contributing to this file, as well as their [example changelog](https://github.com/olivierlacan/keep-a-changelog/blob/master/CHANGELOG.md) to see what makes a good changelog file.
 
 ## Unreleased
+-  Convert wait_for and first_off to work with any awaitable.
+## v0.0.1.0 2022/3/22
+### Added
+
+- `generic_awaitable` for creating awaitable types out of lambdas. 
+
+### Changed
+- Event loops is now liburing based.
+- Updated most IO to use `generic_awaitable` and simplified the interface a little.
+
+### Fixed
+- Timing services issues with polling to regularily. 
+### Removed
 
 ## v0.0.0.2 2021/1/26
 

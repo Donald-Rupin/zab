@@ -43,8 +43,16 @@
 
 namespace zab {
 
+    /**
+     * @brief A atomic based spin lock implementation.
+     *
+     */
     struct alignas(hardware_constructive_interference_size) spin_lock {
 
+            /**
+             * @brief Attempt to acquire the mutex. Does a busy wait until it can acquire the mutex.
+             *
+             */
             inline void
             lock() noexcept
             {
@@ -59,6 +67,12 @@ namespace zab {
                 }
             }
 
+            /**
+             * @brief Attempt to acquire the mutex. Does not wait on failure.
+             *
+             * @return true If acquired.
+             * @return false If not acquired.
+             */
             inline bool
             try_lock() noexcept
             {
@@ -66,6 +80,10 @@ namespace zab {
                        !lock_.exchange(true, std::memory_order_acquire);
             }
 
+            /**
+             * @brief Releases the mutex.
+             *
+             */
             inline void
             unlock() noexcept
             {
@@ -75,8 +93,21 @@ namespace zab {
             std::atomic<bool> lock_ alignas(hardware_constructive_interference_size) = {false};
     };
 
+    /**
+     * @brief A recursive atomic based spin lock implementation. A thread may lock the mutex more
+     * then once.
+     *
+     */
     struct alignas(hardware_constructive_interference_size) recursive_spin_lock {
 
+            /**
+             * @brief Ges the current thread id. This ID is global and unique.
+             *
+             * @details Creating more then std::numerical_limits<std::size_t>::max() threads that
+             *          access a recursive_spin_lock will lead to undefined behaviour.
+             *
+             * @return size_t The id of the thread.
+             */
             static inline size_t
             get_id() noexcept
             {
@@ -85,6 +116,10 @@ namespace zab {
                 return id;
             }
 
+            /**
+             * @brief Attempt to acquire the mutex. Does a busy wait until it can acquire the mutex.
+             *
+             */
             inline void
             lock() noexcept
             {
@@ -116,6 +151,12 @@ namespace zab {
                 }
             }
 
+            /**
+             * @brief Attempt to acquire the mutex. Does not wait on failure.
+             *
+             * @return true If acquired.
+             * @return false If not acquired.
+             */
             inline bool
             try_lock() noexcept
             {
@@ -150,6 +191,12 @@ namespace zab {
                 }
             }
 
+            /**
+             * @brief Attempts to release the mutex. Only is released once `unlock()` is called the
+             *       same amount of times `lock()` has been called within the same threads
+             * acquirement.
+             *
+             */
             inline void
             unlock() noexcept
             {

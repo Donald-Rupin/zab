@@ -50,7 +50,7 @@ namespace zab {
      *
      * @param[in]  _engine  The engine to yield into.
      *
-     * @return     A co_await'ble structure.
+     * @co_return  void Will be resumed by the engine in the current thread.
      */
     inline auto
     yield(engine* _engine) noexcept
@@ -68,7 +68,7 @@ namespace zab {
      * @param[in]  _engine  The engine to yield into.
      * @param[in]  _thread  The thread to resume in.
      *
-     * @return     A co_await'ble structure.
+     * @co_return  void Will be resumed by the engine in _thread.
      */
     inline auto
     yield(engine* _engine, thread_t _thread) noexcept
@@ -87,7 +87,8 @@ namespace zab {
      * @param[in]  _order   The orderring to apply to the event loop.
      * @param[in]  _thread  The thread to resume in.
      *
-     * @return     A co_await'ble structure.
+     * @co_return  void Will be resumed by the engine in _thread after _order nanoseconds have
+     *             passed.
      */
     inline auto
     yield(engine* _engine, order_t _order, thread_t _thread) noexcept

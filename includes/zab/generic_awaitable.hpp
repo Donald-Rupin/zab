@@ -40,13 +40,6 @@
 #include <coroutine>
 #include <type_traits>
 
-/**
- * @brief Used to document the async return type of functions where the async
- *        natures makes it difficult to read.
- *
- */
-#define ZAB_ASYNC_RETURN(TYPE) auto
-
 namespace zab {
 
     namespace details {

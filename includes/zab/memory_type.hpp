@@ -43,6 +43,11 @@
 
 namespace zab {
 
+    /**
+     * @brief Possible types for underlying memory
+     *
+     * @tparam Type
+     */
     template <typename Type>
     concept MemoryType = std::is_same_v<Type, std::byte> || std::is_same_v<Type, char> ||
         std::is_same_v<Type, unsigned char>;

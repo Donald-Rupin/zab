@@ -177,8 +177,8 @@ namespace zab {
              *
              * @return     The thread id.
              */
-            inline thread_t
-            current_id() const noexcept
+            inline static thread_t
+            current_id() noexcept
             {
                 return this_thead_;
             }

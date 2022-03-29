@@ -54,36 +54,108 @@
 
 namespace zab {
 
+    /**
+     * @brief network_operation operation class is a ownership class for
+     *        a socket descriptor and a cancelation token.
+     *
+     */
     class network_operation {
 
         public:
 
+            /**
+             * @brief The value for not having a valid socket descriptor.
+             *
+             */
             static constexpr int kNoDescriptor = -1;
 
+            /**
+             * @brief Construct a new network operation object in an empty state. Using the
+             *        `network_operation` after constructing it with this constructor is undefined
+             *         behaviour unless `register_engine()` is called with a valid engine.
+             *
+             */
             network_operation();
 
+            /**
+             * @brief Construct a new network operation object and register an engine with it.
+             *
+             * @param _engine The engine for this object to use.
+             */
             network_operation(engine* _engine);
 
+            /**
+             * @brief Construct a new network operation object, register an engine with it and take
+             *        ownership of the socket descriptor given.
+             *
+             * @param _engine The engine for this object to use.
+             * @param _sd The socket to take ownership of it.
+             */
             network_operation(engine* _engine, int _sd);
 
+            /**
+             * @brief Destroy the network operation object.
+             *
+             * @details If `close()` is not awaited before destruction, and the network_operation
+             *          holds a valid socket descriptor, its closure is pushed to a background
+             *          fibre.
+             *
+             *          If `cancel()` is not awaited before destruction, and the network_operation
+             *          holds a valid io_handle, its cancelation is pushed to a background
+             *          fibre.
+             *
+             */
             ~network_operation();
 
+            /**
+             * @brief Cannot copy this object.
+             *
+             */
             network_operation(const network_operation&) = delete;
 
+            /**
+             * @brief Construct a new network operation object moving the resources into it.
+             *
+             * @param _move The network_operation to move resources from.
+             */
             network_operation(network_operation&& _move);
 
+            /**
+             * @brief Background close and cancel on the current resources and then take resources
+             *        from the given network_operation. See ` ~network_operation();`.
+             *
+             * @param _move_op The network_operation to move.
+             * @return network_operation& this
+             */
             network_operation&
             operator=(network_operation&& _move_op);
 
+            /**
+             * @brief Swap two network_operation's.
+             *
+             * @param _first The first network_operation.
+             * @param _second The second network_operation.
+             */
             friend void
             swap(network_operation& _first, network_operation& _second) noexcept;
 
+            /**
+             * @brief Register a new engine with this.
+             *
+             * @param _engine The engine to register.
+             */
             inline void
             register_engine(engine* _engine) noexcept
             {
                 engine_ = _engine;
             }
 
+            /**
+             * @brief Set the socket descriptor to take ownership of. If this object holds a valid
+             *        socket descriptor it is closed in the background.
+             *
+             * @param _sd The socket descriptor to take owernship of.
+             */
             inline void
             set_descriptor(int _sd) noexcept
             {
@@ -91,24 +163,44 @@ namespace zab {
                 sd_ = _sd;
             }
 
+            /**
+             * @brief Clear the socket descriptor. *Warning* this wipes the state and releases
+             *        owernship of the descriptor.
+             *
+             */
             inline void
             clear_descriptor() noexcept
             {
                 sd_ = kNoDescriptor;
             }
 
+            /**
+             * @brief Get the engine that is registered.
+             *
+             * @return engine*
+             */
             [[nodiscard]] engine*
             get_engine() noexcept
             {
                 return engine_;
             }
 
+            /**
+             * @brief Get the underlying socket descriptor.
+             *
+             * @return int The socket descriptor.
+             */
             [[nodiscard]] inline int
             descriptor() const noexcept
             {
                 return sd_;
             }
 
+            /**
+             * @brief Get the last error that was set. Clears the error.
+             *
+             * @return int The last error.
+             */
             [[nodiscard]] inline int
             last_error() noexcept
             {
@@ -117,43 +209,82 @@ namespace zab {
                 return tmp;
             }
 
+            /**
+             * @brief Get the last error without resetting it.
+             *
+             * @return int The last error.
+             */
             [[nodiscard]] inline int
             peek_error() noexcept
             {
                 return last_error_;
             }
 
+            /**
+             * @brief Clear the error without checking it.
+             *
+             */
             inline void
             clear_error() noexcept
             {
                 last_error_ = 0;
             }
 
+            /**
+             * @brief Set the last error.
+             *
+             * @param _error The error to set.
+             */
             inline void
             set_error(int _error) noexcept
             {
                 last_error_ = _error;
             }
 
+            /**
+             * @brief Get a reference to the cancelation token held by this object.
+             *
+             * @return event_loop::io_handle&
+             */
             [[nodiscard]] inline event_loop::io_handle&
             get_cancel() noexcept
             {
                 return cancel_token_;
             }
 
+            /**
+             * @brief Set the value cancelaltion token.
+             *
+             * @param _handle The value to set.
+             */
             inline void
             set_cancel(event_loop::io_handle _handle) noexcept
             {
                 cancel_token_ = _handle;
             }
 
+            /**
+             * @brief Clear the value of the cancelation token.
+             *
+             */
             inline void
             clear_cancel() noexcept
             {
                 cancel_token_ = nullptr;
             }
 
-            [[nodiscard]] static ZAB_ASYNC_RETURN(void) cancel(
+            /**
+             * @brief Cancel an operation on a given handle.
+             *
+             * @param _engine The engine to use for cancelation.
+             * @param[out] _handle The handle to use and clear on successful cancelation.
+             * @param _resume Whether to resume or destroy the pending operation.
+             * @param _return_code If resumed, what code to give to it. Must be negative, if it is
+             *                     not, it is negated.
+             * @co_return void Resumes once the operation has been cancelled or an error occurs.
+             */
+            [[nodiscard]] static auto
+            cancel(
                 engine*                _engine,
                 event_loop::io_handle& _handle,
                 bool                   _resume,
@@ -201,14 +332,31 @@ namespace zab {
                     });
             }
 
-            [[nodiscard]] ZAB_ASYNC_RETURN(void) cancel(
+            /**
+             * @brief Convience function for passing the correct arguments to the static cancel
+             *        function.
+             *
+             * @param _resume Whether to resume or destroy the pending operation.
+             * @param _return_code If resumed, what code to give to it. Must be negative, if it is
+             *                     not, it is negated.
+             * @co_return void Resumes once the operation has been cancelled or an error occurs.
+             */
+            [[nodiscard]] auto
+            cancel(
                 bool          _resume,
                 std::intptr_t _return_code = std::numeric_limits<std::intptr_t>::min()) noexcept
             {
                 return cancel(engine_, cancel_token_, _resume, _return_code);
             }
 
-            [[nodiscard]] ZAB_ASYNC_RETURN(bool) close() noexcept
+            /**
+             * @brief Attempt to close the socket.
+             *
+             * @co_return true If the socket was successfully closed.
+             * @co_return false If the socket could not be closed.
+             */
+            [[nodiscard]] auto
+            close() noexcept
             {
                 return co_awaitable(
                     [this, ret = pause_pack{}]<typename T>(T _handle) mutable noexcept
@@ -244,6 +392,12 @@ namespace zab {
                     });
             }
 
+            /**
+             * @brief Attempt to close the socket in the background. Error's in closing cannot be
+             *        caught.
+             *
+             * @return async_function<>
+             */
             async_function<>
             background_close() noexcept
             {
@@ -264,6 +418,12 @@ namespace zab {
                 }
             }
 
+            /**
+             * @brief Attempt to cancel the pending operation in the background. Error's in
+             *        cancelling cannot be caught.
+             *
+             * @return async_function<>
+             */
             async_function<>
             background_cancel() noexcept
             {

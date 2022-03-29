@@ -139,10 +139,8 @@ namespace zab::test {
                 struct addrinfo* tmp = addr;
                 while (tmp)
                 {
-                    auto stream = co_await tcp_connect<char>(
-                        engine_,
-                        (struct sockaddr_storage*) tmp->ai_addr,
-                        (sizeof(*tmp->ai_addr)));
+                    auto stream =
+                        co_await tcp_connect<char>(engine_, tmp->ai_addr, (sizeof(*tmp->ai_addr)));
 
                     if (!stream.last_error())
                     {
@@ -281,10 +279,8 @@ namespace zab::test {
                 struct addrinfo* tmp = addr;
                 while (tmp)
                 {
-                    auto stream = co_await tcp_connect<char>(
-                        engine_,
-                        (struct sockaddr_storage*) tmp->ai_addr,
-                        (sizeof(*tmp->ai_addr)));
+                    auto stream =
+                        co_await tcp_connect<char>(engine_, tmp->ai_addr, (sizeof(*tmp->ai_addr)));
 
                     if (!stream.last_error())
                     {

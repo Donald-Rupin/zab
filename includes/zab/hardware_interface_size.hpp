@@ -40,7 +40,7 @@
 #ifndef ZAB_HARDWARE_INTERFACE_SIZE_HPP
 #    define ZAB_HARDWARE_INTERFACE_SIZE_HPP
 
-/* Shamelssly takend from
+/* Shamelssly taken from
  * https://en.cppreference.com/w/cpp/thread/hardware_destructive_interference_size
  * as in some c++ libraries it doesn't exists
  */

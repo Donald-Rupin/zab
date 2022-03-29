@@ -231,7 +231,7 @@ namespace zab {
              * @return co_awaitable The awaitable instance for opening the file.
              *                      Async returns the success.
              */
-            ZAB_ASYNC_RETURN(bool)
+            auto
             open(
                 std::string_view _path,
                 file::Option     _options,
@@ -249,7 +249,7 @@ namespace zab {
              * @return co_awaitable The awaitable instance for opening the file.
              *                      Async returns the success.
              */
-            ZAB_ASYNC_RETURN(bool)
+            auto
             open(std::string_view _path, int _flags, mode_t _mode) noexcept
             {
                 return open(relative_dir(), _path, _flags, _mode);
@@ -265,7 +265,7 @@ namespace zab {
              * @return co_awaitable The awaitable instance for opening the file.
              *                      Async returns the success.
              */
-            ZAB_ASYNC_RETURN(bool)
+            auto
             open(
                 const directory& _dir,
                 std::string_view _path,
@@ -285,7 +285,7 @@ namespace zab {
              * @return co_awaitable The awaitable instance for opening the file.
              *                      Async returns the success.
              */
-            ZAB_ASYNC_RETURN(bool)
+            auto
             open(
                 const directory& _dir,
                 std::string_view _path,
@@ -331,7 +331,8 @@ namespace zab {
              * @return co_awaitable The awaitable instance for opening the file.
              *                      Async returns the success.
              */
-            static ZAB_ASYNC_RETURN(bool) open(
+            static auto
+            open(
                 engine*          _engine,
                 const directory& _dir,
                 std::string_view _path,
@@ -371,7 +372,7 @@ namespace zab {
              * @return co_awaitable The awaitable instance for closing the file.
              *                      Async returns the success.
              */
-            ZAB_ASYNC_RETURN(bool)
+            auto
             close() noexcept
             {
                 auto tmp = file_;
@@ -387,7 +388,8 @@ namespace zab {
              * @return co_awaitable The awaitable instance for closing the file.
              *                      Async returns the success.
              */
-            static ZAB_ASYNC_RETURN(bool) close(engine* _engine, int _fd) noexcept
+            static auto
+            close(engine* _engine, int _fd) noexcept
             {
                 return co_awaitable(
                     [ret = pause_pack{.data_ = -1}, _engine, _fd]<typename T>(
@@ -465,7 +467,7 @@ namespace zab {
              * @return co_awaitable The awaitable instance for reading some data.
              *                      Async returns the amount of bytes read.
              */
-            ZAB_ASYNC_RETURN(std::optional<std::vector<ReadType>>)
+            auto
             read_some(std::int32_t _amount) noexcept
             {
                 return co_awaitable(
@@ -503,7 +505,7 @@ namespace zab {
              * @return co_awaitable The awaitable instance for reading some data.
              *                      Async returns the amount of bytes read.
              */
-            ZAB_ASYNC_RETURN(std::optional<std::size_t>)
+            auto
             read_some(std::span<ReadType> _data, std::int32_t _off_set = 0) noexcept
             {
                 return co_awaitable(
@@ -567,7 +569,7 @@ namespace zab {
              * @return co_awaitable The awaitable instance for writing some data.
              *                      Async returns the amount of bytes written.
              */
-            ZAB_ASYNC_RETURN(std::optional<std::size_t>)
+            auto
             write_some(std::span<const ReadType> _data, std::int32_t _off_set = 0) noexcept
             {
                 return co_awaitable(

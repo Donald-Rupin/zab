@@ -311,7 +311,7 @@ namespace zab {
             [[nodiscard]] inline auto
             yield(thread_t _thread) const noexcept
             {
-                return zab::yield(engine_, now(), _thread);
+                return zab::yield(engine_, _thread);
             }
 
             inline void
@@ -368,12 +368,12 @@ namespace zab {
                 {
                     return_thread = t;
 
-                    co_await yield(now(), _required_thread);
+                    co_await yield(_required_thread);
                 }
 
                 (underlying().*_func)(std::forward<Args>(_args)...);
 
-                if (return_thread != thread_t{}) { co_await yield(now(), return_thread); }
+                if (return_thread != thread_t{}) { co_await yield(return_thread); }
             }
 
             template <typename Promise, typename... Args, typename... Parameters>
@@ -390,12 +390,12 @@ namespace zab {
                 {
                     return_thread = t;
 
-                    co_await yield(now(), _required_thread);
+                    co_await yield(_required_thread);
                 }
 
                 (underlying().*_func)(std::forward<Args>(_args)...);
 
-                if (return_thread != thread_t{}) { co_await yield(now(), return_thread); }
+                if (return_thread != thread_t{}) { co_await yield(return_thread); }
             }
 
             template <typename Promise, typename... Args, typename Return, typename... Parameters>
@@ -414,12 +414,12 @@ namespace zab {
                 {
                     return_thread = t;
 
-                    co_await yield(now(), _required_thread);
+                    co_await yield(_required_thread);
                 }
 
                 typename simple_future<Return>::return_value result = co_await func;
 
-                if (return_thread != thread_t{}) { co_await yield(now(), return_thread); }
+                if (return_thread != thread_t{}) { co_await yield(return_thread); }
 
                 co_return result;
             }
@@ -440,12 +440,12 @@ namespace zab {
                 {
                     return_thread = t;
 
-                    co_await yield(now(), _required_thread);
+                    co_await yield(_required_thread);
                 }
 
                 typename simple_future<Return>::return_value result = co_await func;
 
-                if (return_thread != thread_t{}) { co_await yield(now(), return_thread); }
+                if (return_thread != thread_t{}) { co_await yield(return_thread); }
 
                 co_return result;
             }
@@ -466,13 +466,13 @@ namespace zab {
                 {
                     if (_required_thread != thread_t{} && _required_thread != return_thread)
                     {
-                        co_await yield(now(), _required_thread);
+                        co_await yield(_required_thread);
                     }
 
                     typename simple_future<Return>::return_value result = co_await generator;
                     if (return_thread != thread_t{} && _required_thread != return_thread)
                     {
-                        co_await yield(now(), return_thread);
+                        co_await yield(return_thread);
                     }
                     if (!generator.complete()) { co_yield result; }
                     else
@@ -498,13 +498,13 @@ namespace zab {
                 {
                     if (_required_thread != thread_t{} && _required_thread != return_thread)
                     {
-                        co_await yield(now(), _required_thread);
+                        co_await yield(_required_thread);
                     }
 
                     typename simple_future<Return>::return_value result = co_await generator;
                     if (return_thread != thread_t{} && _required_thread != return_thread)
                     {
-                        co_await yield(now(), return_thread);
+                        co_await yield(return_thread);
                     }
                     if (!generator.complete()) { co_yield result; }
                     else

@@ -88,16 +88,25 @@ namespace zab {
              */
             tcp_acceptor(engine* _engine);
 
-            tcp_acceptor(const tcp_acceptor& _copy) = delete;
-
-            tcp_acceptor(tcp_acceptor&& _copy) = default;
+            /**
+             * @brief Copy constructor is deleted.
+             *
+             */
+            tcp_acceptor(const tcp_acceptor&) = delete;
 
             /**
-             * @brief      Move Assignment operator.
+             * @brief Moves a tcp_acceptor leaving it in an empty state and no engine registered.
+             *
+             * @param _move The tcp_acceptor to move.
+             */
+            tcp_acceptor(tcp_acceptor&& _move) = default;
+
+            /**
+             * @brief      Moves a tcp_acceptor leaving it in an empty state and with no engine.
              *
              * @param      _move  The acceptor to move.
              *
-             * @return     The result of the assignment
+             * @return     The result of the assignment.
              */
             tcp_acceptor&
             operator=(tcp_acceptor&& _move) = default;
@@ -117,11 +126,41 @@ namespace zab {
              */
             ~tcp_acceptor() = default;
 
+            /**
+             * @brief Start listening to connections on a newly created socket.
+             *
+             * @details This function is essentially creates a new socket using `::socket()`,
+             *          sets SO_REUSEADDR, then calls `::bind()` and `::listen()`.
+             *
+             * @param _family AF_INET or AF_INET6 for ipv4 and ipv6 respectively.
+             * @param _port Which port to listen on.
+             * @param _backlog The maximum amount of pending connections to hold.
+             * @return true If started successfully.
+             * @return false If an error occurs. `last_error()` is set.
+             */
             [[nodiscard]] bool
             listen(int _family, std::uint16_t _port, int _backlog) noexcept;
 
+            /**
+             * @brief Attempts to accept a connection.
+             *
+             * @details This function always suspends.
+             *
+             *          This function is cancelable using the `cancel()` function.
+             *
+             *          The function calls `::accept()` on the socket with parameters given.
+             *          The socket produced from this call is used to create a tcp_stream.
+             *
+             * @tparam DataType The type of memory the produced tcp_stream will use.
+             * @param _address A ptr to the sockaddr like struct to be filled out.
+             * @param _length A ptr to the socklen_t the indicates the memory length of _address.
+             * @param _flags The flags to apply to the accept call. The default is SOCK_CLOEXEC. See
+             *               `::accept4()`
+             * @co_return tcp_stream<DataType> if no error occurs, or std::nullopt.
+             */
             template <MemoryType DataType = std::byte>
-            [[nodiscard]] ZAB_ASYNC_RETURN(std::optional<tcp_stream<DataType>>) accept(
+            [[nodiscard]] auto
+            accept(
                 struct sockaddr* _address,
                 socklen_t*       _length,
                 int              _flags = SOCK_CLOEXEC) noexcept
@@ -155,22 +194,49 @@ namespace zab {
             }
     };
 
+    /**
+     * @brief A free function for connecting to a server.
+     *
+     * @details This function suspends only if there is no error on socket creation.
+     *
+     *          This function is cancelable using the event loop and the value filled out on
+     *          cancel_token_.
+     *
+     *          This function is equivelent to calling `::socket()` and `::connect()`.
+     *
+     * @tparam DataType The memory type of the tcp stream.
+     * @param _engine The engine to use. It is expected that the caller is currently in an engines
+     *                thread.
+     * @param _details The sockaddr* uses that is pre-filled out with the connection details.
+     * @param _size The size of the memory region used by _details.
+     * @param cancel_token_ An option `cancel_token_` that can be passed in that can be used to the
+     *                      cancel the operation.  If a event_loop::io_handle* is passed it it will
+     *                      be set before suspension.
+     * @param _sock_flags Flags to apply to the socket during socket creation. The SOCK_STREAM is
+     *                    always given, SOCK_CLOEXEC is the default.
+     * @co_return tcp_stream A stream is always returned to take ownership of the connector socket.
+     *                       If an error occurred the streams last_error is set.
+     */
     template <MemoryType DataType = std::byte>
-    [[nodiscard]] inline ZAB_ASYNC_RETURN(tcp_stream) tcp_connect(
-        engine*                  _engine,
-        struct sockaddr_storage* _details,
-        socklen_t                _size,
-        event_loop::io_handle*   cancel_token_ = nullptr,
-        int                      _sock_flags   = SOCK_STREAM | SOCK_CLOEXEC)
+    [[nodiscard]] inline auto
+    tcp_connect(
+        engine*                _engine,
+        const struct sockaddr* _details,
+        socklen_t              _size,
+        event_loop::io_handle* cancel_token_ = nullptr,
+        int                    _sock_flags   = SOCK_CLOEXEC)
     {
         network_operation net_op(_engine);
         int               sd;
 
-        if (sd = ::socket(_details->ss_family, _sock_flags, 0); sd < 0) [[unlikely]]
+        if (sd = ::socket(_details->sa_family, SOCK_STREAM | _sock_flags, 0); sd >= 0)
+        {
+            net_op.set_descriptor(sd);
+        }
+        else
         {
             net_op.set_error(errno);
         }
-        net_op.set_descriptor(sd);
 
         return co_awaitable(
             [net_op = std::move(net_op),
@@ -188,7 +254,7 @@ namespace zab {
                     net_op.get_engine()->get_event_loop().connect(
                         &ret,
                         net_op.descriptor(),
-                        (sockaddr*) _details,
+                        _details,
                         _size);
                 }
                 else if constexpr (is_resume<T>())

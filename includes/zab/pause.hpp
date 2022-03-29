@@ -49,20 +49,49 @@ namespace zab {
 
     /**
      * @brief      Data pack for pausing coroutines.
-     *             - thread_: The thread to resume the coroutine in.
-     *             - data_  : Any data that you wish to pass to the coroutine.
-     *             - handle_: The coroutine to resume.
-     *
      *
      */
     struct pause_pack {
-            thread_t                thread_ = thread_t{};
-            std::intptr_t           data_   = 0;
+
+            /**
+             * @brief The thread to resume the coroutine in.
+             *
+             */
+            thread_t thread_ = thread_t{};
+
+            /**
+             * @brief Any data that you wish to pass to the coroutine.
+             *
+             */
+            std::intptr_t data_ = 0;
+
+            /**
+             * @brief The coroutine to resume.
+             *
+             */
             std::coroutine_handle<> handle_ = nullptr;
     };
 
-    template <typename Functor>
-        requires(std::is_nothrow_invocable_v<Functor, pause_pack*>)
+    namespace details {
+
+        /**
+         * @brief Can the callable be nothrow called with a pause_pack*.
+         *
+         * @tparam Functor The callable type.
+         */
+        template <typename Functor>
+        concept NoThrowInvoacablePP = std::is_nothrow_invocable_v<Functor, pause_pack*>;
+
+    }   // namespace details
+
+    /**
+     * @brief Suspend a coroutine until unpause is called.
+     *
+     * @tparam Functor callable type.
+     * @param _func The callable that is given the pause_pack* for resumption.
+     * @co_return std::intptr_t The value of pause_pack->data_ given to the Functor.
+     */
+    template <details::NoThrowInvoacablePP Functor>
     inline auto
     pause(Functor&& _func) noexcept
     {

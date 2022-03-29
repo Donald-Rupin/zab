@@ -35,8 +35,8 @@
  *
  */
 
-#ifndef ZAB_OBERVABLE_HPP_
-#define ZAB_OBERVABLE_HPP_
+#ifndef ZAB_OBSERVABLE_HPP_
+#define ZAB_OBSERVABLE_HPP_
 
 #include <coroutine>
 #include <deque>
@@ -321,4 +321,4 @@ namespace zab {
 
 }   // namespace zab
 
-#endif /* ZAB_OBERVABLE_HPP_ */
+#endif /* ZAB_OBSERVABLE_HPP_ */

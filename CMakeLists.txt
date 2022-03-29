@@ -43,10 +43,10 @@ target_compile_options(zab PUBLIC
   )
 
 target_include_directories(zab PUBLIC
-    includes
-    libs
+    includes    
     liburing/src/include
   )
+
 
 add_dependencies(zab liburing)
 

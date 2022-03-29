@@ -343,10 +343,10 @@ namespace zab {
 
     void
     event_loop::connect(
-        io_handle        _cancle_token,
-        int              _fd,
-        struct sockaddr* _addr,
-        socklen_t        _addrlen) noexcept
+        io_handle              _cancle_token,
+        int                    _fd,
+        const struct sockaddr* _addr,
+        socklen_t              _addrlen) noexcept
     {
         return do_op(&io_uring_prep_connect, _cancle_token, ring_.get(), _fd, _addr, _addrlen);
     }

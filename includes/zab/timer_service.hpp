@@ -51,67 +51,119 @@ namespace zab {
 
     class engine;
 
-    class alignas(hardware_constructive_interference_size) timer_service {
+    /**
+     * @brief A timer_service suspends is used to resume suspended coroutines based off a monotonic
+     *        clock.
+     *
+     */
+    class timer_service {
 
         public:
 
+            /**
+             * @brief Construct a new timer service object with an engine to use for resumption.
+             *
+             * @param _engine The engine to used.
+             */
             timer_service(engine* _engine);
 
+            /**
+             * @brief Copy constructed is deleted.
+             *
+             */
             timer_service(const timer_service&) = delete;
 
-            timer_service(timer_service&&);
+            /**
+             * @brief Move construct a timer service taking ownership of the resources.
+             *
+             * @param _move The timer_service to move.
+             */
+            timer_service(timer_service&& _move);
 
+            /**
+             * @brief Destroy the timer service object cleaning up resources.
+             *
+             */
             ~timer_service();
 
-            void
-            initialise() noexcept;
+            /**
+             * @brief Pause the coroutine for _nano_seconds.
+             *
+             * @param _nano_seconds The amount of nanoseconds to pause for.
+             * @co_return void Suspends for the given time.
+             */
+            auto
+            wait(std::uint64_t _nano_seconds) noexcept
+            {
+                return co_awaitable(
+                    [this, _nano_seconds]<typename T>(T _handle) noexcept
+                    {
+                        if constexpr (is_suspend<T>()) { return _nano_seconds == 0; }
+                        else if constexpr (is_suspend<T>())
+                        {
+                            wait(_handle, _nano_seconds);
+                        }
+                    });
+            }
 
+            /**
+             * @brief Pause the coroutine for _nano_seconds and resume in the given thread.
+             *
+             * @param _nano_seconds The amount of nanoseconds to pause for.
+             * @param _thread The thread to resume in.
+             * @co_return void Suspends for the given time.
+             */
+            auto
+            wait(std::uint64_t _nano_seconds, thread_t _thread) noexcept
+            {
+                return co_awaitable(
+                    [this, _nano_seconds, _thread]<typename T>(T _handle) noexcept
+                    {
+                        if constexpr (is_suspend<T>()) { return _nano_seconds == 0; }
+                        else if constexpr (is_suspend<T>())
+                        {
+                            wait(_handle, _nano_seconds, _thread);
+                        }
+                    });
+            }
+
+            /**
+             * @brief Takes a coroutine handle to resume after a given amount of time.
+             *
+             * @param _handle The handle to resume.
+             * @param _nano_seconds The amount of nanoseconds to suspend for.
+             */
             void
             wait(std::coroutine_handle<> _handle, std::uint64_t _nano_seconds) noexcept;
 
+            /**
+             * @brief Takes a coroutine handle to resume after a given amount of time and resume in
+             *        the given thread
+             *
+             * @param _handle The handle to resume.
+             * @param _nano_seconds The amount of nanoseconds to suspend for.
+             * @param _thread The thread to resume in.
+             */
             void
             wait(
                 std::coroutine_handle<> _handle,
                 std::uint64_t           _nano_seconds,
                 thread_t                _thread) noexcept;
 
-            struct await_proxy : public std::suspend_always {
-                    void
-                    await_suspend(std::coroutine_handle<> _awaiter) noexcept
-                    {
-                        ts_->wait(_awaiter, nano_seconds_);
-                    }
-
-                    timer_service* ts_;
-                    std::uint64_t  nano_seconds_;
-            };
-
-            auto
-            wait_proxy(std::uint64_t _nano_seconds) noexcept
-            {
-                struct {
-
-                        await_proxy operator co_await() noexcept
-                        {
-                            return await_proxy{{}, ts_, nano_seconds_};
-                        }
-
-                        timer_service* ts_;
-                        std::uint64_t  nano_seconds_;
-
-                } co_awaiter{this, _nano_seconds};
-
-                return co_awaiter;
-            }
-
-            simple_future<>
+            [[deprecated("Use wait in favour of this function. This will be removed "
+                         "once first_of and wait_for accept any awaitable.")]] simple_future<>
             wait_future(std::uint64_t _nano_seconds) noexcept
             {
-                co_await wait_proxy(_nano_seconds);
+                co_await wait(_nano_seconds);
 
                 co_return;
             }
 
+            /**
+             * @brief Runs the background fibre that runes the timer services logic.
+             *
+             * @return async_function<>
+             */
             async_function<>
             run() noexcept;
 
@@ -125,14 +177,14 @@ namespace zab {
             engine*               engine_;
             event_loop::io_handle handle_;
 
-            std::size_t read_buffer_;
+            std::map<std::uint64_t, std::vector<std::pair<std::coroutine_handle<>, thread_t>>>
+                waiting_;
 
-            std::atomic<int> timer_fd_;
+            std::size_t read_buffer_;
 
             std::uint64_t current_;
 
-            std::map<std::uint64_t, std::vector<std::pair<std::coroutine_handle<>, thread_t>>>
-                waiting_;
+            int timer_fd_;
     };
 
 }   // namespace zab
