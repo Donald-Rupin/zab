@@ -55,7 +55,7 @@ namespace zab {
     inline auto
     yield(engine* _engine) noexcept
     {
-        return co_awaitable(
+        return suspension_point(
             [_engine]<typename T>(T _handle) noexcept
             {
                 if constexpr (is_suspend<T>()) { _engine->resume(_handle); }
@@ -73,7 +73,7 @@ namespace zab {
     inline auto
     yield(engine* _engine, thread_t _thread) noexcept
     {
-        return co_awaitable(
+        return suspension_point(
             [_engine, _thread]<typename T>(T _handle) noexcept
             {
                 if constexpr (is_suspend<T>()) { _engine->thread_resume(_handle, _thread); }
@@ -93,7 +93,7 @@ namespace zab {
     inline auto
     yield(engine* _engine, order_t _order, thread_t _thread) noexcept
     {
-        return co_awaitable(
+        return suspension_point(
             [_engine, _order, _thread]<typename T>(T _handle) noexcept
             {
                 if constexpr (is_suspend<T>())

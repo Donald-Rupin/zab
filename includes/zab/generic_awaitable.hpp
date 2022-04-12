@@ -222,23 +222,23 @@ namespace zab {
     };
 
     template <typename Functor>
-    class co_awaitable {
+    class suspension_point {
 
         public:
 
-            co_awaitable(const co_awaitable& _copy) = default;
+            suspension_point(const suspension_point& _copy) = default;
 
-            co_awaitable(co_awaitable&& _move) = default;
+            suspension_point(suspension_point&& _move) = default;
 
-            co_awaitable&
-            operator=(co_awaitable&& _move_op) = default;
+            suspension_point&
+            operator=(suspension_point&& _move_op) = default;
 
-            co_awaitable(Functor&& _functor) : functor_(std::move(_functor)) { }
+            suspension_point(Functor&& _functor) : functor_(std::move(_functor)) { }
 
-            co_awaitable(const Functor& _functor) : functor_(_functor) { }
+            suspension_point(const Functor& _functor) : functor_(_functor) { }
 
             template <typename... Args>
-            co_awaitable(Args&&... _args) : functor_(std::forward<Args>(_args)...)
+            suspension_point(Args&&... _args) : functor_(std::forward<Args>(_args)...)
             { }
 
             auto operator co_await() noexcept { return generic_awaitable(&functor_); }

@@ -284,7 +284,7 @@ namespace zab {
             [[nodiscard]] static auto
             cancel(engine* _engine, io_handle*& _handle) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [_engine, &_handle, ret = io_handle{}]<typename T>(T _control) mutable noexcept
                     {
                         if constexpr (is_ready<T>())
@@ -330,7 +330,7 @@ namespace zab {
             [[nodiscard]] auto
             close() noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this, ret = io_handle{}]<typename T>(T _handle) mutable noexcept
                     {
                         if constexpr (is_ready<T>())

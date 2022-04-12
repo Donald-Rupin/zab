@@ -103,7 +103,7 @@ namespace zab {
                 mode_t                 _mode,
                 io_handle**            _cancel_token = nullptr) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this,
                      ret = io_handle{},
                      _dfd,
@@ -161,7 +161,7 @@ namespace zab {
             auto
             close(int _fd, io_handle** _cancel_token = nullptr) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this, ret = io_handle{}, _fd, _cancel_token]<typename T>(
                         T _handle) mutable noexcept
                     {
@@ -212,7 +212,7 @@ namespace zab {
                 off_t                _offset,
                 io_handle**          _cancel_token = nullptr) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this, ret = io_handle{}, _fd, _buffer, _offset, _cancel_token]<typename T>(
                         T _handle) mutable noexcept
                     {
@@ -271,7 +271,7 @@ namespace zab {
                 int                  _buf_index,
                 io_handle**          _cancel_token = nullptr) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this,
                      ret = io_handle{},
                      _fd,
@@ -342,7 +342,7 @@ namespace zab {
                 off_t               _offset,
                 io_handle**         _cancel_token = nullptr) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this,
                      ret = io_handle{},
                      _fd,
@@ -406,7 +406,7 @@ namespace zab {
                 off_t                      _offset,
                 io_handle**                _cancel_token = nullptr) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this, ret = io_handle{}, _fd, _buffer, _offset, _cancel_token]<typename T>(
                         T _handle) mutable noexcept
                     {
@@ -465,7 +465,7 @@ namespace zab {
                 int                        _buf_index,
                 io_handle**                _cancel_token = nullptr) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this,
                      ret = io_handle{},
                      _fd,
@@ -536,7 +536,7 @@ namespace zab {
                 off_t               _offset,
                 io_handle**         _cancel_token = nullptr) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this,
                      ret = io_handle{},
                      _fd,
@@ -601,7 +601,7 @@ namespace zab {
                 int                  _flags,
                 io_handle**          _cancel_token = nullptr) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this, ret = io_handle{}, _sockfd, _buffer, _flags, _cancel_token]<typename T>(
                         T _handle) mutable noexcept
                     {
@@ -658,7 +658,7 @@ namespace zab {
                 int                        _flags,
                 io_handle**                _cancel_token = nullptr) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this, ret = io_handle{}, _sockfd, _buffer, _flags, _cancel_token]<typename T>(
                         T _handle) mutable noexcept
                     {
@@ -717,7 +717,7 @@ namespace zab {
                 int              _flags,
                 io_handle**      _cancel_token = nullptr) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this,
                      ret = io_handle{},
                      _sockfd,
@@ -781,7 +781,7 @@ namespace zab {
                 socklen_t              _addrlen,
                 io_handle**            _cancel_token = nullptr) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this, ret = io_handle{}, _sockfd, _addr, _addrlen, _cancel_token]<typename T>(
                         T _handle) mutable noexcept
                     {
@@ -881,7 +881,7 @@ namespace zab {
                 bool          _resume      = false,
                 std::intptr_t _cancel_code = std::numeric_limits<std::intptr_t>::max() - 1) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this, ret = io_handle{}, _key, _resume, _cancel_code]<typename T>(
                         T _handle) mutable noexcept
                     {

@@ -166,7 +166,7 @@ namespace zab {
                 int              _flags = SOCK_CLOEXEC) noexcept
             {
                 ::memset(&_address, 0, sizeof(_address));
-                return co_awaitable(
+                return suspension_point(
                     [this, ret = io_handle{}, _address, _length, _flags]<typename T>(
                         T _handle) mutable noexcept
                     {
@@ -238,7 +238,7 @@ namespace zab {
             net_op.set_error(errno);
         }
 
-        return co_awaitable(
+        return suspension_point(
             [net_op = std::move(net_op),
              ret    = io_handle{},
              _details,

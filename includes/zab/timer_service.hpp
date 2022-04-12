@@ -95,7 +95,7 @@ namespace zab {
             auto
             wait(std::uint64_t _nano_seconds) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this, _nano_seconds]<typename T>(T _handle) noexcept
                     {
                         if constexpr (is_suspend<T>()) { return _nano_seconds == 0; }
@@ -116,7 +116,7 @@ namespace zab {
             auto
             wait(std::uint64_t _nano_seconds, thread_t _thread) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this, _nano_seconds, _thread]<typename T>(T _handle) noexcept
                     {
                         if constexpr (is_suspend<T>()) { return _nano_seconds == 0; }

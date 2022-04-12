@@ -228,7 +228,7 @@ namespace zab {
              * @param _path The relative path of the file.
              * @param _options The zab options to apply.
              * @param _mode The open mode.
-             * @return co_awaitable The awaitable instance for opening the file.
+             * @return suspension_point The awaitable instance for opening the file.
              *                      Async returns the success.
              */
             auto
@@ -246,7 +246,7 @@ namespace zab {
              * @param _path The relative path of the file.
              * @param _flags The flags to apply.
              * @param _mode The open mode.
-             * @return co_awaitable The awaitable instance for opening the file.
+             * @return suspension_point The awaitable instance for opening the file.
              *                      Async returns the success.
              */
             auto
@@ -262,7 +262,7 @@ namespace zab {
              * @param _path The relative path of the file.
              * @param _options The zab options to apply.
              * @param _mode The open mode.
-             * @return co_awaitable The awaitable instance for opening the file.
+             * @return suspension_point The awaitable instance for opening the file.
              *                      Async returns the success.
              */
             auto
@@ -282,7 +282,7 @@ namespace zab {
              * @param _path The relative path of the file.
              * @param _flags The flags to apply.
              * @param _mode The open mode.
-             * @return co_awaitable The awaitable instance for opening the file.
+             * @return suspension_point The awaitable instance for opening the file.
              *                      Async returns the success.
              */
             auto
@@ -292,7 +292,7 @@ namespace zab {
                 int              _flags,
                 mode_t           _mode = kDefaultMode) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this, ret = io_handle{}, dfd = _dir.dfd_, _path, _flags, _mode]<typename T>(
                         T _handle) mutable noexcept
                     {
@@ -328,7 +328,7 @@ namespace zab {
              * @param _path The relative path of the file.
              * @param _flags The flags to apply.
              * @param _mode The open mode.
-             * @return co_awaitable The awaitable instance for opening the file.
+             * @return suspension_point The awaitable instance for opening the file.
              *                      Async returns the success.
              */
             static auto
@@ -339,7 +339,7 @@ namespace zab {
                 int              _flags,
                 mode_t           _mode = kDefaultMode)
             {
-                return co_awaitable(
+                return suspension_point(
                     [ret = io_handle{}, _engine, dfd = _dir.dfd_, _path, _flags, _mode]<typename T>(
                         T _handle) mutable noexcept
                     {
@@ -365,7 +365,7 @@ namespace zab {
             /**
              * @brief Attempts to close the file.
              *
-             * @return co_awaitable The awaitable instance for closing the file.
+             * @return suspension_point The awaitable instance for closing the file.
              *                      Async returns the success.
              */
             auto
@@ -381,13 +381,13 @@ namespace zab {
              *
              * @param _engine The engine to operate within.
              * @param _fd The file descriptor to close.
-             * @return co_awaitable The awaitable instance for closing the file.
+             * @return suspension_point The awaitable instance for closing the file.
              *                      Async returns the success.
              */
             static auto
             close(engine* _engine, int _fd) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [ret = io_handle{.handle_ = nullptr, .result_ = -1}, _engine, _fd]<typename T>(
                         T _handle) mutable noexcept
                     {
@@ -460,13 +460,13 @@ namespace zab {
              * @details May read less then _amount bytes.
              *
              * @param _amount The maximum amount to read.
-             * @return co_awaitable The awaitable instance for reading some data.
+             * @return suspension_point The awaitable instance for reading some data.
              *                      Async returns the amount of bytes read.
              */
             auto
             read_some(std::int32_t _amount) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this,
                      ret  = io_handle{.handle_ = nullptr, .result_ = -1},
                      data = std::vector<ReadType>(_amount)]<typename T>(T _handle) mutable noexcept
@@ -498,13 +498,13 @@ namespace zab {
              *
              * @param _data The buffer to read data into.
              * @param _off_set The offset for where to read data into the buffer.
-             * @return co_awaitable The awaitable instance for reading some data.
+             * @return suspension_point The awaitable instance for reading some data.
              *                      Async returns the amount of bytes read.
              */
             auto
             read_some(std::span<ReadType> _data, std::int32_t _off_set = 0) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this,
                      ret = io_handle{.handle_ = nullptr, .result_ = -1},
                      _data,
@@ -564,13 +564,13 @@ namespace zab {
              *
              * @param _data The buffer to write data from.
              * @param _off_set The offset for where to write data from the buffer.
-             * @return co_awaitable The awaitable instance for writing some data.
+             * @return suspension_point The awaitable instance for writing some data.
              *                      Async returns the amount of bytes written.
              */
             auto
             write_some(std::span<const ReadType> _data, std::int32_t _off_set = 0) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this,
                      ret = io_handle{.handle_ = nullptr, .result_ = -1},
                      _data,

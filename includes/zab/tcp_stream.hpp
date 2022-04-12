@@ -338,7 +338,7 @@ namespace zab {
             [[nodiscard]] auto
             read_some(std::span<DataType> _data, size_t _offset = 0, int _flags = 0) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this, ret = io_handle{}, _data, _offset, _flags]<typename T>(
                         T _handle) mutable noexcept
                     {
@@ -419,7 +419,7 @@ namespace zab {
             [[nodiscard]] auto
             write_some(std::span<const DataType> _data, size_t _offset = 0) noexcept
             {
-                return co_awaitable(
+                return suspension_point(
                     [this, ret = io_handle{}, _data, _offset]<typename T>(
                         T _handle) mutable noexcept
                     {

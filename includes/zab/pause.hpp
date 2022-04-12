@@ -95,7 +95,7 @@ namespace zab {
     inline auto
     pause(Functor&& _func) noexcept
     {
-        return co_awaitable(
+        return suspension_point(
             [pp       = pause_pack{},
              function = std::forward<Functor>(_func)]<typename T>(T _handle) mutable noexcept
             {
