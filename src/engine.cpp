@@ -213,6 +213,7 @@ namespace zab {
         if (_thread.thread_ == thread_t::kAnyThread) { _thread = get_any_thread(); }
 
         assert(_thread.thread_ < event_loop_.size());
+
         event_loop_[_thread.thread_].user_event(_handle);
     }
 
@@ -228,7 +229,11 @@ namespace zab {
     {
         if (_thread.thread_ == thread_t::kAnyThread) { _thread = get_any_thread(); }
 
-        if (_order.order_) { timers_[_thread.thread_].wait(_handle, _order.order_, _thread); }
+        if (_order.order_)
+        {
+            assert(this_thead_ != thread::any());
+            timers_[this_thead_.thread_].wait(_handle, _order.order_, _thread);
+        }
         else
         {
             thread_resume(_handle, _thread);

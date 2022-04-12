@@ -174,8 +174,8 @@ namespace zab {
 
             static constexpr auto kNanoInSeconds = 1000000000;
 
-            engine*               engine_;
-            event_loop::io_handle handle_;
+            engine*    engine_;
+            io_handle* handle_;
 
             std::map<std::uint64_t, std::vector<std::pair<std::coroutine_handle<>, thread_t>>>
                 waiting_;

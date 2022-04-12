@@ -54,13 +54,15 @@
 
 #include "zab/strong_types.hpp"
 
+// delete
+#include "zab/engine.hpp"
 namespace zab {
 
     namespace {
 
         template <typename FunctionCallType, FunctionCallType Function, typename... Args>
         inline void
-        do_op_impl(event_loop::io_handle _cancle_token, struct io_uring* _ring, Args&&... _args)
+        do_op_impl(io_ptr _cancel_token, struct io_uring* _ring, Args&&... _args)
         {
             auto* sqe = io_uring_get_sqe(_ring);
 
@@ -68,21 +70,18 @@ namespace zab {
             {
                 (*Function)(sqe, std::forward<Args>(_args)...);
 
-                io_uring_sqe_set_data(sqe, _cancle_token);
+                io_uring_sqe_set_data(sqe, _cancel_token);
             }
             else
             {
-                _cancle_token->data_ = -1;
-                _cancle_token->handle_.resume();
+                execute_io(_cancel_token, -ENOMEM);
             }
         }
 
 #define do_op(function, ...) do_op_impl<decltype(function), function>(__VA_ARGS__)
     }   // namespace
 
-    event_loop::event_loop()
-        : ring_(std::make_unique<io_uring>()), pinned_buffers_(kTotalBuffers * kPinSize),
-          use_space_handle_(nullptr)
+    event_loop::event_loop() : ring_(std::make_unique<io_uring>()), use_space_handle_(nullptr)
     {
         struct io_uring_params params;
         ::memset(&params, 0, sizeof(params));
@@ -96,19 +95,6 @@ namespace zab {
                       << "\n";
             abort();
         }
-
-        std::vector<struct iovec> ptrs;
-        ptrs.reserve(kTotalBuffers);
-        for (std::size_t i = 0; i < kTotalBuffers; ++i)
-        {
-            free_buffers_.emplace_back(
-                std::span<std::byte>(pinned_buffers_.data() + i * kPinSize, kPinSize),
-                i);
-            ptrs.emplace_back(iovec{
-                .iov_base = (io_handle) (pinned_buffers_.data() + i * kPinSize),
-                .iov_len  = kPinSize});
-        }
-        io_uring_register_buffers(ring_.get(), ptrs.data(), ptrs.size());
 
         /* Could also use `EFD_SEMAPHORE`. Not sure what would be best... */
         user_space_event_fd_ = eventfd(0, EFD_CLOEXEC);
@@ -127,28 +113,10 @@ namespace zab {
         }
         io_uring_queue_exit(ring_.get());
 
-        if (use_space_handle_) { clean_up(use_space_handle_); }
-    }
-
-    std::optional<std::pair<std::span<std::byte>, std::size_t>>
-    event_loop::claim_fixed_buffer()
-    {
-        if (free_buffers_.size())
+        if (use_space_handle_ && use_space_handle_->handle_)
         {
-            auto result = free_buffers_.front();
-            free_buffers_.pop_front();
-            return result;
+            use_space_handle_->handle_.destroy();
         }
-        else
-        {
-            return std::nullopt;
-        }
-    }
-
-    void
-    event_loop::release_fixed_buffer(std::pair<std::span<std::byte>, std::size_t> _buffer)
-    {
-        free_buffers_.emplace_back(_buffer);
     }
 
     void
@@ -159,7 +127,7 @@ namespace zab {
 
     void
     event_loop::open_at(
-        io_handle              _cancle_token,
+        io_ptr                 _cancel_token,
         int                    _dfd,
         const std::string_view _path,
         int                    _flags,
@@ -167,7 +135,7 @@ namespace zab {
     {
         return do_op(
             &io_uring_prep_openat,
-            _cancle_token,
+            _cancel_token,
             ring_.get(),
             _dfd,
             _path.data(),
@@ -176,21 +144,21 @@ namespace zab {
     }
 
     void
-    event_loop::close(io_handle _cancle_token, int _fd) noexcept
+    event_loop::close(io_ptr _cancel_token, int _fd) noexcept
     {
-        return do_op(&io_uring_prep_close, _cancle_token, ring_.get(), _fd);
+        return do_op(&io_uring_prep_close, _cancel_token, ring_.get(), _fd);
     }
 
     void
     event_loop::read(
-        io_handle            _cancle_token,
+        io_ptr               _cancel_token,
         int                  _fd,
         std::span<std::byte> _buffer,
         off_t                _offset) noexcept
     {
         return do_op(
             &io_uring_prep_read,
-            _cancle_token,
+            _cancel_token,
             ring_.get(),
             _fd,
             (char*) _buffer.data(),
@@ -200,7 +168,7 @@ namespace zab {
 
     void
     event_loop::read_v(
-        io_handle           _cancle_token,
+        io_ptr              _cancel_token,
         int                 _fd,
         const struct iovec* _iovecs,
         unsigned            _nr_vecs,
@@ -208,7 +176,7 @@ namespace zab {
     {
         return do_op(
             &io_uring_prep_readv,
-            _cancle_token,
+            _cancel_token,
             ring_.get(),
             _fd,
             _iovecs,
@@ -218,7 +186,7 @@ namespace zab {
 
     void
     event_loop::fixed_read(
-        io_handle            _cancle_token,
+        io_ptr               _cancel_token,
         int                  _fd,
         std::span<std::byte> _buffer,
         off_t                _offset,
@@ -226,7 +194,7 @@ namespace zab {
     {
         return do_op(
             &io_uring_prep_read_fixed,
-            _cancle_token,
+            _cancel_token,
             ring_.get(),
             _fd,
             (char*) _buffer.data(),
@@ -237,14 +205,14 @@ namespace zab {
 
     void
     event_loop::write(
-        io_handle                  _cancle_token,
+        io_ptr                     _cancel_token,
         int                        _fd,
         std::span<const std::byte> _buffer,
         off_t                      _offset) noexcept
     {
         return do_op(
             &io_uring_prep_write,
-            _cancle_token,
+            _cancel_token,
             ring_.get(),
             _fd,
             (const char*) _buffer.data(),
@@ -254,7 +222,7 @@ namespace zab {
 
     void
     event_loop::write_v(
-        io_handle           _cancle_token,
+        io_ptr              _cancel_token,
         int                 _fd,
         const struct iovec* _iovecs,
         unsigned            _nr_vecs,
@@ -262,7 +230,7 @@ namespace zab {
     {
         return do_op(
             &io_uring_prep_writev,
-            _cancle_token,
+            _cancel_token,
             ring_.get(),
             _fd,
             _iovecs,
@@ -272,7 +240,7 @@ namespace zab {
 
     void
     event_loop::fixed_write(
-        io_handle                  _cancle_token,
+        io_ptr                     _cancel_token,
         int                        _fd,
         std::span<const std::byte> _buffer,
         off_t                      _offset,
@@ -280,7 +248,7 @@ namespace zab {
     {
         return do_op(
             &io_uring_prep_write_fixed,
-            _cancle_token,
+            _cancel_token,
             ring_.get(),
             _fd,
             (const char*) _buffer.data(),
@@ -291,14 +259,14 @@ namespace zab {
 
     void
     event_loop::recv(
-        io_handle            _cancle_token,
+        io_ptr               _cancel_token,
         int                  sockfd,
         std::span<std::byte> _buffer,
         int                  _flags) noexcept
     {
         return do_op(
             &io_uring_prep_recv,
-            _cancle_token,
+            _cancel_token,
             ring_.get(),
             sockfd,
             (char*) _buffer.data(),
@@ -308,14 +276,14 @@ namespace zab {
 
     void
     event_loop::send(
-        io_handle                  _cancle_token,
+        io_ptr                     _cancel_token,
         int                        sockfd,
         std::span<const std::byte> _buffer,
         int                        _flags) noexcept
     {
         return do_op(
             &io_uring_prep_send,
-            _cancle_token,
+            _cancel_token,
             ring_.get(),
             sockfd,
             (const char*) _buffer.data(),
@@ -325,7 +293,7 @@ namespace zab {
 
     void
     event_loop::accept(
-        io_handle        _cancle_token,
+        io_ptr           _cancel_token,
         int              _fd,
         struct sockaddr* _addr,
         socklen_t*       _addrlen,
@@ -333,7 +301,7 @@ namespace zab {
     {
         return do_op(
             &io_uring_prep_accept,
-            _cancle_token,
+            _cancel_token,
             ring_.get(),
             _fd,
             _addr,
@@ -343,28 +311,23 @@ namespace zab {
 
     void
     event_loop::connect(
-        io_handle              _cancle_token,
+        io_ptr                 _cancel_token,
         int                    _fd,
         const struct sockaddr* _addr,
         socklen_t              _addrlen) noexcept
     {
-        return do_op(&io_uring_prep_connect, _cancle_token, ring_.get(), _fd, _addr, _addrlen);
+        return do_op(&io_uring_prep_connect, _cancel_token, ring_.get(), _fd, _addr, _addrlen);
     }
 
     void
-    event_loop::cancel_event(io_handle _cancle_token, io_handle _key) noexcept
+    event_loop::cancel_event(io_ptr _cancel_token, io_ptr _key) noexcept
     {
         auto* sqe = io_uring_get_sqe(ring_.get());
-        if (!sqe) [[unlikely]]
-        {
-            _cancle_token->data_ = ENOMEM;
-            _cancle_token->handle_.resume();
-        }
+        if (!sqe) [[unlikely]] { execute_io(_cancel_token, -ENOMEM); }
         else
         {
-            sqe->opcode = IORING_OP_ASYNC_CANCEL;
-            sqe->addr   = reinterpret_cast<std::uintptr_t>(_key);
-            io_uring_sqe_set_data(sqe, _cancle_token);
+            io_uring_prep_cancel(sqe, reinterpret_cast<std::uintptr_t>(_key), 0);
+            io_uring_sqe_set_data(sqe, _cancel_token);
         }
     }
 
@@ -372,15 +335,15 @@ namespace zab {
     event_loop::cancel_code(std::intptr_t _result) noexcept -> CancelResult
     {
         if (!_result) { return CancelResult::kDone; }
-        else if (_result == ENOENT)
+        else if (_result == -ENOENT)
         {
             return CancelResult::kNotFound;
         }
-        else if (_result == EALREADY)
+        else if (_result == -EALREADY)
         {
             return CancelResult::kTried;
         }
-        else if (_result == ENOMEM)
+        else if (_result == -ENOMEM)
         {
             return CancelResult::kFailed;
         }
@@ -390,26 +353,57 @@ namespace zab {
         }
     }
 
+    static const std::uint64_t item = 1;
+
     void
-    event_loop::clean_up(io_handle _key, bool _resume, std::uintptr_t _cancel_code) noexcept
+    event_loop::wake(event_loop& _from) noexcept
     {
-        if (!_resume) { _key->handle_.destroy(); }
-        else
-        {
-            _key->data_ = _cancel_code;
-            _key->handle_.resume();
-        }
+        do_op(
+            &io_uring_prep_write,
+            create_ptr(nullptr, kHandleFlag),
+            _from.ring_.get(),
+            user_space_event_fd_,
+            (const char*) &item,
+            sizeof(item),
+            0);
     }
 
     void
-    event_loop::wake()
+    event_loop::wake() noexcept
     {
-        // TODO: test speed compared to write using io_uring::write
         std::uint64_t item = 1;
         if (::write(user_space_event_fd_, &item, sizeof(item)) < (int) sizeof(item))
         {
             std::cerr << "Notify user space event_fd read failed. Expect halt.\n";
         }
+    }
+
+    void
+    event_loop::user_event(event _handle) noexcept
+    {
+        bool notify = false;
+        {
+            std::scoped_lock lck(mtx_);
+            handles_[kWriteIndex].emplace_back(_handle);
+            notify = handles_[kWriteIndex].size() == 1;
+            size_.fetch_add(1, std::memory_order_relaxed);
+        }
+
+        if (notify) { wake(); }
+    }
+
+    void
+    event_loop::user_event(event _handle, event_loop& _from) noexcept
+    {
+        bool notify = false;
+        {
+            std::scoped_lock lck(mtx_);
+            handles_[kWriteIndex].emplace_back(_handle);
+            notify = handles_[kWriteIndex].size() == 1;
+            size_.fetch_add(1, std::memory_order_relaxed);
+        }
+
+        if (notify) { wake(_from); }
     }
 
     void
@@ -419,9 +413,9 @@ namespace zab {
 
         io_uring_submit(ring_.get());
 
-        static constexpr auto kMaxBatch = 16;
-        io_uring_cqe*         completions[kMaxBatch];
-        pause_pack*           to_resume[kMaxBatch];
+        static constexpr auto  kMaxBatch = 16;
+        io_uring_cqe*          completions[kMaxBatch];
+        std::pair<io_ptr, int> to_resume[kMaxBatch];
 
         while (!_st.stop_requested() &&
                !io_uring_wait_cqe(ring_.get(), (io_uring_cqe**) &completions))
@@ -434,8 +428,8 @@ namespace zab {
                 /* Pop off the queue... */
                 for (std::uint32_t i = 0; i < amount; ++i)
                 {
-                    to_resume[i] = static_cast<pause_pack*>(io_uring_cqe_get_data(completions[i]));
-                    to_resume[i]->data_ = completions[i]->res;
+                    to_resume[i].first = static_cast<io_ptr>(io_uring_cqe_get_data(completions[i]));
+                    to_resume[i].second = completions[i]->res;
                 }
 
                 io_uring_cq_advance(ring_.get(), amount);
@@ -443,26 +437,12 @@ namespace zab {
                 /* Resume them*/
                 for (std::uint32_t i = 0; i < amount; ++i)
                 {
-                    if (to_resume[i]->handle_) { to_resume[i]->handle_.resume(); }
+                    execute_io(to_resume[i].first, to_resume[i].second);
                 }
 
                 io_uring_submit(ring_.get());
             }
         }
-    }
-
-    void
-    event_loop::user_event(event _handle) noexcept
-    {
-        bool notify = false;
-        {
-            std::scoped_lock lck(mtx_);
-            handles_[kWriteIndex].emplace_back(_handle);
-            if (handles_[kWriteIndex].size() == 1) { notify = true; }
-            size_.fetch_add(1, std::memory_order_relaxed);
-        }
-
-        if (notify) { wake(); }
     }
 
     async_function<>
@@ -477,33 +457,28 @@ namespace zab {
                 size_.store(0, std::memory_order_relaxed);
             }
 
-            while (handles_[kReadIndex].size())
+            for (auto handle : handles_[kReadIndex])
             {
-                handles_[kReadIndex].front().resume();
-                handles_[kReadIndex].pop_front();
+                handle.resume();
             }
+            handles_[kReadIndex].clear();
 
-            auto pp = co_await pause(
-                [&](pause_pack* _pp) noexcept
-                {
-                    use_space_handle_ = _pp;
-                    read(
-                        _pp,
-                        user_space_event_fd_,
-                        std::span<std::byte>(
-                            static_cast<std::byte*>(static_cast<void*>(&count)),
-                            sizeof(count)),
-                        0);
-                });
-
+            auto result = co_await read(
+                user_space_event_fd_,
+                std::span<std::byte>(
+                    static_cast<std::byte*>(static_cast<void*>(&count)),
+                    sizeof(count)),
+                0,
+                &use_space_handle_);
             use_space_handle_ = nullptr;
 
-            if (pp.data_ == -1)
+            if (result < 0) [[unlikely]]
             {
-                std::cerr << "User space event_fd read failed due to sqe exhaustion.\n";
+                std::cerr << "User space event_fd read failed due to error. errno: " << result
+                          << "\n";
                 break;
             }
-            else if (pp.data_ != sizeof(count))
+            else if (result != sizeof(count)) [[unlikely]]
             {
                 std::cerr << "User space event_fd read failed.\n";
                 break;

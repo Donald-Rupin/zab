@@ -83,7 +83,7 @@ namespace zab {
             abort();
         }
 
-        if (handle_) { event_loop::clean_up(handle_); }
+        if (handle_ && handle_->handle_) { handle_->handle_.destroy(); }
     }
 
     async_function<>

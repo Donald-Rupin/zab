@@ -167,7 +167,7 @@ namespace zab {
             {
                 ::memset(&_address, 0, sizeof(_address));
                 return co_awaitable(
-                    [this, ret = pause_pack{}, _address, _length, _flags]<typename T>(
+                    [this, ret = io_handle{}, _address, _length, _flags]<typename T>(
                         T _handle) mutable noexcept
                     {
                         if constexpr (is_suspend<T>())
@@ -182,10 +182,10 @@ namespace zab {
                         {
                             std::optional<tcp_stream<DataType>> stream;
                             set_cancel(nullptr);
-                            if (ret.data_ >= 0) { stream.emplace(get_engine(), ret.data_); }
+                            if (ret.result_ >= 0) { stream.emplace(get_engine(), ret.result_); }
                             else
                             {
-                                set_error(-ret.data_);
+                                set_error(-ret.result_);
                             }
 
                             return stream;
@@ -210,7 +210,7 @@ namespace zab {
      * @param _details The sockaddr* uses that is pre-filled out with the connection details.
      * @param _size The size of the memory region used by _details.
      * @param cancel_token_ An option `cancel_token_` that can be passed in that can be used to the
-     *                      cancel the operation.  If a event_loop::io_handle* is passed it it will
+     *                      cancel the operation.  If a io_handle* is passed it it will
      *                      be set before suspension.
      * @param _sock_flags Flags to apply to the socket during socket creation. The SOCK_STREAM is
      *                    always given, SOCK_CLOEXEC is the default.
@@ -223,7 +223,7 @@ namespace zab {
         engine*                _engine,
         const struct sockaddr* _details,
         socklen_t              _size,
-        event_loop::io_handle* cancel_token_ = nullptr,
+        io_handle**            cancel_token_ = nullptr,
         int                    _sock_flags   = SOCK_CLOEXEC)
     {
         network_operation net_op(_engine);
@@ -240,7 +240,7 @@ namespace zab {
 
         return co_awaitable(
             [net_op = std::move(net_op),
-             ret    = pause_pack{},
+             ret    = io_handle{},
              _details,
              _size,
              cancel_token_]<typename T>(T _handle) mutable noexcept
@@ -260,7 +260,7 @@ namespace zab {
                 else if constexpr (is_resume<T>())
                 {
                     net_op.set_cancel(nullptr);
-                    if (ret.data_ == 0)
+                    if (ret.result_ == 0)
                     {
                         auto ds = net_op.descriptor();
                         net_op.clear_descriptor();
@@ -271,7 +271,7 @@ namespace zab {
                         tcp_stream<DataType> stream(
                             net_op.get_engine(),
                             network_operation::kNoDescriptor);
-                        stream.set_error(-ret.data_);
+                        stream.set_error(-ret.result_);
 
                         return stream;
                     }

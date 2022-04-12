@@ -95,4 +95,39 @@ namespace zab {
         swap(_first.last_error_, _second.last_error_);
     }
 
+    async_function<>
+    network_operation::background_close() noexcept
+    {
+        auto* e = engine_;
+
+        if (sd_ != kNoDescriptor)
+        {
+            /* Clear any errors */
+            int       err_result;
+            socklen_t result_len = sizeof(err_result);
+            ::getsockopt(sd_, SOL_SOCKET, SO_ERROR, (char*) &err_result, &result_len);
+
+            auto sd_tmp = sd_;
+            sd_         = kNoDescriptor;
+
+            std::uintptr_t result = -1;
+            if (e) { result = co_await e->get_event_loop().close(sd_tmp); }
+
+            if (result && ::close(sd_tmp))
+            {
+                std::cerr << "zab::network_operation->background_close() failed to close a "
+                             "socket. errno: "
+                          << errno << "\n";
+            }
+        }
+    }
+
+    async_function<>
+    network_operation::background_cancel() noexcept
+    {
+        auto cancel_token_tmp = cancel_token_;
+        cancel_token_         = nullptr;
+        co_await engine_->get_event_loop().cancel_event(cancel_token_tmp, false);
+    }
+
 }   // namespace zab

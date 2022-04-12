@@ -244,9 +244,9 @@ namespace zab {
             /**
              * @brief Get a reference to the cancelation token held by this object.
              *
-             * @return event_loop::io_handle&
+             * @return io_handle&
              */
-            [[nodiscard]] inline event_loop::io_handle&
+            [[nodiscard]] inline io_handle*&
             get_cancel() noexcept
             {
                 return cancel_token_;
@@ -258,7 +258,7 @@ namespace zab {
              * @param _handle The value to set.
              */
             inline void
-            set_cancel(event_loop::io_handle _handle) noexcept
+            set_cancel(io_handle* _handle) noexcept
             {
                 cancel_token_ = _handle;
             }
@@ -278,28 +278,14 @@ namespace zab {
              *
              * @param _engine The engine to use for cancelation.
              * @param[out] _handle The handle to use and clear on successful cancelation.
-             * @param _resume Whether to resume or destroy the pending operation.
-             * @param _return_code If resumed, what code to give to it. Must be negative, if it is
-             *                     not, it is negated.
+             *
              * @co_return void Resumes once the operation has been cancelled or an error occurs.
              */
             [[nodiscard]] static auto
-            cancel(
-                engine*                _engine,
-                event_loop::io_handle& _handle,
-                bool                   _resume,
-                std::intptr_t _return_code = std::numeric_limits<std::intptr_t>::min()) noexcept
+            cancel(engine* _engine, io_handle*& _handle) noexcept
             {
-                /* All cancel return codes must be negative */
-                if (_return_code > 0) { _return_code = -_return_code; }
-                else if (!_return_code)
-                {
-                    _return_code = std::numeric_limits<std::intptr_t>::min();
-                }
-
                 return co_awaitable(
-                    [_engine, &_handle, ret = pause_pack{}, _resume, _return_code]<typename T>(
-                        T _control) mutable noexcept
+                    [_engine, &_handle, ret = io_handle{}]<typename T>(T _control) mutable noexcept
                     {
                         if constexpr (is_ready<T>())
                         {
@@ -308,26 +294,17 @@ namespace zab {
                         }
                         else if constexpr (is_suspend<T>())
                         {
-                            ret.data_   = -1;
+                            ret.result_ = -1;
                             ret.handle_ = _control;
                             _engine->get_event_loop().cancel_event(&ret, _handle);
                         }
                         else if constexpr (is_resume<T>())
                         {
-                            if (_handle)
-                            {
-                                auto result = event_loop::cancel_code(ret.data_);
+                            auto result = event_loop::cancel_code(ret.result_);
 
-                                if (result == event_loop::CancelResult::kDone)
-                                {
-                                    event_loop::clean_up(_handle, _resume, _return_code);
-                                }
+                            if (result != event_loop::CancelResult::kFailed) { _handle = nullptr; }
 
-                                if (result != event_loop::CancelResult::kFailed)
-                                {
-                                    _handle = nullptr;
-                                }
-                            }
+                            return result;
                         }
                     });
             }
@@ -336,17 +313,12 @@ namespace zab {
              * @brief Convience function for passing the correct arguments to the static cancel
              *        function.
              *
-             * @param _resume Whether to resume or destroy the pending operation.
-             * @param _return_code If resumed, what code to give to it. Must be negative, if it is
-             *                     not, it is negated.
              * @co_return void Resumes once the operation has been cancelled or an error occurs.
              */
             [[nodiscard]] auto
-            cancel(
-                bool          _resume,
-                std::intptr_t _return_code = std::numeric_limits<std::intptr_t>::min()) noexcept
+            cancel() noexcept
             {
-                return cancel(engine_, cancel_token_, _resume, _return_code);
+                return cancel(engine_, cancel_token_);
             }
 
             /**
@@ -359,7 +331,7 @@ namespace zab {
             close() noexcept
             {
                 return co_awaitable(
-                    [this, ret = pause_pack{}]<typename T>(T _handle) mutable noexcept
+                    [this, ret = io_handle{}]<typename T>(T _handle) mutable noexcept
                     {
                         if constexpr (is_ready<T>())
                         {
@@ -378,14 +350,14 @@ namespace zab {
                         }
                         else if constexpr (is_resume<T>())
                         {
-                            if (ret.data_ == 0)
+                            if (ret.result_ == 0)
                             {
                                 sd_ = kNoDescriptor;
                                 return true;
                             }
                             else
                             {
-                                last_error_ = -ret.data_;
+                                last_error_ = -ret.result_;
                                 return false;
                             };
                         }
@@ -399,24 +371,7 @@ namespace zab {
              * @return async_function<>
              */
             async_function<>
-            background_close() noexcept
-            {
-                /* Clear any errors */
-                int       err_result;
-                socklen_t result_len = sizeof(err_result);
-                ::getsockopt(sd_, SOL_SOCKET, SO_ERROR, (char*) &err_result, &result_len);
-
-                auto sd_tmp = sd_;
-                sd_         = kNoDescriptor;
-                auto result = co_await engine_->get_event_loop().close(sd_tmp);
-
-                if (result && ::close(sd_tmp))
-                {
-                    std::cerr << "zab::network_operation->background_close() failed to close a "
-                                 "socket. errno: "
-                              << errno << "\n";
-                }
-            }
+            background_close() noexcept;
 
             /**
              * @brief Attempt to cancel the pending operation in the background. Error's in
@@ -425,19 +380,14 @@ namespace zab {
              * @return async_function<>
              */
             async_function<>
-            background_cancel() noexcept
-            {
-                auto cancel_token_tmp = cancel_token_;
-                cancel_token_         = nullptr;
-                co_await engine_->get_event_loop().cancel_event(cancel_token_tmp, false);
-            }
+            background_cancel() noexcept;
 
         private:
 
-            engine*               engine_;
-            event_loop::io_handle cancel_token_;
-            int                   sd_;
-            int                   last_error_;
+            engine*    engine_;
+            io_handle* cancel_token_;
+            int        sd_;
+            int        last_error_;
     };
 
 }   // namespace zab

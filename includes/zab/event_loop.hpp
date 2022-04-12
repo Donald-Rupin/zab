@@ -65,8 +65,6 @@ namespace zab {
 
         public:
 
-            using io_handle = pause_pack*;
-
             static constexpr auto kQueueSize = 4096;
 
             /**
@@ -91,7 +89,7 @@ namespace zab {
              * @param _path The path to the file relative to _dfd.
              * @param _flags Flags used to open the file.
              * @param _mode  Permissions to use for the file
-             * @param[out] _cancel_token A ptr to a io_handle which will bet set to the
+             * @param[out] _cancel_token A ptr to a io_ptr which will bet set to the
              *                           cancelation handle.
              *
              * @co_return The result of `::openat()`
@@ -103,11 +101,11 @@ namespace zab {
                 const std::string_view _path,
                 int                    _flags,
                 mode_t                 _mode,
-                io_handle*             _cancel_token = nullptr) noexcept
+                io_handle**            _cancel_token = nullptr) noexcept
             {
                 return co_awaitable(
                     [this,
-                     ret = pause_pack{},
+                     ret = io_handle{},
                      _dfd,
                      _path,
                      _flags,
@@ -118,11 +116,11 @@ namespace zab {
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            open_at(&ret, _dfd, _path, _flags, _mode);
+                            open_at(create_ptr(&ret, kHandleFlag), _dfd, _path, _flags, _mode);
                         }
                         else if constexpr (is_resume<T>())
                         {
-                            return ret.data_;
+                            return ret.result_;
                         }
                     });
             }
@@ -134,7 +132,7 @@ namespace zab {
              *
              *          See https://linux.die.net/man/2/openat.
              *
-             * @param _cancel_token A io_handle which will be resumed on completion.
+             * @param _cancel_token A io_ptr which will be resumed on completion.
              * @param _dfd The directory descriptor or AT_FDCWD
              * @param _path The path to the file relative to _dfd.
              * @param _flags Flags used to open the file.
@@ -143,7 +141,7 @@ namespace zab {
              */
             void
             open_at(
-                io_handle              _cancel_token,
+                io_ptr                 _cancel_token,
                 int                    _dfd,
                 const std::string_view _path,
                 int                    _flags,
@@ -155,27 +153,27 @@ namespace zab {
              * @details See https://man7.org/linux/man-pages/man2/close.2.html.
              *
              * @param _fd The file descriptor to close.
-             * @param[out] _cancel_token A ptr to a io_handle which will bet set to the
+             * @param[out] _cancel_token A ptr to a io_ptr which will bet set to the
              *                           cancelation handle.
              *
              * @co_return The result of `::close()`
              */
             auto
-            close(int _fd, io_handle* _cancel_token = nullptr) noexcept
+            close(int _fd, io_handle** _cancel_token = nullptr) noexcept
             {
                 return co_awaitable(
-                    [this, ret = pause_pack{}, _fd, _cancel_token]<typename T>(
+                    [this, ret = io_handle{}, _fd, _cancel_token]<typename T>(
                         T _handle) mutable noexcept
                     {
                         if constexpr (is_suspend<T>())
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            close(&ret, _fd);
+                            close(create_ptr(&ret, kHandleFlag), _fd);
                         }
                         else if constexpr (is_resume<T>())
                         {
-                            return ret.data_;
+                            return ret.result_;
                         }
                     });
             }
@@ -187,12 +185,12 @@ namespace zab {
              *
              *          See https://man7.org/linux/man-pages/man2/close.2.html.
              *
-             * @param _cancel_token A io_handle which will be resumed on completion.
+             * @param _cancel_token A io_ptr which will be resumed on completion.
              * @param _fd The file descriptor to close.
              * .
              */
             void
-            close(io_handle _cancel_token, int _fd) noexcept;
+            close(io_ptr _cancel_token, int _fd) noexcept;
 
             /**
              * @brief Read from a file descriptor.
@@ -202,7 +200,7 @@ namespace zab {
              * @param _fd The file to read from.
              * @param _buffer The buffer to read into.
              * @param _offset The offset of the buffer to start from.
-             * @param[out] _cancel_token A ptr to a io_handle which will bet set to the
+             * @param[out] _cancel_token A ptr to a io_ptr which will bet set to the
              *                           cancelation handle.
              *
              * @co_return The result of `::read()`
@@ -212,21 +210,21 @@ namespace zab {
                 int                  _fd,
                 std::span<std::byte> _buffer,
                 off_t                _offset,
-                io_handle*           _cancel_token = nullptr) noexcept
+                io_handle**          _cancel_token = nullptr) noexcept
             {
                 return co_awaitable(
-                    [this, ret = pause_pack{}, _fd, _buffer, _offset, _cancel_token]<typename T>(
+                    [this, ret = io_handle{}, _fd, _buffer, _offset, _cancel_token]<typename T>(
                         T _handle) mutable noexcept
                     {
                         if constexpr (is_suspend<T>())
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            read(&ret, _fd, _buffer, _offset);
+                            read(create_ptr(&ret, kHandleFlag), _fd, _buffer, _offset);
                         }
                         else if constexpr (is_resume<T>())
                         {
-                            return ret.data_;
+                            return ret.result_;
                         }
                     });
             }
@@ -238,7 +236,7 @@ namespace zab {
              *
              *          See https://man7.org/linux/man-pages/man2/read.2.html.
              *
-             * @param _cancel_token A io_handle which will be resumed on completion.
+             * @param _cancel_token A io_ptr which will be resumed on completion.
              * @param _fd The file to read from.
              * @param _buffer The buffer to read into.
              * @param _offset The offset of the buffer to start from.
@@ -246,7 +244,7 @@ namespace zab {
              */
             void
             read(
-                io_handle            _cancel_token,
+                io_ptr               _cancel_token,
                 int                  _fd,
                 std::span<std::byte> _buffer,
                 off_t                _offset) noexcept;
@@ -260,7 +258,7 @@ namespace zab {
              * @param _buffer The buffer to read into.
              * @param _offset The offset of the buffer to start from.
              * @param _buf_index The index of the fixed buffer.
-             * @param[out] _cancel_token A ptr to a io_handle which will bet set to the
+             * @param[out] _cancel_token A ptr to a io_ptr which will bet set to the
              *                           cancelation handle.
              *
              * @co_return The result of the `fixed_read()` operation.
@@ -271,11 +269,11 @@ namespace zab {
                 std::span<std::byte> _buffer,
                 off_t                _offset,
                 int                  _buf_index,
-                io_handle*           _cancel_token = nullptr) noexcept
+                io_handle**          _cancel_token = nullptr) noexcept
             {
                 return co_awaitable(
                     [this,
-                     ret = pause_pack{},
+                     ret = io_handle{},
                      _fd,
                      _buffer,
                      _offset,
@@ -286,11 +284,16 @@ namespace zab {
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            fixed_read(&ret, _fd, _buffer, _offset, _buf_index);
+                            fixed_read(
+                                create_ptr(&ret, kHandleFlag),
+                                _fd,
+                                _buffer,
+                                _offset,
+                                _buf_index);
                         }
                         else if constexpr (is_resume<T>())
                         {
-                            return ret.data_;
+                            return ret.result_;
                         }
                     });
             }
@@ -302,7 +305,7 @@ namespace zab {
              *
              *          See https://man7.org/linux/man-pages/man2/read.2.html.
              *
-             * @param _cancel_token A io_handle which will be resumed on completion.
+             * @param _cancel_token A io_ptr which will be resumed on completion.
              * @param _fd The file to read from.
              * @param _buffer The buffer to read into.
              * @param _offset The offset of the buffer to start from.
@@ -311,7 +314,7 @@ namespace zab {
              */
             void
             fixed_read(
-                io_handle            _cancel_token,
+                io_ptr               _cancel_token,
                 int                  _fd,
                 std::span<std::byte> _buffer,
                 off_t                _offset,
@@ -326,7 +329,7 @@ namespace zab {
              * @param _iovecs The _iovecs array.
              * @param _nr_vecs The size of the _iovecs.
              * @param _offset The offset of the buffer to start from.
-             * @param[out] _cancel_token A ptr to a io_handle which will bet set to the
+             * @param[out] _cancel_token A ptr to a io_ptr which will bet set to the
              *                           cancelation handle.
              *
              * @co_return The result of the `::readv()` operation.
@@ -337,11 +340,11 @@ namespace zab {
                 const struct iovec* _iovecs,
                 unsigned            _nr_vecs,
                 off_t               _offset,
-                io_handle*          _cancel_token = nullptr) noexcept
+                io_handle**         _cancel_token = nullptr) noexcept
             {
                 return co_awaitable(
                     [this,
-                     ret = pause_pack{},
+                     ret = io_handle{},
                      _fd,
                      _iovecs,
                      _nr_vecs,
@@ -352,11 +355,11 @@ namespace zab {
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            read_v(&ret, _fd, _iovecs, _nr_vecs, _offset);
+                            read_v(create_ptr(&ret, kHandleFlag), _fd, _iovecs, _nr_vecs, _offset);
                         }
                         else if constexpr (is_resume<T>())
                         {
-                            return ret.data_;
+                            return ret.result_;
                         }
                     });
             }
@@ -368,7 +371,7 @@ namespace zab {
              *
              *          See https://man7.org/linux/man-pages/man2/readv.2.html
              *
-             * @param _cancel_token A io_handle which will be resumed on completion.
+             * @param _cancel_token A io_ptr which will be resumed on completion.
              * @param _fd The file to read from.
              * @param _iovecs The _iovecs array.
              * @param _nr_vecs The size of the _iovecs.
@@ -377,7 +380,7 @@ namespace zab {
              */
             void
             read_v(
-                io_handle           _cancel_token,
+                io_ptr              _cancel_token,
                 int                 _fd,
                 const struct iovec* _iovecs,
                 unsigned            _nr_vecs,
@@ -391,7 +394,7 @@ namespace zab {
              * @param _fd The file descriptor to write to.
              * @param _buffer The buffer to write from.
              * @param _offset The offest from where to start writing.
-             * @param[out] _cancel_token A ptr to a io_handle which will bet set to the
+             * @param[out] _cancel_token A ptr to a io_ptr which will bet set to the
              *                           cancelation handle.
              *
              * @co_return The result of the `::write()` operation.
@@ -401,21 +404,21 @@ namespace zab {
                 int                        _fd,
                 std::span<const std::byte> _buffer,
                 off_t                      _offset,
-                io_handle*                 _cancel_token = nullptr) noexcept
+                io_handle**                _cancel_token = nullptr) noexcept
             {
                 return co_awaitable(
-                    [this, ret = pause_pack{}, _fd, _buffer, _offset, _cancel_token]<typename T>(
+                    [this, ret = io_handle{}, _fd, _buffer, _offset, _cancel_token]<typename T>(
                         T _handle) mutable noexcept
                     {
                         if constexpr (is_suspend<T>())
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            write(&ret, _fd, _buffer, _offset);
+                            write(create_ptr(&ret, kHandleFlag), _fd, _buffer, _offset);
                         }
                         else if constexpr (is_resume<T>())
                         {
-                            return ret.data_;
+                            return ret.result_;
                         }
                     });
             }
@@ -427,7 +430,7 @@ namespace zab {
              *
              *          See https://man7.org/linux/man-pages/man2/write.2.html
              *
-             * @param _cancel_token A io_handle which will be resumed on completion.
+             * @param _cancel_token A io_ptr which will be resumed on completion.
              * @param _fd The file descriptor to write to.
              * @param _buffer The buffer to write from.
              * @param _offset The offest from where to start writing.
@@ -435,7 +438,7 @@ namespace zab {
              */
             void
             write(
-                io_handle                  _cancel_token,
+                io_ptr                     _cancel_token,
                 int                        _fd,
                 std::span<const std::byte> _buffer,
                 off_t                      _offset) noexcept;
@@ -445,11 +448,11 @@ namespace zab {
              *
              * @details See https://man7.org/linux/man-pages/man2/write.2.html;
              *
-             * @param _fd The file desciptor.
+             * @param _fd The file descriptor.
              * @param _buffer The buffer to write from.
              * @param _offset The offset of the buffer.
              * @param _buf_index The pinned buffer index.
-             * @param[out] _cancel_token A ptr to a io_handle which will bet set to the
+             * @param[out] _cancel_token A ptr to a io_ptr which will bet set to the
              *                           cancelation handle.
              *
              * @co_return The result of the `fixed_write()` operation.
@@ -460,11 +463,11 @@ namespace zab {
                 std::span<const std::byte> _buffer,
                 off_t                      _offset,
                 int                        _buf_index,
-                io_handle*                 _cancel_token = nullptr) noexcept
+                io_handle**                _cancel_token = nullptr) noexcept
             {
                 return co_awaitable(
                     [this,
-                     ret = pause_pack{},
+                     ret = io_handle{},
                      _fd,
                      _buffer,
                      _offset,
@@ -475,11 +478,16 @@ namespace zab {
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            fixed_write(&ret, _fd, _buffer, _offset, _buf_index);
+                            fixed_write(
+                                create_ptr(&ret, kHandleFlag),
+                                _fd,
+                                _buffer,
+                                _offset,
+                                _buf_index);
                         }
                         else if constexpr (is_resume<T>())
                         {
-                            return ret.data_;
+                            return ret.result_;
                         }
                     });
             }
@@ -491,8 +499,8 @@ namespace zab {
              *
              *          See https://man7.org/linux/man-pages/man2/write.2.html
              *
-             * @param _cancel_token A io_handle which will be resumed on completion.
-             * @param _fd The file desciptor.
+             * @param _cancel_token A io_ptr which will be resumed on completion.
+             * @param _fd The file descriptor.
              * @param _buffer The buffer to write from.
              * @param _offset The offset of the buffer.
              * @param _buf_index The pinned buffer index.
@@ -500,7 +508,7 @@ namespace zab {
              */
             void
             fixed_write(
-                io_handle                  _cancel_token,
+                io_ptr                     _cancel_token,
                 int                        _fd,
                 std::span<const std::byte> _buffer,
                 off_t                      _offset,
@@ -511,11 +519,11 @@ namespace zab {
              *
              * @details See: https://man7.org/linux/man-pages/man2/writev.2.html.
              *
-             * @param _fd The file desciptor.
+             * @param _fd The file descriptor.
              * @param _iovecs The iovec structure array.
              * @param _nr_vecs The size of the iovec array.
              * @param _offset The offest from where to start writing.
-             * @param[out] _cancel_token A ptr to a io_handle which will bet set to the
+             * @param[out] _cancel_token A ptr to a io_ptr which will bet set to the
              *                           cancelation handle.
              *
              * @co_return The result of the `::writev()` operation.
@@ -526,11 +534,11 @@ namespace zab {
                 const struct iovec* _iovecs,
                 unsigned            _nr_vecs,
                 off_t               _offset,
-                io_handle*          _cancel_token = nullptr) noexcept
+                io_handle**         _cancel_token = nullptr) noexcept
             {
                 return co_awaitable(
                     [this,
-                     ret = pause_pack{},
+                     ret = io_handle{},
                      _fd,
                      _iovecs,
                      _nr_vecs,
@@ -541,11 +549,11 @@ namespace zab {
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            write_v(&ret, _fd, _iovecs, _nr_vecs, _offset);
+                            write_v(create_ptr(&ret, kHandleFlag), _fd, _iovecs, _nr_vecs, _offset);
                         }
                         else if constexpr (is_resume<T>())
                         {
-                            return ret.data_;
+                            return ret.result_;
                         }
                     });
             }
@@ -557,8 +565,8 @@ namespace zab {
              *
              *          See https://man7.org/linux/man-pages/man2/writev.2.html
              *
-             * @param _cancel_token  A io_handle which will be resumed on completion.
-             * @param _fd The file desciptor.
+             * @param _cancel_token  A io_ptr which will be resumed on completion.
+             * @param _fd The file descriptor.
              * @param _iovecs The iovec structure array.
              * @param _nr_vecs The size of the iovec array.
              * @param _offset The offest from where to start writing.
@@ -566,7 +574,7 @@ namespace zab {
              */
             void
             write_v(
-                io_handle           _cancel_token,
+                io_ptr              _cancel_token,
                 int                 _fd,
                 const struct iovec* _iovecs,
                 unsigned            _nr_vecs,
@@ -580,7 +588,7 @@ namespace zab {
              * @param _sockfd The socket descriptor.
              * @param _buffer The buffer to receive into.
              * @param _flags The flags to apply to the read operation.
-             * @param[out] _cancel_token A ptr to a io_handle which will bet set to the
+             * @param[out] _cancel_token A ptr to a io_ptr which will bet set to the
              *                           cancelation handle.
              *
              * @co_return The result of the `::recv()` operation.
@@ -591,21 +599,21 @@ namespace zab {
                 int                  _sockfd,
                 std::span<std::byte> _buffer,
                 int                  _flags,
-                io_handle*           _cancel_token = nullptr) noexcept
+                io_handle**          _cancel_token = nullptr) noexcept
             {
                 return co_awaitable(
-                    [this, ret = pause_pack{}, _sockfd, _buffer, _flags, _cancel_token]<typename T>(
+                    [this, ret = io_handle{}, _sockfd, _buffer, _flags, _cancel_token]<typename T>(
                         T _handle) mutable noexcept
                     {
                         if constexpr (is_suspend<T>())
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            recv(&ret, _sockfd, _buffer, _flags);
+                            recv(create_ptr(&ret, kHandleFlag), _sockfd, _buffer, _flags);
                         }
                         else if constexpr (is_resume<T>())
                         {
-                            return ret.data_;
+                            return ret.result_;
                         }
                     });
             }
@@ -617,7 +625,7 @@ namespace zab {
              *
              *          See https://man7.org/linux/man-pages/man2/recv.2.html.
              *
-             * @param _cancel_token  A io_handle which will be resumed on completion.
+             * @param _cancel_token  A io_ptr which will be resumed on completion.
              * @param _sockfd The socket descriptor.
              * @param _buffer The buffer to receive into.
              * @param _flags The flags to apply to the read operation.
@@ -625,7 +633,7 @@ namespace zab {
              */
             void
             recv(
-                io_handle            _cancel_token,
+                io_ptr               _cancel_token,
                 int                  _sockfd,
                 std::span<std::byte> _buffer,
                 int                  _flags) noexcept;
@@ -638,7 +646,7 @@ namespace zab {
              * @param _sockfd The socket descriptor.
              * @param _buffer The buffer to receive into.
              * @param _flags The flags to apply to the write operation.
-             * @param[out] _cancel_token A ptr to a io_handle which will bet set to the
+             * @param[out] _cancel_token A ptr to a io_ptr which will bet set to the
              *                           cancelation handle.
              *
              * @co_return The result of the `::send()` operation.
@@ -648,21 +656,21 @@ namespace zab {
                 int                        _sockfd,
                 std::span<const std::byte> _buffer,
                 int                        _flags,
-                io_handle*                 _cancel_token = nullptr) noexcept
+                io_handle**                _cancel_token = nullptr) noexcept
             {
                 return co_awaitable(
-                    [this, ret = pause_pack{}, _sockfd, _buffer, _flags, _cancel_token]<typename T>(
+                    [this, ret = io_handle{}, _sockfd, _buffer, _flags, _cancel_token]<typename T>(
                         T _handle) mutable noexcept
                     {
                         if constexpr (is_suspend<T>())
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            send(&ret, _sockfd, _buffer, _flags);
+                            send(create_ptr(&ret, kHandleFlag), _sockfd, _buffer, _flags);
                         }
                         else if constexpr (is_resume<T>())
                         {
-                            return ret.data_;
+                            return ret.result_;
                         }
                     });
             }
@@ -674,7 +682,7 @@ namespace zab {
              *
              *          See https://man7.org/linux/man-pages/man2/send.2.html.
              *
-             * @param _cancel_token  A io_handle which will be resumed on completion.
+             * @param _cancel_token  A io_ptr which will be resumed on completion.
              * @param _sockfd The socket descriptor.
              * @param _buffer The buffer to receive into.
              * @param _flags The flags to apply to the write operation.
@@ -682,7 +690,7 @@ namespace zab {
              */
             void
             send(
-                io_handle                  _cancel_token,
+                io_ptr                     _cancel_token,
                 int                        _sockfd,
                 std::span<const std::byte> _buffer,
                 int                        _flags) noexcept;
@@ -696,7 +704,7 @@ namespace zab {
              * @param _addr The sockaddr to use.
              * @param _addrlen The length of the sockaddre region.
              * @param _flags The flags to apply to the accept operation.
-             * @param[out] _cancel_token A ptr to a io_handle which will bet set to the
+             * @param[out] _cancel_token A ptr to a io_ptr which will bet set to the
              *                           cancelation handle.
              *
              * @co_return The result of the `::accept()` operation.
@@ -707,11 +715,11 @@ namespace zab {
                 struct sockaddr* _addr,
                 socklen_t*       _addrlen,
                 int              _flags,
-                io_handle*       _cancel_token = nullptr) noexcept
+                io_handle**      _cancel_token = nullptr) noexcept
             {
                 return co_awaitable(
                     [this,
-                     ret = pause_pack{},
+                     ret = io_handle{},
                      _sockfd,
                      _addr,
                      _addrlen,
@@ -722,11 +730,11 @@ namespace zab {
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            accept(&ret, _sockfd, _addr, _addrlen, _flags);
+                            accept(create_ptr(&ret, kHandleFlag), _sockfd, _addr, _addrlen, _flags);
                         }
                         else if constexpr (is_resume<T>())
                         {
-                            return ret.data_;
+                            return ret.result_;
                         }
                     });
             }
@@ -738,7 +746,7 @@ namespace zab {
              *
              *          See https://man7.org/linux/man-pages/man2/accept.2.html.
              *
-             *  @param _cancel_token  A io_handle which will be resumed on completion.
+             *  @param _cancel_token  A io_ptr which will be resumed on completion.
              * @param _sockfd The socket descriptor.
              * @param _addr The sockaddr to use.
              * @param _addrlen The length of the sockaddre region.
@@ -747,7 +755,7 @@ namespace zab {
              */
             void
             accept(
-                io_handle        _cancel_token,
+                io_ptr           _cancel_token,
                 int              _sockfd,
                 struct sockaddr* _addr,
                 socklen_t*       _addrlen,
@@ -761,7 +769,7 @@ namespace zab {
              * @param _sockfd The socket descriptor.
              * @param _addr The sockaddr to use.
              * @param _addrlen The length of the sockaddre region.
-             * @param[out] _cancel_token A ptr to a io_handle which will bet set to the cancelation
+             * @param[out] _cancel_token A ptr to a io_ptr which will bet set to the cancelation
              *                          handle.
              *
              * @co_return The result of the `::connect()` operation.
@@ -771,21 +779,21 @@ namespace zab {
                 int                    _sockfd,
                 const struct sockaddr* _addr,
                 socklen_t              _addrlen,
-                io_handle*             _cancel_token = nullptr) noexcept
+                io_handle**            _cancel_token = nullptr) noexcept
             {
                 return co_awaitable(
-                    [this, ret = pause_pack{}, _sockfd, _addr, _addrlen, _cancel_token]<typename T>(
+                    [this, ret = io_handle{}, _sockfd, _addr, _addrlen, _cancel_token]<typename T>(
                         T _handle) mutable noexcept
                     {
                         if constexpr (is_suspend<T>())
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            connect(&ret, _sockfd, _addr, _addrlen);
+                            connect(create_ptr(&ret, kHandleFlag), _sockfd, _addr, _addrlen);
                         }
                         else if constexpr (is_resume<T>())
                         {
-                            return ret.data_;
+                            return ret.result_;
                         }
                     });
             }
@@ -797,14 +805,14 @@ namespace zab {
              *
              *          See https://man7.org/linux/man-pages/man2/connect.2.html.
              *
-             * @param _cancel_token  A io_handle which will be resumed on completion.
+             * @param _cancel_token  A io_ptr which will be resumed on completion.
              * @param _sockfd The socket descriptor.
              * @param _addr The sockaddr to use.
              * @param _addrlen The length of the sockaddre region.
              */
             void
             connect(
-                io_handle              _cancel_token,
+                io_ptr                 _cancel_token,
                 int                    _sockfd,
                 const struct sockaddr* _addr,
                 socklen_t              _addrlen) noexcept;
@@ -815,14 +823,14 @@ namespace zab {
              */
             enum class CancelResult {
                 kDone,     /**< The cancel was complete. */
-                kNotFound, /**< Could not find an operation with that io_handle. */
+                kNotFound, /**< Could not find an operation with that io_ptr. */
                 kTried,    /**< We tried, but the operation could not be canceled. */
                 kFailed,   /**< We could not create the cancel request dues to an error. */
                 kUnknown   /**< Something exception and unknown happened. */
             };
 
             /**
-             * @brief Conerts errno error codes into CancelResult.
+             * @brief Converts errno error codes into CancelResult.
              *
              * @param _result The errno result.
              * @return CancelResult The corresponding CancelResult.
@@ -831,42 +839,60 @@ namespace zab {
             cancel_code(std::intptr_t _result) noexcept;
 
             /**
+             * @brief Converts CancelResult into a message.
+             *
+             * @param _result The errno result.
+             * @return CancelResult The corresponding CancelResult message.
+             */
+            static constexpr std::string_view
+            cancel_message(CancelResult _result) noexcept
+            {
+                switch (_result)
+                {
+                    case CancelResult::kDone:
+                        return "The cancel was complete.";
+                    case CancelResult::kNotFound:
+                        return "Could not find an operation with that io_ptr.";
+                    case CancelResult::kTried:
+                        return "We tried, but the operation could not be canceled.";
+                    case CancelResult::kFailed:
+                        return "We could not create the cancel request dues to an error.";
+                    case CancelResult::kUnknown:
+                    default:
+                        return "Something exception and unknown happened.";
+                }
+            }
+
+            /**
              * @brief Attempt to cancel an operation.
              *
              * @details See `CancelResult` for possible results.
              *
              * @param _key The io handle to cancel.
-             * @param _resume Whether to resume or destroy the io_handle.
-             * @param _cancel_code On resumption, the code to resume the io_handle with.
+             * @param _resume Whether to resume or destroy the io_ptr.
+             * @param _cancel_code On resumption, the code to resume the io_ptr with.
              *
              * @co_return CancelResult The result of the cancel_event operation.
              *
              */
             auto
             cancel_event(
-                io_handle     _key,
+                io_ptr        _key,
                 bool          _resume      = false,
                 std::intptr_t _cancel_code = std::numeric_limits<std::intptr_t>::max() - 1) noexcept
             {
                 return co_awaitable(
-                    [this, ret = pause_pack{}, _key, _resume, _cancel_code]<typename T>(
+                    [this, ret = io_handle{}, _key, _resume, _cancel_code]<typename T>(
                         T _handle) mutable noexcept
                     {
                         if constexpr (is_suspend<T>())
                         {
                             ret.handle_ = _handle;
-                            cancel_event(&ret, _key);
+                            cancel_event(create_ptr(&ret, kHandleFlag), _key);
                         }
                         else if constexpr (is_resume<T>())
                         {
-                            auto result = cancel_code(ret.data_);
-
-                            if (result == CancelResult::kDone)
-                            {
-                                clean_up(_key, _resume, _cancel_code);
-                            }
-
-                            return result;
+                            return cancel_code(ret.result_);
                         }
                     });
             }
@@ -881,21 +907,7 @@ namespace zab {
              * @param _key The handle to cancel.
              */
             void
-            cancel_event(io_handle _cancel_token, io_handle _key) noexcept;
-
-            /**
-             * @brief Cleans up an io_handle be either resuming or destroying it.
-             *
-             * @param _key The io_handle.
-             * @param _resume true if resume, false if destroy.
-             * @param _cancel_code If resume, what code to pass to the coroutine.
-             */
-            static void
-            clean_up(
-                io_handle      _key,
-                bool           _resume      = false,
-                std::uintptr_t _cancel_code = std::numeric_limits<std::uintptr_t>::max() -
-                                              1) noexcept;
+            cancel_event(io_ptr _cancel_token, io_ptr _key) noexcept;
 
             /**
              * @brief Updater the counter on the submission queue to include any new
@@ -914,6 +926,15 @@ namespace zab {
              */
             void
             user_event(event _handle) noexcept;
+
+            /**
+             * @brief Submits a user event to the event_loop.
+             *
+             * @param _handle The event to submit.
+             * @param _from What event loop is currently executing.
+             */
+            void
+            user_event(event _handle, event_loop& _from) noexcept;
 
             /**
              * @brief The number of user events currently waiting to be handled.
@@ -953,27 +974,18 @@ namespace zab {
             /**
              * @brief Wakes the event loop by inserting a user space event.
              *
+             *
+             * @param _from The event_loop to wake up from.
              */
             void
-            wake();
+            wake(event_loop& _from) noexcept;
 
             /**
-             * @brief Claim a fixed buffer from the event loop for io operations.
+             * @brief Wakes the event loop by inserting a user space event.
              *
-             * @details Can fail if there are no more fixed buffers left.
-             *
-             * @return std::optional<std::pair<std::span<std::byte>, std::size_t>>
-             */
-            std::optional<std::pair<std::span<std::byte>, std::size_t>>
-            claim_fixed_buffer();
-
-            /**
-             * @brief Release a fixed buffer back to the event loop.
-             *
-             * @param _buffer  The buffer to release.
              */
             void
-            release_fixed_buffer(std::pair<std::span<std::byte>, std::size_t> _buffer);
+            wake() noexcept;
 
         private:
 
@@ -982,12 +994,6 @@ namespace zab {
 
             std::unique_ptr<io_uring> ring_;
 
-            static constexpr int kPinSize      = 32767;
-            static constexpr int kTotalBuffers = 1000;
-
-            std::vector<std::byte>                           pinned_buffers_;
-            std::deque<std::pair<std::span<std::byte>, int>> free_buffers_;
-
             static constexpr int kWriteIndex = 0;
             static constexpr int kReadIndex  = 1;
 
@@ -995,7 +1001,7 @@ namespace zab {
             std::atomic<std::size_t> size_;
             spin_lock                mtx_;
             std::deque<event>        handles_[2];
-            io_handle                use_space_handle_;
+            io_handle*               use_space_handle_;
     };
 
 }   // namespace zab

@@ -88,7 +88,7 @@ namespace zab {
             tcp_stream() : write_cancel_(nullptr) { }
 
             /**
-             * @brief Construct a new tcp stream object assosiated with a engine and an socket
+             * @brief Construct a new tcp stream object associated with a engine and an socket
              * descriptor.
              *
              * @details This interface assumes the socket was created in blocking mode.
@@ -105,7 +105,7 @@ namespace zab {
             tcp_stream(const tcp_stream&) = delete;
 
             /**
-             * @brief Construct a new tcp stream object by swapping the resources ownerd by
+             * @brief Construct a new tcp stream object by swapping the resources owned by
              *         _move.
              *
              * @param _move  The tcp stream to move.
@@ -115,8 +115,8 @@ namespace zab {
             /**
              * @brief Destroy the tcp stream object.
              *
-             * @details It is far more efficent to manuely shutdown, cancel reads and writes
-             *          and close the socket before the object is deconstructed. Failured to do so
+             * @details It is far more efficient to manually shutdown, cancel reads and writes
+             *          and close the socket before the object is deconstructed. Failure to do so
              *          will spawn background fibres to do this in the background.
              *
              *          We first try to cancel any pending writes in the background.
@@ -251,11 +251,9 @@ namespace zab {
              * @co_return void Resumes after cancelation.
              */
             [[nodiscard]] auto
-            cancel_read(
-                bool          _resume,
-                std::intptr_t _return_code = std::numeric_limits<std::intptr_t>::min()) noexcept
+            cancel_read() noexcept
             {
-                return net_op_.cancel(_resume, _return_code);
+                return net_op_.cancel();
             }
 
             /**
@@ -266,15 +264,9 @@ namespace zab {
              * @co_return void Resumes after cancelation.
              */
             [[nodiscard]] auto
-            cancel_write(
-                bool          _resume,
-                std::intptr_t _return_code = std::numeric_limits<std::intptr_t>::min()) noexcept
+            cancel_write() noexcept
             {
-                return network_operation::cancel(
-                    net_op_.get_engine(),
-                    write_cancel_,
-                    _resume,
-                    _return_code);
+                return network_operation::cancel(net_op_.get_engine(), write_cancel_);
             }
 
             /**
@@ -282,7 +274,7 @@ namespace zab {
              *
              * @details This function only suspends if there is a socket to close.
              *
-             * @co_return true The scoket was succesfully closed.
+             * @co_return true The socket was successfully closed.
              * @co_return false The socket failed to close.
              *
              */
@@ -306,18 +298,13 @@ namespace zab {
              * @brief Shutdown the stream by cancelling any pending operations and signalling
              * shutdown.
              *
-             * @param _resume true If the pending operations are resumed instead of destroyed.
-             * @param _return_code If _resume, the error code to pass. If the error code is not
-             *                     negative it will be negated.
              * @co_return void on shutdown completion.
              */
             [[nodiscard]] simple_future<>
-            shutdown(
-                bool          _resume      = false,
-                std::intptr_t _return_code = std::numeric_limits<std::intptr_t>::min()) noexcept
+            shutdown() noexcept
             {
-                co_await cancel_read(_resume, _return_code);
-                co_await cancel_write(_resume, _return_code);
+                co_await cancel_read();
+                co_await cancel_write();
 
                 /* Intiate shut down */
                 if (::shutdown(net_op_.descriptor(), SHUT_WR) != -1)
@@ -346,13 +333,13 @@ namespace zab {
              * @param _data The buffer to read into.
              * @param _offset The offset from where to start reading in.
              * @param _flags Any flags to pass to recv.
-             * @co_return std::intptr_t The amount of bytes read or -1 if an error occured.
+             * @co_return int The amount of bytes read or -1 if an error occurred.
              */
             [[nodiscard]] auto
             read_some(std::span<DataType> _data, size_t _offset = 0, int _flags = 0) noexcept
             {
                 return co_awaitable(
-                    [this, ret = pause_pack{}, _data, _offset, _flags]<typename T>(
+                    [this, ret = io_handle{}, _data, _offset, _flags]<typename T>(
                         T _handle) mutable noexcept
                     {
                         if constexpr (is_ready<T>()) { return !_data.size(); }
@@ -374,11 +361,11 @@ namespace zab {
                         else if constexpr (is_resume<T>())
                         {
                             net_op_.clear_cancel();
-                            if (ret.data_ > 0) { return ret.data_; }
+                            if (ret.result_ > 0) { return ret.result_; }
                             else
                             {
-                                net_op_.set_error(ret.data_);
-                                return std::intptr_t{-1};
+                                net_op_.set_error(-ret.result_);
+                                return -1;
                             }
                         }
                     });
@@ -386,17 +373,12 @@ namespace zab {
 
             /**
              * @brief Attempts to `_data.size() - _offset` bytes into the span at the given
-             *        offset. Blocks until the amount is read or an error occurs.
+             *        offset. Blocks until the amount is read, a signal interupts the call or an
+             *        error occurs.
              *
              * @details If _data.size() - _offset is larger then kMaxRead, then kMaxRead is used as
              *          the max.
              *
-             *          Coroutine chaining can be expensive exspecially if the call to `read()` is
-             *          within a hotpath. As such, if the reading is not in a hotpath or are in not
-             *          performance critical parts of the program `read()` is encrouaged for
-             *          readability an maintainabilty. Otherwise authors are encoruged to use
-             *          read_some and handle their own logic for when the incorrect amount is
-             *          not read.
              *
              * @param _data The buffer to read into.
              * @param _offset The offset from where to start reading in.
@@ -409,9 +391,8 @@ namespace zab {
                 std::size_t so_far = _offset;
                 while (so_far != _data.size())
                 {
-                    auto size = co_await read_some(_data, so_far, _flags);
-
-                    if (size > 0) { so_far += size; }
+                    auto result = co_await read_some(_data, so_far, _flags | MSG_WAITALL);
+                    if (result > 0) { so_far += result; }
                     else
                     {
                         break;
@@ -419,6 +400,8 @@ namespace zab {
                 }
 
                 co_return so_far;
+
+                // return read_some(_data, _offset, _flags | MSG_WAITALL);
             }
 
             /**
@@ -430,14 +413,14 @@ namespace zab {
              *
              * @param _data The buffer to write from.
              * @param _offset The offset from where to start writing from.
-             * @param _flags Any flags to pass to send. MSG_NOSIGNAL is always set additionaly.
-             * @co_return std::intptr_t The amount of bytes written or -1 if an error occured.
+             * @param _flags Any flags to pass to send. MSG_NOSIGNAL is always set additionally.
+             * @co_return int The amount of bytes written or -1 if an error occurred.
              */
             [[nodiscard]] auto
             write_some(std::span<const DataType> _data, size_t _offset = 0) noexcept
             {
                 return co_awaitable(
-                    [this, ret = pause_pack{}, _data, _offset]<typename T>(
+                    [this, ret = io_handle{}, _data, _offset]<typename T>(
                         T _handle) mutable noexcept
                     {
                         if constexpr (is_ready<T>()) { return !_data.size(); }
@@ -459,11 +442,11 @@ namespace zab {
                         else if constexpr (is_resume<T>())
                         {
                             write_cancel_ = nullptr;
-                            if (ret.data_ > 0) { return ret.data_; }
+                            if (ret.result_ > 0) { return ret.result_; }
                             else
                             {
-                                net_op_.set_error(ret.data_);
-                                return std::intptr_t{-1};
+                                net_op_.set_error(-ret.result_);
+                                return -1;
                             }
                         }
                     });
@@ -515,11 +498,11 @@ namespace zab {
             async_function<>
             background_cancel_write()
             {
-                co_await cancel_write(false);
+                co_await cancel_write();
             }
 
-            network_operation     net_op_;
-            event_loop::io_handle write_cancel_;
+            network_operation net_op_;
+            io_handle*        write_cancel_;
     };
 
 }   // namespace zab

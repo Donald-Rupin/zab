@@ -30,6 +30,8 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  *
+ * @TODO: Investigate IOSQE_IO_LINK
+ *
  *  @file event.hpp
  *
  */
@@ -47,6 +49,78 @@
 namespace zab {
 
     using event = std::coroutine_handle<>;
+
+    using context_callback = void (*)(void*, int);
+
+    struct io_handle {
+
+            event handle_;
+
+            int result_;
+    };
+
+    struct io_context {
+
+            context_callback cb_;
+
+            void* context_;
+    };
+
+    struct io_queue {
+
+            event handle_;
+
+            int position_;
+
+            int* results_;
+    };
+
+    using io_ptr = void*;
+
+    static constexpr std::uintptr_t kAddressMask = ~(0b11ull);
+
+    static constexpr std::uintptr_t kHandleFlag  = 0b00;
+    static constexpr std::uintptr_t kContextFlag = 0b01;
+    static constexpr std::uintptr_t kQueueFlag   = 0b10;
+
+    inline void
+    execute_io(io_ptr _io_address, int _result) noexcept
+    {
+        std::uintptr_t io_address = reinterpret_cast<std::uintptr_t>(_io_address) & kAddressMask;
+        std::uintptr_t flag       = reinterpret_cast<std::uintptr_t>(_io_address) & ~kAddressMask;
+        if (flag == kHandleFlag)
+        {
+            /* Handles are allowed to be nullptr */
+            if (io_address)
+            {
+                io_handle* handle = reinterpret_cast<io_handle*>(io_address);
+                handle->result_   = _result;
+                handle->handle_.resume();
+            }
+        }
+        else if (flag == kContextFlag)
+        {
+            io_context* context = reinterpret_cast<io_context*>(io_address);
+            (*context->cb_)(context->context_, _result);
+        }
+        else
+        {
+            io_queue* queue                   = reinterpret_cast<io_queue*>(io_address);
+            queue->results_[queue->position_] = _result;
+
+            if (queue->position_) { --queue->position_; }
+            else
+            {
+                queue->handle_.resume();
+            }
+        }
+    }
+
+    inline constexpr io_ptr
+    create_ptr(io_ptr _ptr, std::uintptr_t _flag) noexcept
+    {
+        return reinterpret_cast<io_ptr>(reinterpret_cast<std::uintptr_t>(_ptr) | _flag);
+    }
 
 }   // namespace zab
 

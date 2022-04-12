@@ -10,14 +10,19 @@ See the [Keep a Changelog formatting convention](https://keepachangelog.com/en/1
 ### Added
 
 - `generic_awaitable` for creating awaitable types out of lambdas. 
+- Added lots of documentation.
 
 ### Changed
 - Event loops is now liburing based.
 - Updated most IO to use `generic_awaitable` and simplified the interface a little.
+- event_loop io is now done through an io_ptr instead of a pause_pack*. An io_ptr can represent three different ways to resume and or execute after io completion.
 
 ### Fixed
-- Timing services issues with polling to regularily. 
+- Timing services issues with polling to regularly. 
+- Lots of spelling mistakes.
+
 ### Removed
+- Fixed buffer io registration. Implementation was messy and was included to just test out. Will think of a better way to do this in the future. 
 
 ## v0.0.0.2 2021/1/26
 

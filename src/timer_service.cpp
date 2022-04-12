@@ -61,7 +61,7 @@ namespace zab {
 
     timer_service::~timer_service()
     {
-        if (handle_) { event_loop::clean_up(handle_); }
+        if (handle_ && handle_->handle_) { handle_->handle_.destroy(); }
 
         if (timer_fd_)
         {

@@ -62,7 +62,7 @@ namespace zab::test {
     test_pause_function();
 
     int
-    test_reusuable_promise_function();
+    test_reusable_promise_function();
 
     int
     test_proxy();
@@ -72,7 +72,7 @@ namespace zab::test {
     {
         return test_async_function() || test_promise_function() ||
                test_recursive_promise_function() || test_pause_function() ||
-               test_reusuable_promise_function() || test_proxy();
+               test_reusable_promise_function() || test_proxy();
     }
 
     class test_async_class : public engine_enabled<test_async_class> {
@@ -344,7 +344,7 @@ namespace zab::test {
             {
                 pause_pack* pack;
 
-                /* Explictly yield some code for later */
+                /* Explicitly yield some code for later */
                 /* Should execute in the kDefaultThread */
                 code_block(
                     [this, &pack]() noexcept
@@ -396,7 +396,7 @@ namespace zab::test {
         return test.failed();
     }
 
-    class test_reusuable_promise_class : public engine_enabled<test_reusuable_promise_class> {
+    class test_reusable_promise_class : public engine_enabled<test_reusable_promise_class> {
 
         public:
 
@@ -459,7 +459,7 @@ namespace zab::test {
                     }
                 }
 
-                auto infinite_function = infinte_typed_promise();
+                auto infinite_function = infinite_typed_promise();
                 for (size_t i = 0; i < 1000; ++i)
                 {
 
@@ -497,7 +497,7 @@ namespace zab::test {
             }
 
             reusable_future<size_t>
-            infinte_typed_promise() noexcept
+            infinite_typed_promise() noexcept
             {
                 size_t loops = 0;
                 while (true)
@@ -525,11 +525,11 @@ namespace zab::test {
     };
 
     int
-    test_reusuable_promise_function()
+    test_reusable_promise_function()
     {
         engine engine(engine::configs{2, engine::configs::kExact});
 
-        test_reusuable_promise_class test;
+        test_reusable_promise_class test;
 
         test.register_engine(engine);
 

@@ -119,7 +119,7 @@ namespace zab {
     }   // namespace file
 
     /**
-     * @brief      This class allows for asyncronous file i/o.
+     * @brief      This class allows for asynchronous file i/o.
      *
      * @details    async_file does not provide any synchronisation for file ops.
      *             async_file must be used within an engine thread.
@@ -203,8 +203,8 @@ namespace zab {
             /**
              * @brief      Closes the file.
              *
-             * @details    The acutal clsoing of the file will be flushed to a background
-             * process. `co_await`ing on `close()` is reconmended before deconsturction.
+             * @details    The actual closing of the file will be flushed to a background
+             * process. `co_await`ing on `close()` is reconmended before deconstruction.
              */
             ~async_file()
             {
@@ -293,7 +293,7 @@ namespace zab {
                 mode_t           _mode = kDefaultMode) noexcept
             {
                 return co_awaitable(
-                    [this, ret = pause_pack{}, dfd = _dir.dfd_, _path, _flags, _mode]<typename T>(
+                    [this, ret = io_handle{}, dfd = _dir.dfd_, _path, _flags, _mode]<typename T>(
                         T _handle) mutable noexcept
                     {
                         if constexpr (is_suspend<T>())
@@ -307,9 +307,9 @@ namespace zab {
                         }
                         else
                         {
-                            if (ret.data_ > 0)
+                            if (ret.result_ > 0)
                             {
-                                file_ = ret.data_;
+                                file_ = ret.result_;
                                 return true;
                             }
                             else
@@ -340,12 +340,8 @@ namespace zab {
                 mode_t           _mode = kDefaultMode)
             {
                 return co_awaitable(
-                    [ret = pause_pack{},
-                     _engine,
-                     dfd = _dir.dfd_,
-                     _path,
-                     _flags,
-                     _mode]<typename T>(T _handle) mutable noexcept
+                    [ret = io_handle{}, _engine, dfd = _dir.dfd_, _path, _flags, _mode]<typename T>(
+                        T _handle) mutable noexcept
                     {
                         if constexpr (is_suspend<T>())
                         {
@@ -355,10 +351,10 @@ namespace zab {
                         else if constexpr (is_resume<T>())
                         {
                             std::optional<async_file> result;
-                            if (ret.data_ > 0)
+                            if (ret.result_ > 0)
                             {
                                 result.emplace(_engine);
-                                result->file_ = ret.data_;
+                                result->file_ = ret.result_;
                             }
 
                             return result;
@@ -392,7 +388,7 @@ namespace zab {
             close(engine* _engine, int _fd) noexcept
             {
                 return co_awaitable(
-                    [ret = pause_pack{.data_ = -1}, _engine, _fd]<typename T>(
+                    [ret = io_handle{.handle_ = nullptr, .result_ = -1}, _engine, _fd]<typename T>(
                         T _handle) mutable noexcept
                     {
                         if constexpr (is_suspend<T>())
@@ -402,7 +398,7 @@ namespace zab {
                         }
                         else if constexpr (is_resume<T>())
                         {
-                            return !ret.data_;
+                            return !ret.result_;
                         }
                     });
             }
@@ -472,7 +468,7 @@ namespace zab {
             {
                 return co_awaitable(
                     [this,
-                     ret  = pause_pack{.data_ = -1},
+                     ret  = io_handle{.handle_ = nullptr, .result_ = -1},
                      data = std::vector<ReadType>(_amount)]<typename T>(T _handle) mutable noexcept
                     {
                         if constexpr (is_suspend<T>())
@@ -484,9 +480,9 @@ namespace zab {
                         else if constexpr (is_resume<T>())
                         {
                             std::optional<std::vector<ReadType>> result;
-                            if (ret.data_ >= 0)
+                            if (ret.result_ >= 0)
                             {
-                                data.resize(ret.data_);
+                                data.resize(ret.result_);
                                 result.emplace(std::move(data));
                             }
 
@@ -509,8 +505,10 @@ namespace zab {
             read_some(std::span<ReadType> _data, std::int32_t _off_set = 0) noexcept
             {
                 return co_awaitable(
-                    [this, ret = pause_pack{.data_ = -1}, _data, _off_set]<typename T>(
-                        T _handle) mutable noexcept
+                    [this,
+                     ret = io_handle{.handle_ = nullptr, .result_ = -1},
+                     _data,
+                     _off_set]<typename T>(T _handle) mutable noexcept
                     {
                         if constexpr (is_suspend<T>())
                         {
@@ -525,7 +523,7 @@ namespace zab {
                         else if constexpr (is_resume<T>())
                         {
                             std::optional<std::size_t> result;
-                            if (ret.data_ >= 0) { result.emplace(std::move(ret.data_)); }
+                            if (ret.result_ >= 0) { result.emplace(std::move(ret.result_)); }
 
                             return result;
                         }
@@ -573,8 +571,10 @@ namespace zab {
             write_some(std::span<const ReadType> _data, std::int32_t _off_set = 0) noexcept
             {
                 return co_awaitable(
-                    [this, ret = pause_pack{.data_ = -1}, _data, _off_set]<typename T>(
-                        T _handle) mutable noexcept
+                    [this,
+                     ret = io_handle{.handle_ = nullptr, .result_ = -1},
+                     _data,
+                     _off_set]<typename T>(T _handle) mutable noexcept
                     {
                         if constexpr (is_suspend<T>())
                         {
@@ -589,7 +589,7 @@ namespace zab {
                         else if constexpr (is_resume<T>())
                         {
                             std::optional<std::size_t> result;
-                            if (ret.data_ >= 0) { result.emplace(std::move(ret.data_)); }
+                            if (ret.result_ >= 0) { result.emplace(std::move(ret.result_)); }
 
                             return result;
                         }

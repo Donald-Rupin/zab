@@ -301,10 +301,11 @@ namespace zab::test {
                 co_await _stream.write(kData);
 
                 std::vector<char> buffer(kDataToSend);
-                co_await _stream.read(buffer);
+                auto              result = co_await _stream.read(buffer);
 
                 if (kData != buffer)
                 {
+                    std::cout << buffer.size() << " vs " << result << "\n";
                     engine_->stop();
                     co_return;
                 }
@@ -325,6 +326,7 @@ namespace zab::test {
             bool
             failed()
             {
+                std::cout << failed_ << "\n";
                 return failed_;
             }
 
