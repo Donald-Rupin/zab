@@ -299,7 +299,12 @@ namespace zab {
                         if constexpr (is_suspend<T>())
                         {
                             ret.handle_ = _handle;
-                            engine_->get_event_loop().open_at(&ret, dfd, _path, _flags, _mode);
+                            engine_->get_event_loop().open_at(
+                                create_io_ptr(&ret, kHandleFlag),
+                                dfd,
+                                _path,
+                                _flags,
+                                _mode);
                         }
                         else if constexpr (is_ready<T>())
                         {
@@ -346,7 +351,12 @@ namespace zab {
                         if constexpr (is_suspend<T>())
                         {
                             ret.handle_ = _handle;
-                            _engine->get_event_loop().open_at(&ret, dfd, _path, _flags, _mode);
+                            _engine->get_event_loop().open_at(
+                                create_io_ptr(&ret, kHandleFlag),
+                                dfd,
+                                _path,
+                                _flags,
+                                _mode);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -394,7 +404,7 @@ namespace zab {
                         if constexpr (is_suspend<T>())
                         {
                             ret.handle_ = _handle;
-                            _engine->get_event_loop().close(&ret, _fd);
+                            _engine->get_event_loop().close(create_io_ptr(&ret, kHandleFlag), _fd);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -474,8 +484,11 @@ namespace zab {
                         if constexpr (is_suspend<T>())
                         {
                             ret.handle_ = _handle;
-                            engine_->get_event_loop()
-                                .read(&ret, file_, convert(data, data.size()), 0);
+                            engine_->get_event_loop().read(
+                                create_io_ptr(&ret, kHandleFlag),
+                                file_,
+                                convert(data, data.size()),
+                                0);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -517,8 +530,11 @@ namespace zab {
                                 std::numeric_limits<std::int32_t>::max() - 1);
 
                             ret.handle_ = _handle;
-                            engine_->get_event_loop()
-                                .read(&ret, file_, convert(_data, _off_set + to_read), _off_set);
+                            engine_->get_event_loop().read(
+                                create_io_ptr(&ret, kHandleFlag),
+                                file_,
+                                convert(_data, _off_set + to_read),
+                                _off_set);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -583,8 +599,11 @@ namespace zab {
                                 std::numeric_limits<std::int32_t>::max() - 1);
 
                             ret.handle_ = _handle;
-                            engine_->get_event_loop()
-                                .write(&ret, file_, convert(_data, _off_set + to_write), _off_set);
+                            engine_->get_event_loop().write(
+                                create_io_ptr(&ret, kHandleFlag),
+                                file_,
+                                convert(_data, _off_set + to_write),
+                                _off_set);
                         }
                         else if constexpr (is_resume<T>())
                         {

@@ -246,7 +246,7 @@ namespace zab {
              *
              * @return io_handle&
              */
-            [[nodiscard]] inline io_handle*&
+            [[nodiscard]] inline io_ptr&
             get_cancel() noexcept
             {
                 return cancel_token_;
@@ -258,7 +258,7 @@ namespace zab {
              * @param _handle The value to set.
              */
             inline void
-            set_cancel(io_handle* _handle) noexcept
+            set_cancel(io_ptr _handle) noexcept
             {
                 cancel_token_ = _handle;
             }
@@ -282,7 +282,7 @@ namespace zab {
              * @co_return void Resumes once the operation has been cancelled or an error occurs.
              */
             [[nodiscard]] static auto
-            cancel(engine* _engine, io_handle*& _handle) noexcept
+            cancel(engine* _engine, io_ptr& _handle) noexcept
             {
                 return suspension_point(
                     [_engine, &_handle, ret = io_handle{}]<typename T>(T _control) mutable noexcept
@@ -296,7 +296,9 @@ namespace zab {
                         {
                             ret.result_ = -1;
                             ret.handle_ = _control;
-                            _engine->get_event_loop().cancel_event(&ret, _handle);
+                            _engine->get_event_loop().cancel_event(
+                                create_io_ptr(&ret, kHandleFlag),
+                                _handle);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -346,7 +348,7 @@ namespace zab {
                             ::getsockopt(sd_, SOL_SOCKET, SO_ERROR, (char*) &result, &result_len);
 
                             ret.handle_ = _handle;
-                            engine_->get_event_loop().close(&ret, sd_);
+                            engine_->get_event_loop().close(create_io_ptr(&ret, kHandleFlag), sd_);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -384,10 +386,10 @@ namespace zab {
 
         private:
 
-            engine*    engine_;
-            io_handle* cancel_token_;
-            int        sd_;
-            int        last_error_;
+            engine* engine_;
+            io_ptr  cancel_token_;
+            int     sd_;
+            int     last_error_;
     };
 
 }   // namespace zab

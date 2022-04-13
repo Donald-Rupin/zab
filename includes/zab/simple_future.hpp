@@ -111,6 +111,8 @@ namespace zab {
                 decltype(auto)
                 await_resume() const noexcept
                 {
+                    std::cout << " await_resume \n";
+
                     return handle_.promise().data();
                 }
 
@@ -218,7 +220,7 @@ namespace zab {
     };
 
     /**
-     * Conveince for when the promise will always resolve.
+     * Convenience for when the promise will always resolve.
      */
     template <typename T>
     using guaranteed_future =

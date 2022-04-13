@@ -52,8 +52,8 @@
 #include "zab/memory_type.hpp"
 #include "zab/network_operation.hpp"
 #include "zab/simple_future.hpp"
+#include "zab/stateful_awaitable.hpp"
 #include "zab/strong_types.hpp"
-
 namespace zab {
 
     /**
@@ -349,9 +349,9 @@ namespace zab {
                                 std::min<std::size_t>(_data.size() - _offset, kMaxRead);
 
                             ret.handle_ = _handle;
-                            net_op_.set_cancel(&ret);
+                            net_op_.set_cancel(create_io_ptr(&ret, kHandleFlag));
                             net_op_.get_engine()->get_event_loop().recv(
-                                &ret,
+                                create_io_ptr(&ret, kHandleFlag),
                                 net_op_.descriptor(),
                                 std::span<std::byte>(
                                     (std::byte*) _data.data() + _offset,
@@ -383,25 +383,53 @@ namespace zab {
              * @param _data The buffer to read into.
              * @param _offset The offset from where to start reading in.
              * @param _flags Any flags to pass to recv.
-             * @co_return std::size_t The amount of bytes read.
+             * @co_return long long The amount of bytes read.
              */
-            [[nodiscard]] guaranteed_future<std::size_t>
+            [[nodiscard]] auto
             read(std::span<DataType> _data, size_t _offset = 0, int _flags = 0) noexcept
             {
-                std::size_t so_far = _offset;
-                while (so_far != _data.size())
-                {
-                    auto result = co_await read_some(_data, so_far, _flags | MSG_WAITALL);
-                    if (result > 0) { so_far += result; }
-                    else
+                return stateful_suspension_point(
+                    [this, so_far = 0ll, _data, _offset, _flags]<typename T>(
+                        T _handle) mutable noexcept
                     {
-                        break;
-                    }
-                }
+                        if constexpr (is_ready<T>()) { return so_far == (ssize_t) _data.size(); }
+                        if constexpr (is_notify<T>())
+                        {
+                            if (_handle > 0)
+                            {
+                                so_far += _handle;
+                                return notify_ctl::kReady;
+                            }
+                            else
+                            {
+                                net_op_.set_error(-_handle);
+                                return notify_ctl::kResume;
+                            }
+                        }
+                        else if constexpr (is_stateful_suspend<T>())
+                        {
+                            auto amount_to_read =
+                                std::min<std::size_t>(_data.size() - so_far - _offset, kMaxRead);
 
-                co_return so_far;
-
-                // return read_some(_data, _offset, _flags | MSG_WAITALL);
+                            net_op_.set_cancel(_handle->get_io_ptr());
+                            net_op_.get_engine()->get_event_loop().recv(
+                                _handle->get_io_ptr(),
+                                net_op_.descriptor(),
+                                std::span<std::byte>(
+                                    (std::byte*) _data.data() + so_far + _offset,
+                                    amount_to_read),
+                                _flags | MSG_WAITALL);
+                        }
+                        else if constexpr (is_resume<T>())
+                        {
+                            net_op_.clear_cancel();
+                            if (so_far > 0) { return so_far; }
+                            else
+                            {
+                                return -1ll;
+                            }
+                        }
+                    });
             }
 
             /**
@@ -417,10 +445,13 @@ namespace zab {
              * @co_return int The amount of bytes written or -1 if an error occurred.
              */
             [[nodiscard]] auto
-            write_some(std::span<const DataType> _data, size_t _offset = 0) noexcept
+            write_some(
+                std::span<const DataType> _data,
+                size_t                    _offset = 0,
+                int                       _flags  = MSG_NOSIGNAL) noexcept
             {
                 return suspension_point(
-                    [this, ret = io_handle{}, _data, _offset]<typename T>(
+                    [this, ret = io_handle{}, _data, _offset, _flags]<typename T>(
                         T _handle) mutable noexcept
                     {
                         if constexpr (is_ready<T>()) { return !_data.size(); }
@@ -430,14 +461,14 @@ namespace zab {
                                 std::min<std::size_t>(_data.size() - _offset, kMaxWrite);
 
                             ret.handle_   = _handle;
-                            write_cancel_ = &ret;
+                            write_cancel_ = create_io_ptr(&ret, kHandleFlag);
                             net_op_.get_engine()->get_event_loop().send(
-                                &ret,
+                                create_io_ptr(&ret, kHandleFlag),
                                 net_op_.descriptor(),
                                 std::span<std::byte>(
                                     (std::byte*) _data.data() + _offset,
                                     amount_to_write),
-                                MSG_NOSIGNAL);
+                                _flags);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -469,23 +500,56 @@ namespace zab {
              * @param _data The buffer to write from.
              * @param _offset The offset from where to start writing from.
              * @param _flags Any flags to pass to send. MSG_NOSIGNAL is always set additionaly.
-             * @co_return std::size_t The amount of bytes written.
+             * @co_return long long The amount of bytes written.
              */
-            [[nodiscard]] guaranteed_future<std::size_t>
-            write(std::span<const DataType> _data, size_t _offset = 0) noexcept
+            [[nodiscard]] auto
+            write(
+                std::span<const DataType> _data,
+                size_t                    _offset = 0,
+                int                       _flags  = MSG_NOSIGNAL) noexcept
             {
-                std::size_t so_far = _offset;
-                while (so_far != _data.size())
-                {
-                    auto result = co_await write_some(_data, so_far);
-                    if (result > 0) { so_far += result; }
-                    else
+                return stateful_suspension_point(
+                    [this, so_far = 0ll, _data, _offset, _flags]<typename T>(
+                        T _handle) mutable noexcept
                     {
-                        break;
-                    }
-                }
+                        if constexpr (is_ready<T>()) { return so_far == (ssize_t) _data.size(); }
+                        if constexpr (is_notify<T>())
+                        {
+                            if (_handle > 0)
+                            {
+                                so_far += _handle;
+                                return notify_ctl::kReady;
+                            }
+                            else
+                            {
+                                net_op_.set_error(-_handle);
+                                return notify_ctl::kResume;
+                            }
+                        }
+                        else if constexpr (is_stateful_suspend<T>())
+                        {
+                            auto amount_to_write =
+                                std::min<std::size_t>(_data.size() - so_far - _offset, kMaxRead);
 
-                co_return so_far;
+                            write_cancel_ = _handle->get_io_ptr();
+                            net_op_.get_engine()->get_event_loop().send(
+                                _handle->get_io_ptr(),
+                                net_op_.descriptor(),
+                                std::span<std::byte>(
+                                    (std::byte*) _data.data() + _offset + so_far,
+                                    amount_to_write),
+                                _flags);
+                        }
+                        else if constexpr (is_resume<T>())
+                        {
+                            write_cancel_ = nullptr;
+                            if (so_far > 0) { return so_far; }
+                            else
+                            {
+                                return -1ll;
+                            }
+                        }
+                    });
             }
 
         private:
@@ -502,7 +566,7 @@ namespace zab {
             }
 
             network_operation net_op_;
-            io_handle*        write_cancel_;
+            io_ptr            write_cancel_;
     };
 
 }   // namespace zab

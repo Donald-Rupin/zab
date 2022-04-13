@@ -99,7 +99,7 @@ namespace zab::test {
                         auto amount = co_await stream_opt->write(
                             std::span<const char>(kBuffer, ::strlen(kBuffer)));
 
-                        if (expected(strlen(kBuffer), amount)) { engine_->stop(); }
+                        if (expected((long long) strlen(kBuffer), amount)) { engine_->stop(); }
 
                         co_await stream_opt->shutdown();
                     }
@@ -148,7 +148,7 @@ namespace zab::test {
 
                         auto size_read = co_await stream.read(buf);
 
-                        if (!expected(strlen(kBuffer), size_read))
+                        if (!expected((long long int) strlen(kBuffer), size_read))
                         {
                             std::string_view og(kBuffer);
                             buf.emplace_back(0);
@@ -301,11 +301,10 @@ namespace zab::test {
                 co_await _stream.write(kData);
 
                 std::vector<char> buffer(kDataToSend);
-                auto              result = co_await _stream.read(buffer);
+                co_await _stream.read(buffer);
 
                 if (kData != buffer)
                 {
-                    std::cout << buffer.size() << " vs " << result << "\n";
                     engine_->stop();
                     co_return;
                 }
@@ -326,7 +325,6 @@ namespace zab::test {
             bool
             failed()
             {
-                std::cout << failed_ << "\n";
                 return failed_;
             }
 

@@ -201,6 +201,9 @@ namespace zab {
             thread_t
             get_any_thread();
 
+            // This is mainly stop helgrind et al. complaining
+            // The auto latch should stop any race conditions...
+            std::mutex                 mtx_;
             std::vector<event_loop>    event_loop_;
             std::vector<timer_service> timers_;
 

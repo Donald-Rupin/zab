@@ -46,11 +46,123 @@
 
 #include "zab/strong_types.hpp"
 
+// delete
+#include <iostream>
+
 namespace zab {
 
-    using event = std::coroutine_handle<>;
+    static constexpr std::uintptr_t kAddressMask = ~static_cast<std::uintptr_t>(0b11);
+    static constexpr std::uintptr_t kHandleFlag  = static_cast<std::uintptr_t>(0b00);
+    static constexpr std::uintptr_t kContextFlag = static_cast<std::uintptr_t>(0b01);
 
-    using context_callback = void (*)(void*, int);
+    inline constexpr void*
+    synth_ptr(void* _ptr) noexcept
+    {
+        return reinterpret_cast<void*>(reinterpret_cast<std::uintptr_t>(_ptr) & kAddressMask);
+    }
+
+    inline constexpr bool
+    is_handle(void* _ptr) noexcept
+    {
+        return !(reinterpret_cast<std::uintptr_t>(_ptr) & ~kAddressMask);
+    }
+
+    inline constexpr bool
+    is_context(void* _ptr) noexcept
+    {
+        return (bool) (reinterpret_cast<std::uintptr_t>(_ptr) | kContextFlag);
+    }
+
+    using event = std::coroutine_handle<>;
+    namespace details {
+        template <typename ReturnType>
+        struct context_generator {
+                using context_callback = void (*)(void*, ReturnType);
+        };
+
+        template <>
+        struct context_generator<void> {
+                using context_callback = void (*)(void*);
+        };
+
+    }   // namespace details
+    template <typename ReturnType>
+    using context_callback = details::context_generator<ReturnType>::context_callback;
+
+    template <typename ReturnType>
+    struct context {
+
+            context_callback<ReturnType> cb_;
+
+            void* context_;
+    };
+
+    struct event_ptr {
+            void* p_;
+
+            constexpr event_ptr&
+            operator=(std::nullptr_t)
+            {
+                p_ = nullptr;
+                return *this;
+            }
+
+            constexpr operator bool() const { return (bool) p_; }
+    };
+
+    inline constexpr event_ptr
+    create_event_ptr(void* _ptr, std::uintptr_t _flag) noexcept
+    {
+        return {reinterpret_cast<void*>(reinterpret_cast<std::uintptr_t>(_ptr) | _flag)};
+    }
+
+    inline constexpr event_ptr
+    create_event_ptr(event _event) noexcept
+    {
+        return {reinterpret_cast<void*>(
+            reinterpret_cast<std::uintptr_t>(_event.address()) | kHandleFlag)};
+    }
+
+    template <typename ReturnType>
+    void
+    execute_event(event_ptr _event_address, ReturnType _result) noexcept
+    {
+        std::uintptr_t flag = reinterpret_cast<std::uintptr_t>(_event_address) & ~kAddressMask;
+
+        if (flag == kHandleFlag)
+        {
+            /* Handles are allowed to be nullptr */
+            if (_event_address)
+            {
+                std::coroutine_handle<>::from_address(_event_address.p_).resume();
+            }
+        }
+        else
+        {
+            auto* cont = reinterpret_cast<context<ReturnType>*>(synth_ptr(_event_address.p_));
+            (*cont->cb_)(cont->context_, _result);
+        }
+    }
+
+    inline void
+    execute_event(event_ptr _event_address) noexcept
+    {
+        std::uintptr_t flag = reinterpret_cast<std::uintptr_t>(_event_address.p_) & ~kAddressMask;
+
+        if (flag == kHandleFlag)
+        {
+            /* Handles are allowed to be nullptr */
+            if (_event_address)
+            {
+                std::coroutine_handle<>::from_address(_event_address.p_).resume();
+            }
+        }
+        else
+        {
+            auto* cont = reinterpret_cast<context<void>*>(synth_ptr(_event_address.p_));
+            (*cont->cb_)(cont->context_);
+        }
+    }
 
     struct io_handle {
 
@@ -59,53 +171,54 @@ namespace zab {
             int result_;
     };
 
-    struct io_context {
+    using io_context = context<int>;
 
-            context_callback cb_;
-
-            void* context_;
-    };
-
-    struct io_queue {
+    struct io_buffer {
 
             event handle_;
 
-            int position_;
-
             int* results_;
+
+            int position_;
     };
 
-    using io_ptr = void*;
+    struct io_ptr {
+            void* p_;
 
-    static constexpr std::uintptr_t kAddressMask = ~(0b11ull);
+            constexpr io_ptr&
+            operator=(std::nullptr_t)
+            {
+                p_ = nullptr;
+                return *this;
+            }
 
-    static constexpr std::uintptr_t kHandleFlag  = 0b00;
-    static constexpr std::uintptr_t kContextFlag = 0b01;
-    static constexpr std::uintptr_t kQueueFlag   = 0b10;
+            constexpr operator bool() const { return (bool) p_; }
+    };
+
+    static constexpr std::uintptr_t kQueueFlag = static_cast<std::uintptr_t>(0b10);
 
     inline void
-    execute_io(io_ptr _io_address, int _result) noexcept
+    execute_io(void* _io_address, int _result) noexcept
     {
-        std::uintptr_t io_address = reinterpret_cast<std::uintptr_t>(_io_address) & kAddressMask;
-        std::uintptr_t flag       = reinterpret_cast<std::uintptr_t>(_io_address) & ~kAddressMask;
+        std::uintptr_t flag = reinterpret_cast<std::uintptr_t>(_io_address) & ~kAddressMask;
         if (flag == kHandleFlag)
         {
             /* Handles are allowed to be nullptr */
-            if (io_address)
+            if (_io_address)
             {
-                io_handle* handle = reinterpret_cast<io_handle*>(io_address);
+                io_handle* handle = static_cast<io_handle*>(_io_address);
                 handle->result_   = _result;
                 handle->handle_.resume();
             }
         }
         else if (flag == kContextFlag)
         {
-            io_context* context = reinterpret_cast<io_context*>(io_address);
+            auto* context = static_cast<io_context*>(synth_ptr(_io_address));
             (*context->cb_)(context->context_, _result);
         }
         else
         {
-            io_queue* queue                   = reinterpret_cast<io_queue*>(io_address);
+            auto* queue                       = static_cast<io_buffer*>(synth_ptr(_io_address));
             queue->results_[queue->position_] = _result;
 
             if (queue->position_) { --queue->position_; }
@@ -117,9 +230,9 @@ namespace zab {
     }
 
     inline constexpr io_ptr
-    create_ptr(io_ptr _ptr, std::uintptr_t _flag) noexcept
+    create_io_ptr(void* _ptr, std::uintptr_t _flag) noexcept
     {
-        return reinterpret_cast<io_ptr>(reinterpret_cast<std::uintptr_t>(_ptr) | _flag);
+        return {reinterpret_cast<void*>(reinterpret_cast<std::uintptr_t>(_ptr) | _flag)};
     }
 
 }   // namespace zab

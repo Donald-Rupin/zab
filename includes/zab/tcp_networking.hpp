@@ -173,15 +173,18 @@ namespace zab {
                         if constexpr (is_suspend<T>())
                         {
                             ret.handle_ = _handle;
-                            set_cancel(&ret);
-                            get_engine()
-                                ->get_event_loop()
-                                .accept(&ret, descriptor(), _address, _length, _flags);
+                            set_cancel(create_io_ptr(&ret, kHandleFlag));
+                            get_engine()->get_event_loop().accept(
+                                create_io_ptr(&ret, kHandleFlag),
+                                descriptor(),
+                                _address,
+                                _length,
+                                _flags);
                         }
                         else if constexpr (is_resume<T>())
                         {
                             std::optional<tcp_stream<DataType>> stream;
-                            set_cancel(nullptr);
+                            set_cancel({nullptr});
                             if (ret.result_ >= 0) { stream.emplace(get_engine(), ret.result_); }
                             else
                             {
@@ -223,7 +226,7 @@ namespace zab {
         engine*                _engine,
         const struct sockaddr* _details,
         socklen_t              _size,
-        io_handle**            cancel_token_ = nullptr,
+        io_ptr*                cancel_token_ = nullptr,
         int                    _sock_flags   = SOCK_CLOEXEC)
     {
         network_operation net_op(_engine);
@@ -249,17 +252,17 @@ namespace zab {
                 else if constexpr (is_suspend<T>())
                 {
                     ret.handle_ = _handle;
-                    if (cancel_token_) { *cancel_token_ = &ret; }
+                    if (cancel_token_) { *cancel_token_ = create_io_ptr(&ret, kHandleFlag); }
 
                     net_op.get_engine()->get_event_loop().connect(
-                        &ret,
+                        create_io_ptr(&ret, kHandleFlag),
                         net_op.descriptor(),
                         _details,
                         _size);
                 }
                 else if constexpr (is_resume<T>())
                 {
-                    net_op.set_cancel(nullptr);
+                    net_op.set_cancel({nullptr});
                     if (ret.result_ == 0)
                     {
                         auto ds = net_op.descriptor();

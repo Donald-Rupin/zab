@@ -70,11 +70,11 @@ namespace zab {
             {
                 (*Function)(sqe, std::forward<Args>(_args)...);
 
-                io_uring_sqe_set_data(sqe, _cancel_token);
+                io_uring_sqe_set_data(sqe, _cancel_token.p_);
             }
             else
             {
-                execute_io(_cancel_token, -ENOMEM);
+                execute_io(_cancel_token.p_, -ENOMEM);
             }
         }
 
@@ -109,8 +109,9 @@ namespace zab {
     {
         for (auto h : handles_[kWriteIndex])
         {
-            h.destroy();
+            if (is_handle(h.p_)) { std::coroutine_handle<>::from_address(h.p_).destroy(); }
         }
+
         io_uring_queue_exit(ring_.get());
 
         if (use_space_handle_ && use_space_handle_->handle_)
@@ -323,11 +324,11 @@ namespace zab {
     event_loop::cancel_event(io_ptr _cancel_token, io_ptr _key) noexcept
     {
         auto* sqe = io_uring_get_sqe(ring_.get());
-        if (!sqe) [[unlikely]] { execute_io(_cancel_token, -ENOMEM); }
+        if (!sqe) [[unlikely]] { execute_io(_cancel_token.p_, -ENOMEM); }
         else
         {
-            io_uring_prep_cancel(sqe, reinterpret_cast<std::uintptr_t>(_key), 0);
-            io_uring_sqe_set_data(sqe, _cancel_token);
+            io_uring_prep_cancel(sqe, reinterpret_cast<std::uintptr_t>(_key.p_), 0);
+            io_uring_sqe_set_data(sqe, _cancel_token.p_);
         }
     }
 
@@ -360,7 +361,7 @@ namespace zab {
     {
         do_op(
             &io_uring_prep_write,
-            create_ptr(nullptr, kHandleFlag),
+            create_io_ptr(nullptr, kHandleFlag),
             _from.ring_.get(),
             user_space_event_fd_,
             (const char*) &item,
@@ -379,7 +380,7 @@ namespace zab {
     }
 
     void
-    event_loop::user_event(event _handle) noexcept
+    event_loop::user_event(event_ptr _handle) noexcept
     {
         bool notify = false;
         {
@@ -393,17 +394,9 @@ namespace zab {
     }
 
     void
-    event_loop::user_event(event _handle, event_loop& _from) noexcept
+    event_loop::user_event(event _handle) noexcept
     {
-        bool notify = false;
-        {
-            std::scoped_lock lck(mtx_);
-            handles_[kWriteIndex].emplace_back(_handle);
-            notify = handles_[kWriteIndex].size() == 1;
-            size_.fetch_add(1, std::memory_order_relaxed);
-        }
-
-        if (notify) { wake(_from); }
+        user_event(create_event_ptr(_handle));
     }
 
     void
@@ -413,9 +406,9 @@ namespace zab {
 
         io_uring_submit(ring_.get());
 
-        static constexpr auto  kMaxBatch = 16;
-        io_uring_cqe*          completions[kMaxBatch];
-        std::pair<io_ptr, int> to_resume[kMaxBatch];
+        static constexpr auto kMaxBatch = 16;
+        io_uring_cqe*         completions[kMaxBatch];
+        std::pair<void*, int> to_resume[kMaxBatch];
 
         while (!_st.stop_requested() &&
                !io_uring_wait_cqe(ring_.get(), (io_uring_cqe**) &completions))
@@ -428,7 +421,7 @@ namespace zab {
                 /* Pop off the queue... */
                 for (std::uint32_t i = 0; i < amount; ++i)
                 {
-                    to_resume[i].first = static_cast<io_ptr>(io_uring_cqe_get_data(completions[i]));
+                    to_resume[i].first  = io_uring_cqe_get_data(completions[i]);
                     to_resume[i].second = completions[i]->res;
                 }
 
@@ -459,7 +452,7 @@ namespace zab {
 
             for (auto handle : handles_[kReadIndex])
             {
-                handle.resume();
+                execute_event(handle);
             }
             handles_[kReadIndex].clear();
 

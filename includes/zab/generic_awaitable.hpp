@@ -216,12 +216,18 @@ namespace zab {
                 }
             }
 
+            Functor*
+            functor() noexcept
+            {
+                return functor_;
+            }
+
         private:
 
             Functor* functor_;
     };
 
-    template <typename Functor>
+    template <typename Functor, typename AwaitableType = generic_awaitable<Functor>>
     class suspension_point {
 
         public:
@@ -241,13 +247,7 @@ namespace zab {
             suspension_point(Args&&... _args) : functor_(std::forward<Args>(_args)...)
             { }
 
-            auto operator co_await() noexcept { return generic_awaitable(&functor_); }
-
-            auto
-            inline_await() noexcept
-            {
-                return generic_awaitable(&functor_);
-            }
+            auto operator co_await() noexcept { return AwaitableType(&functor_); }
 
         private:
 

@@ -128,24 +128,33 @@ namespace zab {
     engine::start() noexcept
     {
         /* The main thread can just use the first one. */
-        /* There will be no race since this thread will block untill */
+        /* There will be no race since this thread will block until */
         /* the other threads start.  */
         this_thead_ = thread_t{0};
 
         std::latch lat(configs_.threads_ + 1);
-        for (std::uint16_t i = 0; i < configs_.threads_; ++i)
+
         {
-            timers_.emplace_back(this);
-            threads_.emplace_back(
-                [this, &lat, i](auto _stop_token)
-                {
-                    this_thead_ = thread_t{i};
-                    std::stop_callback callback(_stop_token, event_loop_[i].get_stop_function());
-                    lat.arrive_and_wait();
-                    if (i == signal_handler::kSignalThread) { sig_handler_.run(); }
-                    timers_[i].run();
-                    event_loop_[i].run(_stop_token);
-                });
+            std::scoped_lock lck(mtx_);
+            for (std::uint16_t i = 0; i < configs_.threads_; ++i)
+            {
+                timers_.emplace_back(this);
+                threads_.emplace_back(
+                    [this, &lat, i](auto _stop_token)
+                    {
+                        this_thead_ = thread_t{i};
+                        std::stop_callback callback(
+                            _stop_token,
+                            event_loop_[i].get_stop_function());
+
+                        lat.arrive_and_wait();
+
+                        if (i == signal_handler::kSignalThread) { sig_handler_.run(); }
+                        timers_[i].run();
+
+                        event_loop_[i].run(_stop_token);
+                    });
+            }
         }
 
         lat.arrive_and_wait();
@@ -155,6 +164,7 @@ namespace zab {
             if (t.joinable()) { t.join(); }
         }
 
+        std::scoped_lock lck(mtx_);
         threads_.clear();
         timers_.clear();
     }
@@ -163,6 +173,7 @@ namespace zab {
     engine::stop() noexcept
     {
         sig_handler_.stop();
+        std::scoped_lock lck(mtx_);
         for (auto& t : threads_)
         {
             t.request_stop();

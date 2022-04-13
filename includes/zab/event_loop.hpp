@@ -116,7 +116,7 @@ namespace zab {
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            open_at(create_ptr(&ret, kHandleFlag), _dfd, _path, _flags, _mode);
+                            open_at(create_io_ptr(&ret, kHandleFlag), _dfd, _path, _flags, _mode);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -169,7 +169,7 @@ namespace zab {
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            close(create_ptr(&ret, kHandleFlag), _fd);
+                            close(create_io_ptr(&ret, kHandleFlag), _fd);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -220,7 +220,7 @@ namespace zab {
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            read(create_ptr(&ret, kHandleFlag), _fd, _buffer, _offset);
+                            read(create_io_ptr(&ret, kHandleFlag), _fd, _buffer, _offset);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -285,7 +285,7 @@ namespace zab {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
                             fixed_read(
-                                create_ptr(&ret, kHandleFlag),
+                                create_io_ptr(&ret, kHandleFlag),
                                 _fd,
                                 _buffer,
                                 _offset,
@@ -355,7 +355,12 @@ namespace zab {
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            read_v(create_ptr(&ret, kHandleFlag), _fd, _iovecs, _nr_vecs, _offset);
+                            read_v(
+                                create_io_ptr(&ret, kHandleFlag),
+                                _fd,
+                                _iovecs,
+                                _nr_vecs,
+                                _offset);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -414,7 +419,7 @@ namespace zab {
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            write(create_ptr(&ret, kHandleFlag), _fd, _buffer, _offset);
+                            write(create_io_ptr(&ret, kHandleFlag), _fd, _buffer, _offset);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -479,7 +484,7 @@ namespace zab {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
                             fixed_write(
-                                create_ptr(&ret, kHandleFlag),
+                                create_io_ptr(&ret, kHandleFlag),
                                 _fd,
                                 _buffer,
                                 _offset,
@@ -549,7 +554,12 @@ namespace zab {
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            write_v(create_ptr(&ret, kHandleFlag), _fd, _iovecs, _nr_vecs, _offset);
+                            write_v(
+                                create_io_ptr(&ret, kHandleFlag),
+                                _fd,
+                                _iovecs,
+                                _nr_vecs,
+                                _offset);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -609,7 +619,7 @@ namespace zab {
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            recv(create_ptr(&ret, kHandleFlag), _sockfd, _buffer, _flags);
+                            recv(create_io_ptr(&ret, kHandleFlag), _sockfd, _buffer, _flags);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -666,7 +676,7 @@ namespace zab {
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            send(create_ptr(&ret, kHandleFlag), _sockfd, _buffer, _flags);
+                            send(create_io_ptr(&ret, kHandleFlag), _sockfd, _buffer, _flags);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -730,7 +740,12 @@ namespace zab {
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            accept(create_ptr(&ret, kHandleFlag), _sockfd, _addr, _addrlen, _flags);
+                            accept(
+                                create_io_ptr(&ret, kHandleFlag),
+                                _sockfd,
+                                _addr,
+                                _addrlen,
+                                _flags);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -789,7 +804,7 @@ namespace zab {
                         {
                             ret.handle_ = _handle;
                             if (_cancel_token) { *_cancel_token = &ret; }
-                            connect(create_ptr(&ret, kHandleFlag), _sockfd, _addr, _addrlen);
+                            connect(create_io_ptr(&ret, kHandleFlag), _sockfd, _addr, _addrlen);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -888,7 +903,7 @@ namespace zab {
                         if constexpr (is_suspend<T>())
                         {
                             ret.handle_ = _handle;
-                            cancel_event(create_ptr(&ret, kHandleFlag), _key);
+                            cancel_event(create_io_ptr(&ret, kHandleFlag), _key);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -925,16 +940,15 @@ namespace zab {
              * @param _handle The event to submit.
              */
             void
-            user_event(event _handle) noexcept;
+            user_event(event_ptr _handle) noexcept;
 
             /**
              * @brief Submits a user event to the event_loop.
              *
              * @param _handle The event to submit.
-             * @param _from What event loop is currently executing.
              */
             void
-            user_event(event _handle, event_loop& _from) noexcept;
+            user_event(event _handle) noexcept;
 
             /**
              * @brief The number of user events currently waiting to be handled.
@@ -1000,7 +1014,7 @@ namespace zab {
             int                      user_space_event_fd_;
             std::atomic<std::size_t> size_;
             spin_lock                mtx_;
-            std::deque<event>        handles_[2];
+            std::deque<event_ptr>    handles_[2];
             io_handle*               use_space_handle_;
     };
 

@@ -77,6 +77,8 @@ namespace zab::test {
             initialise() noexcept
             {
                 initialised_ = true;
+
+                std::cout << "Stopping!\n";
                 engine_->stop();
             }
 
@@ -88,6 +90,7 @@ namespace zab::test {
     int
     test_initialise()
     {
+        std::cout << "test_initialise\n";
         engine engine(engine::configs{1, engine::configs::kExact});
 
         test_initialise_class test;
@@ -116,7 +119,11 @@ namespace zab::test {
             main() noexcept
             {
                 ++main_count_;
-                if (main_count_ == kMaxMains) { engine_->stop(); }
+                if (main_count_ == kMaxMains)
+                {
+                    std::cout << "Stopping!\n";
+                    engine_->stop();
+                }
             }
 
         private:
@@ -127,6 +134,7 @@ namespace zab::test {
     int
     test_main()
     {
+        std::cout << "test_main\n";
         engine engine(engine::configs{1, engine::configs::kExact});
 
         test_main_class test;
