@@ -188,13 +188,16 @@ namespace zab {
     }
 
     void
-    timer_service::wait(event<> _handle, std::uint64_t _nano_seconds) noexcept
+    timer_service::wait(tagged_event _handle, std::uint64_t _nano_seconds) noexcept
     {
         wait(_handle, _nano_seconds, engine_->current_id());
     }
 
     void
-    timer_service::wait(event<> _handle, std::uint64_t _nano_seconds, thread_t _thread) noexcept
+    timer_service::wait(
+        tagged_event  _handle,
+        std::uint64_t _nano_seconds,
+        thread_t      _thread) noexcept
     {
         const std::uint64_t sleep_mark = current_ + _nano_seconds;
 
@@ -205,7 +208,7 @@ namespace zab {
         {
             auto [_it_, _s_] = waiting_.emplace(
                 sleep_mark,
-                std::vector<std::pair<event<>, thread_t>>{{_handle, engine_->current_id()}});
+                std::vector<std::pair<tagged_event, thread_t>>{{_handle, engine_->current_id()}});
 
             if (_it_ == waiting_.begin()) { change_rate = true; }
         }

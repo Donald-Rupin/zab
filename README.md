@@ -8,9 +8,7 @@ A high-performance framework for building asynchronous and multi-threaded progra
 
 The original goal of this library was to learn the [new coroutines TS](https://en.cppreference.com/w/cpp/coroutine) for C++. I found the most difficult part of the coroutine TS is when you want to develop an asynchronous architecture or "executer/runtime" that can handle re-entrant code across possibly different threads. Thus, **ZAB** was born. 
 
-The goal then became to provide a generic framework so users can utilise coroutines to easily develop concise, multi-threaded asynchronous code. 
-
-The framework is fairly opinionated with the aim of providing multi-threaded and asynchronous functionality in a way that works like within high-level languages with built-in async support. The design largely takes inspiration from [libuv](https://github.com/libuv/libuv) and its use with javascript in the [node.js](https://nodejs.org/en/) runtime.   
+ZAB uses [io_uring](https://unixism.net/loti/) and [liburing](https://github.com/axboe/liburing) as its backend to provide asynchronous system calls. ZAB so far does not try to provide QoL or improvements on the posix system call API's. However, C++ classes are provided to provide resource management and group similar function calls.   
 
 Contact: donald.rupin@pm.me
 
@@ -213,32 +211,31 @@ your_class::example()
     }
 
     /* Networking */
+
     /* acceptors or connectors make tcp streams! */
     zab::tcp_acceptor acceptor(engine_);
-    if (acceptor_.listen(AF_INET, 8080, 10)) {
 
-        co_await zab::for_each(
-            acceptor_.get_accepter(),
-            [&](auto&& _stream) noexcept -> zab::for_ctl
-            {
-                if (_stream)
-                {
-                    /*  Read some data */
-                    auto data = co_await stream->read(42);
+    struct sockaddr_storage _address;
+    socklen_t               _length = sizeof(_address);
+    if (acceptor_.listen(AF_INET, 8080, 10))
+    {
+        while (!acceptor_.last_error())
+        {
+            auto stream = co_await acceptor_.accept<char>((struct sockaddr*) &_address, &_length);
 
-                    /* Write some data */
-                    auto amount_wrote = co_await stream->write(buffer);
+            if (stream) {
 
-                    /* await a graceful shutdown */
-                    co_await stream->shutdown();
+                std::vector<char> buf(5);
 
-                    return zab::for_ctl::kContinue;
-                }
-                else
-                {
-                    return zab::for_ctl::kBreak;
-                }
-            });
+                auto amount_wrote = co_await stream->write(buf);
+
+                auto amount_read  = co_await stream->read(buf);
+
+                co_await stream->shutdown();
+
+                co_await stream->close();
+            }
+        }
     }
 
 }

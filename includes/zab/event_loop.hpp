@@ -61,6 +61,8 @@ namespace zab {
 
     /**
      * @brief      This class implements a coroutine wrapper for the liburing service.
+     *
+     *             Investigate IORING_SETUP_ATTACH_WQ
      */
     class alignas(hardware_constructive_interference_size) event_loop {
 

@@ -134,7 +134,7 @@ namespace zab {
              * @param _nano_seconds The amount of nanoseconds to suspend for.
              */
             void
-            wait(event<> _handle, std::uint64_t _nano_seconds) noexcept;
+            wait(tagged_event _handle, std::uint64_t _nano_seconds) noexcept;
 
             /**
              * @brief Takes a coroutine handle to resume after a given amount of time and resume in
@@ -145,7 +145,7 @@ namespace zab {
              * @param _thread The thread to resume in.
              */
             void
-            wait(event<> _handle, std::uint64_t _nano_seconds, thread_t _thread) noexcept;
+            wait(tagged_event _handle, std::uint64_t _nano_seconds, thread_t _thread) noexcept;
 
             [[deprecated("Use wait in favour of this function. This will be removed "
                          "once first_of and wait_for accept any awaitable.")]] simple_future<>
@@ -174,7 +174,7 @@ namespace zab {
             engine*               engine_;
             event_loop::io_event* handle_;
 
-            std::map<std::uint64_t, std::vector<std::pair<event<>, thread_t>>> waiting_;
+            std::map<std::uint64_t, std::vector<std::pair<tagged_event, thread_t>>> waiting_;
 
             std::size_t read_buffer_;
 
