@@ -83,7 +83,11 @@ namespace zab {
             abort();
         }
 
-        if (handle_ && handle_->handle_) { handle_->handle_.destroy(); }
+        if (handle_)
+        {
+            /* We only use coroutine handles here */
+            std::get<std::coroutine_handle<>>(handle_->handle_).destroy();
+        }
     }
 
     async_function<>

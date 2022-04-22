@@ -42,72 +42,61 @@
 
 namespace zab {
 
-    struct stateful_context {
-            io_context              io_;
-            std::coroutine_handle<> handle_;
-
-            io_ptr
-            get_io_ptr() noexcept
-            {
-                return create_io_ptr(&io_, kContextFlag);
-            }
-    };
-
-    template <typename T>
-    static constexpr bool
-    is_stateful_suspend()
-    {
-        return std::is_same_v<T, stateful_context*>;
-    }
-
     enum class notify_ctl {
         kSuspend,
         kResume,
         kReady
     };
-
     namespace details {
 
-        template <typename Base>
+        template <typename Base, typename NotifyType>
         concept Notifiable = requires(Base a)
         {
             {
-                a((int) 0)
+                a(std::declval<NotifyType>())
             }
             noexcept->std::same_as<notify_ctl>;
         };
 
-        template <typename Base>
+        template <typename Base, typename NotifyType>
         concept HasStatefulSuspension = requires(Base a)
         {
             {
-                a(std::declval<stateful_context*>())
+                a(std::declval<storage_event<NotifyType>*>())
             }
             noexcept;
         };
 
-        template <typename Base, typename PromiseType>
+        template <typename Base, typename NotifyType>
         concept StatefulPassThroughSuspend = requires(Base a)
         {
             {
-                a.await_suspend(std::declval<stateful_context*>())
+                a.await_suspend(std::declval<storage_event<NotifyType>*>())
             }
             noexcept;
         };
 
-        template <typename Base>
-        concept StatefulAwaitable = Notifiable<Base> && HasStatefulSuspension<Base>;
+        template <typename Base, typename NotifyType>
+        concept StatefulAwaitable =
+            Notifiable<Base, NotifyType> && HasStatefulSuspension<Base, NotifyType>;
 
     }   // namespace details
 
-    template <typename T>
+    template <typename NotifyType, typename T>
+    static constexpr bool
+    is_stateful_suspend()
+    {
+        return std::is_convertible_v<T, storage_event<NotifyType>*>;
+    }
+
+    template <typename NotifyType, typename T>
     static constexpr bool
     is_notify()
     {
-        return std::is_same_v<T, int>;
+        return std::is_same_v<T, NotifyType>;
     }
 
-    template <details::StatefulAwaitable Functor>
+    template <typename NotifyType, details::StatefulAwaitable<NotifyType> Functor>
     class stateful_awaitable : private generic_awaitable<Functor> {
 
         public:
@@ -121,75 +110,131 @@ namespace zab {
 
             stateful_awaitable(Functor* _functor)
                 : generic_awaitable<Functor>(_functor),
-                  context_(
-                      {.io_ =
-                           io_context{
-                               .cb_ =
-                                   +[](void* _this, int _result)
-                                   {
-                                       stateful_awaitable* self =
-                                           static_cast<stateful_awaitable*>(_this);
-                                       self->notify(_result);
-                                   },
-                               .context_ = this},
-                       .handle_ = nullptr})
+                  context_(storage_event{
+                      .handle_ = tagged_event{event<>{
+                          .cb_ =
+                              +[](void* _this)
+                              {
+                                  auto* self = static_cast<stateful_awaitable*>(_this);
+                                  self->notify();
+                              },
+                          .context_ = this}},
+                      .result_ = NotifyType{}})
             { }
 
             void
-            notify(int _result)
+            notify()
             {
-                notify_ctl result = (*generic_awaitable<Functor>::functor())(_result);
-                switch (result)
+                notify_ctl result = (*generic_awaitable<Functor>::functor())(context_.result_);
+                while (true)
                 {
-                    case notify_ctl::kSuspend:
-                        await_suspend(context_.handle_);
-                        break;
+                    switch (result)
+                    {
+                        case notify_ctl::kSuspend:
+                            using return_type = decltype(await_suspend());
 
-                    case notify_ctl::kResume:
-                        context_.handle_.resume();
-                        break;
+                            if constexpr (std::is_same_v<void, return_type>)
+                            {
+                                await_suspend();
+                                return;
+                            }
+                            else
+                            {
+                                if (generic_awaitable<Functor>::functor()->await_suspend(&context_))
+                                {
+                                    return;
+                                }
+                                else
+                                {
+                                    result = notify_ctl::kResume;
+                                }
+                            }
 
-                    case notify_ctl::kReady:
-                        if (!await_ready()) { await_suspend(context_.handle_); }
-                        else
-                        {
-                            context_.handle_.resume();
-                        }
-                        break;
+                            break;
+
+                        case notify_ctl::kResume:
+                            execute_event(underlying_);
+                            return;
+
+                        case notify_ctl::kReady:
+                            if (!await_ready()) { result = notify_ctl::kSuspend; }
+                            else
+                            {
+                                result = notify_ctl::kResume;
+                            }
+                    }
                 }
             }
 
-            template <details::StatefulAwaitable F = Functor, typename PromiseType>
+            template <details::StatefulAwaitable<NotifyType> F = Functor>
             decltype(auto)
-            await_suspend(std::coroutine_handle<PromiseType> _awaiter) noexcept
+            await_suspend(std::coroutine_handle<> _awaiter) noexcept
             {
-                context_.handle_ = _awaiter;
-                if constexpr (details::StatefulPassThroughSuspend<F, PromiseType>)
+                underlying_ = tagged_event{_awaiter};
+                return await_suspend();
+            }
+
+            template <details::StatefulAwaitable<NotifyType> F = Functor>
+            decltype(auto)
+            await_suspend() noexcept
+            {
+                if constexpr (details::PassThroughSuspend<F>)
                 {
-                    return generic_awaitable<Functor>::functor()->await_suspend(&context_);
+                    using return_type =
+                        decltype(generic_awaitable<Functor>::functor()->await_suspend(&context_));
+                    if constexpr (std::is_same_v<void, return_type>)
+                    {
+                        generic_awaitable<Functor>::functor()->await_suspend(&context_);
+                    }
+                    else if constexpr (std::is_same_v<bool, return_type>)
+                    {
+                        return generic_awaitable<Functor>::functor()->await_suspend(&context_);
+                    }
+                    else
+                    {
+                        static_assert(
+                            std::is_same_v<void, return_type> || std::is_same_v<bool, return_type>,
+                            "stateful_awaitable await_suspend() or "
+                            "operator()() does support non bool or void return types.");
+                    }
                 }
-                else if constexpr (details::GenericSuspend<F, PromiseType>)
+                else if constexpr (details::GenericSuspend<F>)
                 {
-                    return (*generic_awaitable<Functor>::functor())(&context_);
+                    using return_type =
+                        decltype((*generic_awaitable<Functor>::functor())(&context_));
+                    if constexpr (std::is_same_v<void, return_type>)
+                    {
+                        (*generic_awaitable<Functor>::functor())(&context_);
+                    }
+                    else if constexpr (std::is_same_v<bool, return_type>)
+                    {
+                        return (*generic_awaitable<Functor>::functor())(&context_);
+                    }
+                    else
+                    {
+                        static_assert(
+                            std::is_same_v<void, return_type> || std::is_same_v<bool, return_type>,
+                            "stateful_awaitable await_suspend() or "
+                            "operator()() does support non bool or void return types.");
+                    }
                 }
                 else
                 {
                     static_assert(
-                        details::PassThroughSuspend<F, PromiseType> ||
-                            details::GenericSuspend<F, PromiseType>,
-                        "No await_suspend(std::coroutine_handle<PromiseType>) or "
-                        "operator()(std::coroutine_handle<PromiseType>) provided.");
+                        details::PassThroughSuspend<F> || details::GenericSuspend<F>,
+                        "No await_suspend(storage_event<NotifyType>*) or "
+                        "operator()(storage_event<NotifyType>*) provided.");
                 }
             }
 
-            template <details::StatefulAwaitable F = Functor>
+            template <details::StatefulAwaitable<NotifyType> F = Functor>
             bool
             await_ready() noexcept
             {
                 return generic_awaitable<Functor>::await_ready();
             }
 
-            template <details::StatefulAwaitable F = Functor>
+            template <details::StatefulAwaitable<NotifyType> F = Functor>
             decltype(auto)
             await_resume() noexcept
             {
@@ -198,11 +243,17 @@ namespace zab {
 
         private:
 
-            stateful_context context_;
+            storage_event<NotifyType> context_;
+            tagged_event              underlying_;
     };
 
-    template <typename Functor>
-    using stateful_suspension_point = suspension_point<Functor, stateful_awaitable<Functor>>;
+    template <typename NotifyType, details::StatefulAwaitable<NotifyType> Functor>
+    auto
+    stateful_suspension_point(Functor&& _functor) noexcept
+    {
+        return suspension_point<Functor, stateful_awaitable<NotifyType, Functor>>(
+            std::forward<Functor>(_functor));
+    }
 
 }   // namespace zab
 

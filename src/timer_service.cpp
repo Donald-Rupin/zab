@@ -61,7 +61,11 @@ namespace zab {
 
     timer_service::~timer_service()
     {
-        if (handle_ && handle_->handle_) { handle_->handle_.destroy(); }
+        if (handle_)
+        {
+            /* We only use coroutine handles here */
+            std::get<std::coroutine_handle<>>(handle_->handle_).destroy();
+        }
 
         if (timer_fd_)
         {
@@ -69,14 +73,6 @@ namespace zab {
             {
                 std::cerr << "zab::timer_service::~timer_service() Failed to close a timer_server "
                              "socket.\n";
-            }
-        }
-
-        for (const auto& [time, vector] : waiting_)
-        {
-            for (const auto& [handle, thread] : vector)
-            {
-                handle.destroy();
             }
         }
     }
@@ -192,16 +188,13 @@ namespace zab {
     }
 
     void
-    timer_service::wait(std::coroutine_handle<> _handle, std::uint64_t _nano_seconds) noexcept
+    timer_service::wait(event<> _handle, std::uint64_t _nano_seconds) noexcept
     {
         wait(_handle, _nano_seconds, engine_->current_id());
     }
 
     void
-    timer_service::wait(
-        std::coroutine_handle<> _handle,
-        std::uint64_t           _nano_seconds,
-        thread_t                _thread) noexcept
+    timer_service::wait(event<> _handle, std::uint64_t _nano_seconds, thread_t _thread) noexcept
     {
         const std::uint64_t sleep_mark = current_ + _nano_seconds;
 
@@ -212,8 +205,7 @@ namespace zab {
         {
             auto [_it_, _s_] = waiting_.emplace(
                 sleep_mark,
-                std::vector<std::pair<std::coroutine_handle<>, thread_t>>{
-                    {_handle, engine_->current_id()}});
+                std::vector<std::pair<event<>, thread_t>>{{_handle, engine_->current_id()}});
 
             if (_it_ == waiting_.begin()) { change_rate = true; }
         }

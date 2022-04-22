@@ -67,6 +67,8 @@ namespace zab {
 
         public:
 
+            using net_op = network_operation::net_op;
+
             /**
              * @brief The maximum a write_some operation will write to a stream.
              *
@@ -339,7 +341,7 @@ namespace zab {
             read_some(std::span<DataType> _data, size_t _offset = 0, int _flags = 0) noexcept
             {
                 return suspension_point(
-                    [this, ret = io_handle{}, _data, _offset, _flags]<typename T>(
+                    [this, ret = net_op{}, _data, _offset, _flags]<typename T>(
                         T _handle) mutable noexcept
                     {
                         if constexpr (is_ready<T>()) { return !_data.size(); }
@@ -349,9 +351,9 @@ namespace zab {
                                 std::min<std::size_t>(_data.size() - _offset, kMaxRead);
 
                             ret.handle_ = _handle;
-                            net_op_.set_cancel(create_io_ptr(&ret, kHandleFlag));
+                            net_op_.set_cancel(&ret);
                             net_op_.get_engine()->get_event_loop().recv(
-                                create_io_ptr(&ret, kHandleFlag),
+                                &ret,
                                 net_op_.descriptor(),
                                 std::span<std::byte>(
                                     (std::byte*) _data.data() + _offset,
@@ -388,12 +390,12 @@ namespace zab {
             [[nodiscard]] auto
             read(std::span<DataType> _data, size_t _offset = 0, int _flags = 0) noexcept
             {
-                return stateful_suspension_point(
+                return stateful_suspension_point<int>(
                     [this, so_far = 0ll, _data, _offset, _flags]<typename T>(
                         T _handle) mutable noexcept
                     {
                         if constexpr (is_ready<T>()) { return so_far == (ssize_t) _data.size(); }
-                        if constexpr (is_notify<T>())
+                        if constexpr (is_notify<int, T>())
                         {
                             if (_handle > 0)
                             {
@@ -406,14 +408,14 @@ namespace zab {
                                 return notify_ctl::kResume;
                             }
                         }
-                        else if constexpr (is_stateful_suspend<T>())
+                        else if constexpr (is_stateful_suspend<int, T>())
                         {
                             auto amount_to_read =
                                 std::min<std::size_t>(_data.size() - so_far - _offset, kMaxRead);
 
-                            net_op_.set_cancel(_handle->get_io_ptr());
+                            net_op_.set_cancel(_handle);
                             net_op_.get_engine()->get_event_loop().recv(
-                                _handle->get_io_ptr(),
+                                _handle,
                                 net_op_.descriptor(),
                                 std::span<std::byte>(
                                     (std::byte*) _data.data() + so_far + _offset,
@@ -451,7 +453,7 @@ namespace zab {
                 int                       _flags  = MSG_NOSIGNAL) noexcept
             {
                 return suspension_point(
-                    [this, ret = io_handle{}, _data, _offset, _flags]<typename T>(
+                    [this, ret = net_op{}, _data, _offset, _flags]<typename T>(
                         T _handle) mutable noexcept
                     {
                         if constexpr (is_ready<T>()) { return !_data.size(); }
@@ -461,9 +463,9 @@ namespace zab {
                                 std::min<std::size_t>(_data.size() - _offset, kMaxWrite);
 
                             ret.handle_   = _handle;
-                            write_cancel_ = create_io_ptr(&ret, kHandleFlag);
+                            write_cancel_ = &ret;
                             net_op_.get_engine()->get_event_loop().send(
-                                create_io_ptr(&ret, kHandleFlag),
+                                &ret,
                                 net_op_.descriptor(),
                                 std::span<std::byte>(
                                     (std::byte*) _data.data() + _offset,
@@ -508,12 +510,12 @@ namespace zab {
                 size_t                    _offset = 0,
                 int                       _flags  = MSG_NOSIGNAL) noexcept
             {
-                return stateful_suspension_point(
+                return stateful_suspension_point<int>(
                     [this, so_far = 0ll, _data, _offset, _flags]<typename T>(
                         T _handle) mutable noexcept
                     {
                         if constexpr (is_ready<T>()) { return so_far == (ssize_t) _data.size(); }
-                        if constexpr (is_notify<T>())
+                        if constexpr (is_notify<int, T>())
                         {
                             if (_handle > 0)
                             {
@@ -526,14 +528,14 @@ namespace zab {
                                 return notify_ctl::kResume;
                             }
                         }
-                        else if constexpr (is_stateful_suspend<T>())
+                        else if constexpr (is_stateful_suspend<int, T>())
                         {
                             auto amount_to_write =
                                 std::min<std::size_t>(_data.size() - so_far - _offset, kMaxRead);
 
-                            write_cancel_ = _handle->get_io_ptr();
+                            write_cancel_ = _handle;
                             net_op_.get_engine()->get_event_loop().send(
-                                _handle->get_io_ptr(),
+                                _handle,
                                 net_op_.descriptor(),
                                 std::span<std::byte>(
                                     (std::byte*) _data.data() + _offset + so_far,
@@ -566,7 +568,7 @@ namespace zab {
             }
 
             network_operation net_op_;
-            io_ptr            write_cancel_;
+            net_op*           write_cancel_;
     };
 
 }   // namespace zab

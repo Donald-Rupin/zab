@@ -241,7 +241,9 @@ namespace zab {
                             {
                                 auto tmp   = o->handle_;
                                 o->handle_ = nullptr;
-                                super::engine_->thread_resume(tmp, o->thread_);
+                                super::engine_->thread_resume(
+                                    create_generic_event(tmp),
+                                    o->thread_);
                             }
                         }
                     }

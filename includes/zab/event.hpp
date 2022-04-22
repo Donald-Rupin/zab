@@ -51,29 +51,6 @@
 
 namespace zab {
 
-    static constexpr std::uintptr_t kAddressMask = ~static_cast<std::uintptr_t>(0b11);
-    static constexpr std::uintptr_t kHandleFlag  = static_cast<std::uintptr_t>(0b00);
-    static constexpr std::uintptr_t kContextFlag = static_cast<std::uintptr_t>(0b01);
-
-    inline constexpr void*
-    synth_ptr(void* _ptr) noexcept
-    {
-        return reinterpret_cast<void*>(reinterpret_cast<std::uintptr_t>(_ptr) & kAddressMask);
-    }
-
-    inline constexpr bool
-    is_handle(void* _ptr) noexcept
-    {
-        return !(reinterpret_cast<std::uintptr_t>(_ptr) & ~kAddressMask);
-    }
-
-    inline constexpr bool
-    is_context(void* _ptr) noexcept
-    {
-        return (bool) (reinterpret_cast<std::uintptr_t>(_ptr) | kContextFlag);
-    }
-
-    using event = std::coroutine_handle<>;
     namespace details {
         template <typename ReturnType>
         struct context_generator {
@@ -86,153 +63,126 @@ namespace zab {
         };
 
     }   // namespace details
-    template <typename ReturnType>
-    using context_callback = details::context_generator<ReturnType>::context_callback;
 
-    template <typename ReturnType>
-    struct context {
-
-            context_callback<ReturnType> cb_;
-
-            void* context_;
+    template <typename EventType = void>
+    struct event {
+            details::context_generator<EventType>::context_callback cb_;
+            void*                                                   context_;
     };
 
-    struct event_ptr {
-            void* p_;
+    using tagged_event = std::variant<event<>, std::coroutine_handle<>>;
 
-            constexpr event_ptr&
-            operator=(std::nullptr_t)
-            {
-                p_ = nullptr;
-                return *this;
-            }
-
-            constexpr operator bool() const { return (bool) p_; }
+    template <typename EventType>
+    struct storage_event {
+            tagged_event handle_;
+            EventType    result_;
     };
 
-    inline constexpr event_ptr
-    create_event_ptr(void* _ptr, std::uintptr_t _flag) noexcept
-    {
-        return {reinterpret_cast<void*>(reinterpret_cast<std::uintptr_t>(_ptr) | _flag)};
-    }
-
-    inline constexpr event_ptr
-    create_event_ptr(event _event) noexcept
-    {
-        return {reinterpret_cast<void*>(
-            reinterpret_cast<std::uintptr_t>(_event.address()) | kHandleFlag)};
-    }
+    template <>
+    struct storage_event<void> {
+            tagged_event handle_;
+    };
 
     template <typename ReturnType>
     void
-    execute_event(event_ptr _event_address, ReturnType _result) noexcept
+    execute_event(event<ReturnType>* _event_address, ReturnType _result) noexcept
     {
-        std::uintptr_t flag = reinterpret_cast<std::uintptr_t>(_event_address) & ~kAddressMask;
-
-        if (flag == kHandleFlag)
-        {
-            /* Handles are allowed to be nullptr */
-            if (_event_address)
-            {
-                std::coroutine_handle<>::from_address(_event_address.p_).resume();
-            }
-        }
-        else
-        {
-            auto* cont = reinterpret_cast<context<ReturnType>*>(synth_ptr(_event_address.p_));
-            (*cont->cb_)(cont->context_, _result);
-        }
+        (*_event_address->cb_)(_event_address->context_, _result);
     }
 
     inline void
-    execute_event(event_ptr _event_address) noexcept
+    execute_event(event<>* _event_address) noexcept
     {
-        std::uintptr_t flag = reinterpret_cast<std::uintptr_t>(_event_address.p_) & ~kAddressMask;
-
-        if (flag == kHandleFlag)
-        {
-            /* Handles are allowed to be nullptr */
-            if (_event_address)
-            {
-                std::coroutine_handle<>::from_address(_event_address.p_).resume();
-            }
-        }
-        else
-        {
-            auto* cont = reinterpret_cast<context<void>*>(synth_ptr(_event_address.p_));
-            (*cont->cb_)(cont->context_);
-        }
+        (*_event_address->cb_)(_event_address->context_);
     }
-
-    struct io_handle {
-
-            event handle_;
-
-            int result_;
-    };
-
-    using io_context = context<int>;
-
-    struct io_buffer {
-
-            event handle_;
-
-            int* results_;
-
-            int position_;
-    };
-
-    struct io_ptr {
-            void* p_;
-
-            constexpr io_ptr&
-            operator=(std::nullptr_t)
-            {
-                p_ = nullptr;
-                return *this;
-            }
-
-            constexpr operator bool() const { return (bool) p_; }
-    };
-
-    static constexpr std::uintptr_t kQueueFlag = static_cast<std::uintptr_t>(0b10);
 
     inline void
-    execute_io(void* _io_address, int _result) noexcept
+    execute_event(event<> _event_address) noexcept
     {
-        std::uintptr_t flag = reinterpret_cast<std::uintptr_t>(_io_address) & ~kAddressMask;
-        if (flag == kHandleFlag)
-        {
-            /* Handles are allowed to be nullptr */
-            if (_io_address)
-            {
-                io_handle* handle = static_cast<io_handle*>(_io_address);
-                handle->result_   = _result;
-                handle->handle_.resume();
-            }
-        }
-        else if (flag == kContextFlag)
-        {
-            auto* context = static_cast<io_context*>(synth_ptr(_io_address));
-            (*context->cb_)(context->context_, _result);
-        }
-        else
-        {
-            auto* queue                       = static_cast<io_buffer*>(synth_ptr(_io_address));
-            queue->results_[queue->position_] = _result;
-
-            if (queue->position_) { --queue->position_; }
-            else
-            {
-                queue->handle_.resume();
-            }
-        }
+        (*_event_address.cb_)(_event_address.context_);
     }
 
-    inline constexpr io_ptr
-    create_io_ptr(void* _ptr, std::uintptr_t _flag) noexcept
+    inline void
+    execute_event(tagged_event* _event_address) noexcept
     {
-        return {reinterpret_cast<void*>(reinterpret_cast<std::uintptr_t>(_ptr) | _flag)};
+        std::visit(
+            []<typename T>(T _handle)
+            {
+                if constexpr (std::is_same_v<T, event<>>) { (*_handle.cb_)(_handle.context_); }
+                else
+                {
+                    if (_handle) { _handle.resume(); }
+                }
+            },
+            *_event_address);
+    }
+
+    inline void
+    execute_event(tagged_event _event_address) noexcept
+    {
+        std::visit(
+            []<typename T>(T _handle)
+            {
+                if constexpr (std::is_same_v<T, event<>>) { (*_handle.cb_)(_handle.context_); }
+                else
+                {
+                    _handle.resume();
+                }
+            },
+            _event_address);
+    }
+
+    template <typename EventType>
+    void
+    execute_event(storage_event<EventType>* _event_address, EventType _result) noexcept
+    {
+        _event_address->result_ = _result;
+        std::visit(
+            []<typename T>(T _handle)
+            {
+                if constexpr (std::is_same_v<T, event<>>) { (*_handle.cb_)(_handle.context_); }
+                else
+                {
+                    if (_handle) { _handle.resume(); }
+                }
+            },
+            *_event_address);
+    }
+
+    template <typename EventType>
+    event<EventType>
+    create_generic_event(storage_event<EventType>* _event)
+    {
+        return event<EventType>{
+            .cb_ =
+                +[](void* _context, EventType _et)
+                {
+                    auto ce     = static_cast<storage_event<EventType>*>(_context);
+                    ce->result_ = _et;
+                    execute_event(ce->handle_);
+                },
+            .context_ = _event,
+        };
+    }
+
+    inline event<>
+    create_generic_event(std::coroutine_handle<> _handle)
+    {
+        return event<>{
+            .cb_ =
+                +[](void* _context) { std::coroutine_handle<>::from_address(_context).resume(); },
+            .context_ = _handle.address(),
+        };
+    }
+
+    inline event<>
+    get_event(tagged_event _event)
+    {
+        if (_event.index() == 0) { return std::get<0>(_event); }
+        else
+        {
+            return create_generic_event(std::get<1>(_event));
+        }
     }
 
 }   // namespace zab

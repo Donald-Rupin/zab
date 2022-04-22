@@ -40,24 +40,26 @@
 #include <coroutine>
 #include <type_traits>
 
+#include "zab/event.hpp"
+
 namespace zab {
 
     namespace details {
 
-        template <typename Base, typename PromiseType>
+        template <typename Base>
         concept PassThroughSuspend = requires(Base a)
         {
             {
-                a.await_suspend(std::coroutine_handle<PromiseType>{})
+                a.await_suspend(std::declval<tagged_event>())
             }
             noexcept;
         };
 
-        template <typename Base, typename PromiseType>
+        template <typename Base>
         concept GenericSuspend = requires(Base a)
         {
             {
-                a(std::coroutine_handle<PromiseType>{})
+                a(std::declval<tagged_event>())
             }
             noexcept;
         };
@@ -117,7 +119,7 @@ namespace zab {
     static constexpr bool
     is_suspend()
     {
-        return std::is_convertible_v<T, std::coroutine_handle<>>;
+        return std::is_convertible_v<T, tagged_event>;
     }
 
     template <typename T>
@@ -152,19 +154,35 @@ namespace zab {
             decltype(auto)
             await_suspend(std::coroutine_handle<PromiseType> _awaiter) noexcept
             {
-                if constexpr (details::PassThroughSuspend<F, PromiseType>)
+                auto handle = tagged_event{_awaiter};
+                if constexpr (details::PassThroughSuspend<F>)
                 {
-                    return functor_->await_suspend(_awaiter);
+                    if constexpr (std::is_same_v<void, decltype(functor_->await_suspend(handle))>)
+                    {
+                        functor_->await_suspend(handle);
+                    }
+                    else
+                    {
+                        auto result = functor_->await_suspend(handle);
+                        return handle_suspend(result);
+                    }
                 }
-                else if constexpr (details::GenericSuspend<F, PromiseType>)
+                else if constexpr (details::GenericSuspend<F>)
                 {
-                    return (*functor_)(_awaiter);
+                    if constexpr (std::is_same_v<void, decltype((*functor_)(handle))>)
+                    {
+                        (*functor_)(handle);
+                    }
+                    else
+                    {
+                        auto result = (*functor_)(handle);
+                        return handle_suspend(result);
+                    }
                 }
                 else
                 {
                     static_assert(
-                        details::PassThroughSuspend<F, PromiseType> ||
-                            details::GenericSuspend<F, PromiseType>,
+                        details::PassThroughSuspend<F> || details::GenericSuspend<F>,
                         "No await_suspend(std::coroutine_handle<PromiseType>) or "
                         "operator()(std::coroutine_handle<PromiseType>) provided.");
                 }
@@ -220,6 +238,42 @@ namespace zab {
             functor() noexcept
             {
                 return functor_;
+            }
+
+        protected:
+
+            bool
+            handle_suspend(bool _result) noexcept
+            {
+                return _result;
+            }
+
+            std::coroutine_handle<>
+            handle_suspend(std::coroutine_handle<> _result) noexcept
+            {
+                return _result;
+            }
+
+            std::coroutine_handle<>
+            handle_suspend(tagged_event _result) noexcept
+            {
+                std::coroutine_handle<> handle = std::noop_coroutine();
+
+                std::visit(
+                    [&handle]<typename T>(T _data)
+                    {
+                        if constexpr (std::is_same_v<T, std::coroutine_handle<>>)
+                        {
+                            handle = _data;
+                        }
+                        else
+                        {
+                            execute_event(_data);
+                        }
+                    },
+                    _result);
+
+                return handle;
             }
 
         private:

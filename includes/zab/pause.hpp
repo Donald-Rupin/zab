@@ -40,6 +40,7 @@
 #include <coroutine>
 #include <utility>
 
+#include "zab/event.hpp"
 #include "zab/generic_awaitable.hpp"
 #include "zab/strong_types.hpp"
 
@@ -69,7 +70,7 @@ namespace zab {
              * @brief The coroutine to resume.
              *
              */
-            std::coroutine_handle<> handle_ = nullptr;
+            tagged_event handle_;
     };
 
     namespace details {

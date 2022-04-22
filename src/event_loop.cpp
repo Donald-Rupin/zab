@@ -62,7 +62,7 @@ namespace zab {
 
         template <typename FunctionCallType, FunctionCallType Function, typename... Args>
         inline void
-        do_op_impl(io_ptr _cancel_token, struct io_uring* _ring, Args&&... _args)
+        do_op_impl(event_loop::io_event* _cancel_token, struct io_uring* _ring, Args&&... _args)
         {
             auto* sqe = io_uring_get_sqe(_ring);
 
@@ -70,11 +70,12 @@ namespace zab {
             {
                 (*Function)(sqe, std::forward<Args>(_args)...);
 
-                io_uring_sqe_set_data(sqe, _cancel_token.p_);
+                io_uring_sqe_set_data(sqe, _cancel_token);
             }
             else
             {
-                execute_io(_cancel_token.p_, -ENOMEM);
+                _cancel_token->result_ = -ENOMEM;
+                execute_event(_cancel_token->handle_);
             }
         }
 
@@ -107,16 +108,12 @@ namespace zab {
 
     event_loop::~event_loop()
     {
-        for (auto h : handles_[kWriteIndex])
-        {
-            if (is_handle(h.p_)) { std::coroutine_handle<>::from_address(h.p_).destroy(); }
-        }
-
         io_uring_queue_exit(ring_.get());
 
-        if (use_space_handle_ && use_space_handle_->handle_)
+        if (use_space_handle_)
         {
-            use_space_handle_->handle_.destroy();
+            /* We only use coroutine handles here */
+            std::get<std::coroutine_handle<>>(use_space_handle_->handle_).destroy();
         }
     }
 
@@ -128,7 +125,7 @@ namespace zab {
 
     void
     event_loop::open_at(
-        io_ptr                 _cancel_token,
+        io_event*              _cancel_token,
         int                    _dfd,
         const std::string_view _path,
         int                    _flags,
@@ -145,14 +142,14 @@ namespace zab {
     }
 
     void
-    event_loop::close(io_ptr _cancel_token, int _fd) noexcept
+    event_loop::close(io_event* _cancel_token, int _fd) noexcept
     {
         return do_op(&io_uring_prep_close, _cancel_token, ring_.get(), _fd);
     }
 
     void
     event_loop::read(
-        io_ptr               _cancel_token,
+        io_event*            _cancel_token,
         int                  _fd,
         std::span<std::byte> _buffer,
         off_t                _offset) noexcept
@@ -169,7 +166,7 @@ namespace zab {
 
     void
     event_loop::read_v(
-        io_ptr              _cancel_token,
+        io_event*           _cancel_token,
         int                 _fd,
         const struct iovec* _iovecs,
         unsigned            _nr_vecs,
@@ -187,7 +184,7 @@ namespace zab {
 
     void
     event_loop::fixed_read(
-        io_ptr               _cancel_token,
+        io_event*            _cancel_token,
         int                  _fd,
         std::span<std::byte> _buffer,
         off_t                _offset,
@@ -206,7 +203,7 @@ namespace zab {
 
     void
     event_loop::write(
-        io_ptr                     _cancel_token,
+        io_event*                  _cancel_token,
         int                        _fd,
         std::span<const std::byte> _buffer,
         off_t                      _offset) noexcept
@@ -223,7 +220,7 @@ namespace zab {
 
     void
     event_loop::write_v(
-        io_ptr              _cancel_token,
+        io_event*           _cancel_token,
         int                 _fd,
         const struct iovec* _iovecs,
         unsigned            _nr_vecs,
@@ -241,7 +238,7 @@ namespace zab {
 
     void
     event_loop::fixed_write(
-        io_ptr                     _cancel_token,
+        io_event*                  _cancel_token,
         int                        _fd,
         std::span<const std::byte> _buffer,
         off_t                      _offset,
@@ -260,7 +257,7 @@ namespace zab {
 
     void
     event_loop::recv(
-        io_ptr               _cancel_token,
+        io_event*            _cancel_token,
         int                  sockfd,
         std::span<std::byte> _buffer,
         int                  _flags) noexcept
@@ -277,7 +274,7 @@ namespace zab {
 
     void
     event_loop::send(
-        io_ptr                     _cancel_token,
+        io_event*                  _cancel_token,
         int                        sockfd,
         std::span<const std::byte> _buffer,
         int                        _flags) noexcept
@@ -294,7 +291,7 @@ namespace zab {
 
     void
     event_loop::accept(
-        io_ptr           _cancel_token,
+        io_event*        _cancel_token,
         int              _fd,
         struct sockaddr* _addr,
         socklen_t*       _addrlen,
@@ -312,7 +309,7 @@ namespace zab {
 
     void
     event_loop::connect(
-        io_ptr                 _cancel_token,
+        io_event*              _cancel_token,
         int                    _fd,
         const struct sockaddr* _addr,
         socklen_t              _addrlen) noexcept
@@ -321,14 +318,18 @@ namespace zab {
     }
 
     void
-    event_loop::cancel_event(io_ptr _cancel_token, io_ptr _key) noexcept
+    event_loop::cancel_event(io_event* _cancel_token, cancelation_token _key) noexcept
     {
         auto* sqe = io_uring_get_sqe(ring_.get());
-        if (!sqe) [[unlikely]] { execute_io(_cancel_token.p_, -ENOMEM); }
+        if (!sqe) [[unlikely]]
+        {
+            _cancel_token->result_ = -ENOMEM;
+            execute_event(_cancel_token->handle_);
+        }
         else
         {
-            io_uring_prep_cancel(sqe, reinterpret_cast<std::uintptr_t>(_key.p_), 0);
-            io_uring_sqe_set_data(sqe, _cancel_token.p_);
+            io_uring_prep_cancel(sqe, reinterpret_cast<std::uintptr_t>(_key), 0);
+            io_uring_sqe_set_data(sqe, _cancel_token);
         }
     }
 
@@ -361,7 +362,7 @@ namespace zab {
     {
         do_op(
             &io_uring_prep_write,
-            create_io_ptr(nullptr, kHandleFlag),
+            (io_event*) nullptr,
             _from.ring_.get(),
             user_space_event_fd_,
             (const char*) &item,
@@ -380,7 +381,7 @@ namespace zab {
     }
 
     void
-    event_loop::user_event(event_ptr _handle) noexcept
+    event_loop::dispatch_user_event(user_event _handle) noexcept
     {
         bool notify = false;
         {
@@ -394,12 +395,6 @@ namespace zab {
     }
 
     void
-    event_loop::user_event(event _handle) noexcept
-    {
-        user_event(create_event_ptr(_handle));
-    }
-
-    void
     event_loop::run(std::stop_token _st) noexcept
     {
         run_user_space(_st);
@@ -408,7 +403,7 @@ namespace zab {
 
         static constexpr auto kMaxBatch = 16;
         io_uring_cqe*         completions[kMaxBatch];
-        std::pair<void*, int> to_resume[kMaxBatch];
+        io_event*             to_resume[kMaxBatch];
 
         while (!_st.stop_requested() &&
                !io_uring_wait_cqe(ring_.get(), (io_uring_cqe**) &completions))
@@ -421,8 +416,8 @@ namespace zab {
                 /* Pop off the queue... */
                 for (std::uint32_t i = 0; i < amount; ++i)
                 {
-                    to_resume[i].first  = io_uring_cqe_get_data(completions[i]);
-                    to_resume[i].second = completions[i]->res;
+                    to_resume[i] = static_cast<io_event*>(io_uring_cqe_get_data(completions[i]));
+                    to_resume[i]->result_ = completions[i]->res;
                 }
 
                 io_uring_cq_advance(ring_.get(), amount);
@@ -430,7 +425,7 @@ namespace zab {
                 /* Resume them*/
                 for (std::uint32_t i = 0; i < amount; ++i)
                 {
-                    execute_io(to_resume[i].first, to_resume[i].second);
+                    execute_event(to_resume[i]->handle_);
                 }
 
                 io_uring_submit(ring_.get());

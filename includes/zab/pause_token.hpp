@@ -147,7 +147,9 @@ namespace zab {
                     /* get deleted before we dereference...  */
                     auto tmp = old_pause->next_waiting_;
 
-                    engine_->thread_resume(old_pause->handle_, old_pause->thread_);
+                    engine_->thread_resume(
+                        create_generic_event(old_pause->handle_),
+                        old_pause->thread_);
 
                     old_pause = tmp;
                 }

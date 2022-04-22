@@ -293,18 +293,18 @@ namespace zab {
                 mode_t           _mode = kDefaultMode) noexcept
             {
                 return suspension_point(
-                    [this, ret = io_handle{}, dfd = _dir.dfd_, _path, _flags, _mode]<typename T>(
-                        T _handle) mutable noexcept
+                    [this,
+                     ret = event_loop::io_event{},
+                     dfd = _dir.dfd_,
+                     _path,
+                     _flags,
+                     _mode]<typename T>(T _handle) mutable noexcept
                     {
                         if constexpr (is_suspend<T>())
                         {
                             ret.handle_ = _handle;
-                            engine_->get_event_loop().open_at(
-                                create_io_ptr(&ret, kHandleFlag),
-                                dfd,
-                                _path,
-                                _flags,
-                                _mode);
+
+                            engine_->get_event_loop().open_at(&ret, dfd, _path, _flags, _mode);
                         }
                         else if constexpr (is_ready<T>())
                         {
@@ -345,18 +345,18 @@ namespace zab {
                 mode_t           _mode = kDefaultMode)
             {
                 return suspension_point(
-                    [ret = io_handle{}, _engine, dfd = _dir.dfd_, _path, _flags, _mode]<typename T>(
-                        T _handle) mutable noexcept
+                    [ret = event_loop::io_event{},
+                     _engine,
+                     dfd = _dir.dfd_,
+                     _path,
+                     _flags,
+                     _mode]<typename T>(T _handle) mutable noexcept
                     {
                         if constexpr (is_suspend<T>())
                         {
                             ret.handle_ = _handle;
-                            _engine->get_event_loop().open_at(
-                                create_io_ptr(&ret, kHandleFlag),
-                                dfd,
-                                _path,
-                                _flags,
-                                _mode);
+
+                            _engine->get_event_loop().open_at(&ret, dfd, _path, _flags, _mode);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -398,13 +398,15 @@ namespace zab {
             close(engine* _engine, int _fd) noexcept
             {
                 return suspension_point(
-                    [ret = io_handle{.handle_ = nullptr, .result_ = -1}, _engine, _fd]<typename T>(
-                        T _handle) mutable noexcept
+                    [ret = event_loop::io_event{},
+                     ge  = event_loop::io_event{},
+                     _engine,
+                     _fd]<typename T>(T _handle) mutable noexcept
                     {
                         if constexpr (is_suspend<T>())
                         {
                             ret.handle_ = _handle;
-                            _engine->get_event_loop().close(create_io_ptr(&ret, kHandleFlag), _fd);
+                            _engine->get_event_loop().close(&ret, _fd);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -478,17 +480,14 @@ namespace zab {
             {
                 return suspension_point(
                     [this,
-                     ret  = io_handle{.handle_ = nullptr, .result_ = -1},
+                     ret  = event_loop::io_event{},
                      data = std::vector<ReadType>(_amount)]<typename T>(T _handle) mutable noexcept
                     {
                         if constexpr (is_suspend<T>())
                         {
                             ret.handle_ = _handle;
-                            engine_->get_event_loop().read(
-                                create_io_ptr(&ret, kHandleFlag),
-                                file_,
-                                convert(data, data.size()),
-                                0);
+                            engine_->get_event_loop()
+                                .read(&ret, file_, convert(data, data.size()), 0);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -518,10 +517,8 @@ namespace zab {
             read_some(std::span<ReadType> _data, std::int32_t _off_set = 0) noexcept
             {
                 return suspension_point(
-                    [this,
-                     ret = io_handle{.handle_ = nullptr, .result_ = -1},
-                     _data,
-                     _off_set]<typename T>(T _handle) mutable noexcept
+                    [this, ret = event_loop::io_event{}, _data, _off_set]<typename T>(
+                        T _handle) mutable noexcept
                     {
                         if constexpr (is_suspend<T>())
                         {
@@ -530,11 +527,9 @@ namespace zab {
                                 std::numeric_limits<std::int32_t>::max() - 1);
 
                             ret.handle_ = _handle;
-                            engine_->get_event_loop().read(
-                                create_io_ptr(&ret, kHandleFlag),
-                                file_,
-                                convert(_data, _off_set + to_read),
-                                _off_set);
+
+                            engine_->get_event_loop()
+                                .read(&ret, file_, convert(_data, _off_set + to_read), _off_set);
                         }
                         else if constexpr (is_resume<T>())
                         {
@@ -587,10 +582,8 @@ namespace zab {
             write_some(std::span<const ReadType> _data, std::int32_t _off_set = 0) noexcept
             {
                 return suspension_point(
-                    [this,
-                     ret = io_handle{.handle_ = nullptr, .result_ = -1},
-                     _data,
-                     _off_set]<typename T>(T _handle) mutable noexcept
+                    [this, ret = event_loop::io_event{}, _data, _off_set]<typename T>(
+                        T _handle) mutable noexcept
                     {
                         if constexpr (is_suspend<T>())
                         {
@@ -599,11 +592,9 @@ namespace zab {
                                 std::numeric_limits<std::int32_t>::max() - 1);
 
                             ret.handle_ = _handle;
-                            engine_->get_event_loop().write(
-                                create_io_ptr(&ret, kHandleFlag),
-                                file_,
-                                convert(_data, _off_set + to_write),
-                                _off_set);
+
+                            engine_->get_event_loop()
+                                .write(&ret, file_, convert(_data, _off_set + to_write), _off_set);
                         }
                         else if constexpr (is_resume<T>())
                         {

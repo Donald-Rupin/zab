@@ -187,7 +187,7 @@ namespace zab {
     }
 
     void
-    engine::resume(event _handle) noexcept
+    engine::resume(event<> _handle) noexcept
     {
         thread_resume(_handle, this_thead_);
     }
@@ -219,24 +219,24 @@ namespace zab {
     }
 
     void
-    engine::thread_resume(event _handle, thread_t _thread) noexcept
+    engine::thread_resume(event<> _handle, thread_t _thread) noexcept
     {
         if (_thread.thread_ == thread_t::kAnyThread) { _thread = get_any_thread(); }
 
         assert(_thread.thread_ < event_loop_.size());
 
-        event_loop_[_thread.thread_].user_event(_handle);
+        event_loop_[_thread.thread_].dispatch_user_event(_handle);
     }
 
     void
-    engine::delayed_resume(event _handle, order_t _order) noexcept
+    engine::delayed_resume(event<> _handle, order_t _order) noexcept
     {
 
         delayed_resume(_handle, _order, this_thead_);
     }
 
     void
-    engine::delayed_resume(event _handle, order_t _order, thread_t _thread) noexcept
+    engine::delayed_resume(event<> _handle, order_t _order, thread_t _thread) noexcept
     {
         if (_thread.thread_ == thread_t::kAnyThread) { _thread = get_any_thread(); }
 

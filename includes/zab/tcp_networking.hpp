@@ -167,24 +167,21 @@ namespace zab {
             {
                 ::memset(&_address, 0, sizeof(_address));
                 return suspension_point(
-                    [this, ret = io_handle{}, _address, _length, _flags]<typename T>(
+                    [this, ret = event_loop::io_event{}, _address, _length, _flags]<typename T>(
                         T _handle) mutable noexcept
                     {
                         if constexpr (is_suspend<T>())
                         {
                             ret.handle_ = _handle;
-                            set_cancel(create_io_ptr(&ret, kHandleFlag));
-                            get_engine()->get_event_loop().accept(
-                                create_io_ptr(&ret, kHandleFlag),
-                                descriptor(),
-                                _address,
-                                _length,
-                                _flags);
+                            set_cancel(&ret);
+                            get_engine()
+                                ->get_event_loop()
+                                .accept(&ret, descriptor(), _address, _length, _flags);
                         }
                         else if constexpr (is_resume<T>())
                         {
                             std::optional<tcp_stream<DataType>> stream;
-                            set_cancel({nullptr});
+                            set_cancel(nullptr);
                             if (ret.result_ >= 0) { stream.emplace(get_engine(), ret.result_); }
                             else
                             {
@@ -226,7 +223,7 @@ namespace zab {
         engine*                _engine,
         const struct sockaddr* _details,
         socklen_t              _size,
-        io_ptr*                cancel_token_ = nullptr,
+        event_loop::io_event** cancel_token_ = nullptr,
         int                    _sock_flags   = SOCK_CLOEXEC)
     {
         network_operation net_op(_engine);
@@ -243,7 +240,7 @@ namespace zab {
 
         return suspension_point(
             [net_op = std::move(net_op),
-             ret    = io_handle{},
+             ret    = event_loop::io_event{},
              _details,
              _size,
              cancel_token_]<typename T>(T _handle) mutable noexcept
@@ -252,17 +249,17 @@ namespace zab {
                 else if constexpr (is_suspend<T>())
                 {
                     ret.handle_ = _handle;
-                    if (cancel_token_) { *cancel_token_ = create_io_ptr(&ret, kHandleFlag); }
+                    if (cancel_token_) { *cancel_token_ = &ret; }
 
                     net_op.get_engine()->get_event_loop().connect(
-                        create_io_ptr(&ret, kHandleFlag),
+                        &ret,
                         net_op.descriptor(),
                         _details,
                         _size);
                 }
                 else if constexpr (is_resume<T>())
                 {
-                    net_op.set_cancel({nullptr});
+                    net_op.set_cancel(nullptr);
                     if (ret.result_ == 0)
                     {
                         auto ds = net_op.descriptor();

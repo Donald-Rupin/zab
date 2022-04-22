@@ -45,13 +45,13 @@ namespace zab {
     void
     unpause(engine* _engine, pause_pack& _pause, order_t _order) noexcept
     {
-        _engine->delayed_resume(_pause.handle_, _order, _pause.thread_);
+        _engine->delayed_resume(get_event(_pause.handle_), _order, _pause.thread_);
     }
 
     void
     unpause(engine* _engine, pause_pack& _pause) noexcept
     {
-        _engine->thread_resume(_pause.handle_, _pause.thread_);
+        _engine->thread_resume(get_event(_pause.handle_), _pause.thread_);
     }
 
 }   // namespace zab

@@ -127,7 +127,7 @@ namespace zab {
     {
         auto cancel_token_tmp = cancel_token_;
         cancel_token_         = nullptr;
-        co_await engine_->get_event_loop().cancel_event(cancel_token_tmp, false);
+        co_await engine_->get_event_loop().cancel_event(cancel_token_tmp);
     }
 
 }   // namespace zab

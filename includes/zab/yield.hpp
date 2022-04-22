@@ -58,7 +58,7 @@ namespace zab {
         return suspension_point(
             [_engine]<typename T>(T _handle) noexcept
             {
-                if constexpr (is_suspend<T>()) { _engine->resume(_handle); }
+                if constexpr (is_suspend<T>()) { _engine->resume(get_event(_handle)); }
             });
     }
 
@@ -76,7 +76,10 @@ namespace zab {
         return suspension_point(
             [_engine, _thread]<typename T>(T _handle) noexcept
             {
-                if constexpr (is_suspend<T>()) { _engine->thread_resume(_handle, _thread); }
+                if constexpr (is_suspend<T>())
+                {
+                    _engine->thread_resume(get_event(_handle), _thread);
+                }
             });
     }
 
@@ -98,7 +101,7 @@ namespace zab {
             {
                 if constexpr (is_suspend<T>())
                 {
-                    _engine->delayed_resume(_handle, _order, _thread);
+                    _engine->delayed_resume(get_event(_handle), _order, _thread);
                 }
             });
     }

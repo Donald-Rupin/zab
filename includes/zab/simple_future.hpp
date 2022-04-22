@@ -111,8 +111,6 @@ namespace zab {
                 decltype(auto)
                 await_resume() const noexcept
                 {
-                    std::cout << " await_resume \n";
-
                     return handle_.promise().data();
                 }
 

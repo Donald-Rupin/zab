@@ -9,13 +9,14 @@ See the [Keep a Changelog formatting convention](https://keepachangelog.com/en/1
 ## v0.0.1.0 2022/3/22
 ### Added
 
-- `generic_awaitable` for creating awaitable types out of lambdas. 
+- `generic_awaitable` and `suspension_point` for creating awaitable types out of lambdas. 
 - Added lots of documentation.
 
 ### Changed
 - Event loops is now liburing based.
 - Updated most IO to use `generic_awaitable` and simplified the interface a little.
 - event_loop io is now done through an io_ptr instead of a pause_pack*. An io_ptr can represent three different ways to resume and or execute after io completion.
+- Added capabilities for c style callback/context in the event loop.
 
 ### Fixed
 - Timing services issues with polling to regularly. 
