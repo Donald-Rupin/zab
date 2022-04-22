@@ -8,14 +8,12 @@ A high-performance framework for building asynchronous and multi-threaded progra
 
 The original goal of this library was to learn the [new coroutines TS](https://en.cppreference.com/w/cpp/coroutine) for C++. I found the most difficult part of the coroutine TS is when you want to develop an asynchronous architecture or "executer/runtime" that can handle re-entrant code across possibly different threads. Thus, **ZAB** was born. 
 
-The goal then became to provide a generic framework so users can utilise coroutines to easily develop concise, multi-threaded asynchronous code. 
-
-The framework is fairly opinionated with the aim of providing multi-threaded and asynchronous functionality in a way that works like within high-level languages with built-in async support. The design largely takes inspiration from [libuv](https://github.com/libuv/libuv) and its use with javascript in the [node.js](https://nodejs.org/en/) runtime.   
+ZAB uses [io_uring](https://unixism.net/loti/) and [liburing](https://github.com/axboe/liburing) as its backend to provide asynchronous system calls. ZAB so far does not try to provide QoL or improvements on the posix system call API's. However, C++ classes are provided to provide resource management and group similar function calls.   
 
 Contact: donald.rupin@pm.me
 
 - [Documentation](https://donald-rupin.github.io/zab/html/lib/lib_root.html)
-    + [Geting Started](https://donald-rupin.github.io/zab/html/lib/getting_started.html)
+    + [Getting Started](https://donald-rupin.github.io/zab/html/lib/getting_started.html)
     + [Building](https://donald-rupin.github.io/zab/html/lib/getting_started.html#building)
     + [Core Library](https://donald-rupin.github.io/zab/html/lib/core_library.html)
     + [Coroutines](https://donald-rupin.github.io/zab/html/lib/coroutines.html)
@@ -60,7 +58,7 @@ your_class::example()
         auto value_2 = co_await f;
     }
 
-    //or inbuilt for_each;
+    /* or inbuilt for_each(...) */
     co_await zab::for_each(
             baz(),
             [](auto _value_2){ /* ... */ }
@@ -80,7 +78,6 @@ your_class::example()
     /* pause this function for an arbitrary amount of time */
     co_await pause(
         [this](auto* _pause_pack) {
-
             /* Can be resumed at any time... in any thread... */
             _pause_pack->thread_ = zab::thread::in(1);
             unpause(_pause_pack, now());
@@ -91,6 +88,64 @@ your_class::example()
             bar(),
             baz()
         );
+
+    /* Custom Lambda based suspension points */
+    int result = co_await  suspension_point(
+            [this, x = 42]<typename T>(T _handle) noexcept
+                {
+                    if constexpr (is_ready<T>())
+                    {
+                        /* Always suspend! */
+                        return false;
+                    }
+                    else if constexpr (is_suspend<T>())
+                    {
+                        /* Resume strait away! */
+                       engine_->resume(_handle);
+                    }
+                    else if constexpr (is_resume<T>())
+                    {
+                        /* Return x! */
+                        return x;
+                    }
+                }
+        );
+    assert(result == 42);
+
+     /* Custom Lambda based stateful suspension points      */
+     /* Allows the suspension point to resume internally    */
+     /* without resuming what is awaiting on it. Useful for */
+     /* handling automatic retries or partial completions.   */
+    int result_2 = co_await  stateful_suspension_point<int>(
+            [this, x = 42]<typename T>(T _handle) mutable noexcept
+                {
+                    if constexpr (is_ready<T>())
+                    {
+                        /* Suspend until counter hits 44 */
+                        return x == 44;
+                    }
+                    else if constexpr (is_stateful_suspend<int, T>())
+                    {
+                        /* Resume with data set to x + 1 */
+                        assert(x >= 42 && x < 44>);
+                        _handle->result_ = x + 1;
+                        engine_->resume(_handle->event_);
+
+                    } else if constexpr (is_notify<int, T>())
+                    {
+                        /* Something resumed us with value _handle */
+                        x = _handle;
+                        /* Return from is_ready<T>() */
+                        return notify_ctl::kReady;
+                    }
+                    else if constexpr (is_resume<T>())
+                    {
+                        /* Return x! */
+                        return x;
+                    }
+                }
+        );
+    assert(result_2 == 44);
 
     /* Observable */
 
@@ -109,6 +164,9 @@ your_class::example()
         auto e = co_await con;
 
         const auto&[e_string, e_int] = e.event();
+
+        /* Always received in order of emit */
+        assert(e_string == "hello" && e_int == 4);
 
         /* Deconstruction of objects is guarded by e. Once all     */
         /* observer destroy e, the event objects are deconstructed */
@@ -132,15 +190,15 @@ your_class::example()
     /* release the sem */
     sem.release();
 
-    /* aquire the sem */
+    /* acquire the sem */
     co_await sem;
 
-    /* Lots more synchronisation primitives in the library... */
+    /* Lots more synchronization primitives in the library... */
 
     /* File IO */
     zab::async_file<char> file(engine_);
 
-    auto success = co_await file.open("test_file.txt", async_file::Options::kRWTruncate);
+    auto success = co_await file.open("test_file.txt", file::Option::kRWTruncate);
 
     std::vector<char> buffer(42, 42);
     /* write to file! */
@@ -153,32 +211,31 @@ your_class::example()
     }
 
     /* Networking */
+
     /* acceptors or connectors make tcp streams! */
     zab::tcp_acceptor acceptor(engine_);
-    if (acceptor_.listen(AF_INET, 8080, 10)) {
 
-        co_await zab::for_each(
-            acceptor_.get_accepter(),
-            [&](auto&& _stream) noexcept -> zab::for_ctl
-            {
-                if (_stream)
-                {
-                    /*  Read some data */
-                    auto data = co_await stream->read(42);
+    struct sockaddr_storage _address;
+    socklen_t               _length = sizeof(_address);
+    if (acceptor_.listen(AF_INET, 8080, 10))
+    {
+        while (!acceptor_.last_error())
+        {
+            auto stream = co_await acceptor_.accept<char>((struct sockaddr*) &_address, &_length);
 
-                    /* Write some data */
-                    auto amount_wrote = co_await stream->write(buffer);
+            if (stream) {
 
-                    /* await a graceful shutdown */
-                    co_await stream->shutdown();
+                std::vector<char> buf(5);
 
-                    return zab::for_ctl::kContinue;
-                }
-                else
-                {
-                    return zab::for_ctl::kBreak;
-                }
-            });
+                auto amount_wrote = co_await stream->write(buf);
+
+                auto amount_read  = co_await stream->read(buf);
+
+                co_await stream->shutdown();
+
+                co_await stream->close();
+            }
+        }
     }
 
 }

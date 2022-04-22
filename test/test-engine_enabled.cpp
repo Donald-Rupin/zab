@@ -68,22 +68,22 @@ namespace zab::test {
         public:
 
             bool
-            intialised()
+            initialised()
             {
-                return intialised_;
+                return initialised_;
             }
 
             void
             initialise() noexcept
             {
-                std::cout << "Done initialise\n";
-                intialised_ = true;
+                initialised_ = true;
+
                 engine_->stop();
             }
 
         private:
 
-            bool intialised_ = false;
+            bool initialised_ = false;
     };
 
     int
@@ -97,7 +97,7 @@ namespace zab::test {
 
         engine.start();
 
-        return !test.intialised();
+        return !test.initialised();
     }
 
     class test_main_class : public engine_enabled<test_main_class> {
@@ -116,13 +116,8 @@ namespace zab::test {
             void
             main() noexcept
             {
-                std::cout << "Done main\n";
                 ++main_count_;
-                if (main_count_ == kMaxMains)
-                {
-                    std::cout << "Stopping!\n";
-                    engine_->stop();
-                }
+                if (main_count_ == kMaxMains) { engine_->stop(); }
             }
 
         private:
@@ -133,7 +128,6 @@ namespace zab::test {
     int
     test_main()
     {
-        std::cout << "test_main\n";
         engine engine(engine::configs{1, engine::configs::kExact});
 
         test_main_class test;

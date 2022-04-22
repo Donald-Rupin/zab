@@ -218,7 +218,7 @@ namespace zab {
     };
 
     /**
-     * Conveince for when the promise will always resolve.
+     * Convenience for when the promise will always resolve.
      */
     template <typename T>
     using guaranteed_future =

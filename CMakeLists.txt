@@ -28,8 +28,8 @@ add_library(zab STATIC
     src/event_loop.cpp
     src/engine.cpp
     src/signal_handler.cpp
-    src/network_overlay.cpp
-    src/tcp_stream.cpp
+    src/network_operation.cpp
+    src/tcp_networking.cpp
     src/timer_service.cpp
     src/pause.cpp
     )
@@ -43,10 +43,10 @@ target_compile_options(zab PUBLIC
   )
 
 target_include_directories(zab PUBLIC
-    includes
-    libs
+    includes    
     liburing/src/include
   )
+
 
 add_dependencies(zab liburing)
 
@@ -109,7 +109,7 @@ if(NOT DEFINED ZAB_NO_TESTS)
     add_zab_test(test-visitor_promise)
     add_zab_test(test-observable)
     add_zab_test(test-file_io)
-    add_zab_test(test-network_overlay)
+    add_zab_test(test-networking)
 endif()
 
 macro(add_zab_example example)

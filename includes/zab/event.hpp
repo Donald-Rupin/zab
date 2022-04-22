@@ -30,6 +30,8 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  *
+ * @TODO: Investigate IOSQE_IO_LINK
+ *
  *  @file event.hpp
  *
  */
@@ -44,9 +46,144 @@
 
 #include "zab/strong_types.hpp"
 
+// delete
+#include <iostream>
+
 namespace zab {
 
-    using event = std::coroutine_handle<>;
+    namespace details {
+        template <typename ReturnType>
+        struct context_generator {
+                using context_callback = void (*)(void*, ReturnType);
+        };
+
+        template <>
+        struct context_generator<void> {
+                using context_callback = void (*)(void*);
+        };
+
+    }   // namespace details
+
+    template <typename EventType = void>
+    struct event {
+            details::context_generator<EventType>::context_callback cb_;
+            void*                                                   context_;
+    };
+
+    using tagged_event = std::variant<event<>, std::coroutine_handle<>>;
+
+    template <typename EventType>
+    struct storage_event {
+            tagged_event handle_;
+            EventType    result_;
+    };
+
+    template <>
+    struct storage_event<void> {
+            tagged_event handle_;
+    };
+
+    template <typename ReturnType>
+    void
+    execute_event(event<ReturnType>* _event_address, ReturnType _result) noexcept
+    {
+        (*_event_address->cb_)(_event_address->context_, _result);
+    }
+
+    inline void
+    execute_event(event<>* _event_address) noexcept
+    {
+        (*_event_address->cb_)(_event_address->context_);
+    }
+
+    inline void
+    execute_event(event<> _event_address) noexcept
+    {
+        (*_event_address.cb_)(_event_address.context_);
+    }
+
+    inline void
+    execute_event(tagged_event* _event_address) noexcept
+    {
+        std::visit(
+            []<typename T>(T _handle)
+            {
+                if constexpr (std::is_same_v<T, event<>>) { (*_handle.cb_)(_handle.context_); }
+                else
+                {
+                    if (_handle) { _handle.resume(); }
+                }
+            },
+            *_event_address);
+    }
+
+    inline void
+    execute_event(tagged_event _event_address) noexcept
+    {
+        std::visit(
+            []<typename T>(T _handle)
+            {
+                if constexpr (std::is_same_v<T, event<>>) { (*_handle.cb_)(_handle.context_); }
+                else
+                {
+                    _handle.resume();
+                }
+            },
+            _event_address);
+    }
+
+    template <typename EventType>
+    void
+    execute_event(storage_event<EventType>* _event_address, EventType _result) noexcept
+    {
+        _event_address->result_ = _result;
+        std::visit(
+            []<typename T>(T _handle)
+            {
+                if constexpr (std::is_same_v<T, event<>>) { (*_handle.cb_)(_handle.context_); }
+                else
+                {
+                    if (_handle) { _handle.resume(); }
+                }
+            },
+            *_event_address);
+    }
+
+    template <typename EventType>
+    event<EventType>
+    create_generic_event(storage_event<EventType>* _event)
+    {
+        return event<EventType>{
+            .cb_ =
+                +[](void* _context, EventType _et)
+                {
+                    auto ce     = static_cast<storage_event<EventType>*>(_context);
+                    ce->result_ = _et;
+                    execute_event(ce->handle_);
+                },
+            .context_ = _event,
+        };
+    }
+
+    inline event<>
+    create_generic_event(std::coroutine_handle<> _handle)
+    {
+        return event<>{
+            .cb_ =
+                +[](void* _context) { std::coroutine_handle<>::from_address(_context).resume(); },
+            .context_ = _handle.address(),
+        };
+    }
+
+    inline event<>
+    get_event(tagged_event _event)
+    {
+        if (_event.index() == 0) { return std::get<0>(_event); }
+        else
+        {
+            return create_generic_event(std::get<1>(_event));
+        }
+    }
 
 }   // namespace zab
 

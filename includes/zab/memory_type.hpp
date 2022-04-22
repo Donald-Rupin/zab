@@ -30,28 +30,28 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  *
- *  @file pause.cpp
+ *
+ *  @file memory_type.hpp
  *
  */
 
-#include "zab/pause.hpp"
+#ifndef ZAB_MEMORY_TYPE_HPP_
+#define ZAB_MEMORY_TYPE_HPP_
 
-#include <utility>
-
-#include "zab/engine.hpp"
+#include <cstddef>
+#include <type_traits>
 
 namespace zab {
 
-    void
-    unpause(engine* _engine, pause_pack& _pause, order_t _order) noexcept
-    {
-        _engine->delayed_resume(get_event(_pause.handle_), _order, _pause.thread_);
-    }
-
-    void
-    unpause(engine* _engine, pause_pack& _pause) noexcept
-    {
-        _engine->thread_resume(get_event(_pause.handle_), _pause.thread_);
-    }
+    /**
+     * @brief Possible types for underlying memory
+     *
+     * @tparam Type
+     */
+    template <typename Type>
+    concept MemoryType = std::is_same_v<Type, std::byte> || std::is_same_v<Type, char> ||
+        std::is_same_v<Type, unsigned char>;
 
 }   // namespace zab
+
+#endif /* ZAB_MEMORY_TYPE_HPP_ */

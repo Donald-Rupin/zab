@@ -44,6 +44,11 @@
 
 namespace zab {
 
+    /**
+     * @brief A thread-safe syncronization primitive for suspending and resuming groups of
+     *        coroutines.
+     *
+     */
     class pause_token {
 
             struct pauser {
@@ -66,21 +71,42 @@ namespace zab {
                     { }
 
                     pause_token&            token_;
-                    thread_t                thread_       = thread_t{};
-                    pauser*                 next_waiting_ = nullptr;
-                    std::coroutine_handle<> handle_       = nullptr;
+                    thread_t                thread_;
+                    pauser*                 next_waiting_;
+                    std::coroutine_handle<> handle_;
             };
+
+            friend struct pauser;
 
         public:
 
+            /**
+             * @brief Construct a new pause token object that uses the given engine for resumption.
+             *
+             * @details The pause token is constructed in an unpaused state.
+             *
+             * @param _engine The engine to use.
+             */
             pause_token(engine* _engine) : engine_(_engine) { }
 
+            /**
+             * @brief Determine if the pause token is in a paused state.
+             *
+             * @return true If paused.
+             * @return false If no paused.
+             */
             [[nodiscard]] bool
             paused() const noexcept
             {
                 return !(resuming_.load(std::memory_order_acquire) & kUnpausedFlag);
             }
 
+            /**
+             * @brief Set the state of the pause token to pause.
+             *
+             * @details No-ops if the token is already paused.
+             *
+             */
             void
             pause() noexcept
             {
@@ -95,6 +121,16 @@ namespace zab {
                 { };
             }
 
+            /**
+             * @brief Set the state of the pause token to unpaused.
+             *
+             * @details No-ops if the pause token is already unpaused.
+             *
+             *         This function will resume any coroutines currently paused on the pause token
+             *         into the thread they where suspended on.
+             *
+             *         The resumption is not performed inlined, but is yielded.
+             */
             void
             unpause() noexcept
             {
@@ -111,15 +147,31 @@ namespace zab {
                     /* get deleted before we dereference...  */
                     auto tmp = old_pause->next_waiting_;
 
-                    engine_->thread_resume(old_pause->handle_, old_pause->thread_);
+                    engine_->thread_resume(
+                        create_generic_event(old_pause->handle_),
+                        old_pause->thread_);
 
                     old_pause = tmp;
                 }
             }
 
-            pauser operator co_await() noexcept { return pauser{*this, engine_->current_id()}; }
+            /**
+             * @brief Suspend the coroutine until the the pause token is unpaused.
+             *
+             * @co_return void Suspend until unpaused.
+             */
+            [[nodiscard]] pauser operator co_await() noexcept
+            {
+                return pauser{
+                    .token_        = *this,
+                    .thread_       = engine_->current_id(),
+                    .next_waiting_ = nullptr,
+                    .handle_       = nullptr};
+            }
 
-            bool
+        private:
+
+            [[nodiscard]] bool
             pause(pauser* pauser_) noexcept
             {
                 /* We are ABA free here (even under re-use)      */
@@ -150,8 +202,6 @@ namespace zab {
 
                 return true;
             }
-
-        private:
 
             static constexpr std::uintptr_t kUnpausedFlag = 0b1;
 

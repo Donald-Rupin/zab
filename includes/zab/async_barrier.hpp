@@ -581,7 +581,10 @@ namespace zab {
                             /* Clean up drop tokens... */
                             delete _type;
                         }
-                        if (to_resume) { engine_->thread_resume(to_resume, to_execute_in); }
+                        if (to_resume)
+                        {
+                            engine_->thread_resume(create_generic_event(to_resume), to_execute_in);
+                        }
 
                         return true;
                     });

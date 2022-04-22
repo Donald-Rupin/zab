@@ -173,7 +173,9 @@ namespace zab {
                             }
 
                             /* resume them */
-                            engine_->thread_resume(resume->handle_, resume->thread_);
+                            engine_->thread_resume(
+                                create_generic_event(resume->handle_),
+                                resume->thread_);
                         }
 
                         auto waiting = release_count_.fetch_sub(1, std::memory_order_release);
@@ -188,7 +190,9 @@ namespace zab {
                         active_count_.fetch_add(1, std::memory_order_release);
 
                         /* resume them */
-                        engine_->thread_resume(resume->handle_, resume->thread_);
+                        engine_->thread_resume(
+                            create_generic_event(resume->handle_),
+                            resume->thread_);
 
                         auto waiting = release_count_.fetch_sub(1, std::memory_order_release);
 
@@ -359,7 +363,10 @@ namespace zab {
                 /* Either we have a list to process, or we just got one */
                 transfer_ = head->next_waiting_;
 
-                if (head->handle_) { engine_->thread_resume(head->handle_, head->thread_); }
+                if (head->handle_)
+                {
+                    engine_->thread_resume(create_generic_event(head->handle_), head->thread_);
+                }
             }
 
             /**

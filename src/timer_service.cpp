@@ -47,74 +47,32 @@
 
 namespace zab {
 
-    namespace {
-
-        async_function<>
-        cleanup(engine* _engine, int _fd)
-        {
-            static constexpr auto kErrorMessage = "Failed to close a timer_server socket.";
-            struct clean_up {
-                    ~clean_up()
-                    {
-                        if (fd_)
-                        {
-                            if (::close(fd_)) { std::cerr << kErrorMessage << " (2)\n"; }
-                        }
-                    }
-                    int& fd_;
-            } cu{_fd};
-
-            /* Are we running in a thread? */
-            if (_engine->current_id() != thread_t::any_thread())
-            {
-                auto rc = co_await _engine->get_event_loop().close(_fd);
-
-                if (rc && *rc == 0) { _fd = 0; }
-                else
-                {
-                    std::cerr << kErrorMessage << " (1)\n";
-                }
-            }
-        }
-
-    }   // namespace
-
     timer_service::timer_service(engine* _engine)
-        : engine_(_engine), handle_(nullptr), read_buffer_(0), timer_fd_(0), current_(0)
-    {
-        timer_fd_.store(timerfd_create(CLOCK_MONOTONIC, TFD_CLOEXEC), std::memory_order_relaxed);
-
-        if (timer_fd_ == -1)
-        {
-            std::cerr << "timer_service -> Failed to create timerfd. errno:" << errno << "\n";
-            abort();
-        }
-    }
+        : engine_(_engine), handle_(nullptr), read_buffer_(0), current_(0), timer_fd_(0)
+    { }
 
     timer_service::timer_service(timer_service&& _other)
-        : engine_(_other.engine_), handle_(_other.handle_), timer_fd_(_other.timer_fd_.load()),
-          current_(_other.current_), waiting_(std::move(_other.waiting_))
+        : engine_(_other.engine_), handle_(_other.handle_), waiting_(std::move(_other.waiting_)),
+          current_(_other.current_), timer_fd_(_other.timer_fd_)
     {
-        _other.handle_ = nullptr;
-        _other.timer_fd_.store(0);
+        _other.handle_   = nullptr;
+        _other.timer_fd_ = 0;
     }
 
     timer_service::~timer_service()
     {
-        if (handle_) { event_loop::clean_up(handle_); }
-
-        if (timer_fd_.load())
+        if (handle_)
         {
-            auto tmp = timer_fd_.load(std::memory_order_relaxed);
-            timer_fd_.store(0);
-            cleanup(engine_, tmp);
+            /* We only use coroutine handles here */
+            std::get<std::coroutine_handle<>>(handle_->handle_).destroy();
         }
 
-        for (const auto& [time, vector] : waiting_)
+        if (timer_fd_)
         {
-            for (const auto& [handle, thread] : vector)
+            if (::close(timer_fd_))
             {
-                handle.destroy();
+                std::cerr << "zab::timer_service::~timer_service() Failed to close a timer_server "
+                             "socket.\n";
             }
         }
     }
@@ -122,13 +80,22 @@ namespace zab {
     async_function<>
     timer_service::run() noexcept
     {
-        auto fd = timer_fd_.load();
+        if (!timer_fd_)
+        {
+            timer_fd_ = timerfd_create(CLOCK_MONOTONIC, TFD_CLOEXEC);
+
+            if (timer_fd_ == -1)
+            {
+                std::cerr << "timer_service -> Failed to create timerfd. errno:" << errno << "\n";
+                abort();
+            }
+        }
 
         struct itimerspec current_spec;
-        while (fd)
+        while (timer_fd_)
         {
             auto rc = co_await engine_->get_event_loop().read(
-                fd,
+                timer_fd_,
                 std::span<std::byte>(
                     static_cast<std::byte*>(static_cast<void*>(&read_buffer_)),
                     sizeof(read_buffer_)),
@@ -140,7 +107,7 @@ namespace zab {
             {
                 if (read_buffer_)
                 {
-                    rc = timerfd_gettime(fd, &current_spec);
+                    rc = timerfd_gettime(timer_fd_, &current_spec);
                     if (rc < 0)
                     {
                         std::cerr << "timer_service -> timerfd_gettime failed. errno:" << errno
@@ -171,7 +138,7 @@ namespace zab {
 
                         /* disarm timer */
                         auto rc = timerfd_settime(
-                            fd,
+                            timer_fd_,
                             0, /* relative */
                             &new_value,
                             nullptr);
@@ -221,16 +188,16 @@ namespace zab {
     }
 
     void
-    timer_service::wait(std::coroutine_handle<> _handle, std::uint64_t _nano_seconds) noexcept
+    timer_service::wait(tagged_event _handle, std::uint64_t _nano_seconds) noexcept
     {
         wait(_handle, _nano_seconds, engine_->current_id());
     }
 
     void
     timer_service::wait(
-        std::coroutine_handle<> _handle,
-        std::uint64_t           _nano_seconds,
-        thread_t                _thread) noexcept
+        tagged_event  _handle,
+        std::uint64_t _nano_seconds,
+        thread_t      _thread) noexcept
     {
         const std::uint64_t sleep_mark = current_ + _nano_seconds;
 
@@ -241,8 +208,7 @@ namespace zab {
         {
             auto [_it_, _s_] = waiting_.emplace(
                 sleep_mark,
-                std::vector<std::pair<std::coroutine_handle<>, thread_t>>{
-                    {_handle, engine_->current_id()}});
+                std::vector<std::pair<tagged_event, thread_t>>{{_handle, engine_->current_id()}});
 
             if (_it_ == waiting_.begin()) { change_rate = true; }
         }
