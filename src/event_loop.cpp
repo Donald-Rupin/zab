@@ -82,7 +82,10 @@ namespace zab {
 #define do_op(function, ...) do_op_impl<decltype(function), function>(__VA_ARGS__)
     }   // namespace
 
-    event_loop::event_loop() : ring_(std::make_unique<io_uring>()), use_space_handle_(nullptr)
+    event_loop::event_loop() : ring_(std::make_unique<io_uring>()), use_space_handle_(nullptr) { }
+
+    void
+    event_loop::initialise() noexcept
     {
         struct io_uring_params params;
         ::memset(&params, 0, sizeof(params));
@@ -104,6 +107,41 @@ namespace zab {
             std::cerr << "Failed to init user_space_event_fd_\n";
             abort();
         }
+    }
+
+    void
+    event_loop::initialise(int _io_fd) noexcept
+    {
+        struct io_uring_params params;
+        ::memset(&params, 0, sizeof(params));
+        // params.flags |= IORING_SETUP_SQPOLL;
+        // params.sq_thread_idle = 2000;
+
+        /* Shared worker pools! */
+        params.flags |= IORING_SETUP_ATTACH_WQ;
+        params.wq_fd = _io_fd;
+
+        int ret = io_uring_queue_init_params(kQueueSize, ring_.get(), &params);
+        if (ret < 0)
+        {
+            std::cerr << "Failed to init io_uring. Return: " << ret << " , errno: " << errno
+                      << "\n";
+            abort();
+        }
+
+        /* Could also use `EFD_SEMAPHORE`. Not sure what would be best... */
+        user_space_event_fd_ = eventfd(0, EFD_CLOEXEC);
+        if (user_space_event_fd_ < 0)
+        {
+            std::cerr << "Failed to init user_space_event_fd_. errno: " << errno << "\n";
+            abort();
+        }
+    }
+
+    int
+    event_loop::io_fd() noexcept
+    {
+        return ring_->ring_fd;
     }
 
     event_loop::~event_loop()
