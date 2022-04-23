@@ -63,7 +63,13 @@ namespace zab {
 
     engine::engine(configs _configs)
         : event_loop_(validate(_configs)), sig_handler_(this), configs_(_configs)
-    { }
+    {
+        event_loop_[0].initialise();
+        for (auto i = 1ul; i < event_loop_.size(); ++i)
+        {
+            event_loop_[i].initialise(event_loop_[0].io_fd());
+        }
+    }
 
     std::uint16_t
     engine::validate(configs& _configs)

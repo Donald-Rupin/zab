@@ -77,12 +77,26 @@ namespace zab {
             static constexpr auto kQueueSize = 4096;
 
             /**
-             * @brief      Constructs a new instance that will register to this engine.
-             *
-             * @param      _engine  The engine.
+             * @brief      Constructs a new event_loop. Is unusable until initialise is called.
              *
              */
             event_loop();
+
+            /**
+             * @brief      Initialises the event_loop.
+             *
+             */
+            void
+            initialise() noexcept;
+
+            /**
+             * @brief      Initialises the event_loop that shares a worker pool with _io_fd.
+             *
+             * @param      _io_fd  The io_ring to share a worker pool with.
+             *
+             */
+            void
+            initialise(int _io_fd) noexcept;
 
             /**
              * @brief      Destroys the object and cleans up the resources.
@@ -980,6 +994,9 @@ namespace zab {
              */
             void
             wake() noexcept;
+
+            int
+            io_fd() noexcept;
 
         private:
 
