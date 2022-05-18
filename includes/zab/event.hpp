@@ -83,6 +83,12 @@ namespace zab {
             tagged_event handle_;
     };
 
+    inline bool
+    is_coroutine(tagged_event _event)
+    {
+        return _event.index() == 1;
+    }
+
     template <typename ReturnType>
     void
     execute_event(event<ReturnType>* _event_address, ReturnType _result) noexcept
@@ -103,33 +109,21 @@ namespace zab {
     }
 
     inline void
+    execute_event(std::coroutine_handle<> _handle) noexcept
+    {
+        if (_handle) { _handle.resume(); }
+    }
+
+    inline void
     execute_event(tagged_event* _event_address) noexcept
     {
-        std::visit(
-            []<typename T>(T _handle)
-            {
-                if constexpr (std::is_same_v<T, event<>>) { (*_handle.cb_)(_handle.context_); }
-                else
-                {
-                    if (_handle) { _handle.resume(); }
-                }
-            },
-            *_event_address);
+        std::visit([](auto _handle) { execute_event(_handle); }, *_event_address);
     }
 
     inline void
     execute_event(tagged_event _event_address) noexcept
     {
-        std::visit(
-            []<typename T>(T _handle)
-            {
-                if constexpr (std::is_same_v<T, event<>>) { (*_handle.cb_)(_handle.context_); }
-                else
-                {
-                    _handle.resume();
-                }
-            },
-            _event_address);
+        execute_event(&_event_address);
     }
 
     template <typename EventType>
@@ -179,10 +173,7 @@ namespace zab {
     get_event(tagged_event _event)
     {
         if (_event.index() == 0) { return std::get<0>(_event); }
-        else
-        {
-            return create_generic_event(std::get<1>(_event));
-        }
+        else { return create_generic_event(std::get<1>(_event)); }
     }
 
 }   // namespace zab
