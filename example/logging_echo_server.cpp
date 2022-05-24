@@ -48,8 +48,8 @@
 #include "zab/engine_enabled.hpp"
 #include "zab/event_loop.hpp"
 #include "zab/for_each.hpp"
-#include "zab/network_overlay.hpp"
 #include "zab/strong_types.hpp"
+#include "zab/tcp_networking.hpp"
 #include "zab/tcp_stream.hpp"
 namespace zab_example {
 
@@ -91,7 +91,8 @@ namespace zab_example {
 
                     for (const auto i : active_streams_)
                     {
-                        co_await i->cancel();
+                        co_await i->shutdown();
+                        co_await i->close();
                     }
                 }
 
@@ -103,27 +104,25 @@ namespace zab_example {
             zab::async_function<>
             run_acceptor()
             {
+                struct sockaddr_storage _address;
+                socklen_t               _length = sizeof(_address);
+
                 int connection_count = 0;
                 if (acceptor_.listen(AF_INET, port_, 10))
                 {
                     std::cout << "Starting acceptor on port " << port_ << "\n";
 
-                    std::optional<zab::tcp_stream> stream;
+                    while (true)
+                    {
+                        auto stream =
+                            co_await acceptor_.accept((struct sockaddr*) &_address, &_length);
 
-                    co_await zab::for_each(
-                        acceptor_.get_accepter(),
-                        [&](auto&& _stream) noexcept -> zab::for_ctl
+                        if (stream) { run_stream(connection_count++, std::move(*stream)); }
+                        else
                         {
-                            if (_stream)
-                            {
-                                run_stream(connection_count++, std::move(*stream));
-                                return zab::for_ctl::kContinue;
-                            }
-                            else
-                            {
-                                return zab::for_ctl::kBreak;
-                            }
-                        });
+                            break;
+                        }
+                    }
 
                     std::cout << "Stopping acceptor with errno " << acceptor_.last_error() << "\n";
                 }
@@ -137,7 +136,7 @@ namespace zab_example {
             }
 
             zab::async_function<>
-            run_stream(int _connection_count, zab::tcp_stream _stream)
+            run_stream(int _connection_count, zab::tcp_stream<std::byte> _stream)
             {
                 zab::thread_t thread{
                     (std::uint16_t)(_connection_count % engine_->number_of_workers())};
@@ -152,28 +151,29 @@ namespace zab_example {
                 print(thread, _connection_count, "Got connection.");
 
                 /* Log received data to file. */
-                zab::async_file<char> log_file(engine_);
+                zab::async_file<std::byte> log_file(engine_);
 
                 auto file_open = co_await log_file.open(
                     "./connection_log." + std::to_string(_connection_count) + ".txt",
                     zab::file::Option::kTrunc);
 
+                std::vector<std::byte> data(1028 * 1028);
                 while (!_stream.last_error())
                 {
-                    auto data = co_await _stream.read_some(1028 * 1028);
+                    auto amount = co_await _stream.read_some(data);
 
-                    if (data)
+                    if (amount > 0)
                     {
-
-                        print(thread, _connection_count, "Read ", data->size(), " bytes.");
+                        print(thread, _connection_count, "Read ", amount, " bytes.");
 
                         /* echo the data back */
-                        co_await _stream.write(*data);
+                        co_await _stream.write({data.data(), (std::size_t) amount});
 
                         /* log data to file */
                         if (file_open)
                         {
-                            auto s = co_await log_file.write_to_file(*data);
+                            auto s = co_await log_file.write_to_file(
+                                {data.data(), (std::size_t) amount});
                             if (!s) { print(thread, _connection_count, "Failed to log to file."); }
                         }
                     }
@@ -219,8 +219,8 @@ namespace zab_example {
 
             zab::tcp_acceptor acceptor_;
 
-            zab::async_mutex           active_streams_mtx_;
-            std::set<zab::tcp_stream*> active_streams_;
+            zab::async_mutex                      active_streams_mtx_;
+            std::set<zab::tcp_stream<std::byte>*> active_streams_;
 
             std::uint16_t port_;
     };

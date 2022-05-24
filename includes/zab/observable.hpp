@@ -35,8 +35,8 @@
  *
  */
 
-#ifndef ZAB_OBERVABLE_HPP_
-#define ZAB_OBERVABLE_HPP_
+#ifndef ZAB_OBSERVABLE_HPP_
+#define ZAB_OBSERVABLE_HPP_
 
 #include <coroutine>
 #include <deque>
@@ -241,7 +241,9 @@ namespace zab {
                             {
                                 auto tmp   = o->handle_;
                                 o->handle_ = nullptr;
-                                super::engine_->thread_resume(tmp, o->thread_);
+                                super::engine_->thread_resume(
+                                    create_generic_event(tmp),
+                                    o->thread_);
                             }
                         }
                     }
@@ -321,4 +323,4 @@ namespace zab {
 
 }   // namespace zab
 
-#endif /* ZAB_OBERVABLE_HPP_ */
+#endif /* ZAB_OBSERVABLE_HPP_ */

@@ -90,6 +90,7 @@ namespace zab::test {
             simple_future<bool>
             test_done() noexcept
             {
+
                 pause_token pt(engine_);
 
                 if (expected(pt.paused(), true)) { co_return false; }
@@ -107,6 +108,7 @@ namespace zab::test {
             simple_future<bool>
             test_one() noexcept
             {
+
                 pause_token pt(engine_);
 
                 if (expected(pt.paused(), true)) { co_return false; }
@@ -133,6 +135,7 @@ namespace zab::test {
             simple_future<bool>
             test_many(size_t _amount) noexcept
             {
+
                 pause_token pt(engine_);
 
                 if (expected(pt.paused(), true)) { co_return false; }
@@ -176,11 +179,14 @@ namespace zab::test {
     int
     test_basic()
     {
+
         engine engine(engine::configs{1});
 
         test_basic_class test;
 
         test.register_engine(engine);
+
+        std::cout << " start \n";
 
         engine.start();
 
@@ -269,6 +275,7 @@ namespace zab::test {
     int
     test_multi_thread_pause()
     {
+
         engine engine(engine::configs{test_multi_thread_pause_class::kNumberThreads});
 
         test_multi_thread_pause_class test;

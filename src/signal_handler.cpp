@@ -83,7 +83,11 @@ namespace zab {
             abort();
         }
 
-        if (handle_) { event_loop::clean_up(handle_); }
+        if (handle_)
+        {
+            /* We only use coroutine handles here */
+            std::get<std::coroutine_handle<>>(handle_->handle_).destroy();
+        }
     }
 
     async_function<>
@@ -104,7 +108,7 @@ namespace zab {
                 &handle_);
             handle_ = nullptr;
 
-            if (rc && *rc == sizeof(buffer))
+            if (rc == sizeof(buffer))
             {
                 int signal = static_cast<int>(buffer);
 

@@ -76,12 +76,12 @@ namespace zab::test {
             async_function<>
             run() noexcept
             {
-                failed_ = (
-                    // co_await test_push_pop(0) || co_await test_push_pop(1) ||
-                    // co_await test_push_pop(10) || co_await test_push_pop(100) ||
-                    // co_await test_resume(0) || co_await test_resume(1) ||
-                    // co_await test_resume(10) || co_await test_resume(100) ||
-                    co_await test_multi_thread());
+                failed_ =
+                    (co_await test_push_pop(0) || co_await test_push_pop(1) ||
+                     co_await test_push_pop(10) || co_await test_push_pop(100) ||
+                     co_await test_resume(0) || co_await test_resume(1) ||
+                     co_await test_resume(10) || co_await test_resume(100) ||
+                     co_await test_multi_thread());
 
                 engine_->stop();
             }

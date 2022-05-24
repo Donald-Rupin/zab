@@ -222,7 +222,7 @@ namespace zab {
              * @return     The order_t.
              */
             static constexpr order_t
-            order(int64_t _order)
+            order(int64_t _order) noexcept
             {
                 return {_order};
             }
@@ -244,7 +244,7 @@ namespace zab {
              * @return     The order_t.
              */
             static constexpr order_t
-            next()
+            next() noexcept
             {
                 return {0};
             }
@@ -257,7 +257,7 @@ namespace zab {
              * @return     The thread_t.
              */
             static constexpr thread_t
-            thread(std::uint16_t _thread)
+            thread(std::uint16_t _thread) noexcept
             {
                 return {_thread};
             }
@@ -268,7 +268,7 @@ namespace zab {
              * @return     The thread_t.
              */
             static constexpr thread_t
-            any_thread()
+            any_thread() noexcept
             {
                 return {};
             }
@@ -279,7 +279,7 @@ namespace zab {
              * @return     The thread_t.
              */
             static constexpr thread_t
-            default_thread()
+            default_thread() noexcept
             {
                 return {Base::kDefaultThread};
             }
@@ -302,12 +302,6 @@ namespace zab {
                 engine_->execute(std::forward<Functor>(_cb), _ordering, _thread);
             }
 
-            /**
-             * @brief      Responce to a ResponcePack.
-             *
-             * @param[in]  data_  The data
-             * @param[in]  resp_  The pack to respond to.
-             */
             [[nodiscard]] inline auto
             yield(order_t _order = now(), thread_t _thread = default_thread()) const noexcept
             {
@@ -317,11 +311,11 @@ namespace zab {
             [[nodiscard]] inline auto
             yield(thread_t _thread) const noexcept
             {
-                return zab::yield(engine_, now(), _thread);
+                return zab::yield(engine_, _thread);
             }
 
             inline void
-            unpause(pause_pack& _pause, order_t _order = now()) const
+            unpause(pause_pack& _pause, order_t _order = now()) const noexcept
             {
                 zab::unpause(engine_, _pause, _order);
             }
@@ -329,15 +323,14 @@ namespace zab {
             template <typename... Promises>
             [[nodiscard]] inline auto
 
-            wait_for(Promises&&... _args) const
+            wait_for(Promises&&... _args) const noexcept
             {
                 return zab::wait_for(engine_, std::forward<Promises>(_args)...);
             }
 
             template <typename T>
             [[nodiscard]] inline auto
-
-            wait_for(std::vector<simple_future<T>>&& _args) const
+            wait_for(std::vector<simple_future<T>>&& _args) const noexcept
             {
                 return zab::wait_for(engine_, std::move(_args));
             }
@@ -366,7 +359,7 @@ namespace zab {
             proxy(
                 async_member<Promise, Parameters...> _func,
                 thread_t                             _required_thread,
-                Args... _args)
+                Args... _args) noexcept
             {
                 thread_t return_thread;
 
@@ -375,12 +368,12 @@ namespace zab {
                 {
                     return_thread = t;
 
-                    co_await yield(now(), _required_thread);
+                    co_await yield(_required_thread);
                 }
 
                 (underlying().*_func)(std::forward<Args>(_args)...);
 
-                if (return_thread != thread_t{}) { co_await yield(now(), return_thread); }
+                if (return_thread != thread_t{}) { co_await yield(return_thread); }
             }
 
             template <typename Promise, typename... Args, typename... Parameters>
@@ -388,7 +381,7 @@ namespace zab {
             proxy(
                 async_member_c<Promise, Parameters...> _func,
                 thread_t                               _required_thread,
-                Args... _args) const
+                Args... _args) const noexcept
             {
                 thread_t return_thread;
 
@@ -397,12 +390,12 @@ namespace zab {
                 {
                     return_thread = t;
 
-                    co_await yield(now(), _required_thread);
+                    co_await yield(_required_thread);
                 }
 
                 (underlying().*_func)(std::forward<Args>(_args)...);
 
-                if (return_thread != thread_t{}) { co_await yield(now(), return_thread); }
+                if (return_thread != thread_t{}) { co_await yield(return_thread); }
             }
 
             template <typename Promise, typename... Args, typename Return, typename... Parameters>
@@ -410,7 +403,7 @@ namespace zab {
             proxy(
                 simple_member<Promise, Return, Parameters...> _func,
                 thread_t                                      _required_thread,
-                Args... _args)
+                Args... _args) noexcept
             {
                 auto func = (underlying().*_func)(std::forward<Args>(_args)...);
 
@@ -421,12 +414,12 @@ namespace zab {
                 {
                     return_thread = t;
 
-                    co_await yield(now(), _required_thread);
+                    co_await yield(_required_thread);
                 }
 
                 typename simple_future<Return>::return_value result = co_await func;
 
-                if (return_thread != thread_t{}) { co_await yield(now(), return_thread); }
+                if (return_thread != thread_t{}) { co_await yield(return_thread); }
 
                 co_return result;
             }
@@ -436,7 +429,7 @@ namespace zab {
             proxy(
                 simple_member_c<Promise, Return, Parameters...> _func,
                 thread_t                                        _required_thread,
-                Args... _args) const
+                Args... _args) const noexcept
             {
                 auto func = (underlying().*_func)(std::forward<Args>(_args)...);
 
@@ -447,12 +440,12 @@ namespace zab {
                 {
                     return_thread = t;
 
-                    co_await yield(now(), _required_thread);
+                    co_await yield(_required_thread);
                 }
 
                 typename simple_future<Return>::return_value result = co_await func;
 
-                if (return_thread != thread_t{}) { co_await yield(now(), return_thread); }
+                if (return_thread != thread_t{}) { co_await yield(return_thread); }
 
                 co_return result;
             }
@@ -462,7 +455,7 @@ namespace zab {
             proxy(
                 reusable_member<Promise, Return, Parameters...> _func,
                 thread_t                                        _required_thread,
-                Args... _args)
+                Args... _args) noexcept
             {
                 thread_t return_thread = engine_->current_id();
 
@@ -473,13 +466,13 @@ namespace zab {
                 {
                     if (_required_thread != thread_t{} && _required_thread != return_thread)
                     {
-                        co_await yield(now(), _required_thread);
+                        co_await yield(_required_thread);
                     }
 
                     typename simple_future<Return>::return_value result = co_await generator;
                     if (return_thread != thread_t{} && _required_thread != return_thread)
                     {
-                        co_await yield(now(), return_thread);
+                        co_await yield(return_thread);
                     }
                     if (!generator.complete()) { co_yield result; }
                     else
@@ -494,7 +487,7 @@ namespace zab {
             proxy(
                 reusable_member_c<Promise, Return, Parameters...> _func,
                 thread_t                                          _required_thread,
-                Args... _args)
+                Args... _args) noexcept
             {
                 thread_t return_thread = engine_->current_id();
 
@@ -505,13 +498,13 @@ namespace zab {
                 {
                     if (_required_thread != thread_t{} && _required_thread != return_thread)
                     {
-                        co_await yield(now(), _required_thread);
+                        co_await yield(_required_thread);
                     }
 
                     typename simple_future<Return>::return_value result = co_await generator;
                     if (return_thread != thread_t{} && _required_thread != return_thread)
                     {
-                        co_await yield(now(), return_thread);
+                        co_await yield(return_thread);
                     }
                     if (!generator.complete()) { co_yield result; }
                     else

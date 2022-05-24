@@ -1,4 +1,3 @@
-
 /*
  *  MMM"""AMV       db      `7MM"""Yp,
  *  M'   AMV       ;MM:       MM    Yb
@@ -36,11 +35,11 @@
  *
  */
 
-#ifndef ZAB_STREAM_HPP_
-#define ZAB_STREAM_HPP_
+#ifndef ZAB_TCP_STREAM_HPP_
+#define ZAB_TCP_STREAM_HPP_
 
-#include <atomic>
 #include <cstdint>
+#include <limits>
 #include <memory>
 #include <span>
 #include <stdint.h>
@@ -50,258 +49,528 @@
 #include "zab/defer_block_promise.hpp"
 #include "zab/engine_enabled.hpp"
 #include "zab/event_loop.hpp"
+#include "zab/memory_type.hpp"
+#include "zab/network_operation.hpp"
 #include "zab/simple_future.hpp"
+#include "zab/stateful_awaitable.hpp"
 #include "zab/strong_types.hpp"
-
-struct sockaddr;
-
 namespace zab {
 
     /**
-     * @brief      This class represents the a duplex network stream for writing and reading
-     data.
+     * @brief This class represents the a duplex network stream for writing and reading
+     *        data.
      *
+     * @tparam DataType The MemoryType this stream reads and writes.
      */
+    template <MemoryType DataType = std::byte>
     class tcp_stream {
 
         public:
 
-            /**
-             * @brief      Constructs the stream an empty state. Use of any member functions
-             *             except assignment is undefined behavior.
-             *
-             */
-            tcp_stream() = default;
+            using net_op = network_operation::net_op;
 
             /**
-             * @brief      Constructs the stream bound to a socket referred to by _fd.
+             * @brief The maximum a write_some operation will write to a stream.
              *
-             * @details    This class is designed around the invariant that the socket
-             *             is operating in blocking mode.
-             *
-             *
-             * @param      _engine  The engine to use.
-             * @param[in]  _fd      The socket to use.
              */
-            tcp_stream(engine* _engine, int _fd);
+            static constexpr auto kMaxWrite = std::numeric_limits<std::uint16_t>::max();
 
             /**
-             * @brief      Cannot copy a stream.
+             * @brief The maximum a read_some operation will write to a stream.
              *
-             * @param[in]  _copy  The copy
              */
-            tcp_stream(const tcp_stream& _copy) = delete;
+            static constexpr auto kMaxRead = std::numeric_limits<int>::max() - 2;
 
             /**
-             * @brief      Move construct a stream.
+             * @brief Construct a tcp stream object in an empty state.
              *
-             * @details    Moving a stream that is in use results in undefined behavior.
-             *
-             * @param      _move  The move
+             * @details Using this object from this constructor is undefined behaviour
+             *          unless you are writing to it via a swap, a move or move assignment.
              */
-            tcp_stream(tcp_stream&& _move);
+            tcp_stream() : write_cancel_(nullptr) { }
 
             /**
-             * @brief      Destroys the stream.
+             * @brief Construct a new tcp stream object associated with a engine and an socket
+             * descriptor.
              *
-             * @details    The user needs to ensure oprations have exited before deconsturction.
-             *             If the stream is in use when it is deconstructed, this will result in
-             *             undefined behavior.
+             * @details This interface assumes the socket was created in blocking mode.
              *
-             *             The user should also await `shutdown` before deconstruction of a
-             stream.
-             *
-             *             If `shutdown` is not awaited before deconstruction, the internal state
-             of
-             *             the stream is deconstructed at a later time. Essentially, ownership of
-             *             the internal state is given to a background fibre that will attempt to
-             *             do a similar thing to `shutdown`. This means that the sockets life
-             time
-             *             will linger past the deconstruction of the stream as the background
-             *             process attempts to gracefully socket close.
+             * @param _engine The engine to used.
+             * @param _fd  The socket to used.
              */
-            ~tcp_stream();
+            tcp_stream(engine* _engine, int _fd) : net_op_(_engine, _fd), write_cancel_(nullptr) { }
 
             /**
-             * @brief      Swap two connectors.
+             * @brief There is no copy constructor for a tcp_stream.
              *
-             * @param      _first   The first
-             * @param      _second  The second
              */
-            friend void
-            swap(tcp_stream& _first, tcp_stream& _second) noexcept;
+            tcp_stream(const tcp_stream&) = delete;
 
             /**
-             * @brief      Shutdown the stream.
+             * @brief Construct a new tcp stream object by swapping the resources owned by
+             *         _move.
              *
-             * @details    This requires that no reads or writes are in progress.
-             *             The shutdown process is:
-             *             1) Destroy the internal state.
-             *             2) Call ::shutdown(SHUT_WR) to notify client that we are shutting down
-             *             3) Attempt to wait for the write buffer to be flushed
-             *             4) Attempt to drain the read buffer and client to acknowledge shutdown
-             *
-             *             For applications that require reliable delivery of data, the
-             tcp_stream
-             *             tries its best to ensure that all data is delivered. The user should
-             *             wait for all writes to return. Although, like that of any socket
-             *             programming, we cannot garrenty delivery to the client side
-             application
-             *             (only that we tried to send it and try to ensure write buffers are
-             *             flushed). Most application level protocols will include some form of
-             *             acknowledgement in the case of required reliable delivery and this is
-             *             above the scope of this class.
-             *
-             * @return     An awaitable that returns after all steps are complete.
+             * @param _move  The tcp stream to move.
              */
-            [[nodiscard]] simple_future<>
-            shutdown() noexcept;
+            tcp_stream(tcp_stream&& _move) : tcp_stream() { swap(*this, _move); }
 
             /**
-             * @brief      Attempt to read data from the stream.
+             * @brief Destroy the tcp stream object.
              *
-             * @details    This function will suspend the calling coroutine until _amount data is
-             *             read, an error occurs or it is cancelled.
+             * @details It is far more efficient to manually shutdown, cancel reads and writes
+             *          and close the socket before the object is deconstructed. Failure to do so
+             *          will spawn background fibres to do this in the background.
              *
-             *             This function can return less then _amount when an error ro cancel
-             *             occurs.
+             *          We first try to cancel any pending writes in the background.
+             *          The clear any errors from the socket.
              *
-             *             The user should ensure that this function has exited before
-             *             deconstruction.
-             *
-             * @param[in]  _amount  The amount to read.
-             *
-             * @return     The data read if successful, std::nullopt if an error.
-             */
-            [[nodiscard]] simple_future<std::vector<char>>
-            read(size_t _amount) noexcept;
-
-            /**
-             * @brief      Attempt to read data from the stream.
-             *
-             * @details    This function will suspend the calling coroutine until _data.size()
-             data
-             *             is read or an error occurs.
-             *
-             *             This function can return less then _amount when an error ro cancel
-             *             occurs.
-             *
-             *             The user should ensure that this function has exited before
-             *             deconstruction.
-             *
-             * @param[in]  _amount  The amount to read.
-             *
-             * @return     The data read if successful, std::nullopt if an error.
-             */
-            [[nodiscard]] guaranteed_future<std::size_t>
-            read(std::span<char> _data) noexcept;
-
-            /**
-             * @brief      Attempt to read up _max data from the stream.
-             *
-             * @details    This function will suspend the calling coroutine until some data
-             *             is read or an error occurs.
-             *
-             *
-             *             The user should ensure that this function has exited before
-             *             deconstruction.
-             *
-             * @param[in]  _max  The amount to read.
-             *
-             * @return     The data read if successful, std::nullopt if an error.
-             */
-            [[nodiscard]] simple_future<std::vector<char>>
-            read_some(size_t _max) noexcept;
-
-            /**
-             * @brief      Attempt to read up _data.size() data from the stream.
-             *
-             * @details    This function will suspend the calling coroutine until some data
-             *             is read or an error occurs.
-             *
-             *             The user should ensure that this function has exited before
-             *             deconstruction.
-             *
-             * @param[in]  _max  The amount to read.
-             *
-             * @return     The data read if successful, std::nullopt if an error.
-             */
-            [[nodiscard]] guaranteed_future<std::size_t>
-            read_some(std::span<char> _data) noexcept;
-
-            /**
-             * @brief      Write some data to the stream waiting for the data to make it to the
-             *             OS write buffer.
-             *
-             * @details    The life time of the data held by the span must last longer then the
-             call
-             *             to this function.
-             *
-             *             The data actually written may be different to the amount given due to
-             *             a stream error or cancellation.
-             *
-             *             Calls to writes are not atomic.
-             *
-             * @param[in]  _data  The view of the data to send.
-             *
-             * @return     The amount of data written.
-             */
-            [[nodiscard]] guaranteed_future<std::size_t>
-            write(std::span<const char> _data) noexcept;
-
-            [[nodiscard]] guaranteed_future<std::size_t>
-            write_fixed(std::span<const std::byte> _data, int _index) noexcept;
-
-            [[nodiscard]] guaranteed_future<std::size_t>
-            read_fixed(std::span<std::byte> _data, int _index) noexcept;
-
-            struct op_control {
-                    std::byte*  data_;
-                    std::size_t size_;
-            };
-
-            [[nodiscard]] reusable_future<std::size_t>
-            get_reader(op_control* _oc) noexcept;
-
-            [[nodiscard]] reusable_future<std::size_t>
-            get_writer(op_control* _oc) noexcept;
-
-            /**
-             * @brief     Immediately cancles all operations.
+             *          The deconstruction of net_op_ will cancel any pending reads
+             *          and close the socket in the background.
              *
              */
-            simple_future<bool>
-            cancel() noexcept;
-
-            /**
-             * @brief      Get the last error from an operation.
-             *
-             * @return     The last error.
-             */
-            inline int
-            last_error() const noexcept
+            ~tcp_stream()
             {
-                return last_error_;
+                if (write_cancel_) { background_cancel_write(); }
+
+                if (net_op_.descriptor())
+                {
+                    /* Clear any errors. */
+                    int       result;
+                    socklen_t result_len = sizeof(result);
+                    ::getsockopt(
+                        net_op_.descriptor(),
+                        SOL_SOCKET,
+                        SO_ERROR,
+                        (char*) &result,
+                        &result_len);
+                }
             }
 
             /**
-             * @brief      Clears the last error.
+             * @brief Swaps two tcp streams.
              *
+             * @tparam DT1 The memory type of the first one.
+             * @tparam DT2 The memory type of the second one.
+             * @param _first  The first stream.
+             * @param _second The second stream.
+             */
+            template <MemoryType DT1, MemoryType DT2>
+            friend void
+            swap(tcp_stream<DT1>& _first, tcp_stream<DT2>& _second) noexcept
+            {
+                using std::swap;
+                swap(_first.net_op_, _second.net_op_);
+                swap(_first.write_cancel_, _second.write_cancel_);
+            }
+
+            /**
+             * @brief Swaps two tcp streams.
+             *
+             * @tparam DT1 The memory type of the first one.
+             * @param _first  The first stream.
+             * @param _second The second stream.
+             */
+            template <MemoryType DT1>
+            friend void
+            swap(tcp_stream<DT1>& _first, tcp_stream<DT1>& _second) noexcept
+            {
+                using std::swap;
+                swap(_first.net_op_, _second.net_op_);
+                swap(_first.write_cancel_, _second.write_cancel_);
+            }
+
+            /**
+             * @brief Move operator for a tcp stream. This will just swap to two streams.
+             *
+             * @param tcp_stream The stream to swap.
+             * @return tcp_stream& this.
+             */
+            tcp_stream&
+            operator=(tcp_stream&& tcp_stream)
+            {
+                swap(*this, tcp_stream);
+                return *this;
+            }
+
+            /**
+             * @brief Rebinds the memory type of the stream via a swap.
+             *
+             * @tparam DT1 The memory type of the resulting stream.
+             * @tparam DT2 The memory type of the resulting to swap.
+             * @param _other The stream to rebind.
+             * @return tcp_stream<DT1> The newly typed stream.
+             */
+            template <MemoryType DT1, MemoryType DT2>
+            friend tcp_stream<DT1>
+            rebind(tcp_stream<DT2>& _other)
+            {
+                tcp_stream<DT1> new_stream;
+                swap(new_stream, _other);
+
+                return new_stream;
+            }
+
+            /**
+             * @brief Get the underlying socket descriptor.
+             *
+             * @return int
+             */
+            [[nodiscard]] inline int
+            descriptor() const noexcept
+            {
+                return net_op_.descriptor();
+            }
+
+            /**
+             * @brief Get the last error.
+             *
+             * @details This clears the error.
+             *
+             * @return int
+             */
+            [[nodiscard]] inline int
+            last_error() noexcept
+            {
+                return net_op_.last_error();
+            }
+
+            /**
+             * @brief Set the error for the stream.
+             *
+             * @param _error The error to set for the stream.
              */
             inline void
-            clear_last_error() noexcept
+            set_error(int _error) noexcept
             {
-                last_error_ = 0;
+                net_op_.set_error(_error);
+            }
+
+            /**
+             * @brief Attempt to cancel the current read operation.
+             *
+             * @details This function only suspends if there is a pending read operation.
+             *
+             * @co_return void Resumes after cancelation.
+             */
+            [[nodiscard]] auto
+            cancel_read() noexcept
+            {
+                return net_op_.cancel();
+            }
+
+            /**
+             * @brief Attempt to cancel the current write operation.
+             *
+             * @details This function only suspends if there is a pending write operation.
+             *
+             * @co_return void Resumes after cancelation.
+             */
+            [[nodiscard]] auto
+            cancel_write() noexcept
+            {
+                return network_operation::cancel(net_op_.get_engine(), write_cancel_);
+            }
+
+            /**
+             * @brief Attempt to close the socket.
+             *
+             * @details This function only suspends if there is a socket to close.
+             *
+             * @co_return true The socket was successfully closed.
+             * @co_return false The socket failed to close.
+             *
+             */
+            [[nodiscard]] auto
+            close() noexcept
+            {
+                /* Clear any errors. */
+                int       result;
+                socklen_t result_len = sizeof(result);
+                ::getsockopt(
+                    net_op_.descriptor(),
+                    SOL_SOCKET,
+                    SO_ERROR,
+                    (char*) &result,
+                    &result_len);
+
+                return net_op_.close();
+            }
+
+            /**
+             * @brief Shutdown the stream by cancelling any pending operations and signalling
+             * shutdown.
+             *
+             * @co_return void on shutdown completion.
+             */
+            [[nodiscard]] simple_future<>
+            shutdown() noexcept
+            {
+                co_await cancel_read();
+                co_await cancel_write();
+
+                /* Intiate shut down */
+                if (::shutdown(net_op_.descriptor(), SHUT_WR) != -1)
+                {
+                    /* Attempt to deplete read buffer and wait for client to ack */
+                    std::vector<DataType> data(1028);
+                    for (int i = 0; i < 5; ++i)
+                    {
+                        auto res = co_await read_some(data);
+                        if (res <= 0)
+                        {
+                            /* Error or 0 is good here */
+                            break;
+                        }
+                    }
+                }
+            }
+
+            /**
+             * @brief Attempt to read up to `_data.size() - _offset` bytes into the span at the
+             *        given offset.
+             *
+             * @details If _data.size() - _offset is larger then kMaxRead, then kMaxRead is used as
+             *          the max.
+             *
+             * @param _data The buffer to read into.
+             * @param _offset The offset from where to start reading in.
+             * @param _flags Any flags to pass to recv.
+             * @co_return int The amount of bytes read or -1 if an error occurred.
+             */
+            [[nodiscard]] auto
+            read_some(std::span<DataType> _data, size_t _offset = 0, int _flags = 0) noexcept
+            {
+                return suspension_point(
+                    [this, ret = net_op{}, _data, _offset, _flags]<typename T>(
+                        T _handle) mutable noexcept
+                    {
+                        if constexpr (is_ready<T>()) { return !_data.size(); }
+                        else if constexpr (is_suspend<T>())
+                        {
+                            auto amount_to_read =
+                                std::min<std::size_t>(_data.size() - _offset, kMaxRead);
+
+                            ret.handle_ = _handle;
+                            net_op_.set_cancel(&ret);
+                            net_op_.get_engine()->get_event_loop().recv(
+                                &ret,
+                                net_op_.descriptor(),
+                                std::span<std::byte>(
+                                    (std::byte*) _data.data() + _offset,
+                                    amount_to_read),
+                                _flags);
+                        }
+                        else if constexpr (is_resume<T>())
+                        {
+                            net_op_.clear_cancel();
+                            if (ret.result_ > 0) { return ret.result_; }
+                            else
+                            {
+                                net_op_.set_error(-ret.result_);
+                                return -1;
+                            }
+                        }
+                    });
+            }
+
+            /**
+             * @brief Attempts to `_data.size() - _offset` bytes into the span at the given
+             *        offset. Blocks until the amount is read, a signal interupts the call or an
+             *        error occurs.
+             *
+             * @details If _data.size() - _offset is larger then kMaxRead, then kMaxRead is used as
+             *          the max.
+             *
+             *
+             * @param _data The buffer to read into.
+             * @param _offset The offset from where to start reading in.
+             * @param _flags Any flags to pass to recv.
+             * @co_return long long The amount of bytes read.
+             */
+            [[nodiscard]] auto
+            read(std::span<DataType> _data, size_t _offset = 0, int _flags = 0) noexcept
+            {
+                return stateful_suspension_point<int>(
+                    [this, so_far = 0ll, _data, _offset, _flags]<typename T>(
+                        T _handle) mutable noexcept
+                    {
+                        if constexpr (is_ready<T>()) { return so_far == (ssize_t) _data.size(); }
+                        if constexpr (is_notify<int, T>())
+                        {
+                            if (_handle > 0)
+                            {
+                                so_far += _handle;
+                                return notify_ctl::kReady;
+                            }
+                            else
+                            {
+                                net_op_.set_error(-_handle);
+                                return notify_ctl::kResume;
+                            }
+                        }
+                        else if constexpr (is_stateful_suspend<int, T>())
+                        {
+                            auto amount_to_read =
+                                std::min<std::size_t>(_data.size() - so_far - _offset, kMaxRead);
+
+                            net_op_.set_cancel(_handle);
+                            net_op_.get_engine()->get_event_loop().recv(
+                                _handle,
+                                net_op_.descriptor(),
+                                std::span<std::byte>(
+                                    (std::byte*) _data.data() + so_far + _offset,
+                                    amount_to_read),
+                                _flags | MSG_WAITALL);
+                        }
+                        else if constexpr (is_resume<T>())
+                        {
+                            net_op_.clear_cancel();
+                            if (so_far > 0) { return so_far; }
+                            else
+                            {
+                                return -1ll;
+                            }
+                        }
+                    });
+            }
+
+            /**
+             * @brief Attempt to write up to `_data.size() - _offset` bytes from the span at the
+             *        given offset.
+             *
+             * @details If _data.size() - _offset is larger then kMaxWrite, then kMaxWrite is used
+             *          as the max.
+             *
+             * @param _data The buffer to write from.
+             * @param _offset The offset from where to start writing from.
+             * @param _flags Any flags to pass to send. MSG_NOSIGNAL is always set additionally.
+             * @co_return int The amount of bytes written or -1 if an error occurred.
+             */
+            [[nodiscard]] auto
+            write_some(
+                std::span<const DataType> _data,
+                size_t                    _offset = 0,
+                int                       _flags  = MSG_NOSIGNAL) noexcept
+            {
+                return suspension_point(
+                    [this, ret = net_op{}, _data, _offset, _flags]<typename T>(
+                        T _handle) mutable noexcept
+                    {
+                        if constexpr (is_ready<T>()) { return !_data.size(); }
+                        else if constexpr (is_suspend<T>())
+                        {
+                            auto amount_to_write =
+                                std::min<std::size_t>(_data.size() - _offset, kMaxWrite);
+
+                            ret.handle_   = _handle;
+                            write_cancel_ = &ret;
+                            net_op_.get_engine()->get_event_loop().send(
+                                &ret,
+                                net_op_.descriptor(),
+                                std::span<std::byte>(
+                                    (std::byte*) _data.data() + _offset,
+                                    amount_to_write),
+                                _flags);
+                        }
+                        else if constexpr (is_resume<T>())
+                        {
+                            write_cancel_ = nullptr;
+                            if (ret.result_ > 0) { return ret.result_; }
+                            else
+                            {
+                                net_op_.set_error(-ret.result_);
+                                return -1;
+                            }
+                        }
+                    });
+            }
+
+            /**
+             * @brief Attempt to write up to `_data.size() - _offset` bytes from the span at the
+             *        given offset. Blocks until the amount is written or an error occurs.
+             *
+             * @details If _data.size() - _offset is larger then kMaxWrite, then kMaxWrite is used
+             *          as the max.
+             *
+             *          Coroutine chaining can be expensive exspecially if the call to `write()` is
+             *          within a hotpath. As such, if the writing is not in a hotpath or are in not
+             *          performance critical parts of the program `write()` is encrouaged for
+             *          readability an maintainabilty. Otherwise authors are encoruged to use
+             *          write_some and handle their own logic for when the incorrect amount is
+             *          written.
+             *
+             * @param _data The buffer to write from.
+             * @param _offset The offset from where to start writing from.
+             * @param _flags Any flags to pass to send. MSG_NOSIGNAL is always set additionaly.
+             * @co_return long long The amount of bytes written.
+             */
+            [[nodiscard]] auto
+            write(
+                std::span<const DataType> _data,
+                size_t                    _offset = 0,
+                int                       _flags  = MSG_NOSIGNAL) noexcept
+            {
+                return stateful_suspension_point<int>(
+                    [this, so_far = 0ll, _data, _offset, _flags]<typename T>(
+                        T _handle) mutable noexcept
+                    {
+                        if constexpr (is_ready<T>()) { return so_far == (ssize_t) _data.size(); }
+                        if constexpr (is_notify<int, T>())
+                        {
+                            if (_handle > 0)
+                            {
+                                so_far += _handle;
+                                return notify_ctl::kReady;
+                            }
+                            else
+                            {
+                                net_op_.set_error(-_handle);
+                                return notify_ctl::kResume;
+                            }
+                        }
+                        else if constexpr (is_stateful_suspend<int, T>())
+                        {
+                            auto amount_to_write =
+                                std::min<std::size_t>(_data.size() - so_far - _offset, kMaxRead);
+
+                            write_cancel_ = _handle;
+                            net_op_.get_engine()->get_event_loop().send(
+                                _handle,
+                                net_op_.descriptor(),
+                                std::span<std::byte>(
+                                    (std::byte*) _data.data() + _offset + so_far,
+                                    amount_to_write),
+                                _flags);
+                        }
+                        else if constexpr (is_resume<T>())
+                        {
+                            write_cancel_ = nullptr;
+                            if (so_far > 0) { return so_far; }
+                            else
+                            {
+                                return -1ll;
+                            }
+                        }
+                    });
             }
 
         private:
 
-            engine*               engine_       = nullptr;
-            event_loop::io_handle cancel_token_ = nullptr;
-            int                   connection_   = 0;
-            int                   last_error_   = 0;
+            /**
+             * @brief Cancel any pending writes in the background.
+             *
+             * @return async_function<>
+             */
+            async_function<>
+            background_cancel_write()
+            {
+                co_await cancel_write();
+            }
+
+            network_operation net_op_;
+            net_op*           write_cancel_;
     };
 
 }   // namespace zab
 
-#endif /* ZAB_STREAM_HPP_ */
+#endif /* ZAB_TCP_STREAM_HPP_ */

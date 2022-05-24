@@ -30,7 +30,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *  SOFTWARE.
  *
- *  @file test-network_overlay.cpp
+ *  @file test-tcp_networking.cpp
  *
  */
 
@@ -46,7 +46,7 @@
 
 #include "zab/engine.hpp"
 #include "zab/engine_enabled.hpp"
-#include "zab/network_overlay.hpp"
+#include "zab/tcp_networking.hpp"
 
 #include "internal/macros.hpp"
 
@@ -78,7 +78,6 @@ namespace zab::test {
             initialise() noexcept
             {
                 acceptor_.register_engine(engine_);
-                connector_.register_engine(engine_);
 
                 run_acceptor();
                 run_connector();
@@ -87,19 +86,20 @@ namespace zab::test {
             async_function<>
             run_acceptor()
             {
+                struct sockaddr_storage _address;
+                socklen_t               _length = sizeof(_address);
+
                 if (acceptor_.listen(AF_INET, 6998, 10))
                 {
-                    std::cout << "BEFORE ACCEPT!\n";
-                    auto stream_opt = co_await acceptor_.accept();
-                    std::cout << "AFTER ACCEPT!\n";
+                    auto stream_opt =
+                        co_await acceptor_.accept<char>((struct sockaddr*) &_address, &_length);
+
                     if (stream_opt)
                     {
-                        std::cout << "WOO\n";
-
                         auto amount = co_await stream_opt->write(
                             std::span<const char>(kBuffer, ::strlen(kBuffer)));
 
-                        if (expected(strlen(kBuffer), amount)) { engine_->stop(); }
+                        if (expected((long long) strlen(kBuffer), amount)) { engine_->stop(); }
 
                         co_await stream_opt->shutdown();
                     }
@@ -139,54 +139,47 @@ namespace zab::test {
                 struct addrinfo* tmp = addr;
                 while (tmp)
                 {
-                    auto stream_opt = co_await connector_.connect(
-                        (struct sockaddr_storage*) tmp->ai_addr,
-                        (sizeof(*tmp->ai_addr)));
+                    auto stream =
+                        co_await tcp_connect<char>(engine_, tmp->ai_addr, (sizeof(*tmp->ai_addr)));
 
-                    if (stream_opt)
+                    if (!stream.last_error())
                     {
-                        std::cout << "GOT CONNECT!\n";
+                        std::vector<char> buf(5);
 
-                        auto buffer = co_await stream_opt->read(5);
+                        auto size_read = co_await stream.read(buf);
 
-                        std::cout << "AFTER read!\n";
-
-                        if (buffer)
+                        if (!expected((long long int) strlen(kBuffer), size_read))
                         {
-                            if (!expected(strlen(kBuffer), buffer->size()))
-                            {
-                                std::string_view og(kBuffer);
-                                buffer->emplace_back(0);
-                                std::string_view ng(buffer->data());
+                            std::string_view og(kBuffer);
+                            buf.emplace_back(0);
+                            std::string_view ng(buf.data());
 
-                                std::cout << "GOT BUFFER!\n";
-
-                                if (!expected(og, ng)) { failed_ = false; }
-                            }
+                            if (!expected(og, ng)) { failed_ = false; }
                         }
 
-                        co_await stream_opt->shutdown();
+                        co_await stream.shutdown();
                     }
 
                     tmp = tmp->ai_next;
                 }
 
                 freeaddrinfo(addr);
+
+                co_await acceptor_.close();
+
                 engine_->stop();
             }
 
             bool
             failed()
             {
-                std::cout << "Simple: " << failed_ << "\n";
+
                 return failed_;
             }
 
         private:
 
             tcp_acceptor acceptor_;
-
-            tcp_connector connector_;
 
             bool failed_ = true;
     };
@@ -236,16 +229,20 @@ namespace zab::test {
             async_function<>
             run_acceptor(std::uint16_t _port)
             {
-                tcp_acceptor acceptor(engine_);
+                tcp_acceptor            acceptor(engine_);
+                struct sockaddr_storage _address;
+                socklen_t               _length = sizeof(_address);
 
                 if (acceptor.listen(AF_INET, _port, kNumberOfConnections / 2))
                 {
                     while (true)
                     {
-                        auto stream_opt = co_await acceptor.accept();
+                        auto stream_opt =
+                            co_await acceptor.accept<char>((struct sockaddr*) &_address, &_length);
                         if (stream_opt) { run_stream(std::move(*stream_opt)); }
                         else
                         {
+                            std::cerr << "last error: " << acceptor.last_error() << "\n";
                             engine_->stop();
                             break;
                         }
@@ -261,8 +258,6 @@ namespace zab::test {
             async_function<>
             run_connector(std::uint16_t _port)
             {
-                tcp_connector connector(engine_);
-
                 struct addrinfo  hints;
                 struct addrinfo* addr;
 
@@ -284,13 +279,12 @@ namespace zab::test {
                 struct addrinfo* tmp = addr;
                 while (tmp)
                 {
-                    auto stream_opt = co_await connector.connect(
-                        (struct sockaddr_storage*) tmp->ai_addr,
-                        (sizeof(*tmp->ai_addr)));
+                    auto stream =
+                        co_await tcp_connect<char>(engine_, tmp->ai_addr, (sizeof(*tmp->ai_addr)));
 
-                    if (stream_opt)
+                    if (!stream.last_error())
                     {
-                        run_stream(std::move(*stream_opt));
+                        run_stream(std::move(stream));
 
                         break;
                     }
@@ -302,13 +296,14 @@ namespace zab::test {
             }
 
             async_function<>
-            run_stream(tcp_stream _stream)
+            run_stream(tcp_stream<char> _stream)
             {
-                co_await _stream.write(std::vector<char>(kData));
+                co_await _stream.write(kData);
 
-                auto stream_opt = co_await _stream.read(kDataToSend);
+                std::vector<char> buffer(kDataToSend);
+                co_await _stream.read(buffer);
 
-                if (!stream_opt || *stream_opt != kData)
+                if (kData != buffer)
                 {
                     engine_->stop();
                     co_return;

@@ -24,7 +24,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO tagged_event SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
@@ -52,7 +52,7 @@ namespace zab {
 
     /**
      * @brief      This class describes an engine for enabling access to an
-     *             interface and providing an event loop to execute requests.
+     *             interface and providing an tagged_event loop to execute requests.
      *
      */
     class engine {
@@ -118,9 +118,9 @@ namespace zab {
             }
 
             /**
-             * @brief      Provides direct access to the event loop.
+             * @brief      Provides direct access to the tagged_event loop.
              *
-             * @return     The Wngines event loop.
+             * @return     The Wngines tagged_event loop.
              */
             inline event_loop&
             get_event_loop() noexcept
@@ -152,16 +152,16 @@ namespace zab {
             execute(std::function<void()> _yielder, order_t _order, thread_t _thread) noexcept;
 
             void
-            resume(event _handle) noexcept;
+            resume(tagged_event _handle) noexcept;
 
             void
-            thread_resume(event _handle, thread_t _thread) noexcept;
+            thread_resume(tagged_event _handle, thread_t _thread) noexcept;
 
             void
-            delayed_resume(event _handle, order_t _order) noexcept;
+            delayed_resume(tagged_event _handle, order_t _order) noexcept;
 
             void
-            delayed_resume(event _handle, order_t _order, thread_t _thread) noexcept;
+            delayed_resume(tagged_event _handle, order_t _order, thread_t _thread) noexcept;
 
             void
             start() noexcept;
@@ -177,8 +177,8 @@ namespace zab {
              *
              * @return     The thread id.
              */
-            inline thread_t
-            current_id() const noexcept
+            inline static thread_t
+            current_id() noexcept
             {
                 return this_thead_;
             }
@@ -201,6 +201,9 @@ namespace zab {
             thread_t
             get_any_thread();
 
+            // This is mainly stop helgrind et al. complaining
+            // The auto latch should stop any race conditions...
+            std::mutex                 mtx_;
             std::vector<event_loop>    event_loop_;
             std::vector<timer_service> timers_;
 

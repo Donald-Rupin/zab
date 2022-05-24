@@ -39,9 +39,9 @@
 
 #include <coroutine>
 #include <utility>
-// DELETE
-#include <iostream>
 
+#include "zab/event.hpp"
+#include "zab/generic_awaitable.hpp"
 #include "zab/strong_types.hpp"
 
 namespace zab {
@@ -50,61 +50,68 @@ namespace zab {
 
     /**
      * @brief      Data pack for pausing coroutines.
-     *             - thread_: The thread to resume the coroutine in.
-     *             - data_  : Any data that you wish to pass to the coroutine.
-     *             - handle_: The coroutine to resume.
-     *
      *
      */
     struct pause_pack {
-            thread_t                thread_ = thread_t{};
-            std::intptr_t           data_   = 0;
-            std::coroutine_handle<> handle_ = nullptr;
+
+            /**
+             * @brief The thread to resume the coroutine in.
+             *
+             */
+            thread_t thread_ = thread_t{};
+
+            /**
+             * @brief Any data that you wish to pass to the coroutine.
+             *
+             */
+            std::intptr_t data_ = 0;
+
+            /**
+             * @brief The coroutine to resume.
+             *
+             */
+            tagged_event handle_;
     };
 
-    template <typename Functor>
-        requires(std::is_nothrow_invocable_v<Functor, pause_pack*>)
+    namespace details {
+
+        /**
+         * @brief Can the callable be nothrow called with a pause_pack*.
+         *
+         * @tparam Functor The callable type.
+         */
+        template <typename Functor>
+        concept NoThrowInvoacablePP = std::is_nothrow_invocable_v<Functor, pause_pack*>;
+
+    }   // namespace details
+
+    /**
+     * @brief Suspend a coroutine until unpause is called.
+     *
+     * @tparam Functor callable type.
+     * @param _func The callable that is given the pause_pack* for resumption.
+     * @co_return std::intptr_t The value of pause_pack->data_ given to the Functor.
+     */
+    template <details::NoThrowInvoacablePP Functor>
     inline auto
     pause(Functor&& _func) noexcept
     {
-        struct {
-                auto operator co_await() const noexcept
+        return suspension_point(
+            [pp       = pause_pack{},
+             function = std::forward<Functor>(_func)]<typename T>(T _handle) mutable noexcept
+            {
+                if constexpr (is_suspend<T>())
                 {
-                    struct {
-                            void
-                            await_suspend(std::coroutine_handle<> _awaiter) noexcept
-                            {
-                                pp_.handle_ = _awaiter;
-                                function_(&pp_);
-                            }
-
-                            bool
-                            await_ready() const noexcept
-                            {
-                                return false;
-                            }
-
-                            pause_pack
-                            await_resume() const noexcept
-                            {
-                                pause_pack ret = pp_;
-                                ret.handle_    = nullptr;
-                                return ret;
-                            }
-
-                            pause_pack pp_;
-                            Functor    function_;
-
-                    } awaiter{pause_pack{}, std::move(function_)};
-
-                    return awaiter;
+                    pp.handle_ = _handle;
+                    function(&pp);
                 }
-
-                Functor function_;
-
-        } wait_for{std::forward<Functor>(_func)};
-
-        return wait_for;
+                else if constexpr (is_resume<T>())
+                {
+                    pause_pack ret = pp;
+                    ret.handle_    = nullptr;
+                    return ret;
+                }
+            });
     }
 
     /**

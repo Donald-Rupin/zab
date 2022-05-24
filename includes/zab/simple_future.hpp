@@ -98,7 +98,7 @@ namespace zab {
                 auto
                 await_suspend(std::coroutine_handle<UnderlyingPromise> _remsumptor) noexcept
                 {
-                    handle_.promise().set_underlying(_remsumptor);
+                    handle_.promise().set_underlying({_remsumptor});
                     return handle_;
                 }
 
@@ -214,11 +214,24 @@ namespace zab {
                 return details::simple_awaitable<promise_type>{.handle_ = handle_};
             }
 
+            inline void
+            inline_co_await(tagged_event _event) noexcept
+            {
+                handle_.promise().set_underlying(_event);
+                handle_.resume();
+            }
+
+            inline decltype(auto)
+            get_inline_result() noexcept
+            {
+                return handle_.promise().data();
+            }
+
             std::coroutine_handle<promise_type> handle_;
     };
 
     /**
-     * Conveince for when the promise will always resolve.
+     * Convenience for when the promise will always resolve.
      */
     template <typename T>
     using guaranteed_future =

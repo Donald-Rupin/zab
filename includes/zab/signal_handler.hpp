@@ -122,7 +122,7 @@ namespace zab {
             std::map<int, std::vector<std::pair<thread_t, handler>>> handlers_;
 
             engine*               engine_;
-            event_loop::io_handle handle_;
+            event_loop::io_event* handle_;
 
             int  fds_[2];
             bool running_ = false;
