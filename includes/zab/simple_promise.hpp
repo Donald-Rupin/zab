@@ -40,8 +40,10 @@
 #include <coroutine>
 #include <iostream>
 #include <optional>
+#include <type_traits>
 #include <utility>
 
+#include "zab/event.hpp"
 #include "zab/spin_lock.hpp"
 
 namespace zab {
@@ -59,9 +61,10 @@ namespace zab {
                     self.set_underlying(nullptr);
                     self.complete();
 
-                    if (next) { return next; }
+                    if (is_coroutine(next)) { return std::get<std::coroutine_handle<>>(next); }
                     else
                     {
+                        execute_event(std::get<event<>>(next));
                         return std::noop_coroutine();
                     }
                 }
@@ -87,7 +90,15 @@ namespace zab {
 
             ~simple_common()
             {
-                if (underlying_) { underlying_.destroy(); }
+                std::visit(
+                    []<typename F>(F _data)
+                    {
+                        if constexpr (std::is_same_v<F, std::coroutine_handle<>>)
+                        {
+                            if (_data) { _data.destroy(); }
+                        }
+                    },
+                    underlying_);
             }
 
             inline auto
@@ -97,12 +108,12 @@ namespace zab {
             }
 
             inline void
-            set_underlying(std::coroutine_handle<> _under) noexcept
+            set_underlying(tagged_event _under) noexcept
             {
                 underlying_ = _under;
             }
 
-            inline std::coroutine_handle<>
+            inline tagged_event
             underlying() noexcept
             {
                 return underlying_;
@@ -155,8 +166,8 @@ namespace zab {
         private:
 
             // TODO(donald): could remove  complete_ and use null to signal?
-            std::coroutine_handle<> underlying_;
-            bool                    complete_;
+            tagged_event underlying_;
+            bool         complete_;
     };
 
     /**

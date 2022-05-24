@@ -30,10 +30,11 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *  SOFTWARE.
  *
- *  @file test-engine_awaitble.cpp
+ *  @file test-engine_awaitable.cpp
  *
  */
 
+#include <memory>
 #include <optional>
 #include <thread>
 
@@ -42,6 +43,7 @@
 #include "zab/engine_enabled.hpp"
 #include "zab/event.hpp"
 #include "zab/event_loop.hpp"
+#include "zab/pause.hpp"
 #include "zab/reusable_promise.hpp"
 #include "zab/simple_promise.hpp"
 
@@ -51,6 +53,9 @@ namespace zab::test {
 
     int
     test_async_function();
+
+    int
+    test_context_chain();
 
     int
     test_promise_function();
@@ -70,7 +75,7 @@ namespace zab::test {
     int
     run_test()
     {
-        return test_async_function() || test_promise_function() ||
+        return test_async_function() || test_context_chain() || test_promise_function() ||
                test_recursive_promise_function() || test_pause_function() ||
                test_reusable_promise_function() || test_proxy();
     }
@@ -124,6 +129,80 @@ namespace zab::test {
         engine engine(engine::configs{2, engine::configs::kExact});
 
         test_async_class test;
+
+        test.register_engine(engine);
+
+        engine.start();
+
+        return test.failed();
+    }
+
+    class test_context_chain_class : public engine_enabled<test_context_chain_class> {
+
+        public:
+
+            static constexpr auto kInitialiseThread = 0;
+
+            void
+            initialise() noexcept
+            {
+                run();
+            }
+
+            async_function<>
+            run() noexcept
+            {
+                auto data    = std::make_unique<std::pair<engine*, pause_pack*>>(engine_, nullptr);
+                auto promise = do_promise();
+
+                co_await pause(
+                    [&](auto* _pp) noexcept
+                    {
+                        data->second = _pp;
+                        event<> e{
+                            .cb_ =
+                                +[](void* _context)
+                                {
+                                    auto* pp =
+                                        static_cast<std::pair<engine*, pause_pack*>*>(_context);
+                                    zab::unpause(pp->first, *pp->second);
+                                },
+                            .context_ = data.get()};
+                        promise.inline_co_await(e);
+                    });
+
+                if (promise.get_inline_result() == 42) { failed_ = false; }
+
+                engine_->stop();
+
+                co_return;
+            }
+
+            simple_future<int>
+            do_promise()
+            {
+                co_await yield();
+
+                co_return 42;
+            }
+
+            bool
+            failed()
+            {
+                return failed_;
+            }
+
+        private:
+
+            bool failed_ = true;
+    };
+
+    int
+    test_context_chain()
+    {
+        engine engine(engine::configs{2, engine::configs::kExact});
+
+        test_context_chain_class test;
 
         test.register_engine(engine);
 
@@ -276,11 +355,7 @@ namespace zab::test {
             constant_recursive_promise(size_t _start, size_t _max) noexcept
             {
                 if (_start == _max) { co_return 1; }
-                else
-                {
-
-                    co_return co_await constant_recursive_promise(_start + 1, _max);
-                }
+                else { co_return co_await constant_recursive_promise(_start + 1, _max); }
             }
 
             simple_future<size_t>
@@ -362,11 +437,7 @@ namespace zab::test {
                 auto p = co_await pause([&pack](auto* _p) noexcept { pack = _p; });
 
                 if (expected(p.data_, 1u)) { failed_ = true; }
-                else
-                {
-
-                    failed_ = false;
-                }
+                else { failed_ = false; }
 
                 engine_->stop();
             }
