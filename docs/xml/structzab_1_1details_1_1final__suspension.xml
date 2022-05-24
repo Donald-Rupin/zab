@@ -23,7 +23,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="54" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="54" bodyend="67"/>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="56" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="56" bodyend="70"/>
       </memberdef>
       <memberdef kind="function" id="structzab_1_1details_1_1final__suspension_1abe52318f4728ea9b797363dafc701248" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>bool</type>
@@ -36,7 +36,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="70" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="70" bodyend="73"/>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="73" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="73" bodyend="76"/>
       </memberdef>
       <memberdef kind="function" id="structzab_1_1details_1_1final__suspension_1a0e01fdcbba94420f1e4af026285195fe" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>void</type>
@@ -49,14 +49,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="76" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="76" bodyend="77"/>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="79" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="79" bodyend="80"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="50" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="50" bodyend="78"/>
+    <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="52" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="52" bodyend="81"/>
     <listofallmembers>
       <member refid="structzab_1_1details_1_1final__suspension_1abe52318f4728ea9b797363dafc701248" prot="public" virt="non-virtual"><scope>zab::details::final_suspension</scope><name>await_ready</name></member>
       <member refid="structzab_1_1details_1_1final__suspension_1a0e01fdcbba94420f1e4af026285195fe" prot="public" virt="non-virtual"><scope>zab::details::final_suspension</scope><name>await_resume</name></member>

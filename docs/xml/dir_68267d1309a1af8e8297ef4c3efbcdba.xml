@@ -4,10 +4,10 @@
     <compoundname>/home/donald/rupin/zab/src</compoundname>
     <innerfile refid="engine_8cpp">engine.cpp</innerfile>
     <innerfile refid="event__loop_8cpp">event_loop.cpp</innerfile>
-    <innerfile refid="network__overlay_8cpp">network_overlay.cpp</innerfile>
+    <innerfile refid="network__operation_8cpp">network_operation.cpp</innerfile>
     <innerfile refid="pause_8cpp">pause.cpp</innerfile>
     <innerfile refid="signal__handler_8cpp">signal_handler.cpp</innerfile>
-    <innerfile refid="tcp__stream_8cpp">tcp_stream.cpp</innerfile>
+    <innerfile refid="tcp__networking_8cpp">tcp_networking.cpp</innerfile>
     <innerfile refid="timer__service_8cpp">timer_service.cpp</innerfile>
     <briefdescription>
     </briefdescription>

@@ -9,13 +9,13 @@ Welcome to ZAB's Home Page
 
 --------------------------
 
-A high-performance framework for building asynchronous and multi-threaded programs. 
+A high-performance liburing backed event loop for building asynchronous and multi-threaded programs. 
 
 The original goal of this library was to learn the new `coroutines TS <https://en.cppreference.com/w/cpp/coroutine>`_ for C++. I found the most difficult part of the coroutine TS is when you want to develop an asynchronous architecture or "executer/runtime" that can handle re-entrant code across possibly different threads. Thus, **ZAB** was born. 
 
-The goal then became to provide a generic framework so users can utilise coroutines to easily develop concise, multi-threaded asynchronous code. 
+ZAB uses io_uring and liburing as its back end to provide asynchronous system calls. ZAB so far does not try to provide QoL or improvements on the posix system call API's. However, C++ classes are provided to provide resource management and group similar function calls.
 
-The framework is fairly opinionated with the aim of providing multi-threaded and asynchronous functionality in a way that works like within high-level languages with built-in async support. The design largely takes inspiration from `libuv <https://github.com/libuv/libuv>`_ and its use with javascript in the `node.js <https://nodejs.org/en/>`_ runtime.   
+`benchmarks can be found here <https://github.com/Donald-Rupin/zab_benchmark<`
 
 Contact: donald.rupin@pm.me
 
@@ -31,4 +31,6 @@ Disclosure
    :hidden:
 
    lib/lib_root 
-   posts/blog_home
+
+..
+    posts/blog_home

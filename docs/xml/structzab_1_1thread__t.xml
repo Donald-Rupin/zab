@@ -11,12 +11,13 @@
         <name>kAnyThread</name>
         <initializer>= std::numeric_limits&lt;std::uint16_t&gt;::max() - 1</initializer>
         <briefdescription>
+<para>This value signifies either no thread or any thread is allowed. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="52" column="35" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="52" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="57" column="35" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="57" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-attrib">
@@ -25,14 +26,15 @@
         <definition>std::uint16_t zab::thread_t::thread_</definition>
         <argsstring></argsstring>
         <name>thread_</name>
-        <initializer>= kAnyThread</initializer>
+        <initializer>= <ref refid="structzab_1_1thread__t_1a2f161cb6b3e332b4ac5fffa23df942ff" kindref="member">kAnyThread</ref></initializer>
         <briefdescription>
+<para>The logical id of the thread. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="53" column="35" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="53" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="63" column="27" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="63" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
@@ -42,12 +44,16 @@
         <argsstring>()</argsstring>
         <name>any_thread</name>
         <briefdescription>
+<para>Gets a <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref> object with its value initialised to any thread. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>constexpr <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref> </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="56" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="56" bodyend="59"/>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="71" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="71" bodyend="74"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="friend">
@@ -65,12 +71,35 @@
           <declname>_second</declname>
         </param>
         <briefdescription>
+<para>Equality operator is default. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_first</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The lhs </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_second</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The rhs </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true If equal </para>
+</simplesect>
+<simplesect kind="return"><para>false If not equal </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="62" column="13"/>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="85" column="13"/>
       </memberdef>
       <memberdef kind="friend" id="structzab_1_1thread__t_1ab4783a229d5b780581e8e200fac2869b" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>constexpr friend bool</type>
@@ -86,12 +115,35 @@
           <declname>_second</declname>
         </param>
         <briefdescription>
+<para>Inequality operator is default. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_first</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The lhs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_second</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The rhs. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true If not equal </para>
+</simplesect>
+<simplesect kind="return"><para>false If equal </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="65" column="13"/>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="96" column="13"/>
       </memberdef>
       <memberdef kind="friend" id="structzab_1_1thread__t_1ae0b484631e0cec16b3bee651972b9b00" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>constexpr friend auto</type>
@@ -107,12 +159,31 @@
           <declname>_second</declname>
         </param>
         <briefdescription>
+<para>3-way operator is default for a std::strong_ordering. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_first</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The lhs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_second</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The rhs. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="67" column="30" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="68" bodyend="71"/>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="104" column="30" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="105" bodyend="108"/>
       </memberdef>
       <memberdef kind="friend" id="structzab_1_1thread__t_1a39eaa00209eac8555993971116fdca3f" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -135,12 +206,31 @@
           <declname>_number</declname>
         </param>
         <briefdescription>
+<para>3-way operator with a std::integral for a std::strong_ordering. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_first</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The lhs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_second</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The rhs. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="74" column="30" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="75" bodyend="78"/>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="117" column="30" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="118" bodyend="121"/>
       </memberdef>
       <memberdef kind="friend" id="structzab_1_1thread__t_1a5a1f767b8fba3aa25526fc4d78d433a7" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -163,12 +253,35 @@
           <declname>_second</declname>
         </param>
         <briefdescription>
+<para>Equality operator with a std::integral. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_first</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The lhs </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_second</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The rhs </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true If equal </para>
+</simplesect>
+<simplesect kind="return"><para>false If not equal </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="82" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="82" bodyend="85"/>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="133" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="133" bodyend="136"/>
       </memberdef>
       <memberdef kind="friend" id="structzab_1_1thread__t_1ab000b67ab20838ba4c0a084f36d65a49" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -191,12 +304,35 @@
           <declname>_second</declname>
         </param>
         <briefdescription>
+<para>Inequality operator with a std::integral. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_first</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The lhs </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_second</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The rhs </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true If equal </para>
+</simplesect>
+<simplesect kind="return"><para>false If not equal </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="89" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="89" bodyend="92"/>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="148" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="148" bodyend="151"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -204,7 +340,7 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="51" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="51" bodyend="93"/>
+    <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="51" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="51" bodyend="152"/>
     <listofallmembers>
       <member refid="structzab_1_1thread__t_1a24d1dd67dd5529493217cbd8646f48a6" prot="public" virt="non-virtual"><scope>zab::thread_t</scope><name>any_thread</name></member>
       <member refid="structzab_1_1thread__t_1a2f161cb6b3e332b4ac5fffa23df942ff" prot="public" virt="non-virtual"><scope>zab::thread_t</scope><name>kAnyThread</name></member>

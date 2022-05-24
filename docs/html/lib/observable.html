@@ -1,73 +1,34 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Observables &mdash; ZAB 0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="File IO" href="file_io.html" />
     <link rel="prev" title="async_barrier" href="async_barrier.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> ZAB
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -75,19 +36,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Visit:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -100,128 +50,85 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">ZAB</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="lib_root.html">ZAB Documentation</a> &raquo;</li>
-        
       <li>Observables</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/lib/observable.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
 
-<div class="section" id="observables">
-<span id="observable"></span><h1>Observables<a class="headerlink" href="#observables" title="Permalink to this headline">¶</a></h1>
+<section id="observables">
+<span id="observable"></span><h1>Observables<a class="headerlink" href="#observables" title="Permalink to this headline"></a></h1>
 <hr class="docutils" />
 <p>An <code class="docutils literal notranslate"><span class="pre">observable&lt;Args...&gt;</span></code> represents a thread safe publish/subscribe system. The to main operations are <code class="docutils literal notranslate"><span class="pre">emit</span></code> and <code class="docutils literal notranslate"><span class="pre">connect</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">emit</span></code> is a <code class="docutils literal notranslate"><span class="pre">simple_future&lt;&gt;</span></code> that safely resumes all waiting subscribers allowing them access to the given parameters. For safety the parameters of emit and forwarded into a safe location. As to ensure no copies are made, move objects in as arguments. <code class="docutils literal notranslate"><span class="pre">emit</span></code> will resume the caller only once <cite>all</cite> observers have received the publish, and have finished with the data. There is a <code class="docutils literal notranslate"><span class="pre">async_emit</span></code> for pushing ab <code class="docutils literal notranslate"><span class="pre">emit</span></code> in the background. Deconstruction of the <code class="docutils literal notranslate"><span class="pre">observable&lt;Args...&gt;</span></code> when <code class="docutils literal notranslate"><span class="pre">async_emit</span></code> are running is undefined behavior.</p>
 <p><code class="docutils literal notranslate"><span class="pre">connect</span></code> is a <code class="docutils literal notranslate"><span class="pre">simple_future&lt;&gt;</span></code> that safely subscribes to an <code class="docutils literal notranslate"><span class="pre">observable&lt;Args...&gt;</span></code> and returns an <code class="docutils literal notranslate"><span class="pre">observer</span></code> that can be used to await for publishes. <code class="docutils literal notranslate"><span class="pre">co_await</span> <span class="pre">observer</span></code> on resumption will return an <code class="docutils literal notranslate"><span class="pre">observer_guard</span></code> that ensures the lifetime of the published values. The published values can be accessed through <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">std::tuple&lt;Args...&gt;&amp;</span> <span class="pre">observer_guard::event()</span></code>.</p>
 <hr class="docutils" />
 <div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">string_observable</span> <span class="o">=</span> <span class="n">observable</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">;</span>
+<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id1" title="Permalink to this code"></a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">string_observable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">observable</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">;</span><span class="w"></span>
 
-<span class="n">async_function</span><span class="o">&lt;&gt;</span>
-<span class="n">your_class</span><span class="o">::</span><span class="n">subscriber</span><span class="p">(</span><span class="n">string_observable</span><span class="o">&amp;</span> <span class="n">_ob</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">auto</span> <span class="n">con</span> <span class="o">=</span> <span class="n">co_wait</span> <span class="n">_ob</span><span class="p">.</span><span class="n">connect</span><span class="p">();</span>
+<span class="n">async_function</span><span class="o">&lt;&gt;</span><span class="w"></span>
+<span class="n">your_class</span><span class="o">::</span><span class="n">subscriber</span><span class="p">(</span><span class="n">string_observable</span><span class="o">&amp;</span><span class="w"> </span><span class="n">_ob</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">co_wait</span><span class="w"> </span><span class="n">_ob</span><span class="p">.</span><span class="n">connect</span><span class="p">();</span><span class="w"></span>
 
-    <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-        <span class="k">auto</span> <span class="n">guard</span> <span class="o">=</span> <span class="k">co_await</span> <span class="n">con</span><span class="p">;</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">guard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">co_await</span><span class="w"> </span><span class="n">con</span><span class="p">;</span><span class="w"></span>
 
-        <span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span><span class="p">[</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">]</span> <span class="o">=</span> <span class="n">guard</span><span class="p">.</span><span class="n">event</span><span class="p">();</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="p">[</span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="n">s2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">guard</span><span class="p">.</span><span class="n">event</span><span class="p">();</span><span class="w"></span>
 
-        <span class="cm">/* On guard deconstruct the publisher is notified that all    */</span>
-        <span class="cm">/* observers have finished and the strings are deconstructed  */</span>
-    <span class="p">}</span>
+<span class="w">        </span><span class="cm">/* On guard deconstruct the publisher is notified that all    */</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/* observers have finished and the strings are deconstructed  */</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-<span class="p">}</span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="n">async_function</span><span class="o">&lt;&gt;</span>
-<span class="n">your_class</span><span class="o">::</span><span class="n">publisher</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="n">string_observable</span> <span class="nf">ob</span><span class="p">(</span><span class="n">engine_</span><span class="p">);</span>
+<span class="n">async_function</span><span class="o">&lt;&gt;</span><span class="w"></span>
+<span class="n">your_class</span><span class="o">::</span><span class="n">publisher</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">string_observable</span><span class="w"> </span><span class="nf">ob</span><span class="p">(</span><span class="n">engine_</span><span class="p">);</span><span class="w"></span>
 
-    <span class="n">subscriber</span><span class="p">(</span><span class="n">ob</span><span class="p">);</span>
+<span class="w">    </span><span class="n">subscriber</span><span class="p">(</span><span class="n">ob</span><span class="p">);</span><span class="w"></span>
 
-    <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">co_await</span> <span class="n">ob</span><span class="p">.</span><span class="n">emit</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">,</span> <span class="s">&quot;world&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">co_await</span><span class="w"> </span><span class="n">ob</span><span class="p">.</span><span class="n">emit</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <hr class="docutils" />
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4IDpEN3zab10observableE">
-<span id="_CPPv3IDpEN3zab10observableE"></span><span id="_CPPv2IDpEN3zab10observableE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Args</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1observable"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">observable</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="engine_enabled.html#_CPPv4I0EN3zab14engine_enabledE" title="zab::engine_enabled"><span class="n"><span class="pre">engine_enabled</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpEN3zab10observableE" title="zab::observable"><span class="n"><span class="pre">observable</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpEN3zab10observableE" title="zab::observable::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4IDpEN3zab10observableE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3IDpEN3zab10observableE"></span><span id="_CPPv2IDpEN3zab10observableE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Args</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1observable"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">observable</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="engine_enabled.html#_CPPv4I0EN3zab14engine_enabledE" title="zab::engine_enabled"><span class="n"><span class="pre">engine_enabled</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpEN3zab10observableE" title="zab::observable"><span class="n"><span class="pre">observable</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpEN3zab10observableE" title="zab::observable::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4IDpEN3zab10observableE" title="Permalink to this definition"></a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable5superE">
-<span id="_CPPv3N3zab10observable5superE"></span><span id="_CPPv2N3zab10observable5superE"></span><span class="target" id="classzab_1_1observable_1a7a431ac86ac90ec9d43e227df19df724"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">super</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="engine_enabled.html#_CPPv4I0EN3zab14engine_enabledE" title="zab::engine_enabled"><span class="n"><span class="pre">engine_enabled</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpEN3zab10observableE" title="zab::observable"><span class="n"><span class="pre">observable</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpEN3zab10observableE" title="zab::observable::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3zab10observable5superE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable5superE"></span><span id="_CPPv2N3zab10observable5superE"></span><span class="target" id="classzab_1_1observable_1a7a431ac86ac90ec9d43e227df19df724"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">super</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="engine_enabled.html#_CPPv4I0EN3zab14engine_enabledE" title="zab::engine_enabled"><span class="n"><span class="pre">engine_enabled</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpEN3zab10observableE" title="zab::observable"><span class="n"><span class="pre">observable</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpEN3zab10observableE" title="zab::observable::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3zab10observable5superE" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -229,48 +136,48 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable10observableEP6engine">
-<span id="_CPPv3N3zab10observable10observableEP6engine"></span><span id="_CPPv2N3zab10observable10observableEP6engine"></span><span id="zab::observable::observable__engineP"></span><span class="target" id="classzab_1_1observable_1a0b70a732041fd1c943f5e28ff310368b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">observable</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable10observableEP6engine" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable10observableEP6engine"></span><span id="_CPPv2N3zab10observable10observableEP6engine"></span><span id="zab::observable::observable__engineP"></span><span class="target" id="classzab_1_1observable_1a0b70a732041fd1c943f5e28ff310368b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">observable</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable10observableEP6engine" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4IDpEN3zab10observable4emitE13simple_futureDpRR5PArgs">
-<span id="_CPPv3IDpEN3zab10observable4emitEDpRR5PArgs"></span><span id="_CPPv2IDpEN3zab10observable4emitEDpRR5PArgs"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">PArgs</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1observable_1a714886225c0f9588c10f7bc0107600ae"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">emit</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4IDpEN3zab10observable4emitE13simple_futureDpRR5PArgs" title="zab::observable::emit::PArgs"><span class="n"><span class="pre">PArgs</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IDpEN3zab10observable4emitE13simple_futureDpRR5PArgs" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3IDpEN3zab10observable4emitEDpRR5PArgs"></span><span id="_CPPv2IDpEN3zab10observable4emitEDpRR5PArgs"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">PArgs</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1observable_1a714886225c0f9588c10f7bc0107600ae"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">emit</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4IDpEN3zab10observable4emitE13simple_futureDpRR5PArgs" title="zab::observable::emit::PArgs"><span class="n"><span class="pre">PArgs</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IDpEN3zab10observable4emitE13simple_futureDpRR5PArgs" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4IDpEN3zab10observable10async_emitE14async_functionDpRR5PArgs">
-<span id="_CPPv3IDpEN3zab10observable10async_emitEDpRR5PArgs"></span><span id="_CPPv2IDpEN3zab10observable10async_emitEDpRR5PArgs"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">PArgs</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1observable_1a11ff3bf5681b6c111e7518904efcac33"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="async_function.html#_CPPv4I_N7details9ExecutionEEN3zab14async_functionE" title="zab::async_function"><span class="n"><span class="pre">async_function</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">async_emit</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4IDpEN3zab10observable10async_emitE14async_functionDpRR5PArgs" title="zab::observable::async_emit::PArgs"><span class="n"><span class="pre">PArgs</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IDpEN3zab10observable10async_emitE14async_functionDpRR5PArgs" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3IDpEN3zab10observable10async_emitEDpRR5PArgs"></span><span id="_CPPv2IDpEN3zab10observable10async_emitEDpRR5PArgs"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">PArgs</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1observable_1a11ff3bf5681b6c111e7518904efcac33"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="async_function.html#_CPPv4I_N7details9ExecutionEEN3zab14async_functionE" title="zab::async_function"><span class="n"><span class="pre">async_function</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">async_emit</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4IDpEN3zab10observable10async_emitE14async_functionDpRR5PArgs" title="zab::observable::async_emit::PArgs"><span class="n"><span class="pre">PArgs</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IDpEN3zab10observable10async_emitE14async_functionDpRR5PArgs" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable7connectEv">
-<span id="_CPPv3N3zab10observable7connectEv"></span><span id="_CPPv2N3zab10observable7connectEv"></span><span id="zab::observable::connect"></span><span class="target" id="classzab_1_1observable_1a8461702bf6f66e56033069fc655608b7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">guaranteed_future</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3zab10observable8observerE" title="zab::observable::observer"><span class="n"><span class="pre">observer</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">connect</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable7connectEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable7connectEv"></span><span id="_CPPv2N3zab10observable7connectEv"></span><span id="zab::observable::connect"></span><span class="target" id="classzab_1_1observable_1a8461702bf6f66e56033069fc655608b7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">guaranteed_future</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3zab10observable8observerE" title="zab::observable::observer"><span class="n"><span class="pre">observer</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">connect</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable7connectEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable10disconnectER8observer">
-<span id="_CPPv3N3zab10observable10disconnectER8observer"></span><span id="_CPPv2N3zab10observable10disconnectER8observer"></span><span id="zab::observable::disconnect__observerR"></span><span class="target" id="classzab_1_1observable_1a5bbea69a94eb54e41f3eba35b55709a7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">disconnect</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10observable8observerE" title="zab::observable::observer"><span class="n"><span class="pre">observer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_observer</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable10disconnectER8observer" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable10disconnectER8observer"></span><span id="_CPPv2N3zab10observable10disconnectER8observer"></span><span id="zab::observable::disconnect__observerR"></span><span class="target" id="classzab_1_1observable_1a5bbea69a94eb54e41f3eba35b55709a7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">disconnect</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10observable8observerE" title="zab::observable::observer"><span class="n"><span class="pre">observer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_observer</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable10disconnectER8observer" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable16await_disconnectEv">
-<span id="_CPPv3N3zab10observable16await_disconnectEv"></span><span id="_CPPv2N3zab10observable16await_disconnectEv"></span><span id="zab::observable::await_disconnect"></span><span class="target" id="classzab_1_1observable_1a4b0b9c17f32451c8a248de41ce6d921c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">await_disconnect</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable16await_disconnectEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable16await_disconnectEv"></span><span id="_CPPv2N3zab10observable16await_disconnectEv"></span><span id="zab::observable::await_disconnect"></span><span class="target" id="classzab_1_1observable_1a4b0b9c17f32451c8a248de41ce6d921c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">await_disconnect</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable16await_disconnectEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable17internal_observerE">
-<span id="_CPPv3N3zab10observable17internal_observerE"></span><span id="_CPPv2N3zab10observable17internal_observerE"></span><span id="zab::observable::internal_observer"></span><span class="target" id="structzab_1_1observable_1_1internal__observer"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">internal_observer</span></span></span><a class="headerlink" href="#_CPPv4N3zab10observable17internal_observerE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable17internal_observerE"></span><span id="_CPPv2N3zab10observable17internal_observerE"></span><span id="zab::observable::internal_observer"></span><span class="target" id="structzab_1_1observable_1_1internal__observer"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">internal_observer</span></span></span><a class="headerlink" href="#_CPPv4N3zab10observable17internal_observerE" title="Permalink to this definition"></a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable17internal_observer17internal_observerEv">
-<span id="_CPPv3N3zab10observable17internal_observer17internal_observerEv"></span><span id="_CPPv2N3zab10observable17internal_observer17internal_observerEv"></span><span id="zab::observable::internal_observer::internal_observer"></span><span class="target" id="structzab_1_1observable_1_1internal__observer_1aee9df96a404bb9d141e96ccf18eb2fbb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">internal_observer</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable17internal_observer17internal_observerEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable17internal_observer17internal_observerEv"></span><span id="_CPPv2N3zab10observable17internal_observer17internal_observerEv"></span><span id="zab::observable::internal_observer::internal_observer"></span><span class="target" id="structzab_1_1observable_1_1internal__observer_1aee9df96a404bb9d141e96ccf18eb2fbb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">internal_observer</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable17internal_observer17internal_observerEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable17internal_observerD0Ev">
-<span id="_CPPv3N3zab10observable17internal_observerD0Ev"></span><span id="_CPPv2N3zab10observable17internal_observerD0Ev"></span><span id="zab::observable::internal_observer::~internal_observer"></span><span class="target" id="structzab_1_1observable_1_1internal__observer_1a165617ecb71c2f6515a49c25fdbf151d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~internal_observer</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable17internal_observerD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable17internal_observerD0Ev"></span><span id="_CPPv2N3zab10observable17internal_observerD0Ev"></span><span id="zab::observable::internal_observer::~internal_observer"></span><span class="target" id="structzab_1_1observable_1_1internal__observer_1a165617ecb71c2f6515a49c25fdbf151d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~internal_observer</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable17internal_observerD0Ev" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -278,22 +185,22 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable17internal_observer4mtx_E">
-<span id="_CPPv3N3zab10observable17internal_observer4mtx_E"></span><span id="_CPPv2N3zab10observable17internal_observer4mtx_E"></span><span id="zab::observable::internal_observer::mtx___std::mutex"></span><span class="target" id="structzab_1_1observable_1_1internal__observer_1a61c9f68f20d3566b3d6ee3e10d782be9"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">mutex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mtx_</span></span></span><a class="headerlink" href="#_CPPv4N3zab10observable17internal_observer4mtx_E" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable17internal_observer4mtx_E"></span><span id="_CPPv2N3zab10observable17internal_observer4mtx_E"></span><span id="zab::observable::internal_observer::mtx___std::mutex"></span><span class="target" id="structzab_1_1observable_1_1internal__observer_1a61c9f68f20d3566b3d6ee3e10d782be9"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">mutex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mtx_</span></span></span><a class="headerlink" href="#_CPPv4N3zab10observable17internal_observer4mtx_E" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable17internal_observer7result_E">
-<span id="_CPPv3N3zab10observable17internal_observer7result_E"></span><span id="_CPPv2N3zab10observable17internal_observer7result_E"></span><span id="zab::observable::internal_observer::result___pending_resultP"></span><span class="target" id="structzab_1_1observable_1_1internal__observer_1a58713415a38dd63a8ff3d1dab57620ad"></span><a class="reference internal" href="#_CPPv4N3zab10observable14pending_resultE" title="zab::observable::pending_result"><span class="n"><span class="pre">pending_result</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">result_</span></span></span><a class="headerlink" href="#_CPPv4N3zab10observable17internal_observer7result_E" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable17internal_observer7result_E"></span><span id="_CPPv2N3zab10observable17internal_observer7result_E"></span><span id="zab::observable::internal_observer::result___pending_resultP"></span><span class="target" id="structzab_1_1observable_1_1internal__observer_1a58713415a38dd63a8ff3d1dab57620ad"></span><a class="reference internal" href="#_CPPv4N3zab10observable14pending_resultE" title="zab::observable::pending_result"><span class="n"><span class="pre">pending_result</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">result_</span></span></span><a class="headerlink" href="#_CPPv4N3zab10observable17internal_observer7result_E" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable17internal_observer7handle_E">
-<span id="_CPPv3N3zab10observable17internal_observer7handle_E"></span><span id="_CPPv2N3zab10observable17internal_observer7handle_E"></span><span id="zab::observable::internal_observer::handle___std::coroutine_handle"></span><span class="target" id="structzab_1_1observable_1_1internal__observer_1aa781a0ba3f824ee3dce08ea13a582290"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">coroutine_handle</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">handle_</span></span></span><a class="headerlink" href="#_CPPv4N3zab10observable17internal_observer7handle_E" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable17internal_observer7handle_E"></span><span id="_CPPv2N3zab10observable17internal_observer7handle_E"></span><span id="zab::observable::internal_observer::handle___std::coroutine_handle"></span><span class="target" id="structzab_1_1observable_1_1internal__observer_1aa781a0ba3f824ee3dce08ea13a582290"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">coroutine_handle</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">handle_</span></span></span><a class="headerlink" href="#_CPPv4N3zab10observable17internal_observer7handle_E" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable17internal_observer7thread_E">
-<span id="_CPPv3N3zab10observable17internal_observer7thread_E"></span><span id="_CPPv2N3zab10observable17internal_observer7thread_E"></span><span id="zab::observable::internal_observer::thread___thread_t"></span><span class="target" id="structzab_1_1observable_1_1internal__observer_1a0a2ff249a517b255838b1eea49e4630d"></span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">thread_</span></span></span><a class="headerlink" href="#_CPPv4N3zab10observable17internal_observer7thread_E" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable17internal_observer7thread_E"></span><span id="_CPPv2N3zab10observable17internal_observer7thread_E"></span><span id="zab::observable::internal_observer::thread___thread_t"></span><span class="target" id="structzab_1_1observable_1_1internal__observer_1a0a2ff249a517b255838b1eea49e4630d"></span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">thread_</span></span></span><a class="headerlink" href="#_CPPv4N3zab10observable17internal_observer7thread_E" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -301,37 +208,37 @@
 
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable8observerE">
-<span id="_CPPv3N3zab10observable8observerE"></span><span id="_CPPv2N3zab10observable8observerE"></span><span id="zab::observable::observer"></span><span class="target" id="classzab_1_1observable_1_1observer"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">observer</span></span></span><a class="headerlink" href="#_CPPv4N3zab10observable8observerE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable8observerE"></span><span id="_CPPv2N3zab10observable8observerE"></span><span id="zab::observable::observer"></span><span class="target" id="classzab_1_1observable_1_1observer"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">observer</span></span></span><a class="headerlink" href="#_CPPv4N3zab10observable8observerE" title="Permalink to this definition"></a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable8observer8observerEP10observableP17internal_observer">
-<span id="_CPPv3N3zab10observable8observer8observerEP10observableP17internal_observer"></span><span id="_CPPv2N3zab10observable8observer8observerEP10observableP17internal_observer"></span><span id="zab::observable::observer::observer__observableP.internal_observerP"></span><span class="target" id="classzab_1_1observable_1_1observer_1a8b9d4165572af7bd7ee20073e841cf34"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">observer</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4IDpEN3zab10observableE" title="zab::observable"><span class="n"><span class="pre">observable</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_ob</span></span>, <a class="reference internal" href="#_CPPv4N3zab10observable17internal_observerE" title="zab::observable::internal_observer"><span class="n"><span class="pre">internal_observer</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_internal</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable8observer8observerEP10observableP17internal_observer" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable8observer8observerEP10observableP17internal_observer"></span><span id="_CPPv2N3zab10observable8observer8observerEP10observableP17internal_observer"></span><span id="zab::observable::observer::observer__observableP.internal_observerP"></span><span class="target" id="classzab_1_1observable_1_1observer_1a8b9d4165572af7bd7ee20073e841cf34"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">observer</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4IDpEN3zab10observableE" title="zab::observable"><span class="n"><span class="pre">observable</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_ob</span></span>, <a class="reference internal" href="#_CPPv4N3zab10observable17internal_observerE" title="zab::observable::internal_observer"><span class="n"><span class="pre">internal_observer</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_internal</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable8observer8observerEP10observableP17internal_observer" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable8observer8observerERK8observer">
-<span id="_CPPv3N3zab10observable8observer8observerERK8observer"></span><span id="_CPPv2N3zab10observable8observer8observerERK8observer"></span><span id="zab::observable::observer::observer__observerCR"></span><span class="target" id="classzab_1_1observable_1_1observer_1a0f3656a276566fce06318017ccaad8f6"></span><span class="sig-name descname"><span class="n"><span class="pre">observer</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab10observable8observer8observerERK8observer" title="zab::observable::observer::observer"><span class="n"><span class="pre">observer</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab10observable8observer8observerERK8observer" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable8observer8observerERK8observer"></span><span id="_CPPv2N3zab10observable8observer8observerERK8observer"></span><span id="zab::observable::observer::observer__observerCR"></span><span class="target" id="classzab_1_1observable_1_1observer_1a0f3656a276566fce06318017ccaad8f6"></span><span class="sig-name descname"><span class="n"><span class="pre">observer</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab10observable8observer8observerERK8observer" title="zab::observable::observer::observer"><span class="n"><span class="pre">observer</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab10observable8observer8observerERK8observer" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable8observer8observerERR8observer">
-<span id="_CPPv3N3zab10observable8observer8observerERR8observer"></span><span id="_CPPv2N3zab10observable8observer8observerERR8observer"></span><span id="zab::observable::observer::observer__observerRR"></span><span class="target" id="classzab_1_1observable_1_1observer_1a8dd679a499fe80af2bfd756ddfa11ac3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">observer</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10observable8observer8observerERR8observer" title="zab::observable::observer::observer"><span class="n"><span class="pre">observer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_move</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable8observer8observerERR8observer" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable8observer8observerERR8observer"></span><span id="_CPPv2N3zab10observable8observer8observerERR8observer"></span><span id="zab::observable::observer::observer__observerRR"></span><span class="target" id="classzab_1_1observable_1_1observer_1a8dd679a499fe80af2bfd756ddfa11ac3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">observer</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10observable8observer8observerERR8observer" title="zab::observable::observer::observer"><span class="n"><span class="pre">observer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_move</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable8observer8observerERR8observer" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable8observeraSERR8observer">
-<span id="_CPPv3N3zab10observable8observeraSERR8observer"></span><span id="_CPPv2N3zab10observable8observeraSERR8observer"></span><span id="zab::observable::observer::assign-operator__observerRR"></span><span class="target" id="classzab_1_1observable_1_1observer_1ab86afd863a8176a1401debefa5f56feb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab10observable8observerE" title="zab::observable::observer"><span class="n"><span class="pre">observer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10observable8observerE" title="zab::observable::observer"><span class="n"><span class="pre">observer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_move_assign</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10observable8observeraSERR8observer" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable8observeraSERR8observer"></span><span id="_CPPv2N3zab10observable8observeraSERR8observer"></span><span id="zab::observable::observer::assign-operator__observerRR"></span><span class="target" id="classzab_1_1observable_1_1observer_1ab86afd863a8176a1401debefa5f56feb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab10observable8observerE" title="zab::observable::observer"><span class="n"><span class="pre">observer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10observable8observerE" title="zab::observable::observer"><span class="n"><span class="pre">observer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_move_assign</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10observable8observeraSERR8observer" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable8observerD0Ev">
-<span id="_CPPv3N3zab10observable8observerD0Ev"></span><span id="_CPPv2N3zab10observable8observerD0Ev"></span><span id="zab::observable::observer::~observer"></span><span class="target" id="classzab_1_1observable_1_1observer_1a23f1df470fbd030ef29b4ab2c316010a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~observer</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable8observerD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable8observerD0Ev"></span><span id="_CPPv2N3zab10observable8observerD0Ev"></span><span id="zab::observable::observer::~observer"></span><span class="target" id="classzab_1_1observable_1_1observer_1a23f1df470fbd030ef29b4ab2c316010a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~observer</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable8observerD0Ev" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable8observercv8co_awaitEv">
-<span id="_CPPv3N3zab10observable8observercv8co_awaitEv"></span><span id="_CPPv2N3zab10observable8observercv8co_awaitEv"></span><span id="zab::observable::observer::castto-co_await-operator"></span><span class="target" id="classzab_1_1observable_1_1observer_1a077a19d4e53dab75bed1841d0f7a4baa"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="n"><span class="pre">co_await</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10observable8observercv8co_awaitEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable8observercv8co_awaitEv"></span><span id="_CPPv2N3zab10observable8observercv8co_awaitEv"></span><span id="zab::observable::observer::castto-co_await-operator"></span><span class="target" id="classzab_1_1observable_1_1observer_1a077a19d4e53dab75bed1841d0f7a4baa"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="n"><span class="pre">co_await</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab10observable8observercv8co_awaitEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -339,28 +246,28 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable8observer7destroyER8observer">
-<span id="_CPPv3N3zab10observable8observer7destroyER8observer"></span><span id="_CPPv2N3zab10observable8observer7destroyER8observer"></span><span id="zab::observable::observer::destroy__observerR"></span><span class="target" id="classzab_1_1observable_1_1observer_1a6c55c252169d836c5b54f34c0d475437"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="async_function.html#_CPPv4I_N7details9ExecutionEEN3zab14async_functionE" title="zab::async_function"><span class="n"><span class="pre">async_function</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">destroy</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10observable8observerE" title="zab::observable::observer"><span class="n"><span class="pre">observer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_observer</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable8observer7destroyER8observer" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable8observer7destroyER8observer"></span><span id="_CPPv2N3zab10observable8observer7destroyER8observer"></span><span id="zab::observable::observer::destroy__observerR"></span><span class="target" id="classzab_1_1observable_1_1observer_1a6c55c252169d836c5b54f34c0d475437"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="async_function.html#_CPPv4I_N7details9ExecutionEEN3zab14async_functionE" title="zab::async_function"><span class="n"><span class="pre">async_function</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">destroy</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10observable8observerE" title="zab::observable::observer"><span class="n"><span class="pre">observer</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_observer</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable8observer7destroyER8observer" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable8observer14observer_guardE">
-<span id="_CPPv3N3zab10observable8observer14observer_guardE"></span><span id="_CPPv2N3zab10observable8observer14observer_guardE"></span><span id="zab::observable::observer::observer_guard"></span><span class="target" id="classzab_1_1observable_1_1observer_1_1observer__guard"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">observer_guard</span></span></span><a class="headerlink" href="#_CPPv4N3zab10observable8observer14observer_guardE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable8observer14observer_guardE"></span><span id="_CPPv2N3zab10observable8observer14observer_guardE"></span><span id="zab::observable::observer::observer_guard"></span><span class="target" id="classzab_1_1observable_1_1observer_1_1observer__guard"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">observer_guard</span></span></span><a class="headerlink" href="#_CPPv4N3zab10observable8observer14observer_guardE" title="Permalink to this definition"></a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable8observer14observer_guard14observer_guardEP14pending_result">
-<span id="_CPPv3N3zab10observable8observer14observer_guard14observer_guardEP14pending_result"></span><span id="_CPPv2N3zab10observable8observer14observer_guard14observer_guardEP14pending_result"></span><span id="zab::observable::observer::observer_guard::observer_guard__pending_resultP"></span><span class="target" id="classzab_1_1observable_1_1observer_1_1observer__guard_1af8c7a0d71f5ba4deb4b57b98faec45d1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">observer_guard</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10observable14pending_resultE" title="zab::observable::pending_result"><span class="n"><span class="pre">pending_result</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_result</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable8observer14observer_guard14observer_guardEP14pending_result" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable8observer14observer_guard14observer_guardEP14pending_result"></span><span id="_CPPv2N3zab10observable8observer14observer_guard14observer_guardEP14pending_result"></span><span id="zab::observable::observer::observer_guard::observer_guard__pending_resultP"></span><span class="target" id="classzab_1_1observable_1_1observer_1_1observer__guard_1af8c7a0d71f5ba4deb4b57b98faec45d1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">observer_guard</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab10observable14pending_resultE" title="zab::observable::pending_result"><span class="n"><span class="pre">pending_result</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_result</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable8observer14observer_guard14observer_guardEP14pending_result" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable8observer14observer_guardD0Ev">
-<span id="_CPPv3N3zab10observable8observer14observer_guardD0Ev"></span><span id="_CPPv2N3zab10observable8observer14observer_guardD0Ev"></span><span id="zab::observable::observer::observer_guard::~observer_guard"></span><span class="target" id="classzab_1_1observable_1_1observer_1_1observer__guard_1a24e4533c43ed768691aedddda3b2e89f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~observer_guard</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable8observer14observer_guardD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable8observer14observer_guardD0Ev"></span><span id="_CPPv2N3zab10observable8observer14observer_guardD0Ev"></span><span id="zab::observable::observer::observer_guard::~observer_guard"></span><span class="target" id="classzab_1_1observable_1_1observer_1_1observer__guard_1a24e4533c43ed768691aedddda3b2e89f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~observer_guard</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab10observable8observer14observer_guardD0Ev" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3zab10observable8observer14observer_guard5eventEv">
-<span id="_CPPv3NK3zab10observable8observer14observer_guard5eventEv"></span><span id="_CPPv2NK3zab10observable8observer14observer_guard5eventEv"></span><span id="zab::observable::observer::observer_guard::eventC"></span><span class="target" id="classzab_1_1observable_1_1observer_1_1observer__guard_1a901c02cbcbb48082f60a4e68900051ec"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">tuple</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpEN3zab10observableE" title="zab::observable::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">event</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3zab10observable8observer14observer_guard5eventEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3zab10observable8observer14observer_guard5eventEv"></span><span id="_CPPv2NK3zab10observable8observer14observer_guard5eventEv"></span><span id="zab::observable::observer::observer_guard::eventC"></span><span class="target" id="classzab_1_1observable_1_1observer_1_1observer__guard_1a901c02cbcbb48082f60a4e68900051ec"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">tuple</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpEN3zab10observableE" title="zab::observable::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">event</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3zab10observable8observer14observer_guard5eventEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -370,22 +277,22 @@
 
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable14pending_resultE">
-<span id="_CPPv3N3zab10observable14pending_resultE"></span><span id="_CPPv2N3zab10observable14pending_resultE"></span><span id="zab::observable::pending_result"></span><span class="target" id="structzab_1_1observable_1_1pending__result"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pending_result</span></span></span><a class="headerlink" href="#_CPPv4N3zab10observable14pending_resultE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable14pending_resultE"></span><span id="_CPPv2N3zab10observable14pending_resultE"></span><span id="zab::observable::pending_result"></span><span class="target" id="structzab_1_1observable_1_1pending__result"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pending_result</span></span></span><a class="headerlink" href="#_CPPv4N3zab10observable14pending_resultE" title="Permalink to this definition"></a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable14pending_result6latch_E">
-<span id="_CPPv3N3zab10observable14pending_result6latch_E"></span><span id="_CPPv2N3zab10observable14pending_result6latch_E"></span><span id="zab::observable::pending_result::latch___async_latchP"></span><span class="target" id="structzab_1_1observable_1_1pending__result_1acec4f4c7aad0d11d48d88dcd73093495"></span><a class="reference internal" href="async_latch.html#_CPPv4N3zab11async_latchE" title="zab::async_latch"><span class="n"><span class="pre">async_latch</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">latch_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N3zab10observable14pending_result6latch_E" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable14pending_result6latch_E"></span><span id="_CPPv2N3zab10observable14pending_result6latch_E"></span><span id="zab::observable::pending_result::latch___async_latchP"></span><span class="target" id="structzab_1_1observable_1_1pending__result_1acec4f4c7aad0d11d48d88dcd73093495"></span><a class="reference internal" href="async_latch.html#_CPPv4N3zab11async_latchE" title="zab::async_latch"><span class="n"><span class="pre">async_latch</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">latch_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N3zab10observable14pending_result6latch_E" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable14pending_result6items_E">
-<span id="_CPPv3N3zab10observable14pending_result6items_E"></span><span id="_CPPv2N3zab10observable14pending_result6items_E"></span><span id="zab::observable::pending_result::items___std::tuple:ArgsDp:P"></span><span class="target" id="structzab_1_1observable_1_1pending__result_1a64bfcb127a3549e501ff6a510b4faf8b"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">tuple</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpEN3zab10observableE" title="zab::observable::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">items_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N3zab10observable14pending_result6items_E" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable14pending_result6items_E"></span><span id="_CPPv2N3zab10observable14pending_result6items_E"></span><span id="zab::observable::pending_result::items___std::tuple:ArgsDp:P"></span><span class="target" id="structzab_1_1observable_1_1pending__result_1a64bfcb127a3549e501ff6a510b4faf8b"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">tuple</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpEN3zab10observableE" title="zab::observable::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">items_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N3zab10observable14pending_result6items_E" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab10observable14pending_result5next_E">
-<span id="_CPPv3N3zab10observable14pending_result5next_E"></span><span id="_CPPv2N3zab10observable14pending_result5next_E"></span><span id="zab::observable::pending_result::next___pending_resultP"></span><span class="target" id="structzab_1_1observable_1_1pending__result_1ac33736d88b5db35d93e881a116c83ef2"></span><a class="reference internal" href="#_CPPv4N3zab10observable14pending_resultE" title="zab::observable::pending_result"><span class="n"><span class="pre">pending_result</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">next_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N3zab10observable14pending_result5next_E" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab10observable14pending_result5next_E"></span><span id="_CPPv2N3zab10observable14pending_result5next_E"></span><span id="zab::observable::pending_result::next___pending_resultP"></span><span class="target" id="structzab_1_1observable_1_1pending__result_1ac33736d88b5db35d93e881a116c83ef2"></span><a class="reference internal" href="#_CPPv4N3zab10observable14pending_resultE" title="zab::observable::pending_result"><span class="n"><span class="pre">pending_result</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">next_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N3zab10observable14pending_result5next_E" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -393,7 +300,7 @@
 
 </dd></dl>
 
-</div>
+</section>
 
 <hr>
 </hr>
@@ -409,50 +316,33 @@
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="file_io.html" class="btn btn-neutral float-right" title="File IO" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="async_barrier.html" class="btn btn-neutral float-left" title="async_barrier" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="file_io.html" class="btn btn-neutral float-right" title="File IO" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2022, Donald Rupin.
-
-    </p>
+    <p>&#169; Copyright 2022, Donald Rupin.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

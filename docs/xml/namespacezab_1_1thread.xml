@@ -3,7 +3,7 @@
   <compounddef id="namespacezab_1_1thread" kind="namespace" language="C++">
     <compoundname>zab::thread</compoundname>
       <sectiondef kind="func">
-      <memberdef kind="function" id="strong__types_8hpp_1adec24231853b36f68aeb062077edaacb" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+      <memberdef kind="function" id="namespacezab_1_1thread_1adec24231853b36f68aeb062077edaacb" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>constexpr auto</type>
         <definition>constexpr auto zab::thread::in</definition>
         <argsstring>(std::uint16_t _thread) noexcept</argsstring>
@@ -13,31 +13,49 @@
           <declname>_thread</declname>
         </param>
         <briefdescription>
+<para>Construct a <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref> based of an id. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_thread</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The thread id. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>constexpr auto <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref>{_thread} </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="98" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="98" bodyend="101"/>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="167" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="167" bodyend="170"/>
       </memberdef>
-      <memberdef kind="function" id="strong__types_8hpp_1a7593f86d74665a4229345a6a45964068" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+      <memberdef kind="function" id="namespacezab_1_1thread_1a7593f86d74665a4229345a6a45964068" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>constexpr auto</type>
         <definition>constexpr auto zab::thread::any</definition>
         <argsstring>() noexcept</argsstring>
         <name>any</name>
         <briefdescription>
+<para>Get a <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref> for any thread. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>constexpr auto <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref>{} </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="104" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="104" bodyend="107"/>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="178" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="178" bodyend="181"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Namespace for <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref> based operations. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="95" column="5"/>
+    <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="158" column="5"/>
   </compounddef>
 </doxygen>

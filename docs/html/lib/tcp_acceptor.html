@@ -1,73 +1,34 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>&lt;no title&gt; &mdash; ZAB 0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="tcp_stream" href="tcp_stream.html" />
     <link rel="prev" title="tcp_connector" href="tcp_connector.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> ZAB
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -75,136 +36,81 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Visit:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Visit:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="lib_root.html">ZAB Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">ZAB</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="lib_root.html">ZAB Documentation</a> &raquo;</li>
-        
           <li><a href="networking.html">Networking</a> &raquo;</li>
-        
       <li>&lt;no title&gt;</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/lib/tcp_acceptor.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
 
 <hr class="docutils" />
 <p>The <code class="docutils literal notranslate"><span class="pre">tcp_acceptor</span></code> represents the traditional server side of a connection. It will listen for connections on an inbound port. Deconstruction or moving the <code class="docutils literal notranslate"><span class="pre">tcp_acceptor</span></code> while in use results in undefined behavior.</p>
 <hr class="docutils" />
 <div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">async_function</span><span class="o">&lt;&gt;</span>
-<span class="n">your_class</span><span class="o">::</span><span class="n">run_acceptor</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="n">tcp_acceptor</span> <span class="nf">acceptor</span><span class="p">(</span><span class="n">engine_</span><span class="p">);</span>
-    <span class="c1">// listen for IPv4 on port 8080 with a maximum backlog of 10</span>
-    <span class="c1">// See bind(2) and listen(2) for more details...</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">acceptor</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span> <span class="mi">8080</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-    <span class="p">{</span>
-        <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">tcp_stream</span><span class="o">&gt;</span> <span class="n">stream_opt</span> <span class="o">=</span> <span class="k">co_await</span> <span class="n">acceptor</span><span class="p">.</span><span class="n">accept</span><span class="p">();</span>
+<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id1" title="Permalink to this code"></a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">async_function</span><span class="o">&lt;&gt;</span><span class="w"></span>
+<span class="n">your_class</span><span class="o">::</span><span class="n">run_acceptor</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">tcp_acceptor</span><span class="w"> </span><span class="nf">acceptor</span><span class="p">(</span><span class="n">engine_</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// listen for IPv4 on port 8080 with a maximum backlog of 10</span>
+<span class="w">    </span><span class="c1">// See bind(2) and listen(2) for more details...</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">acceptor</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span><span class="w"> </span><span class="mi">8080</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">tcp_stream</span><span class="o">&gt;</span><span class="w"> </span><span class="n">stream_opt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">co_await</span><span class="w"> </span><span class="n">acceptor</span><span class="p">.</span><span class="n">accept</span><span class="p">();</span><span class="w"></span>
 
-            <span class="k">if</span> <span class="p">(</span><span class="n">stream_opt</span><span class="p">)</span>
-            <span class="p">{</span>
-                <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Got a connection</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="k">else</span>
-            <span class="p">{</span>
-                <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Got a error&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">acceptor</span><span class="p">.</span><span class="n">last_error</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">stream_opt</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Got a connection</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="k">else</span><span class="w"></span>
+<span class="w">            </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Got a error&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">acceptor</span><span class="p">.</span><span class="n">last_error</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <hr class="docutils" />
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab12tcp_acceptorE">
-<span id="_CPPv3N3zab12tcp_acceptorE"></span><span id="_CPPv2N3zab12tcp_acceptorE"></span><span id="zab::tcp_acceptor"></span><span class="target" id="classzab_1_1tcp__acceptor"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">tcp_acceptor</span></span></span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptorE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab12tcp_acceptorE"></span><span id="_CPPv2N3zab12tcp_acceptorE"></span><span id="zab::tcp_acceptor"></span><span class="target" id="classzab_1_1tcp__acceptor"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">tcp_acceptor</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">network_operation</span></span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptorE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>This class allows for asynchronous server based socket operations. </p>
 <p>The methods of the class are essentially asynchronous equivalents to socket(2), bind(2), listen(2) and accept(2) </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab12tcp_acceptor12tcp_acceptorEv">
-<span id="_CPPv3N3zab12tcp_acceptor12tcp_acceptorEv"></span><span id="_CPPv2N3zab12tcp_acceptor12tcp_acceptorEv"></span><span id="zab::tcp_acceptor::tcp_acceptor"></span><span class="target" id="classzab_1_1tcp__acceptor_1a4e5777877a9420fc6135f1d05a927618"></span><span class="sig-name descname"><span class="n"><span class="pre">tcp_acceptor</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptor12tcp_acceptorEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab12tcp_acceptor12tcp_acceptorEv"></span><span id="_CPPv2N3zab12tcp_acceptor12tcp_acceptorEv"></span><span id="zab::tcp_acceptor::tcp_acceptor"></span><span class="target" id="classzab_1_1tcp__acceptor_1a4e5777877a9420fc6135f1d05a927618"></span><span class="sig-name descname"><span class="n"><span class="pre">tcp_acceptor</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptor12tcp_acceptorEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Constructs a new instance in an empty state. </p>
 <p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>        If this constructor is used, use of `listen` and `accept`,
         will result in undefined behavior until `register_engine`
@@ -216,7 +122,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab12tcp_acceptor12tcp_acceptorEP6engine">
-<span id="_CPPv3N3zab12tcp_acceptor12tcp_acceptorEP6engine"></span><span id="_CPPv2N3zab12tcp_acceptor12tcp_acceptorEP6engine"></span><span id="zab::tcp_acceptor::tcp_acceptor__engineP"></span><span class="target" id="classzab_1_1tcp__acceptor_1a71c7b568fb16d3b80f53d8b598bc79de"></span><span class="sig-name descname"><span class="n"><span class="pre">tcp_acceptor</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptor12tcp_acceptorEP6engine" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab12tcp_acceptor12tcp_acceptorEP6engine"></span><span id="_CPPv2N3zab12tcp_acceptor12tcp_acceptorEP6engine"></span><span id="zab::tcp_acceptor::tcp_acceptor__engineP"></span><span class="target" id="classzab_1_1tcp__acceptor_1a71c7b568fb16d3b80f53d8b598bc79de"></span><span class="sig-name descname"><span class="n"><span class="pre">tcp_acceptor</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptor12tcp_acceptorEP6engine" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Constructs a new instance in an empty state but with an engine registered. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -226,9 +132,15 @@
 </dd></dl>
 
 <dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab12tcp_acceptor12tcp_acceptorERK12tcp_acceptor">
+<span id="_CPPv3N3zab12tcp_acceptor12tcp_acceptorERK12tcp_acceptor"></span><span id="_CPPv2N3zab12tcp_acceptor12tcp_acceptorERK12tcp_acceptor"></span><span id="zab::tcp_acceptor::tcp_acceptor__tcp_acceptorCR"></span><span class="target" id="classzab_1_1tcp__acceptor_1abeda9c49255de19c049e6ce9185e2bb4"></span><span class="sig-name descname"><span class="n"><span class="pre">tcp_acceptor</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab12tcp_acceptor12tcp_acceptorERK12tcp_acceptor" title="zab::tcp_acceptor::tcp_acceptor"><span class="n"><span class="pre">tcp_acceptor</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptor12tcp_acceptorERK12tcp_acceptor" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Copy constructor is deleted. </p>
+</dd></dl>
+
+<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab12tcp_acceptor12tcp_acceptorERR12tcp_acceptor">
-<span id="_CPPv3N3zab12tcp_acceptor12tcp_acceptorERR12tcp_acceptor"></span><span id="_CPPv2N3zab12tcp_acceptor12tcp_acceptorERR12tcp_acceptor"></span><span id="zab::tcp_acceptor::tcp_acceptor__tcp_acceptorRR"></span><span class="target" id="classzab_1_1tcp__acceptor_1af0dab6efdd923f6af62cdec6a0e42438"></span><span class="sig-name descname"><span class="n"><span class="pre">tcp_acceptor</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab12tcp_acceptor12tcp_acceptorERR12tcp_acceptor" title="zab::tcp_acceptor::tcp_acceptor"><span class="n"><span class="pre">tcp_acceptor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_move</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptor12tcp_acceptorERR12tcp_acceptor" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Move construct a new instance. The parameter is essentially swapped with default constructed instance. </p>
+<span id="_CPPv3N3zab12tcp_acceptor12tcp_acceptorERR12tcp_acceptor"></span><span id="_CPPv2N3zab12tcp_acceptor12tcp_acceptorERR12tcp_acceptor"></span><span id="zab::tcp_acceptor::tcp_acceptor__tcp_acceptorRR"></span><span class="target" id="classzab_1_1tcp__acceptor_1a660858ada2a1ad05c4eff6fab0066985"></span><span class="sig-name descname"><span class="n"><span class="pre">tcp_acceptor</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab12tcp_acceptor12tcp_acceptorERR12tcp_acceptor" title="zab::tcp_acceptor::tcp_acceptor"><span class="n"><span class="pre">tcp_acceptor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_move</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptor12tcp_acceptorERR12tcp_acceptor" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Moves a <a class="reference internal" href="#classzab_1_1tcp__acceptor"><span class="std std-ref">tcp_acceptor</span></a> leaving it in an empty state and no engine registered. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>_move</strong> – The <a class="reference internal" href="#classzab_1_1tcp__acceptor"><span class="std std-ref">tcp_acceptor</span></a> to move. </p>
@@ -237,111 +149,68 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3zab12tcp_acceptor12tcp_acceptorERK12tcp_acceptor">
-<span id="_CPPv3N3zab12tcp_acceptor12tcp_acceptorERK12tcp_acceptor"></span><span id="_CPPv2N3zab12tcp_acceptor12tcp_acceptorERK12tcp_acceptor"></span><span id="zab::tcp_acceptor::tcp_acceptor__tcp_acceptorCR"></span><span class="target" id="classzab_1_1tcp__acceptor_1af8f7e2392b8b36073f388007299f8b56"></span><span class="sig-name descname"><span class="n"><span class="pre">tcp_acceptor</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab12tcp_acceptor12tcp_acceptorERK12tcp_acceptor" title="zab::tcp_acceptor::tcp_acceptor"><span class="n"><span class="pre">tcp_acceptor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_copy</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptor12tcp_acceptorERK12tcp_acceptor" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Cant copy it. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>_copy</strong> – <strong>[in]</strong> The copy </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3zab12tcp_acceptor15register_engineEP6engine">
-<span id="_CPPv3N3zab12tcp_acceptor15register_engineEP6engine"></span><span id="_CPPv2N3zab12tcp_acceptor15register_engineEP6engine"></span><span id="zab::tcp_acceptor::register_engine__engineP"></span><span class="target" id="classzab_1_1tcp__acceptor_1acfd3317397b48be92d02bd81cfea7bdf"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">register_engine</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptor15register_engineEP6engine" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab12tcp_acceptoraSERR12tcp_acceptor">
-<span id="_CPPv3N3zab12tcp_acceptoraSERR12tcp_acceptor"></span><span id="_CPPv2N3zab12tcp_acceptoraSERR12tcp_acceptor"></span><span id="zab::tcp_acceptor::assign-operator__tcp_acceptorRR"></span><span class="target" id="classzab_1_1tcp__acceptor_1aebe22ea3566c66747d0389eaa0f733c3"></span><a class="reference internal" href="#_CPPv4N3zab12tcp_acceptorE" title="zab::tcp_acceptor"><span class="n"><span class="pre">tcp_acceptor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab12tcp_acceptorE" title="zab::tcp_acceptor"><span class="n"><span class="pre">tcp_acceptor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_move</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptoraSERR12tcp_acceptor" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Move Assignment operator. </p>
+<span id="_CPPv3N3zab12tcp_acceptoraSERR12tcp_acceptor"></span><span id="_CPPv2N3zab12tcp_acceptoraSERR12tcp_acceptor"></span><span id="zab::tcp_acceptor::assign-operator__tcp_acceptorRR"></span><span class="target" id="classzab_1_1tcp__acceptor_1a77bfb429be9ef2590f6c2b6b9ddbe512"></span><a class="reference internal" href="#_CPPv4N3zab12tcp_acceptorE" title="zab::tcp_acceptor"><span class="n"><span class="pre">tcp_acceptor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab12tcp_acceptorE" title="zab::tcp_acceptor"><span class="n"><span class="pre">tcp_acceptor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_move</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptoraSERR12tcp_acceptor" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Moves a <a class="reference internal" href="#classzab_1_1tcp__acceptor"><span class="std std-ref">tcp_acceptor</span></a> leaving it in an empty state and with no engine. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>_move</strong> – The acceptor to move.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The result of the assignment </p>
+<dd class="field-even"><p>The result of the assignment. </p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab12tcp_acceptorD0Ev">
-<span id="_CPPv3N3zab12tcp_acceptorD0Ev"></span><span id="_CPPv2N3zab12tcp_acceptorD0Ev"></span><span id="zab::tcp_acceptor::~tcp_acceptor"></span><span class="target" id="classzab_1_1tcp__acceptor_1a815eaa1c4b4c6d10fceb4ccab267069e"></span><span class="sig-name descname"><span class="n"><span class="pre">~tcp_acceptor</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptorD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab12tcp_acceptorD0Ev"></span><span id="_CPPv2N3zab12tcp_acceptorD0Ev"></span><span id="zab::tcp_acceptor::~tcp_acceptor"></span><span class="target" id="classzab_1_1tcp__acceptor_1a4068033d276c7ab690010a8f6f69282c"></span><span class="sig-name descname"><span class="n"><span class="pre">~tcp_acceptor</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptorD0Ev" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Destroys the acceptor, closing its socket. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab12tcp_acceptor6listenEiNSt8uint16_tEi">
-<span id="_CPPv3N3zab12tcp_acceptor6listenEiNSt8uint16_tEi"></span><span id="_CPPv2N3zab12tcp_acceptor6listenEiNSt8uint16_tEi"></span><span id="zab::tcp_acceptor::listen__i.std::uint16_t.i"></span><span class="target" id="classzab_1_1tcp__acceptor_1a71422211cbb518344ebeacd8bc4bf00f"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">listen</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_family</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">uint16_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_port</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_backlog</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptor6listenEiNSt8uint16_tEi" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>listen for incoming tcp connections of a given family, on a given port. The socket used will have <code class="docutils literal notranslate"><span class="pre">SO_REUSEADDR</span></code> set. </p>
-<p>AF_INET and AF_INET6 are the valid values for family.</p>
-<p>Port is given in host order endianness.</p>
-<p>“The backlog argument defines the maximum length to which the queue of pending connections for sockfd may grow. If a connection request arrives when the queue is full, the client may receive an error with an indication of ECONNREFUSED or, if the underlying protocol supports retransmission, the request may be ignored so that a later reattempt at connection succeeds.” - listen(2)</p>
-<p><code class="docutils literal notranslate"><span class="pre">last_error</span></code> is set on failure.</p>
+<span id="_CPPv3N3zab12tcp_acceptor6listenEiNSt8uint16_tEi"></span><span id="_CPPv2N3zab12tcp_acceptor6listenEiNSt8uint16_tEi"></span><span id="zab::tcp_acceptor::listen__i.std::uint16_t.i"></span><span class="target" id="classzab_1_1tcp__acceptor_1a71422211cbb518344ebeacd8bc4bf00f"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">listen</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_family</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">uint16_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_port</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_backlog</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptor6listenEiNSt8uint16_tEi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Start listening to connections on a newly created socket. </p>
+<p>This function is essentially creates a new socket using <code class="docutils literal notranslate"><span class="pre">::socket()</span></code>, sets SO_REUSEADDR, then calls <code class="docutils literal notranslate"><span class="pre">::bind()</span></code> and <code class="docutils literal notranslate"><span class="pre">::listen()</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>_family</strong> – <strong>[in]</strong> The ip family. </p></li>
-<li><p><strong>_port</strong> – <strong>[in]</strong> The port to bind too. </p></li>
-<li><p><strong>_backlog</strong> – <strong>[in]</strong> The size of the tcp backlog.</p></li>
+<li><p><strong>_family</strong> – AF_INET or AF_INET6 for ipv4 and ipv6 respectively. </p></li>
+<li><p><strong>_port</strong> – Which port to listen on. </p></li>
+<li><p><strong>_backlog</strong> – The maximum amount of pending connections to hold. </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>true if successful, false otherwise. </p>
+<dd class="field-even"><p>true If started successfully. </p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>false If an error occurs. <code class="docutils literal notranslate"><span class="pre">last_error()</span></code> is set. </p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3zab12tcp_acceptor6acceptEv">
-<span id="_CPPv3N3zab12tcp_acceptor6acceptEv"></span><span id="_CPPv2N3zab12tcp_acceptor6acceptEv"></span><span id="zab::tcp_acceptor::accept"></span><span class="target" id="classzab_1_1tcp__acceptor_1abfd0af66c0698fcbd1ae636b8cebc521"></span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="tcp_stream.html#_CPPv4N3zab10tcp_streamE" title="zab::tcp_stream"><span class="n"><span class="pre">tcp_stream</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">accept</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptor6acceptEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Await for a connection to come in. </p>
-<p>The timeout can be used to resume the suspended coroutine early. The number is in nanoseconds and -1 means no timeout.</p>
-<p>This function should not be called in the io thread.</p>
-<p>This function will return into the thread it was called in. If this function is called in the io thread or any non-engine thread, it will join kAnyThread.</p>
-<p>This function is thread safe and can be utilised by many threads. Although error retreival will not work if multple threads fail.</p>
-<p><code class="docutils literal notranslate"><span class="pre">last_error</span></code> is set on failure.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>_timeout</strong> – <strong>[in]</strong> The timeout to use.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>[through co_await] An optional <a class="reference internal" href="tcp_stream.html#classzab_1_1tcp__stream"><span class="std std-ref">tcp_stream</span></a> that is set to the accepted connection on success, or std::nullopt on failure. </p>
-</dd>
-</dl>
-</dd></dl>
+<dt class="sig sig-object cpp" id="_CPPv4I_10MemoryTypeEN3zab12tcp_acceptor6acceptEDaP8sockaddrP9socklen_ti">
+<span id="_CPPv3I_10MemoryTypeEN3zab12tcp_acceptor6acceptEP8sockaddrP9socklen_ti"></span><span id="_CPPv2I_10MemoryTypeEN3zab12tcp_acceptor6acceptEP8sockaddrP9socklen_ti"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">MemoryType</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DataType</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">byte</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1tcp__acceptor_1a42efa49ded128eb85d8b633a381cd979"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">accept</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">sockaddr</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_address</span></span>, <span class="n"><span class="pre">socklen_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_length</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_flags</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">SOCK_CLOEXEC</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4I_10MemoryTypeEN3zab12tcp_acceptor6acceptEDaP8sockaddrP9socklen_ti" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Attempts to accept a connection. </p>
+<p>This function always suspends. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     This function is cancelable using the `cancel()` function.
 
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3zab12tcp_acceptor12get_accepterEv">
-<span id="_CPPv3N3zab12tcp_acceptor12get_accepterEv"></span><span id="_CPPv2N3zab12tcp_acceptor12get_accepterEv"></span><span id="zab::tcp_acceptor::get_accepter"></span><span class="target" id="classzab_1_1tcp__acceptor_1a4040017ab4d2db4ff00ec4a8fa919c56"></span><a class="reference internal" href="reusable_future.html#_CPPv4I0_N7details11ReoccurringEEN3zab15reusable_futureE" title="zab::reusable_future"><span class="n"><span class="pre">reusable_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="tcp_stream.html#_CPPv4N3zab10tcp_streamE" title="zab::tcp_stream"><span class="n"><span class="pre">tcp_stream</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_accepter</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptor12get_accepterEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3zab12tcp_acceptor6cancelEv">
-<span id="_CPPv3N3zab12tcp_acceptor6cancelEv"></span><span id="_CPPv2N3zab12tcp_acceptor6cancelEv"></span><span id="zab::tcp_acceptor::cancel"></span><span class="target" id="classzab_1_1tcp__acceptor_1ac38602a83d850bf1b3ef89a56ac21a0a"></span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cancel</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptor6cancelEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Cancels any opertions suspended. </p>
-<p>This function can be called from any thread. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>        Use of any created `descriptor_op&#39;s` after concellation is undefined
-        behaviour.
+     The function calls `::accept()` on the socket with parameters given.
+     The socket produced from this call is used to create a tcp_stream.
 </pre></div>
 </div>
  </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3zab12tcp_acceptor5closeEv">
-<span id="_CPPv3N3zab12tcp_acceptor5closeEv"></span><span id="_CPPv2N3zab12tcp_acceptor5closeEv"></span><span id="zab::tcp_acceptor::close"></span><span class="target" id="classzab_1_1tcp__acceptor_1a200599336bffe491fc83e58ac5a4b6a9"></span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">close</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptor5closeEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3zab12tcp_acceptor10last_errorEv">
-<span id="_CPPv3N3zab12tcp_acceptor10last_errorEv"></span><span id="_CPPv2N3zab12tcp_acceptor10last_errorEv"></span><span id="zab::tcp_acceptor::last_error"></span><span class="target" id="classzab_1_1tcp__acceptor_1a0a741d54e87823b8c9939ccd131a9f4d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">last_error</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptor10last_errorEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Retrieve the last value of errno recorded after the acceptor failed an operation. </p>
-<p>This operation also clears the error code.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>errno. </p>
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><p><strong>DataType</strong> – The type of memory the produced <a class="reference internal" href="tcp_stream.html#classzab_1_1tcp__stream"><span class="std std-ref">tcp_stream</span></a> will use. </p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>_address</strong> – A ptr to the sockaddr like struct to be filled out. </p></li>
+<li><p><strong>_length</strong> – A ptr to the socklen_t the indicates the memory length of _address. </p></li>
+<li><p><strong>_flags</strong> – The flags to apply to the accept call. The default is SOCK_CLOEXEC. See <code class="docutils literal notranslate"><span class="pre">::accept4()</span></code> &#64;co_return tcp_stream&lt;DataType&gt; if no error occurs, or std::nullopt. </p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -351,7 +220,7 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab12tcp_acceptor4swapER12tcp_acceptorR12tcp_acceptor">
-<span id="_CPPv3N3zab12tcp_acceptor4swapER12tcp_acceptorR12tcp_acceptor"></span><span id="_CPPv2N3zab12tcp_acceptor4swapER12tcp_acceptorR12tcp_acceptor"></span><span id="zab::tcp_acceptor::swap__tcp_acceptorR.tcp_acceptorR"></span><span class="target" id="classzab_1_1tcp__acceptor_1a29193b248e50b7468877453bd96c4547"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">swap</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab12tcp_acceptorE" title="zab::tcp_acceptor"><span class="n"><span class="pre">tcp_acceptor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_first</span></span>, <a class="reference internal" href="#_CPPv4N3zab12tcp_acceptorE" title="zab::tcp_acceptor"><span class="n"><span class="pre">tcp_acceptor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_second</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptor4swapER12tcp_acceptorR12tcp_acceptor" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab12tcp_acceptor4swapER12tcp_acceptorR12tcp_acceptor"></span><span id="_CPPv2N3zab12tcp_acceptor4swapER12tcp_acceptorR12tcp_acceptor"></span><span id="zab::tcp_acceptor::swap__tcp_acceptorR.tcp_acceptorR"></span><span class="target" id="classzab_1_1tcp__acceptor_1a29193b248e50b7468877453bd96c4547"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">swap</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab12tcp_acceptorE" title="zab::tcp_acceptor"><span class="n"><span class="pre">tcp_acceptor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_first</span></span>, <a class="reference internal" href="#_CPPv4N3zab12tcp_acceptorE" title="zab::tcp_acceptor"><span class="n"><span class="pre">tcp_acceptor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_second</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab12tcp_acceptor4swapER12tcp_acceptorR12tcp_acceptor" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Swap two acceptors. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -381,50 +250,33 @@
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="tcp_stream.html" class="btn btn-neutral float-right" title="tcp_stream" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="tcp_connector.html" class="btn btn-neutral float-left" title="tcp_connector" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tcp_stream.html" class="btn btn-neutral float-right" title="tcp_stream" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2022, Donald Rupin.
-
-    </p>
+    <p>&#169; Copyright 2022, Donald Rupin.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

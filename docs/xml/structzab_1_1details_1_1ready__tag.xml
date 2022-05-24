@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structzab_1_1details_1_1ready__tag" kind="struct" language="C++" prot="public">
+    <compoundname>zab::details::ready_tag</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="67" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="67" bodyend="67"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

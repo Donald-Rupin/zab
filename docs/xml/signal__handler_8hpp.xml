@@ -31,10 +31,10 @@
         <childnode refid="13" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="31">
         <label>zab/simple_future.hpp</label>
         <link refid="simple__future_8hpp_source"/>
-        <childnode refid="31" relation="include">
+        <childnode refid="32" relation="include">
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
@@ -42,22 +42,24 @@
         </childnode>
         <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="30" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
       </node>
       <node id="26">
         <label>limits</label>
       </node>
-      <node id="28">
+      <node id="29">
         <label>zab/pause.hpp</label>
         <link refid="pause_8hpp_source"/>
         <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="30" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="23" relation="include">
         </childnode>
@@ -79,7 +81,7 @@
       <node id="22">
         <label>variant</label>
       </node>
-      <node id="31">
+      <node id="32">
         <label>cassert</label>
       </node>
       <node id="14">
@@ -107,12 +109,14 @@
         </childnode>
         <childnode refid="28" relation="include">
         </childnode>
-        <childnode refid="30" relation="include">
+        <childnode refid="29" relation="include">
         </childnode>
-        <childnode refid="33" relation="include">
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="33">
         <label>zab/simple_promise.hpp</label>
         <link refid="simple__promise_8hpp_source"/>
         <childnode refid="11" relation="include">
@@ -121,9 +125,13 @@
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="33" relation="include">
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
         </childnode>
       </node>
       <node id="5">
@@ -155,7 +163,7 @@
         </childnode>
         <childnode refid="14" relation="include">
         </childnode>
-        <childnode refid="30" relation="include">
+        <childnode refid="31" relation="include">
         </childnode>
         <childnode refid="23" relation="include">
         </childnode>
@@ -172,6 +180,8 @@
         <childnode refid="22" relation="include">
         </childnode>
         <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
         </childnode>
       </node>
       <node id="23">
@@ -200,21 +210,31 @@
       <node id="7">
         <label>signal.h</label>
       </node>
-      <node id="29">
+      <node id="30">
         <label>utility</label>
+      </node>
+      <node id="28">
+        <label>zab/generic_awaitable.hpp</label>
+        <link refid="generic__awaitable_8hpp_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
       </node>
       <node id="13">
         <label>iostream</label>
       </node>
-      <node id="33">
+      <node id="34">
         <label>zab/spin_lock.hpp</label>
         <link refid="spin__lock_8hpp_source"/>
         <childnode refid="15" relation="include">
         </childnode>
-        <childnode refid="34" relation="include">
+        <childnode refid="35" relation="include">
         </childnode>
       </node>
-      <node id="35">
+      <node id="36">
         <label>cstddef</label>
       </node>
       <node id="16">
@@ -241,18 +261,14 @@
       <node id="2">
         <label>algorithm</label>
       </node>
-      <node id="34">
+      <node id="35">
         <label>zab/hardware_interface_size.hpp</label>
         <link refid="hardware__interface__size_8hpp_source"/>
-        <childnode refid="35" relation="include">
+        <childnode refid="36" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="7">
-        <label>/home/donald/rupin/zab/includes/zab/network_overlay.hpp</label>
-        <link refid="network__overlay_8hpp_source"/>
-      </node>
       <node id="3">
         <label>/home/donald/rupin/zab/includes/zab/async_barrier.hpp</label>
         <link refid="async__barrier_8hpp_source"/>
@@ -275,11 +291,11 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="8">
+      <node id="7">
         <label>/home/donald/rupin/zab/includes/zab/observable.hpp</label>
         <link refid="observable_8hpp_source"/>
       </node>
-      <node id="15">
+      <node id="16">
         <label>/home/donald/rupin/zab/includes/zab/yield.hpp</label>
         <link refid="yield_8hpp_source"/>
         <childnode refid="3" relation="include">
@@ -292,13 +308,21 @@
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
-        <childnode refid="14" relation="include">
+        <childnode refid="15" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="12">
+        <label>/home/donald/rupin/zab/includes/zab/network_operation.hpp</label>
+        <link refid="network__operation_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
         <label>/home/donald/rupin/zab/includes/zab/async_latch.hpp</label>
         <link refid="async__latch_8hpp_source"/>
-        <childnode refid="14" relation="include">
+        <childnode refid="15" relation="include">
         </childnode>
       </node>
       <node id="2">
@@ -312,26 +336,32 @@
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
         <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
         </childnode>
       </node>
       <node id="4">
         <label>/home/donald/rupin/zab/includes/zab/async_file.hpp</label>
         <link refid="async__file_8hpp_source"/>
       </node>
-      <node id="12">
+      <node id="8">
+        <label>/home/donald/rupin/zab/includes/zab/tcp_networking.hpp</label>
+        <link refid="tcp__networking_8hpp_source"/>
+      </node>
+      <node id="13">
         <label>/home/donald/rupin/zab/includes/zab/pause_token.hpp</label>
         <link refid="pause__token_8hpp_source"/>
-        <childnode refid="13" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
       </node>
       <node id="11">
         <label>/home/donald/rupin/zab/includes/zab/engine_enabled.hpp</label>
         <link refid="engine__enabled_8hpp_source"/>
+        <childnode refid="12" relation="include">
+        </childnode>
         <childnode refid="7" relation="include">
         </childnode>
         <childnode refid="8" relation="include">
@@ -342,7 +372,7 @@
       <node id="9">
         <label>/home/donald/rupin/zab/includes/zab/tcp_stream.hpp</label>
         <link refid="tcp__stream_8hpp_source"/>
-        <childnode refid="7" relation="include">
+        <childnode refid="8" relation="include">
         </childnode>
       </node>
       <node id="6">
@@ -355,7 +385,7 @@
         <childnode refid="9" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="15">
         <label>/home/donald/rupin/zab/includes/zab/wait_for.hpp</label>
         <link refid="wait__for_8hpp_source"/>
         <childnode refid="11" relation="include">
@@ -459,7 +489,7 @@
 <codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::map&lt;int,<sp/>std::vector&lt;std::pair&lt;thread_t,<sp/>handler&gt;&gt;&gt;<sp/>handlers_;</highlight></codeline>
 <codeline lineno="123"><highlight class="normal"></highlight></codeline>
 <codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classzab_1_1engine" kindref="compound">engine</ref>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>engine_;</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structzab_1_1pause__pack" kindref="compound">event_loop::io_handle</ref><sp/>handle_;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>event_loop::io_event*<sp/>handle_;</highlight></codeline>
 <codeline lineno="126"><highlight class="normal"></highlight></codeline>
 <codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/>fds_[2];</highlight></codeline>
 <codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>running_<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>

@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="599" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="599" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="602" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="602" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-static-attrib">
@@ -45,7 +45,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="601" column="45" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="601" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="604" column="45" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="604" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classzab_1_1async__barrier_1a3bee96837fcb5c8964fc19f580c7f485" prot="private" static="yes" constexpr="yes" mutable="no">
         <type>constexpr std::uintptr_t</type>
@@ -59,7 +59,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="602" column="45" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="602" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="605" column="45" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="605" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classzab_1_1async__barrier_1ad5c5882af3f3ee9102b4fa2af4d7812f" prot="private" static="yes" constexpr="yes" mutable="no">
         <type>constexpr std::uintptr_t</type>
@@ -73,7 +73,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="603" column="45" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="603" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="606" column="45" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="606" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classzab_1_1async__barrier_1a8f98a9e3864a01327b22a436c428c6fe" prot="private" static="yes" constexpr="yes" mutable="no">
         <type>constexpr std::uintptr_t</type>
@@ -87,7 +87,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="604" column="45" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="604" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="607" column="45" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="607" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -102,7 +102,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="606" column="20" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="606" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="609" column="20" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="609" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classzab_1_1async__barrier_1a02682cfa16c8a6a5849bf914f6d6a5c7" prot="private" static="no" mutable="no">
         <type>std::ptrdiff_t</type>
@@ -115,7 +115,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="608" column="28" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="608" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="611" column="28" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="611" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classzab_1_1async__barrier_1a9c426f270e94c3b7fa88ae990dc0e833" prot="private" static="no" mutable="no">
         <type>std::atomic&lt; std::uintptr_t &gt;</type>
@@ -129,7 +129,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="610" column="25" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="610" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="613" column="25" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="613" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classzab_1_1async__barrier_1a72fe34679938313ded162e868a0c6396" prot="private" static="no" mutable="no">
         <type>std::atomic&lt; std::ptrdiff_t &gt;</type>
@@ -143,7 +143,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="611" column="25" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="611" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="614" column="25" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="614" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classzab_1_1async__barrier_1a38f61c65f33ddf68a025fdd24ee3ae46" prot="private" static="no" mutable="no">
         <type>CompletionFunction</type>
@@ -156,7 +156,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="613" column="32" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="613" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="616" column="32" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="616" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classzab_1_1async__barrier_1aeca38caf0967d746b8fedade875e8228" prot="private" static="no" mutable="no">
         <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
@@ -169,7 +169,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="614" column="32" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="614" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="617" column="32" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="617" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -485,7 +485,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="542" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="542" bodyend="597"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="542" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="542" bodyend="600"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -504,7 +504,7 @@
 </parameterlist>
 </para>
     </detaileddescription>
-    <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="116" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="116" bodyend="615"/>
+    <location file="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" line="116" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/async_barrier.hpp" bodystart="116" bodyend="618"/>
     <listofallmembers>
       <member refid="classzab_1_1async__barrier_1a435364c0150fed70a236c4b71c2242e6" prot="private" virt="non-virtual"><scope>zab::async_barrier</scope><name>add_drop_to_waorking_set</name></member>
       <member refid="classzab_1_1async__barrier_1a22ce2ebfd5bf3df252e2488fe4ad6b51" prot="private" virt="non-virtual"><scope>zab::async_barrier</scope><name>add_to_working_set</name></member>

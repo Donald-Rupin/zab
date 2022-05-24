@@ -11,7 +11,7 @@
         <definition>constexpr auto zab::details::configs::kMainCadence</definition>
         <argsstring></argsstring>
         <name>kMainCadence</name>
-        <initializer>= order::seconds(30)</initializer>
+        <initializer>= <ref refid="namespacezab_1_1order_1a999b1309aeb26e6ed1c4873e27b7b28c" kindref="member">order::seconds</ref>(30)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -25,7 +25,7 @@
         <definition>constexpr auto zab::details::configs::kDefaultThread</definition>
         <argsstring></argsstring>
         <name>kDefaultThread</name>
-        <initializer>= thread_t::any_thread()</initializer>
+        <initializer>= <ref refid="structzab_1_1thread__t_1a24d1dd67dd5529493217cbd8646f48a6" kindref="member">thread_t::any_thread</ref>()</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -39,7 +39,7 @@
         <definition>constexpr auto zab::details::configs::kInitialiseThread</definition>
         <argsstring></argsstring>
         <name>kInitialiseThread</name>
-        <initializer>= thread_t::any_thread()</initializer>
+        <initializer>= <ref refid="structzab_1_1thread__t_1a24d1dd67dd5529493217cbd8646f48a6" kindref="member">thread_t::any_thread</ref>()</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -53,7 +53,7 @@
         <definition>constexpr auto zab::details::configs::kMainThread</definition>
         <argsstring></argsstring>
         <name>kMainThread</name>
-        <initializer>= thread_t::any_thread()</initializer>
+        <initializer>= <ref refid="structzab_1_1thread__t_1a24d1dd67dd5529493217cbd8646f48a6" kindref="member">thread_t::any_thread</ref>()</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>

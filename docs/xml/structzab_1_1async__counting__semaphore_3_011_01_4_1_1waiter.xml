@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="302" column="46" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="302" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="306" column="46" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="306" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structzab_1_1async__counting__semaphore_3_011_01_4_1_1waiter_1a4ded9f1430199db5c9671b12374d21d6" prot="public" static="no" mutable="no">
         <type><ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="303" column="47" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="303" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="307" column="47" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="307" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structzab_1_1async__counting__semaphore_3_011_01_4_1_1waiter_1ae7bf7fe70f4e00f3a93692efefd98df8" prot="public" static="no" mutable="no">
         <type>waiter *</type>
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="304" column="46" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="304" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="308" column="46" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="308" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structzab_1_1async__counting__semaphore_3_011_01_4_1_1waiter_1a4168905fb10371a7767b07e9cce128c4" prot="public" static="no" mutable="no">
         <type>std::coroutine_handle</type>
@@ -58,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="305" column="24" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="305" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="309" column="24" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="309" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -77,7 +77,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="282" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="282" bodyend="290"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="286" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="286" bodyend="294"/>
       </memberdef>
       <memberdef kind="function" id="structzab_1_1async__counting__semaphore_3_011_01_4_1_1waiter_1afca54b90816201f78cacd20395de8751" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>bool</type>
@@ -90,7 +90,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="293" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="293" bodyend="296"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="297" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="297" bodyend="300"/>
       </memberdef>
       <memberdef kind="function" id="structzab_1_1async__counting__semaphore_3_011_01_4_1_1waiter_1a118ff50369ca5d5db3d9073b3f471c5f" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>void</type>
@@ -103,7 +103,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="299" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="299" bodyend="300"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="303" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="303" bodyend="304"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -122,7 +122,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="279" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="279" bodyend="306"/>
+    <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="283" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="283" bodyend="310"/>
     <listofallmembers>
       <member refid="structzab_1_1async__counting__semaphore_3_011_01_4_1_1waiter_1afca54b90816201f78cacd20395de8751" prot="public" virt="non-virtual"><scope>zab::async_counting_semaphore&lt; 1 &gt;::waiter</scope><name>await_ready</name></member>
       <member refid="structzab_1_1async__counting__semaphore_3_011_01_4_1_1waiter_1a118ff50369ca5d5db3d9073b3f471c5f" prot="public" virt="non-virtual"><scope>zab::async_counting_semaphore&lt; 1 &gt;::waiter</scope><name>await_resume</name></member>

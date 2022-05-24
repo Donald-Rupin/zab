@@ -1,73 +1,34 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>async_function &mdash; ZAB 0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="simple_future" href="simple_future.html" />
     <link rel="prev" title="Task Types" href="task_types.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> ZAB
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -75,19 +36,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Visit:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -109,101 +59,56 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">ZAB</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="lib_root.html">ZAB Documentation</a> &raquo;</li>
-        
           <li><a href="coroutines.html">Coroutines</a> &raquo;</li>
-        
           <li><a href="task_types.html">Task Types</a> &raquo;</li>
-        
       <li>async_function</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/lib/async_function.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
 
-<div class="section" id="async-function">
-<span id="id1"></span><h1>async_function<a class="headerlink" href="#async-function" title="Permalink to this headline">¶</a></h1>
+<section id="async-function">
+<span id="id1"></span><h1>async_function<a class="headerlink" href="#async-function" title="Permalink to this headline"></a></h1>
 <hr class="docutils" />
 <p>A function can mark itself as a coroutine by having a return type of <code class="docutils literal notranslate"><span class="pre">async_function</span></code>.</p>
 <p>The promise type for an <code class="docutils literal notranslate"><span class="pre">async_function</span></code> must satisfy the <code class="docutils literal notranslate"><span class="pre">Execution</span></code> concept. The default promise type is the <a class="reference internal" href="execution_promise.html#execution-promise"><span class="std std-ref">execution_promise</span></a>.</p>
 <hr class="docutils" />
 <div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">async_function</span><span class="o">&lt;&gt;</span>
-<span class="n">foo</span><span class="p">()</span> <span class="k">noexcept</span>
-<span class="p">{</span>
-    <span class="cm">/* async behaviour goes here... */</span>
-<span class="p">}</span>
+<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code"></a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">async_function</span><span class="o">&lt;&gt;</span><span class="w"></span>
+<span class="n">foo</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/* async behaviour goes here... */</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <hr class="docutils" />
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4I_N7details9ExecutionEEN3zab14async_functionE">
-<span id="_CPPv3I_N7details9ExecutionEEN3zab14async_functionE"></span><span id="_CPPv2I_N7details9ExecutionEEN3zab14async_functionE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Execution</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PromiseType</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="execution_promise.html#_CPPv4N3zab17execution_promiseE" title="zab::execution_promise"><span class="n"><span class="pre">execution_promise</span></span></a><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1async__function"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">async_function</span></span></span><a class="headerlink" href="#_CPPv4I_N7details9ExecutionEEN3zab14async_functionE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I_N7details9ExecutionEEN3zab14async_functionE"></span><span id="_CPPv2I_N7details9ExecutionEEN3zab14async_functionE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Execution</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PromiseType</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="execution_promise.html#_CPPv4N3zab17execution_promiseE" title="zab::execution_promise"><span class="n"><span class="pre">execution_promise</span></span></a><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1async__function"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">async_function</span></span></span><a class="headerlink" href="#_CPPv4I_N7details9ExecutionEEN3zab14async_functionE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>This class describes an asynchronous function. </p>
 <p>This classed should only be used as the return type of a function to enable coroutines. It should never be stored and only kept as a tempory object.</p>
 <p>For example: ``` auto foo() -&gt; <a class="reference internal" href="#classzab_1_1async__function"><span class="std std-ref">async_function</span></a> { async behaviour };</p>
@@ -212,12 +117,12 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab14async_function12promise_typeE">
-<span id="_CPPv3N3zab14async_function12promise_typeE"></span><span id="_CPPv2N3zab14async_function12promise_typeE"></span><span class="target" id="classzab_1_1async__function_1a06c04dc6889cfd7fcdf30fdbd4877ddf"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">promise_type</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_N7details9ExecutionEEN3zab14async_functionE" title="zab::async_function::PromiseType"><span class="n"><span class="pre">PromiseType</span></span></a><a class="headerlink" href="#_CPPv4N3zab14async_function12promise_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab14async_function12promise_typeE"></span><span id="_CPPv2N3zab14async_function12promise_typeE"></span><span class="target" id="classzab_1_1async__function_1a06c04dc6889cfd7fcdf30fdbd4877ddf"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">promise_type</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_N7details9ExecutionEEN3zab14async_functionE" title="zab::async_function::PromiseType"><span class="n"><span class="pre">PromiseType</span></span></a><a class="headerlink" href="#_CPPv4N3zab14async_function12promise_typeE" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab14async_function11coro_handleE">
-<span id="_CPPv3N3zab14async_function11coro_handleE"></span><span id="_CPPv2N3zab14async_function11coro_handleE"></span><span class="target" id="classzab_1_1async__function_1a827b6d2721f118ac8cbbcba5abf1453d"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">coro_handle</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">coroutine_handle</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3zab14async_function12promise_typeE" title="zab::async_function::promise_type"><span class="n"><span class="pre">promise_type</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3zab14async_function11coro_handleE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab14async_function11coro_handleE"></span><span id="_CPPv2N3zab14async_function11coro_handleE"></span><span class="target" id="classzab_1_1async__function_1a827b6d2721f118ac8cbbcba5abf1453d"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">coro_handle</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">coroutine_handle</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3zab14async_function12promise_typeE" title="zab::async_function::promise_type"><span class="n"><span class="pre">promise_type</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3zab14async_function11coro_handleE" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -225,7 +130,7 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab14async_function14async_functionE11coro_handle">
-<span id="_CPPv3N3zab14async_function14async_functionE11coro_handle"></span><span id="_CPPv2N3zab14async_function14async_functionE11coro_handle"></span><span id="zab::async_function::async_function__coro_handle"></span><span class="target" id="classzab_1_1async__function_1ae84a4af8e04058ba1da713b0c84ab546"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">async_function</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab14async_function11coro_handleE" title="zab::async_function::coro_handle"><span class="n"><span class="pre">coro_handle</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab14async_function14async_functionE11coro_handle" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab14async_function14async_functionE11coro_handle"></span><span id="_CPPv2N3zab14async_function14async_functionE11coro_handle"></span><span id="zab::async_function::async_function__coro_handle"></span><span class="target" id="classzab_1_1async__function_1ae84a4af8e04058ba1da713b0c84ab546"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">async_function</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab14async_function11coro_handleE" title="zab::async_function::coro_handle"><span class="n"><span class="pre">coro_handle</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab14async_function14async_functionE11coro_handle" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Constructor no-ops. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -236,13 +141,13 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab14async_functionD0Ev">
-<span id="_CPPv3N3zab14async_functionD0Ev"></span><span id="_CPPv2N3zab14async_functionD0Ev"></span><span id="zab::async_function::~async_function"></span><span class="target" id="classzab_1_1async__function_1a00eb29781f729438d17738623406c237"></span><span class="sig-name descname"><span class="n"><span class="pre">~async_function</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3zab14async_functionD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab14async_functionD0Ev"></span><span id="_CPPv2N3zab14async_functionD0Ev"></span><span id="zab::async_function::~async_function"></span><span class="target" id="classzab_1_1async__function_1a00eb29781f729438d17738623406c237"></span><span class="sig-name descname"><span class="n"><span class="pre">~async_function</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3zab14async_functionD0Ev" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Default clean this object up. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab14async_function14async_functionERK14async_function">
-<span id="_CPPv3N3zab14async_function14async_functionERK14async_function"></span><span id="_CPPv2N3zab14async_function14async_functionERK14async_function"></span><span id="zab::async_function::async_function__async_functionCR"></span><span class="target" id="classzab_1_1async__function_1a38a712173e72924f7ef3b59b5b396378"></span><span class="sig-name descname"><span class="n"><span class="pre">async_function</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab14async_function14async_functionERK14async_function" title="zab::async_function::async_function"><span class="n"><span class="pre">async_function</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab14async_function14async_functionERK14async_function" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab14async_function14async_functionERK14async_function"></span><span id="_CPPv2N3zab14async_function14async_functionERK14async_function"></span><span id="zab::async_function::async_function__async_functionCR"></span><span class="target" id="classzab_1_1async__function_1a38a712173e72924f7ef3b59b5b396378"></span><span class="sig-name descname"><span class="n"><span class="pre">async_function</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab14async_function14async_functionERK14async_function" title="zab::async_function::async_function"><span class="n"><span class="pre">async_function</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab14async_function14async_functionERK14async_function" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Deleted copy constructor. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -253,7 +158,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab14async_function14async_functionERR14async_function">
-<span id="_CPPv3N3zab14async_function14async_functionERR14async_function"></span><span id="_CPPv2N3zab14async_function14async_functionERR14async_function"></span><span id="zab::async_function::async_function__async_functionRR"></span><span class="target" id="classzab_1_1async__function_1aaa0e1544a5a4dcf3ca24f64a78d7fded"></span><span class="sig-name descname"><span class="n"><span class="pre">async_function</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab14async_function14async_functionERR14async_function" title="zab::async_function::async_function"><span class="n"><span class="pre">async_function</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab14async_function14async_functionERR14async_function" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab14async_function14async_functionERR14async_function"></span><span id="_CPPv2N3zab14async_function14async_functionERR14async_function"></span><span id="zab::async_function::async_function__async_functionRR"></span><span class="target" id="classzab_1_1async__function_1aaa0e1544a5a4dcf3ca24f64a78d7fded"></span><span class="sig-name descname"><span class="n"><span class="pre">async_function</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab14async_function14async_functionERR14async_function" title="zab::async_function::async_function"><span class="n"><span class="pre">async_function</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab14async_function14async_functionERR14async_function" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Deleted move constructor. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -264,7 +169,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab14async_functionaSERK14async_function">
-<span id="_CPPv3N3zab14async_functionaSERK14async_function"></span><span id="_CPPv2N3zab14async_functionaSERK14async_function"></span><span id="zab::async_function::assign-operator__async_functionCR"></span><span class="target" id="classzab_1_1async__function_1a01eb2126350ff5168c9c13da0c66d476"></span><a class="reference internal" href="#_CPPv4I_N7details9ExecutionEEN3zab14async_functionE" title="zab::async_function"><span class="n"><span class="pre">async_function</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_N7details9ExecutionEEN3zab14async_functionE" title="zab::async_function"><span class="n"><span class="pre">async_function</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab14async_functionaSERK14async_function" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab14async_functionaSERK14async_function"></span><span id="_CPPv2N3zab14async_functionaSERK14async_function"></span><span id="zab::async_function::assign-operator__async_functionCR"></span><span class="target" id="classzab_1_1async__function_1a01eb2126350ff5168c9c13da0c66d476"></span><a class="reference internal" href="#_CPPv4I_N7details9ExecutionEEN3zab14async_functionE" title="zab::async_function"><span class="n"><span class="pre">async_function</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_N7details9ExecutionEEN3zab14async_functionE" title="zab::async_function"><span class="n"><span class="pre">async_function</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab14async_functionaSERK14async_function" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Deleted Assignment operator. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -279,7 +184,7 @@
 </div>
 </dd></dl>
 
-</div>
+</section>
 
 <hr>
 </hr>
@@ -295,50 +200,33 @@
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="simple_future.html" class="btn btn-neutral float-right" title="simple_future" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="task_types.html" class="btn btn-neutral float-left" title="Task Types" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="simple_future.html" class="btn btn-neutral float-right" title="simple_future" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2022, Donald Rupin.
-
-    </p>
+    <p>&#169; Copyright 2022, Donald Rupin.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

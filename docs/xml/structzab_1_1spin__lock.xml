@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structzab_1_1spin__lock" kind="struct" language="C++" prot="public">
     <compoundname>zab::spin_lock</compoundname>
+    <includes refid="spin__lock_8hpp" local="no">spin_lock.hpp</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structzab_1_1spin__lock_1ac2dd3d7111156bd1f314fe4214d168cf" prot="public" static="no" mutable="no">
         <type>std::atomic&lt; bool &gt;</type>
@@ -15,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="75" column="31" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="75" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="93" column="31" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="93" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -25,12 +26,13 @@
         <argsstring>() noexcept</argsstring>
         <name>lock</name>
         <briefdescription>
+<para>Attempt to acquire the mutex. Does a busy wait until it can acquire the mutex. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="49" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="49" bodyend="60"/>
+        <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="57" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="57" bodyend="68"/>
       </memberdef>
       <memberdef kind="function" id="structzab_1_1spin__lock_1a6b51d77c6ba9acdba261f8b01fa0d677" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>bool</type>
@@ -38,12 +40,18 @@
         <argsstring>() noexcept</argsstring>
         <name>try_lock</name>
         <briefdescription>
+<para>Attempt to acquire the mutex. Does not wait on failure. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>true If acquired. </para>
+</simplesect>
+<simplesect kind="return"><para>false If not acquired. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="63" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="63" bodyend="67"/>
+        <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="77" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="77" bodyend="81"/>
       </memberdef>
       <memberdef kind="function" id="structzab_1_1spin__lock_1af9146b72a5e41889665d1e441bb1f738" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>void</type>
@@ -51,19 +59,21 @@
         <argsstring>() noexcept</argsstring>
         <name>unlock</name>
         <briefdescription>
+<para>Releases the mutex. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="70" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="70" bodyend="73"/>
+        <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="88" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="88" bodyend="91"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>A atomic based spin lock implementation. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="46" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="46" bodyend="76"/>
+    <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="50" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="50" bodyend="94"/>
     <listofallmembers>
       <member refid="structzab_1_1spin__lock_1a825cc8ffcc5c6bc8ae27c629b16c1a07" prot="public" virt="non-virtual"><scope>zab::spin_lock</scope><name>lock</name></member>
       <member refid="structzab_1_1spin__lock_1ac2dd3d7111156bd1f314fe4214d168cf" prot="public" virt="non-virtual"><scope>zab::spin_lock</scope><name>lock_</name></member>

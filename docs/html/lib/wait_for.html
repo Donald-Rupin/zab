@@ -1,73 +1,34 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>wait_for &mdash; ZAB 0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="first_of" href="first_of.html" />
     <link rel="prev" title="pause" href="pause.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> ZAB
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -75,19 +36,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Visit:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -107,107 +57,63 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">ZAB</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="lib_root.html">ZAB Documentation</a> &raquo;</li>
-        
           <li><a href="async_primitives.html">Asynchronous Primitives</a> &raquo;</li>
-        
       <li>wait_for</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/lib/wait_for.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
 
-<div class="section" id="wait-for">
-<span id="id1"></span><h1>wait_for<a class="headerlink" href="#wait-for" title="Permalink to this headline">¶</a></h1>
+<section id="wait-for">
+<span id="id1"></span><h1>wait_for<a class="headerlink" href="#wait-for" title="Permalink to this headline"></a></h1>
 <hr class="docutils" />
 <p>Creates a <code class="docutils literal notranslate"><span class="pre">simple_future</span></code> out of a series of <code class="docutils literal notranslate"><span class="pre">simple_future</span></code> s or <code class="docutils literal notranslate"><span class="pre">reusable_future</span></code> s. This function will run all passed <code class="docutils literal notranslate"><span class="pre">simple_future</span></code> s in parallel and return the results after all have complete. The dynamic overload requires all <code class="docutils literal notranslate"><span class="pre">simple_future</span></code> s are of the same type.</p>
 <hr class="docutils" />
 <div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span> <span class="o">=</span> <span class="kt">void</span><span class="o">&gt;</span>
-<span class="n">simple_future</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">future_value</span><span class="p">()</span> <span class="k">noexcept</span>
-<span class="p">{</span>
-    <span class="cm">/* async behaviour goes here... */</span>
-    <span class="k">co_return</span> <span class="n">T</span><span class="p">{};</span>
-<span class="p">}</span>
+<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code"></a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;</span><span class="w"></span>
+<span class="n">simple_future</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">future_value</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/* async behaviour goes here... */</span><span class="w"></span>
+<span class="w">    </span><span class="k">co_return</span><span class="w"> </span><span class="n">T</span><span class="p">{};</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="n">async_function</span>
-<span class="n">your_class</span><span class="o">::</span><span class="n">foo</span><span class="p">()</span> <span class="k">noexcept</span>
-<span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span>
-        <span class="n">details</span><span class="o">::</span><span class="n">promise_void</span><span class="p">,</span>
-        <span class="kt">bool</span><span class="p">,</span>
-        <span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="o">&gt;</span>
-    <span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">co_await</span> <span class="n">wait_for</span><span class="p">(</span>
-        <span class="n">engine_</span><span class="p">,</span>
-        <span class="n">future_value</span><span class="o">&lt;&gt;</span><span class="p">(),</span>
-        <span class="n">future_value</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">(),</span>
-        <span class="n">future_value</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">()</span>
-    <span class="p">);</span>
-<span class="p">}</span>
+<span class="n">async_function</span><span class="w"></span>
+<span class="n">your_class</span><span class="o">::</span><span class="n">foo</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="w"></span>
+<span class="w">        </span><span class="n">details</span><span class="o">::</span><span class="n">promise_void</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="kt">bool</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="o">&gt;</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">co_await</span><span class="w"> </span><span class="n">wait_for</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">engine_</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">future_value</span><span class="o">&lt;&gt;</span><span class="p">(),</span><span class="w"></span>
+<span class="w">        </span><span class="n">future_value</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">(),</span><span class="w"></span>
+<span class="w">        </span><span class="n">future_value</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -215,7 +121,7 @@
 <hr class="docutils" />
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4IDpEN3zab8wait_forE17guaranteed_futureIN7details21extract_promise_typesIDp8PromisesE5typesEEP6engineDpRR8Promises">
-<span id="_CPPv3IDpEN3zab8wait_forEP6engineDpRR8Promises"></span><span id="_CPPv2IDpEN3zab8wait_forEP6engineDpRR8Promises"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Promises</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="wait__for_8hpp_1a616774f77dfa9b6abd36b9908b6d10ff"></span><span class="n"><span class="pre">guaranteed_future</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">extract_promise_types</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpEN3zab8wait_forE17guaranteed_futureIN7details21extract_promise_typesIDp8PromisesE5typesEEP6engineDpRR8Promises" title="zab::wait_for::Promises"><span class="n"><span class="pre">Promises</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">types</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">wait_for</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span>, <a class="reference internal" href="#_CPPv4IDpEN3zab8wait_forE17guaranteed_futureIN7details21extract_promise_typesIDp8PromisesE5typesEEP6engineDpRR8Promises" title="zab::wait_for::Promises"><span class="n"><span class="pre">Promises</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IDpEN3zab8wait_forE17guaranteed_futureIN7details21extract_promise_typesIDp8PromisesE5typesEEP6engineDpRR8Promises" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3IDpEN3zab8wait_forEP6engineDpRR8Promises"></span><span id="_CPPv2IDpEN3zab8wait_forEP6engineDpRR8Promises"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Promises</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="wait__for_8hpp_1a616774f77dfa9b6abd36b9908b6d10ff"></span><span class="n"><span class="pre">guaranteed_future</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">extract_promise_types</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpEN3zab8wait_forE17guaranteed_futureIN7details21extract_promise_typesIDp8PromisesE5typesEEP6engineDpRR8Promises" title="zab::wait_for::Promises"><span class="n"><span class="pre">Promises</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">types</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">wait_for</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span>, <a class="reference internal" href="#_CPPv4IDpEN3zab8wait_forE17guaranteed_futureIN7details21extract_promise_typesIDp8PromisesE5typesEEP6engineDpRR8Promises" title="zab::wait_for::Promises"><span class="n"><span class="pre">Promises</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IDpEN3zab8wait_forE17guaranteed_futureIN7details21extract_promise_typesIDp8PromisesE5typesEEP6engineDpRR8Promises" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Given a variable amount of simple_promises, calls them in parallel and returns the results after all have complete. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -236,10 +142,10 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3zab8wait_forE17guaranteed_futureINSt6vectorIN13simple_futureI1TE12return_valueEEEEP6engineRRNSt6vectorI13simple_futureI1TEEE">
-<span id="_CPPv3I0EN3zab8wait_forEP6engineRRNSt6vectorI13simple_futureI1TEEE"></span><span id="_CPPv2I0EN3zab8wait_forEP6engineRRNSt6vectorI13simple_futureI1TEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="wait__for_8hpp_1a168c653aff066ad010f15b9aafb08fe3"></span><span class="n"><span class="pre">guaranteed_future</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3zab8wait_forE17guaranteed_futureINSt6vectorIN13simple_futureI1TE12return_valueEEEEP6engineRRNSt6vectorI13simple_futureI1TEEE" title="zab::wait_for::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">return_value</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">wait_for</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3zab8wait_forE17guaranteed_futureINSt6vectorIN13simple_futureI1TE12return_valueEEEEP6engineRRNSt6vectorI13simple_futureI1TEEE" title="zab::wait_for::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3zab8wait_forE17guaranteed_futureINSt6vectorIN13simple_futureI1TE12return_valueEEEEP6engineRRNSt6vectorI13simple_futureI1TEEE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I0EN3zab8wait_forEP6engineRRNSt6vectorI13simple_futureI1TEEE"></span><span id="_CPPv2I0EN3zab8wait_forEP6engineRRNSt6vectorI13simple_futureI1TEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="wait__for_8hpp_1a168c653aff066ad010f15b9aafb08fe3"></span><span class="n"><span class="pre">guaranteed_future</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3zab8wait_forE17guaranteed_futureINSt6vectorIN13simple_futureI1TE12return_valueEEEEP6engineRRNSt6vectorI13simple_futureI1TEEE" title="zab::wait_for::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">return_value</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">wait_for</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="simple_future.html#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3zab8wait_forE17guaranteed_futureINSt6vectorIN13simple_futureI1TE12return_valueEEEEP6engineRRNSt6vectorI13simple_futureI1TEEE" title="zab::wait_for::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3zab8wait_forE17guaranteed_futureINSt6vectorIN13simple_futureI1TE12return_valueEEEEP6engineRRNSt6vectorI13simple_futureI1TEEE" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
-</div>
+</section>
 
 <hr>
 </hr>
@@ -255,50 +161,33 @@
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="first_of.html" class="btn btn-neutral float-right" title="first_of" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="pause.html" class="btn btn-neutral float-left" title="pause" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="first_of.html" class="btn btn-neutral float-right" title="first_of" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2022, Donald Rupin.
-
-    </p>
+    <p>&#169; Copyright 2022, Donald Rupin.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

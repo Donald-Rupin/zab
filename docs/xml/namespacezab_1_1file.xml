@@ -55,7 +55,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="65" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="65" bodyend="72"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="67" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="67" bodyend="74"/>
       </memberdef>
       <memberdef kind="enum" id="async__file_8hpp_1a823e320d511bc91a23790ae3ec587807" prot="public" static="no" strong="yes">
         <type></type>
@@ -91,7 +91,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="77" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="77" bodyend="81"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="79" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="79" bodyend="83"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -123,13 +123,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="91" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="91" bodyend="115"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="93" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/async_file.hpp" bodystart="93" bodyend="117"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="60" column="5"/>
+    <location file="/home/donald/rupin/zab/includes/zab/async_file.hpp" line="62" column="5"/>
   </compounddef>
 </doxygen>

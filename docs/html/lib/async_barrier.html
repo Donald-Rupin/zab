@@ -1,73 +1,34 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>async_barrier &mdash; ZAB 0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Observables" href="observable.html" />
     <link rel="prev" title="async_latch" href="async_latch.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> ZAB
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -75,19 +36,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Visit:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -108,81 +58,37 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">ZAB</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="lib_root.html">ZAB Documentation</a> &raquo;</li>
-        
           <li><a href="async_sync.html">Asynchronous Synchronisation</a> &raquo;</li>
-        
       <li>async_barrier</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/lib/async_barrier.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
 
-<div class="section" id="async-barrier">
-<span id="id1"></span><h1>async_barrier<a class="headerlink" href="#async-barrier" title="Permalink to this headline">¶</a></h1>
+<section id="async-barrier">
+<span id="id1"></span><h1>async_barrier<a class="headerlink" href="#async-barrier" title="Permalink to this headline"></a></h1>
 <hr class="docutils" />
 <p>A <code class="docutils literal notranslate"><span class="pre">async`barrier</span></code> is the equivalent of the <a class="reference external" href="https://en.cppreference.com/w/cpp/thread/barrier">std::barrier</a>.</p>
 <blockquote>
@@ -209,74 +115,74 @@
 <p>With <code class="docutils literal notranslate"><span class="pre">async`barrier</span></code> the completion function is allowed to be asynchronous. If the completion function satisfies <code class="docutils literal notranslate"><span class="pre">NoThrowAwaitable</span></code> the barrier will <code class="docutils literal notranslate"><span class="pre">co`await</span></code> the function before continuing.</p>
 <hr class="docutils" />
 <div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">simple_future</span><span class="o">&lt;&gt;</span>
-<span class="n">your_class</span><span class="o">::</span><span class="n">do_map</span><span class="p">();</span>
+<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code"></a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">simple_future</span><span class="o">&lt;&gt;</span><span class="w"></span>
+<span class="n">your_class</span><span class="o">::</span><span class="n">do_map</span><span class="p">();</span><span class="w"></span>
 
-<span class="k">using</span> <span class="n">ExampleBarrier</span> <span class="o">=</span> <span class="n">async_barrier</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="n">async_function</span><span class="o">&lt;&gt;</span><span class="p">()</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">ExampleBarrier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">async_barrier</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="n">async_function</span><span class="o">&lt;&gt;</span><span class="p">()</span><span class="o">&gt;&gt;</span><span class="p">;</span><span class="w"></span>
 
-<span class="n">async_function</span><span class="o">&lt;&gt;</span>
-<span class="n">your_class</span><span class="o">::</span><span class="n">do_reduce</span><span class="p">(</span>
-    <span class="n">thread_t</span> <span class="n">_thread</span><span class="p">,</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">ExampleBarrier</span><span class="o">&gt;</span> <span class="n">_barier</span><span class="p">,</span>
-    <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">_iterations</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="cm">/* Move into our thread */</span>
-    <span class="k">co_await</span> <span class="nf">yield</span><span class="p">(</span><span class="n">_thread</span><span class="p">);</span>
+<span class="n">async_function</span><span class="o">&lt;&gt;</span><span class="w"></span>
+<span class="n">your_class</span><span class="o">::</span><span class="n">do_reduce</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">thread_t</span><span class="w"> </span><span class="n">_thread</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">ExampleBarrier</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_barier</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">_iterations</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/* Move into our thread */</span><span class="w"></span>
+<span class="w">    </span><span class="k">co_await</span><span class="w"> </span><span class="n">yield</span><span class="p">(</span><span class="n">_thread</span><span class="p">);</span><span class="w"></span>
 
-    <span class="cm">/* Consumer loop wont block as it suspends... */</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">_iterations</span><span class="p">)</span> <span class="p">{</span>
+<span class="w">    </span><span class="cm">/* Consumer loop wont block as it suspends... */</span><span class="w"></span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">_iterations</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-        <span class="cm">/* wait for all threads to synchronize... */</span>
-        <span class="k">co_await</span> <span class="n">_barier</span><span class="o">-&gt;</span><span class="n">arrive_and_wait</span><span class="p">();</span>
+<span class="w">        </span><span class="cm">/* wait for all threads to synchronize... */</span><span class="w"></span>
+<span class="w">        </span><span class="k">co_await</span><span class="w"> </span><span class="n">_barier</span><span class="o">-&gt;</span><span class="n">arrive_and_wait</span><span class="p">();</span><span class="w"></span>
 
-        <span class="cm">/* Do some work... */</span>
+<span class="w">        </span><span class="cm">/* Do some work... */</span><span class="w"></span>
 
-        <span class="o">--</span><span class="n">_iterations</span><span class="p">;</span>
-    <span class="p">}</span>
+<span class="w">        </span><span class="o">--</span><span class="n">_iterations</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="cm">/* Remove us from the barrier */</span>
-    <span class="n">_barier</span><span class="o">-&gt;</span><span class="n">arrive_and_drop</span><span class="p">();</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="cm">/* Remove us from the barrier */</span><span class="w"></span>
+<span class="w">    </span><span class="n">_barier</span><span class="o">-&gt;</span><span class="n">arrive_and_drop</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
 
-<span class="n">async_function</span><span class="o">&lt;&gt;</span>
-<span class="n">your_class</span><span class="o">::</span><span class="n">map_reduce</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">_parelle_count</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="cm">/* Move into thread 0 */</span>
-    <span class="k">co_await</span> <span class="nf">yield</span><span class="p">(</span><span class="n">thread_t</span><span class="p">{</span><span class="mi">0</span><span class="p">})</span>
+<span class="n">async_function</span><span class="o">&lt;&gt;</span><span class="w"></span>
+<span class="n">your_class</span><span class="o">::</span><span class="n">map_reduce</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">_parelle_count</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/* Move into thread 0 */</span><span class="w"></span>
+<span class="w">    </span><span class="k">co_await</span><span class="w"> </span><span class="n">yield</span><span class="p">(</span><span class="n">thread_t</span><span class="p">{</span><span class="mi">0</span><span class="p">})</span><span class="w"></span>
 
-    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Work</span><span class="o">*&gt;</span> <span class="n">work_orders</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Work</span><span class="o">*&gt;</span><span class="w"> </span><span class="n">work_orders</span><span class="p">;</span><span class="w"></span>
 
-    <span class="cm">/* A barrier with _parelle_count threads at a time... */</span>
-    <span class="k">auto</span> <span class="n">barrier</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">ExampleBarrier</span><span class="o">&gt;</span><span class="p">(</span>
-        <span class="n">engine_</span><span class="p">,</span>
-        <span class="n">_parelle_count</span><span class="p">,</span>
-        <span class="p">[</span><span class="o">&amp;</span><span class="n">work_orders</span><span class="p">]()</span>
-            <span class="p">{</span>
-                <span class="cm">/* now all threads are waiting    */</span>
-                <span class="cm">/* lets do our unsafe map work    */</span>
-                <span class="k">co_await</span> <span class="nf">do_map</span><span class="p">();</span>
+<span class="w">    </span><span class="cm">/* A barrier with _parelle_count threads at a time... */</span><span class="w"></span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">barrier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">ExampleBarrier</span><span class="o">&gt;</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">engine_</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">_parelle_count</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">[</span><span class="o">&amp;</span><span class="n">work_orders</span><span class="p">]()</span><span class="w"></span>
+<span class="w">            </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="cm">/* now all threads are waiting    */</span><span class="w"></span>
+<span class="w">                </span><span class="cm">/* lets do our unsafe map work    */</span><span class="w"></span>
+<span class="w">                </span><span class="k">co_await</span><span class="w"> </span><span class="n">do_map</span><span class="p">();</span><span class="w"></span>
 
-                <span class="cm">/* After this all threads will    */</span>
-                <span class="cm">/* start reducing again           */</span>
-                <span class="k">co_return</span><span class="p">;</span>
+<span class="w">                </span><span class="cm">/* After this all threads will    */</span><span class="w"></span>
+<span class="w">                </span><span class="cm">/* start reducing again           */</span><span class="w"></span>
+<span class="w">                </span><span class="k">co_return</span><span class="p">;</span><span class="w"></span>
 
-            <span class="p">}</span> <span class="o">-&gt;</span> <span class="n">simple_future</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">simple_future</span><span class="o">&lt;&gt;</span><span class="p">,</span><span class="w"></span>
 
-            <span class="n">thread_t</span><span class="p">{</span><span class="mi">0</span><span class="p">}</span> <span class="cm">/* Map needs to happen in thread 0 */</span>
-        <span class="p">);</span>
+<span class="w">            </span><span class="n">thread_t</span><span class="p">{</span><span class="mi">0</span><span class="p">}</span><span class="w"> </span><span class="cm">/* Map needs to happen in thread 0 */</span><span class="w"></span>
+<span class="w">        </span><span class="p">);</span><span class="w"></span>
 
-    <span class="cm">/* Create worker [logical] threads 0 - _parelle_count */</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">uint16_t</span> <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">_parelle_count</span><span class="p">;</span> <span class="o">++</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">do_reduce</span><span class="p">(</span><span class="n">thread_t</span><span class="p">{</span><span class="n">t</span><span class="p">},</span> <span class="n">barrier</span><span class="p">,</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">10</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="cm">/* Create worker [logical] threads 0 - _parelle_count */</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">_parelle_count</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">do_reduce</span><span class="p">(</span><span class="n">thread_t</span><span class="p">{</span><span class="n">t</span><span class="p">},</span><span class="w"> </span><span class="n">barrier</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="unbounded-use-of-async-barrier">
-<h2>Unbounded use of async_barrier<a class="headerlink" href="#unbounded-use-of-async-barrier" title="Permalink to this headline">¶</a></h2>
+<section id="unbounded-use-of-async-barrier">
+<h2>Unbounded use of async_barrier<a class="headerlink" href="#unbounded-use-of-async-barrier" title="Permalink to this headline"></a></h2>
 <p><a class="reference external" href="https://en.cppreference.com/w/cpp/experimental/barrier">std::experimental::barrier</a> (although <code class="docutils literal notranslate"><span class="pre">std::barrier</span></code> does not) mentions the concept of “thread binding” which requires that the same threads be used every time, and therefore the number of threads using the <code class="docutils literal notranslate"><span class="pre">std::barrier</span></code> must remain constant (ignoring <code class="docutils literal notranslate"><span class="pre">arrive_and_drop</span></code>) and must be equal to the <code class="docutils literal notranslate"><span class="pre">barrier</span> <span class="pre">count</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">async_barrier</span></code> can not only handle a arbitrary amounts of different threads, the same thread can arrive at the barrier multiple times by suspending corountines. As a result of this, for a barrier phase there might actually be more then the <code class="docutils literal notranslate"><span class="pre">barrier</span> <span class="pre">count</span></code> frames suspended. This can lead to a phonenum for queued phase waiting. This happens more evidently as <code class="docutils literal notranslate"><span class="pre">async_barrier</span></code> will never block. So we must suspend the co-routines instead of blocking until they can successfully become part of a phase (decrement the counter).</p>
 <p>In terms of function guaranties, the “current phase” is not the currently executing phase, but the phase that its arrival frame will form part of. This is important when considering when a function strongly happens-before the start of the phase completion step for the current phase.</p>
@@ -285,20 +191,19 @@
 <hr class="docutils" />
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4I_N7details9SequencerEEN3zab13async_barrierE">
-<span id="_CPPv3I_N7details9SequencerEEN3zab13async_barrierE"></span><span id="_CPPv2I_N7details9SequencerEEN3zab13async_barrierE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Sequencer</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CompletionFunction</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">no_op</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1async__barrier"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">async_barrier</span></span></span><a class="headerlink" href="#_CPPv4I_N7details9SequencerEEN3zab13async_barrierE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I_N7details9SequencerEEN3zab13async_barrierE"></span><span id="_CPPv2I_N7details9SequencerEEN3zab13async_barrierE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Sequencer</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CompletionFunction</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">no_op</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1async__barrier"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">async_barrier</span></span></span><a class="headerlink" href="#_CPPv4I_N7details9SequencerEEN3zab13async_barrierE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>This class describes an asynchronous barrier. </p>
 <p>See: <a class="reference external" href="https://en.cppreference.com/w/cpp/thread/barrier">std::barrier</a></p>
-<p><dl class="field-list simple">
-<dt class="field-odd">tparam CompletionFunction</dt>
-<dd class="field-odd"><p>The phase completion step to execute during the phase complete step. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><p><strong>CompletionFunction</strong> – The phase completion step to execute during the phase complete step. </p>
 </dd>
 </dl>
-</p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13async_barrier13async_barrierEP6engineNSt9ptrdiff_tERK18CompletionFunction8thread_t">
-<span id="_CPPv3N3zab13async_barrier13async_barrierEP6engineNSt9ptrdiff_tERK18CompletionFunction8thread_t"></span><span id="_CPPv2N3zab13async_barrier13async_barrierEP6engineNSt9ptrdiff_tERK18CompletionFunction8thread_t"></span><span id="zab::async_barrier::async_barrier__engineP.std::ptrdiff_t.CompletionFunctionCR.thread_t"></span><span class="target" id="classzab_1_1async__barrier_1a6f4f36d028188cb8d7b306927a1f08ef"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">async_barrier</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ptrdiff_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_expected</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_N7details9SequencerEEN3zab13async_barrierE" title="zab::async_barrier::CompletionFunction"><span class="n"><span class="pre">CompletionFunction</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_function</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_N7details9SequencerEEN3zab13async_barrierE" title="zab::async_barrier::CompletionFunction"><span class="n"><span class="pre">CompletionFunction</span></span></a><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_thread</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab13async_barrier13async_barrierEP6engineNSt9ptrdiff_tERK18CompletionFunction8thread_t" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13async_barrier13async_barrierEP6engineNSt9ptrdiff_tERK18CompletionFunction8thread_t"></span><span id="_CPPv2N3zab13async_barrier13async_barrierEP6engineNSt9ptrdiff_tERK18CompletionFunction8thread_t"></span><span id="zab::async_barrier::async_barrier__engineP.std::ptrdiff_t.CompletionFunctionCR.thread_t"></span><span class="target" id="classzab_1_1async__barrier_1a6f4f36d028188cb8d7b306927a1f08ef"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">async_barrier</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ptrdiff_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_expected</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_N7details9SequencerEEN3zab13async_barrierE" title="zab::async_barrier::CompletionFunction"><span class="n"><span class="pre">CompletionFunction</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_function</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_N7details9SequencerEEN3zab13async_barrierE" title="zab::async_barrier::CompletionFunction"><span class="n"><span class="pre">CompletionFunction</span></span></a><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_thread</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab13async_barrier13async_barrierEP6engineNSt9ptrdiff_tERK18CompletionFunction8thread_t" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Construct the <a class="reference internal" href="#classzab_1_1async__barrier"><span class="std std-ref">async_barrier</span></a>. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -314,28 +219,28 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13async_barrier13async_barrierEP6engineNSt9ptrdiff_tERR18CompletionFunction8thread_t">
-<span id="_CPPv3N3zab13async_barrier13async_barrierEP6engineNSt9ptrdiff_tERR18CompletionFunction8thread_t"></span><span id="_CPPv2N3zab13async_barrier13async_barrierEP6engineNSt9ptrdiff_tERR18CompletionFunction8thread_t"></span><span id="zab::async_barrier::async_barrier__engineP.std::ptrdiff_t.CompletionFunctionRR.thread_t"></span><span class="target" id="classzab_1_1async__barrier_1a81074fef3c692eaaaee9da7a2a672a64"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">async_barrier</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ptrdiff_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_expected</span></span>, <a class="reference internal" href="#_CPPv4I_N7details9SequencerEEN3zab13async_barrierE" title="zab::async_barrier::CompletionFunction"><span class="n"><span class="pre">CompletionFunction</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_function</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_N7details9SequencerEEN3zab13async_barrierE" title="zab::async_barrier::CompletionFunction"><span class="n"><span class="pre">CompletionFunction</span></span></a><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_thread</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab13async_barrier13async_barrierEP6engineNSt9ptrdiff_tERR18CompletionFunction8thread_t" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13async_barrier13async_barrierEP6engineNSt9ptrdiff_tERR18CompletionFunction8thread_t"></span><span id="_CPPv2N3zab13async_barrier13async_barrierEP6engineNSt9ptrdiff_tERR18CompletionFunction8thread_t"></span><span id="zab::async_barrier::async_barrier__engineP.std::ptrdiff_t.CompletionFunctionRR.thread_t"></span><span class="target" id="classzab_1_1async__barrier_1a81074fef3c692eaaaee9da7a2a672a64"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">async_barrier</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ptrdiff_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_expected</span></span>, <a class="reference internal" href="#_CPPv4I_N7details9SequencerEEN3zab13async_barrierE" title="zab::async_barrier::CompletionFunction"><span class="n"><span class="pre">CompletionFunction</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_function</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_N7details9SequencerEEN3zab13async_barrierE" title="zab::async_barrier::CompletionFunction"><span class="n"><span class="pre">CompletionFunction</span></span></a><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span>, <a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_thread</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab13async_barrier13async_barrierEP6engineNSt9ptrdiff_tERR18CompletionFunction8thread_t" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13async_barrier13async_barrierERK13async_barrier">
-<span id="_CPPv3N3zab13async_barrier13async_barrierERK13async_barrier"></span><span id="_CPPv2N3zab13async_barrier13async_barrierERK13async_barrier"></span><span id="zab::async_barrier::async_barrier__async_barrierCR"></span><span class="target" id="classzab_1_1async__barrier_1a82e1243c9267346030c504ae6eb95157"></span><span class="sig-name descname"><span class="n"><span class="pre">async_barrier</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab13async_barrier13async_barrierERK13async_barrier" title="zab::async_barrier::async_barrier"><span class="n"><span class="pre">async_barrier</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier13async_barrierERK13async_barrier" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13async_barrier13async_barrierERK13async_barrier"></span><span id="_CPPv2N3zab13async_barrier13async_barrierERK13async_barrier"></span><span id="zab::async_barrier::async_barrier__async_barrierCR"></span><span class="target" id="classzab_1_1async__barrier_1a82e1243c9267346030c504ae6eb95157"></span><span class="sig-name descname"><span class="n"><span class="pre">async_barrier</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab13async_barrier13async_barrierERK13async_barrier" title="zab::async_barrier::async_barrier"><span class="n"><span class="pre">async_barrier</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier13async_barrierERK13async_barrier" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13async_barrier13async_barrierERR13async_barrier">
-<span id="_CPPv3N3zab13async_barrier13async_barrierERR13async_barrier"></span><span id="_CPPv2N3zab13async_barrier13async_barrierERR13async_barrier"></span><span id="zab::async_barrier::async_barrier__async_barrierRR"></span><span class="target" id="classzab_1_1async__barrier_1a4d2357f5f7c2ced2847eef92b37f76ce"></span><span class="sig-name descname"><span class="n"><span class="pre">async_barrier</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab13async_barrier13async_barrierERR13async_barrier" title="zab::async_barrier::async_barrier"><span class="n"><span class="pre">async_barrier</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier13async_barrierERR13async_barrier" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13async_barrier13async_barrierERR13async_barrier"></span><span id="_CPPv2N3zab13async_barrier13async_barrierERR13async_barrier"></span><span id="zab::async_barrier::async_barrier__async_barrierRR"></span><span class="target" id="classzab_1_1async__barrier_1a4d2357f5f7c2ced2847eef92b37f76ce"></span><span class="sig-name descname"><span class="n"><span class="pre">async_barrier</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab13async_barrier13async_barrierERR13async_barrier" title="zab::async_barrier::async_barrier"><span class="n"><span class="pre">async_barrier</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier13async_barrierERR13async_barrier" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13async_barrierD0Ev">
-<span id="_CPPv3N3zab13async_barrierD0Ev"></span><span id="_CPPv2N3zab13async_barrierD0Ev"></span><span id="zab::async_barrier::~async_barrier"></span><span class="target" id="classzab_1_1async__barrier_1a118ee90e31ae9d1d5a7113e6955016f1"></span><span class="sig-name descname"><span class="n"><span class="pre">~async_barrier</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrierD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13async_barrierD0Ev"></span><span id="_CPPv2N3zab13async_barrierD0Ev"></span><span id="zab::async_barrier::~async_barrier"></span><span class="target" id="classzab_1_1async__barrier_1a118ee90e31ae9d1d5a7113e6955016f1"></span><span class="sig-name descname"><span class="n"><span class="pre">~async_barrier</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrierD0Ev" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Default destroys the object. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13async_barrier6arriveEv">
-<span id="_CPPv3N3zab13async_barrier6arriveEv"></span><span id="_CPPv2N3zab13async_barrier6arriveEv"></span><span id="zab::async_barrier::arrive"></span><span class="target" id="classzab_1_1async__barrier_1a86dee90f56b76be7fb9b103667f245f2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab13async_barrier13arrival_tokenE" title="zab::async_barrier::arrival_token"><span class="n"><span class="pre">arrival_token</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">arrive</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier6arriveEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13async_barrier6arriveEv"></span><span id="_CPPv2N3zab13async_barrier6arriveEv"></span><span id="zab::async_barrier::arrive"></span><span class="target" id="classzab_1_1async__barrier_1a86dee90f56b76be7fb9b103667f245f2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab13async_barrier13arrival_tokenE" title="zab::async_barrier::arrival_token"><span class="n"><span class="pre">arrival_token</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">arrive</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier6arriveEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>arrive at the barrier but do not suspend. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -346,7 +251,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13async_barrier15arrive_and_waitEv">
-<span id="_CPPv3N3zab13async_barrier15arrive_and_waitEv"></span><span id="_CPPv2N3zab13async_barrier15arrive_and_waitEv"></span><span id="zab::async_barrier::arrive_and_wait"></span><span class="target" id="classzab_1_1async__barrier_1a1174425db45ae4ec35358a0e1c5e52fc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab13async_barrier6waiterE" title="zab::async_barrier::waiter"><span class="n"><span class="pre">waiter</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">arrive_and_wait</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier15arrive_and_waitEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13async_barrier15arrive_and_waitEv"></span><span id="_CPPv2N3zab13async_barrier15arrive_and_waitEv"></span><span id="zab::async_barrier::arrive_and_wait"></span><span class="target" id="classzab_1_1async__barrier_1a1174425db45ae4ec35358a0e1c5e52fc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab13async_barrier6waiterE" title="zab::async_barrier::waiter"><span class="n"><span class="pre">waiter</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">arrive_and_wait</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier15arrive_and_waitEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>arrive at the barrier and suspend. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -357,20 +262,20 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13async_barrier15arrive_and_dropEv">
-<span id="_CPPv3N3zab13async_barrier15arrive_and_dropEv"></span><span id="_CPPv2N3zab13async_barrier15arrive_and_dropEv"></span><span id="zab::async_barrier::arrive_and_drop"></span><span class="target" id="classzab_1_1async__barrier_1a5ab2f837e0126efcdd2a9ccbed8f295b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">arrive_and_drop</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier15arrive_and_dropEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13async_barrier15arrive_and_dropEv"></span><span id="_CPPv2N3zab13async_barrier15arrive_and_dropEv"></span><span id="zab::async_barrier::arrive_and_drop"></span><span class="target" id="classzab_1_1async__barrier_1a5ab2f837e0126efcdd2a9ccbed8f295b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">arrive_and_drop</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier15arrive_and_dropEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>arrive at the barrier and decrement the expected thread count after the current phase is complete. </p>
 </dd></dl>
 
 </div>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13async_barrier13arrival_tokenE">
-<span id="_CPPv3N3zab13async_barrier13arrival_tokenE"></span><span id="_CPPv2N3zab13async_barrier13arrival_tokenE"></span><span id="zab::async_barrier::arrival_token"></span><span class="target" id="classzab_1_1async__barrier_1_1arrival__token"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">arrival_token</span></span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier13arrival_tokenE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13async_barrier13arrival_tokenE"></span><span id="_CPPv2N3zab13async_barrier13arrival_tokenE"></span><span id="zab::async_barrier::arrival_token"></span><span class="target" id="classzab_1_1async__barrier_1_1arrival__token"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">arrival_token</span></span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier13arrival_tokenE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>This class describes an arrival token used for arriving and suspending later. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13async_barrier13arrival_tokenD0Ev">
-<span id="_CPPv3N3zab13async_barrier13arrival_tokenD0Ev"></span><span id="_CPPv2N3zab13async_barrier13arrival_tokenD0Ev"></span><span id="zab::async_barrier::arrival_token::~arrival_token"></span><span class="target" id="classzab_1_1async__barrier_1_1arrival__token_1a32197ad82a667ddc137fef8f9a476f3b"></span><span class="sig-name descname"><span class="n"><span class="pre">~arrival_token</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier13arrival_tokenD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13async_barrier13arrival_tokenD0Ev"></span><span id="_CPPv2N3zab13async_barrier13arrival_tokenD0Ev"></span><span id="zab::async_barrier::arrival_token::~arrival_token"></span><span class="target" id="classzab_1_1async__barrier_1_1arrival__token_1a32197ad82a667ddc137fef8f9a476f3b"></span><span class="sig-name descname"><span class="n"><span class="pre">~arrival_token</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier13arrival_tokenD0Ev" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -378,43 +283,43 @@
 
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13async_barrier6waiterE">
-<span id="_CPPv3N3zab13async_barrier6waiterE"></span><span id="_CPPv2N3zab13async_barrier6waiterE"></span><span id="zab::async_barrier::waiter"></span><span class="target" id="classzab_1_1async__barrier_1_1waiter"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">waiter</span></span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier6waiterE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13async_barrier6waiterE"></span><span id="_CPPv2N3zab13async_barrier6waiterE"></span><span id="zab::async_barrier::waiter"></span><span class="target" id="classzab_1_1async__barrier_1_1waiter"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">waiter</span></span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier6waiterE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>This class is the subscribeable proxy for suspending on the barrier phase. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13async_barrier6waiterD0Ev">
-<span id="_CPPv3N3zab13async_barrier6waiterD0Ev"></span><span id="_CPPv2N3zab13async_barrier6waiterD0Ev"></span><span id="zab::async_barrier::waiter::~waiter"></span><span class="target" id="classzab_1_1async__barrier_1_1waiter_1afdabb9bf61cfc59ac9c1121498f617bd"></span><span class="sig-name descname"><span class="n"><span class="pre">~waiter</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier6waiterD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13async_barrier6waiterD0Ev"></span><span id="_CPPv2N3zab13async_barrier6waiterD0Ev"></span><span id="zab::async_barrier::waiter::~waiter"></span><span class="target" id="classzab_1_1async__barrier_1_1waiter_1afdabb9bf61cfc59ac9c1121498f617bd"></span><span class="sig-name descname"><span class="n"><span class="pre">~waiter</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier6waiterD0Ev" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13async_barrier6waiter6waiterERK6waiter">
-<span id="_CPPv3N3zab13async_barrier6waiter6waiterERK6waiter"></span><span id="_CPPv2N3zab13async_barrier6waiter6waiterERK6waiter"></span><span id="zab::async_barrier::waiter::waiter__waiterCR"></span><span class="target" id="classzab_1_1async__barrier_1_1waiter_1a0721cb466d750b100b032f422ac5351f"></span><span class="sig-name descname"><span class="n"><span class="pre">waiter</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab13async_barrier6waiter6waiterERK6waiter" title="zab::async_barrier::waiter::waiter"><span class="n"><span class="pre">waiter</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_copy</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier6waiter6waiterERK6waiter" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13async_barrier6waiter6waiterERK6waiter"></span><span id="_CPPv2N3zab13async_barrier6waiter6waiterERK6waiter"></span><span id="zab::async_barrier::waiter::waiter__waiterCR"></span><span class="target" id="classzab_1_1async__barrier_1_1waiter_1a0721cb466d750b100b032f422ac5351f"></span><span class="sig-name descname"><span class="n"><span class="pre">waiter</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab13async_barrier6waiter6waiterERK6waiter" title="zab::async_barrier::waiter::waiter"><span class="n"><span class="pre">waiter</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_copy</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier6waiter6waiterERK6waiter" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13async_barrier6waiteraSERK6waiter">
-<span id="_CPPv3N3zab13async_barrier6waiteraSERK6waiter"></span><span id="_CPPv2N3zab13async_barrier6waiteraSERK6waiter"></span><span id="zab::async_barrier::waiter::assign-operator__waiterCR"></span><span class="target" id="classzab_1_1async__barrier_1_1waiter_1a25943cf7e8ea741421c6f443bdb8fe92"></span><a class="reference internal" href="#_CPPv4N3zab13async_barrier6waiterE" title="zab::async_barrier::waiter"><span class="n"><span class="pre">waiter</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab13async_barrier6waiterE" title="zab::async_barrier::waiter"><span class="n"><span class="pre">waiter</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_copy</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier6waiteraSERK6waiter" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13async_barrier6waiteraSERK6waiter"></span><span id="_CPPv2N3zab13async_barrier6waiteraSERK6waiter"></span><span id="zab::async_barrier::waiter::assign-operator__waiterCR"></span><span class="target" id="classzab_1_1async__barrier_1_1waiter_1a25943cf7e8ea741421c6f443bdb8fe92"></span><a class="reference internal" href="#_CPPv4N3zab13async_barrier6waiterE" title="zab::async_barrier::waiter"><span class="n"><span class="pre">waiter</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab13async_barrier6waiterE" title="zab::async_barrier::waiter"><span class="n"><span class="pre">waiter</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_copy</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier6waiteraSERK6waiter" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13async_barrier6waiteraSERR6waiter">
-<span id="_CPPv3N3zab13async_barrier6waiteraSERR6waiter"></span><span id="_CPPv2N3zab13async_barrier6waiteraSERR6waiter"></span><span id="zab::async_barrier::waiter::assign-operator__waiterRR"></span><span class="target" id="classzab_1_1async__barrier_1_1waiter_1aa4e520ce5a01b9e175b2c912717e70d2"></span><a class="reference internal" href="#_CPPv4N3zab13async_barrier6waiterE" title="zab::async_barrier::waiter"><span class="n"><span class="pre">waiter</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab13async_barrier6waiterE" title="zab::async_barrier::waiter"><span class="n"><span class="pre">waiter</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_copy</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier6waiteraSERR6waiter" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13async_barrier6waiteraSERR6waiter"></span><span id="_CPPv2N3zab13async_barrier6waiteraSERR6waiter"></span><span id="zab::async_barrier::waiter::assign-operator__waiterRR"></span><span class="target" id="classzab_1_1async__barrier_1_1waiter_1aa4e520ce5a01b9e175b2c912717e70d2"></span><a class="reference internal" href="#_CPPv4N3zab13async_barrier6waiterE" title="zab::async_barrier::waiter"><span class="n"><span class="pre">waiter</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab13async_barrier6waiterE" title="zab::async_barrier::waiter"><span class="n"><span class="pre">waiter</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_copy</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier6waiteraSERR6waiter" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13async_barrier6waiter13await_suspendENSt16coroutine_handleIEE">
-<span id="_CPPv3N3zab13async_barrier6waiter13await_suspendENSt16coroutine_handleIEE"></span><span id="_CPPv2N3zab13async_barrier6waiter13await_suspendENSt16coroutine_handleIEE"></span><span id="zab::async_barrier::waiter::await_suspend__std::coroutine_handle::"></span><span class="target" id="classzab_1_1async__barrier_1_1waiter_1acd4d606b3bc9a00f2fda783a0734450c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">await_suspend</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">coroutine_handle</span></span><span class="p"><span class="pre">&lt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_awaiter</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier6waiter13await_suspendENSt16coroutine_handleIEE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13async_barrier6waiter13await_suspendENSt16coroutine_handleIEE"></span><span id="_CPPv2N3zab13async_barrier6waiter13await_suspendENSt16coroutine_handleIEE"></span><span id="zab::async_barrier::waiter::await_suspend__std::coroutine_handle::"></span><span class="target" id="classzab_1_1async__barrier_1_1waiter_1acd4d606b3bc9a00f2fda783a0734450c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">await_suspend</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">coroutine_handle</span></span><span class="p"><span class="pre">&lt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_awaiter</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab13async_barrier6waiter13await_suspendENSt16coroutine_handleIEE" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3zab13async_barrier6waiter11await_readyEv">
-<span id="_CPPv3NK3zab13async_barrier6waiter11await_readyEv"></span><span id="_CPPv2NK3zab13async_barrier6waiter11await_readyEv"></span><span id="zab::async_barrier::waiter::await_readyC"></span><span class="target" id="classzab_1_1async__barrier_1_1waiter_1a9e3eca301c52da1917fc703ee7b63f12"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">await_ready</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3zab13async_barrier6waiter11await_readyEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3zab13async_barrier6waiter11await_readyEv"></span><span id="_CPPv2NK3zab13async_barrier6waiter11await_readyEv"></span><span id="zab::async_barrier::waiter::await_readyC"></span><span class="target" id="classzab_1_1async__barrier_1_1waiter_1a9e3eca301c52da1917fc703ee7b63f12"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">await_ready</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3zab13async_barrier6waiter11await_readyEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3zab13async_barrier6waiter12await_resumeEv">
-<span id="_CPPv3NK3zab13async_barrier6waiter12await_resumeEv"></span><span id="_CPPv2NK3zab13async_barrier6waiter12await_resumeEv"></span><span id="zab::async_barrier::waiter::await_resumeC"></span><span class="target" id="classzab_1_1async__barrier_1_1waiter_1a167ae4360517e88cf9662099d846236a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">await_resume</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3zab13async_barrier6waiter12await_resumeEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3zab13async_barrier6waiter12await_resumeEv"></span><span id="_CPPv2NK3zab13async_barrier6waiter12await_resumeEv"></span><span id="zab::async_barrier::waiter::await_resumeC"></span><span class="target" id="classzab_1_1async__barrier_1_1waiter_1a167ae4360517e88cf9662099d846236a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">await_resume</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3zab13async_barrier6waiter12await_resumeEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -422,8 +327,8 @@
 
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 <hr>
 </hr>
@@ -439,50 +344,33 @@
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="observable.html" class="btn btn-neutral float-right" title="Observables" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="async_latch.html" class="btn btn-neutral float-left" title="async_latch" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="observable.html" class="btn btn-neutral float-right" title="Observables" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2022, Donald Rupin.
-
-    </p>
+    <p>&#169; Copyright 2022, Donald Rupin.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

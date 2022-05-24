@@ -19,7 +19,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/first_of.hpp" line="113" column="15" bodyfile="/home/donald/rupin/zab/includes/zab/first_of.hpp" bodystart="113" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/first_of.hpp" line="95" column="15" bodyfile="/home/donald/rupin/zab/includes/zab/first_of.hpp" bodystart="95" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -38,7 +38,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/first_of.hpp" line="109" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/first_of.hpp" bodystart="109" bodyend="109"/>
+        <location file="/home/donald/rupin/zab/includes/zab/first_of.hpp" line="91" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/first_of.hpp" bodystart="91" bodyend="91"/>
       </memberdef>
       <memberdef kind="function" id="structzab_1_1AwaitWrapper_1ac5dc8dd2cc94aa983adf7ac4a826fd20" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>auto</type>
@@ -51,14 +51,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/first_of.hpp" line="111" column="18" bodyfile="/home/donald/rupin/zab/includes/zab/first_of.hpp" bodystart="111" bodyend="111"/>
+        <location file="/home/donald/rupin/zab/includes/zab/first_of.hpp" line="93" column="18" bodyfile="/home/donald/rupin/zab/includes/zab/first_of.hpp" bodystart="93" bodyend="93"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/donald/rupin/zab/includes/zab/first_of.hpp" line="107" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/first_of.hpp" bodystart="107" bodyend="114"/>
+    <location file="/home/donald/rupin/zab/includes/zab/first_of.hpp" line="89" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/first_of.hpp" bodystart="89" bodyend="96"/>
     <listofallmembers>
       <member refid="structzab_1_1AwaitWrapper_1a80d3e1c4f7c69f5af5b58527813443f5" prot="public" virt="non-virtual"><scope>zab::AwaitWrapper</scope><name>AwaitWrapper</name></member>
       <member refid="structzab_1_1AwaitWrapper_1ac5dc8dd2cc94aa983adf7ac4a826fd20" prot="public" virt="non-virtual"><scope>zab::AwaitWrapper</scope><name>operator co_await</name></member>

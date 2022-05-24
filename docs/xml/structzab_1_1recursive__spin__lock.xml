@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="structzab_1_1recursive__spin__lock" kind="struct" language="C++" prot="public">
     <compoundname>zab::recursive_spin_lock</compoundname>
+    <includes refid="spin__lock_8hpp" local="no">spin_lock.hpp</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structzab_1_1recursive__spin__lock_1a3d12bedadde53b1a363a759a9d571d9a" prot="public" static="no" mutable="no">
         <type>std::atomic&lt; std::size_t &gt;</type>
@@ -15,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="160" column="33" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="160" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="207" column="33" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="207" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structzab_1_1recursive__spin__lock_1ad2af48eb1bb8906ebec2d6beba5841d1" prot="public" static="no" mutable="no">
         <type>std::size_t</type>
@@ -29,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="161" column="38" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="161" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="208" column="38" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="208" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
@@ -39,12 +40,17 @@
         <argsstring>() noexcept</argsstring>
         <name>get_id</name>
         <briefdescription>
+<para>Ges the current thread id. This ID is global and unique. </para>
         </briefdescription>
         <detaileddescription>
+<para>Creating more then std::numerical_limits&lt;std::size_t&gt;::max() threads that access a <ref refid="structzab_1_1recursive__spin__lock" kindref="compound">recursive_spin_lock</ref> will lead to undefined behaviour.</para>
+<para><simplesect kind="return"><para>size_t The id of the thread. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="81" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="81" bodyend="86"/>
+        <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="112" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="112" bodyend="117"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -54,12 +60,13 @@
         <argsstring>() noexcept</argsstring>
         <name>lock</name>
         <briefdescription>
+<para>Attempt to acquire the mutex. Does a busy wait until it can acquire the mutex. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="89" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="89" bodyend="117"/>
+        <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="124" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="124" bodyend="152"/>
       </memberdef>
       <memberdef kind="function" id="structzab_1_1recursive__spin__lock_1aabdf9e3d2eb45ea79ff937cbbc2976f9" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>bool</type>
@@ -67,12 +74,18 @@
         <argsstring>() noexcept</argsstring>
         <name>try_lock</name>
         <briefdescription>
+<para>Attempt to acquire the mutex. Does not wait on failure. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>true If acquired. </para>
+</simplesect>
+<simplesect kind="return"><para>false If not acquired. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="120" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="120" bodyend="151"/>
+        <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="161" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="161" bodyend="192"/>
       </memberdef>
       <memberdef kind="function" id="structzab_1_1recursive__spin__lock_1a5f8b41e86532f26592a3de0a50935235" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>void</type>
@@ -80,19 +93,21 @@
         <argsstring>() noexcept</argsstring>
         <name>unlock</name>
         <briefdescription>
+<para>Attempts to release the mutex. Only is released once <computeroutput><ref refid="structzab_1_1recursive__spin__lock_1a5f8b41e86532f26592a3de0a50935235" kindref="member">unlock()</ref></computeroutput> is called the same amount of times <computeroutput><ref refid="structzab_1_1recursive__spin__lock_1af3667b24f1e7b00184b75ee1799557b4" kindref="member">lock()</ref></computeroutput> has been called within the same threads acquirement. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="154" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="154" bodyend="158"/>
+        <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="201" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="201" bodyend="205"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>A recursive atomic based spin lock implementation. A thread may lock the mutex more then once. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="78" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="78" bodyend="162"/>
+    <location file="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" line="101" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/spin_lock.hpp" bodystart="101" bodyend="209"/>
     <listofallmembers>
       <member refid="structzab_1_1recursive__spin__lock_1ad2af48eb1bb8906ebec2d6beba5841d1" prot="public" virt="non-virtual"><scope>zab::recursive_spin_lock</scope><name>count_</name></member>
       <member refid="structzab_1_1recursive__spin__lock_1a7bfa94b7a84916cc57e1cfd571e367f1" prot="public" virt="non-virtual"><scope>zab::recursive_spin_lock</scope><name>get_id</name></member>

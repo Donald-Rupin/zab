@@ -55,7 +55,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/simple_future.hpp" line="217" column="35" bodyfile="/home/donald/rupin/zab/includes/zab/simple_future.hpp" bodystart="217" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_future.hpp" line="230" column="35" bodyfile="/home/donald/rupin/zab/includes/zab/simple_future.hpp" bodystart="230" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -206,6 +206,36 @@
         </inbodydescription>
         <location file="/home/donald/rupin/zab/includes/zab/simple_future.hpp" line="211" column="46" bodyfile="/home/donald/rupin/zab/includes/zab/simple_future.hpp" bodystart="211" bodyend="215"/>
       </memberdef>
+      <memberdef kind="function" id="classzab_1_1simple__future_1a30dc9f6afc8a31f9459b367aadfd5631" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::simple_future&lt; T, Promise &gt;::inline_co_await</definition>
+        <argsstring>(tagged_event _event) noexcept</argsstring>
+        <name>inline_co_await</name>
+        <param>
+          <type>tagged_event</type>
+          <declname>_event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_future.hpp" line="218" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/simple_future.hpp" bodystart="218" bodyend="222"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1simple__future_1a8175f0357f5c2fb15ebf609daf41e065" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>decltype(auto)</type>
+        <definition>decltype(auto) zab::simple_future&lt; T, Promise &gt;::get_inline_result</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>get_inline_result</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_future.hpp" line="225" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/simple_future.hpp" bodystart="225" bodyend="228"/>
+      </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Represents the future value of a simple promise. </para>
@@ -222,9 +252,11 @@
 </parameterlist>
 </para>
     </detaileddescription>
-    <location file="/home/donald/rupin/zab/includes/zab/simple_future.hpp" line="129" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/simple_future.hpp" bodystart="129" bodyend="218"/>
+    <location file="/home/donald/rupin/zab/includes/zab/simple_future.hpp" line="129" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/simple_future.hpp" bodystart="129" bodyend="231"/>
     <listofallmembers>
+      <member refid="classzab_1_1simple__future_1a8175f0357f5c2fb15ebf609daf41e065" prot="public" virt="non-virtual"><scope>zab::simple_future</scope><name>get_inline_result</name></member>
       <member refid="classzab_1_1simple__future_1afb9e98d1b6f82130957ca3f1c4287a18" prot="public" virt="non-virtual"><scope>zab::simple_future</scope><name>handle_</name></member>
+      <member refid="classzab_1_1simple__future_1a30dc9f6afc8a31f9459b367aadfd5631" prot="public" virt="non-virtual"><scope>zab::simple_future</scope><name>inline_co_await</name></member>
       <member refid="classzab_1_1simple__future_1a0dd9708c4281d674f4d527e11a9a1fb1" prot="public" virt="non-virtual"><scope>zab::simple_future</scope><name>operator co_await</name></member>
       <member refid="classzab_1_1simple__future_1af4e3825377a74a478c6d6b4fdc0dee66" prot="public" virt="non-virtual"><scope>zab::simple_future</scope><name>operator=</name></member>
       <member refid="classzab_1_1simple__future_1a6b12bbb0277df362dace02e01309ad18" prot="public" virt="non-virtual"><scope>zab::simple_future</scope><name>promise_type</name></member>

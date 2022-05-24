@@ -4,64 +4,96 @@
     <compoundname>zab::event_loop</compoundname>
     <includes refid="event__loop_8hpp" local="no">event_loop.hpp</includes>
       <sectiondef kind="public-type">
-      <memberdef kind="enum" id="classzab_1_1event__loop_1a5d0e2838123ad0907963fc9e5f31b772" prot="public" static="no" strong="yes">
+      <memberdef kind="enum" id="classzab_1_1event__loop_1ad1d9a5b64efba25fb8d8adde6594c8a2" prot="public" static="no" strong="yes">
         <type></type>
-        <name>CancelResults</name>
-        <enumvalue id="classzab_1_1event__loop_1a5d0e2838123ad0907963fc9e5f31b772a9e2024e27d037d51bb46ef86d2e0ea4d" prot="public">
+        <name>CancelResult</name>
+        <enumvalue id="classzab_1_1event__loop_1ad1d9a5b64efba25fb8d8adde6594c8a2a9e2024e27d037d51bb46ef86d2e0ea4d" prot="public">
           <name>kDone</name>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
+<para>The cancel was complete. </para>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="classzab_1_1event__loop_1a5d0e2838123ad0907963fc9e5f31b772ab096e4f92f6c4184d188166e8f156fbb" prot="public">
+        <enumvalue id="classzab_1_1event__loop_1ad1d9a5b64efba25fb8d8adde6594c8a2ab096e4f92f6c4184d188166e8f156fbb" prot="public">
           <name>kNotFound</name>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
+<para>Could not find an operation with that io_event*. </para>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="classzab_1_1event__loop_1a5d0e2838123ad0907963fc9e5f31b772a662060693f074df0c3ca4ecae9626990" prot="public">
+        <enumvalue id="classzab_1_1event__loop_1ad1d9a5b64efba25fb8d8adde6594c8a2a662060693f074df0c3ca4ecae9626990" prot="public">
           <name>kTried</name>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
+<para>We tried, but the operation could not be canceled. </para>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="classzab_1_1event__loop_1a5d0e2838123ad0907963fc9e5f31b772ab62fa3c9492b6dae76c23d6dfa466611" prot="public">
+        <enumvalue id="classzab_1_1event__loop_1ad1d9a5b64efba25fb8d8adde6594c8a2ab62fa3c9492b6dae76c23d6dfa466611" prot="public">
           <name>kFailed</name>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
+<para>We could not create the cancel request dues to an error. </para>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="classzab_1_1event__loop_1a5d0e2838123ad0907963fc9e5f31b772a25c2dc47991b3df171ed5192bcf70390" prot="public">
+        <enumvalue id="classzab_1_1event__loop_1ad1d9a5b64efba25fb8d8adde6594c8a2a25c2dc47991b3df171ed5192bcf70390" prot="public">
           <name>kUnknown</name>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
+<para>Something exception and unknown happened. </para>
           </detaileddescription>
         </enumvalue>
         <briefdescription>
+<para>Describes the result of a cancel operation. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="260" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="260" bodyend="266"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="844" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="844" bodyend="850"/>
       </memberdef>
-      <memberdef kind="typedef" id="classzab_1_1event__loop_1ac56a602dcda3544421672c93f8a455dd" prot="public" static="no">
-        <type><ref refid="structzab_1_1pause__pack" kindref="compound">pause_pack</ref> *</type>
-        <definition>using zab::event_loop::io_handle =  pause_pack*</definition>
+      <memberdef kind="typedef" id="classzab_1_1event__loop_1a5dc860d461ffc62bca288e8de87815c0" prot="public" static="no">
+        <type>storage_event&lt; int &gt;</type>
+        <definition>using zab::event_loop::io_event =  storage_event&lt;int&gt;</definition>
         <argsstring></argsstring>
-        <name>io_handle</name>
+        <name>io_event</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="69" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="69" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="71" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classzab_1_1event__loop_1aea840fc16142d566b5454f19421bd4a9" prot="public" static="no">
+        <type>io_event *</type>
+        <definition>using zab::event_loop::cancelation_token =  io_event*</definition>
+        <argsstring></argsstring>
+        <name>cancelation_token</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="73" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classzab_1_1event__loop_1a5bc5bdb49782e6fa71ed7f905c8acbc8" prot="public" static="no">
+        <type>tagged_event</type>
+        <definition>using zab::event_loop::user_event =  tagged_event</definition>
+        <argsstring></argsstring>
+        <name>user_event</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="75" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="75" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-attrib">
@@ -77,7 +109,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="73" column="35" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="73" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="77" column="35" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="77" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -92,33 +124,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="320" column="29" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="320" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classzab_1_1event__loop_1a504d9ab3f06308865709b3428f8eaec3" prot="private" static="no" mutable="no">
-        <type>std::vector&lt; std::byte &gt;</type>
-        <definition>std::vector&lt;std::byte&gt; zab::event_loop::pinned_buffers_</definition>
-        <argsstring></argsstring>
-        <name>pinned_buffers_</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="325" column="51" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="325" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classzab_1_1event__loop_1a5c1869c8b895b2d7d5bf8f80b25fb861" prot="private" static="no" mutable="no">
-        <type>std::deque&lt; std::pair&lt; std::span&lt; std::byte &gt;, int &gt; &gt;</type>
-        <definition>std::deque&lt;std::pair&lt;std::span&lt;std::byte&gt;, int&gt; &gt; zab::event_loop::free_buffers_</definition>
-        <argsstring></argsstring>
-        <name>free_buffers_</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="326" column="24" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="326" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="1006" column="29" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="1006" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classzab_1_1event__loop_1a51aa6508e6f78b05f6b09edd9c2f6b18" prot="private" static="no" mutable="no">
         <type>int</type>
@@ -131,7 +137,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="331" column="38" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="331" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="1011" column="38" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="1011" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classzab_1_1event__loop_1ad2ed9448e644d8d80f61b93fa2ed50cc" prot="private" static="no" mutable="no">
         <type>std::atomic&lt; std::size_t &gt;</type>
@@ -144,10 +150,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="332" column="25" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="332" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="1012" column="25" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="1012" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classzab_1_1event__loop_1a1748edba5bd6259c9e2454fa44d06270" prot="private" static="no" mutable="no">
-        <type>spin_lock</type>
+        <type><ref refid="structzab_1_1spin__lock" kindref="compound">spin_lock</ref></type>
         <definition>spin_lock zab::event_loop::mtx_</definition>
         <argsstring></argsstring>
         <name>mtx_</name>
@@ -157,11 +163,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="333" column="38" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="333" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="1013" column="38" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="1013" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classzab_1_1event__loop_1a9d79775dc5eadac65deab101a1246d39" prot="private" static="no" mutable="no">
-        <type>std::deque&lt; event &gt;</type>
-        <definition>std::deque&lt;event&gt; zab::event_loop::handles_[2]</definition>
+      <memberdef kind="variable" id="classzab_1_1event__loop_1a3825769e5ecdb89698e93e61ddde019b" prot="private" static="no" mutable="no">
+        <type>std::deque&lt; user_event &gt;</type>
+        <definition>std::deque&lt;user_event&gt; zab::event_loop::handles_[2]</definition>
         <argsstring>[2]</argsstring>
         <name>handles_</name>
         <briefdescription>
@@ -170,11 +176,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="334" column="31" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="334" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="1014" column="26" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="1014" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classzab_1_1event__loop_1a690c459fa6aea83f9da7e31f461e2e77" prot="private" static="no" mutable="no">
-        <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref></type>
-        <definition>io_handle zab::event_loop::use_space_handle_</definition>
+      <memberdef kind="variable" id="classzab_1_1event__loop_1acb6a6f587e70d8aa3fdd347f543c4765" prot="private" static="no" mutable="no">
+        <type>cancelation_token</type>
+        <definition>cancelation_token zab::event_loop::use_space_handle_</definition>
         <argsstring></argsstring>
         <name>use_space_handle_</name>
         <briefdescription>
@@ -183,38 +189,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="335" column="38" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="335" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="1015" column="38" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="1015" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-static-attrib">
-      <memberdef kind="variable" id="classzab_1_1event__loop_1a64a41cc6fb1e28c3490a3d3ffae4a395" prot="private" static="yes" constexpr="yes" mutable="no">
-        <type>constexpr int</type>
-        <definition>constexpr int zab::event_loop::kPinSize</definition>
-        <argsstring></argsstring>
-        <name>kPinSize</name>
-        <initializer>= 32767</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="322" column="34" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="322" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classzab_1_1event__loop_1ad791c0a406c0341f6c1149864a60a204" prot="private" static="yes" constexpr="yes" mutable="no">
-        <type>constexpr int</type>
-        <definition>constexpr int zab::event_loop::kTotalBuffers</definition>
-        <argsstring></argsstring>
-        <name>kTotalBuffers</name>
-        <initializer>= 1000</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="323" column="34" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="323" bodyend="-1"/>
-      </memberdef>
       <memberdef kind="variable" id="classzab_1_1event__loop_1a57b7982b4c79243d01421551a0fa232a" prot="private" static="yes" constexpr="yes" mutable="no">
         <type>constexpr int</type>
         <definition>constexpr int zab::event_loop::kWriteIndex</definition>
@@ -227,7 +205,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="328" column="34" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="328" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="1008" column="34" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="1008" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classzab_1_1event__loop_1a3238f4d73abbb816be905ce7028f41fc" prot="private" static="yes" constexpr="yes" mutable="no">
         <type>constexpr int</type>
@@ -241,7 +219,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="329" column="34" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="329" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="1009" column="34" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="1009" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -251,15 +229,47 @@
         <argsstring>()</argsstring>
         <name>event_loop</name>
         <briefdescription>
-<para>Constructs a new instance that will register to this engine. </para>
+<para>Constructs a new <ref refid="classzab_1_1event__loop" kindref="compound">event_loop</ref>. Is unusable until initialise is called. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="83" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="85" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1event__loop_1a3c0d851b986da902783bb4f9d5e44256" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::event_loop::initialise</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>initialise</name>
+        <briefdescription>
+<para>Initialises the <ref refid="classzab_1_1event__loop" kindref="compound">event_loop</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="90" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="88" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1event__loop_1a506fc84ad7313723a4d7afda6687a621" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::event_loop::initialise</definition>
+        <argsstring>(int _io_fd) noexcept</argsstring>
+        <name>initialise</name>
+        <param>
+          <type>int</type>
+          <declname>_io_fd</declname>
+        </param>
+        <briefdescription>
+<para>Initialises the <ref refid="classzab_1_1event__loop" kindref="compound">event_loop</ref> that shares a worker pool with _io_fd. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>_engine</parametername>
+<parametername>_io_fd</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>The engine. </para>
+<para>The io_ring to share a worker pool with. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -267,7 +277,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="81" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="101" bodyend="138"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="99" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="113" bodyend="139"/>
       </memberdef>
       <memberdef kind="function" id="classzab_1_1event__loop_1a93dcda18bf9fdb34e180b58bb00582c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -281,12 +291,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="86" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="140" bodyend="149"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="104" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="147" bodyend="156"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1aef1f6cef1ba7d8273bae847e5b92c4c9" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
-        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; int &gt;</type>
-        <definition>simple_future&lt; int &gt; zab::event_loop::open_at</definition>
-        <argsstring>(int _dfd, const std::string_view _path, int _flags, mode_t _mode, io_handle *_cancle_token=nullptr) noexcept</argsstring>
+      <memberdef kind="function" id="classzab_1_1event__loop_1ae7057597b05ac498692b534632267e20" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::event_loop::open_at</definition>
+        <argsstring>(int _dfd, const std::string_view _path, int _flags, mode_t _mode, cancelation_token *_cancel_token=nullptr) noexcept</argsstring>
         <name>open_at</name>
         <param>
           <type>int</type>
@@ -305,26 +315,70 @@
           <declname>_mode</declname>
         </param>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref> *</type>
-          <declname>_cancle_token</declname>
+          <type>cancelation_token *</type>
+          <declname>_cancel_token</declname>
           <defval>nullptr</defval>
         </param>
         <briefdescription>
+<para>Open a file relative to a directory file descriptor. </para>
         </briefdescription>
         <detaileddescription>
+<para>See <ulink url="https://linux.die.net/man/2/openat">https://linux.die.net/man/2/openat</ulink>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_dfd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The directory descriptor or AT_FDCWD </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The path to the file relative to _dfd. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flags used to open the file. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Permissions to use for the file </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A ptr to a io_event* which will bet set to the cancelation handle.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+@co_return The result of <computeroutput>::openat()</computeroutput> </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="89" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="179" bodyend="194"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="122" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="122" bodyend="145"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1a137b09c177df2316f345d4ec99db2b47" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+      <memberdef kind="function" id="classzab_1_1event__loop_1a6abbb0ec7e2fb0cfc7b867c3f91a6199" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
         <definition>void zab::event_loop::open_at</definition>
-        <argsstring>(io_handle _cancle_token, int _dfd, const std::string_view _path, int _flags, mode_t _mode) noexcept</argsstring>
+        <argsstring>(io_event *_cancel_token, int _dfd, const std::string_view _path, int _flags, mode_t _mode) noexcept</argsstring>
         <name>open_at</name>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref></type>
-          <declname>_cancle_token</declname>
+          <type>io_event *</type>
+          <declname>_cancel_token</declname>
         </param>
         <param>
           <type>int</type>
@@ -343,60 +397,144 @@
           <declname>_mode</declname>
         </param>
         <briefdescription>
+<para>Open a file relative to a directory file descriptor. </para>
         </briefdescription>
         <detaileddescription>
+<para><emphasis>cancel_token-&gt;data</emphasis> will hold the return code of the op. <verbatim>     See https://linux.die.net/man/2/openat.
+</verbatim> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A io_event* which will be resumed on completion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_dfd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The directory descriptor or AT_FDCWD </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The path to the file relative to _dfd. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flags used to open the file. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Permissions to use for the file </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="97" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="197" bodyend="212"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="162" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="165" bodyend="180"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1a4191f78fc5c2bd786070f66743d781c6" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
-        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; int &gt;</type>
-        <definition>simple_future&lt; int &gt; zab::event_loop::close</definition>
-        <argsstring>(int _fd, io_handle *_cancle_token=nullptr) noexcept</argsstring>
+      <memberdef kind="function" id="classzab_1_1event__loop_1a78afeb13c60aba9df381d2e05217d513" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::event_loop::close</definition>
+        <argsstring>(int _fd, cancelation_token *_cancel_token=nullptr) noexcept</argsstring>
         <name>close</name>
         <param>
           <type>int</type>
           <declname>_fd</declname>
         </param>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref> *</type>
-          <declname>_cancle_token</declname>
+          <type>cancelation_token *</type>
+          <declname>_cancel_token</declname>
           <defval>nullptr</defval>
         </param>
         <briefdescription>
+<para>Close a file descriptor. </para>
         </briefdescription>
         <detaileddescription>
+<para>See <ulink url="https://man7.org/linux/man-pages/man2/close.2.html">https://man7.org/linux/man-pages/man2/close.2.html</ulink>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The file descriptor to close. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A ptr to a io_event* which will bet set to the cancelation handle.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+@co_return The result of <computeroutput>::close()</computeroutput> </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="105" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="215" bodyend="218"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="181" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="181" bodyend="199"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1a1dfe02f82e68f9cda046ec4507f26f36" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+      <memberdef kind="function" id="classzab_1_1event__loop_1afe0d8bec9d0fae6b378f5ba8cb80f248" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
         <definition>void zab::event_loop::close</definition>
-        <argsstring>(io_handle _cancle_token, int _fd) noexcept</argsstring>
+        <argsstring>(io_event *_cancel_token, int _fd) noexcept</argsstring>
         <name>close</name>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref></type>
-          <declname>_cancle_token</declname>
+          <type>io_event *</type>
+          <declname>_cancel_token</declname>
         </param>
         <param>
           <type>int</type>
           <declname>_fd</declname>
         </param>
         <briefdescription>
+<para>Close a file descriptor. </para>
         </briefdescription>
         <detaileddescription>
+<para><emphasis>cancel_token-&gt;data</emphasis> will hold the return code of the op. <verbatim>     See https://man7.org/linux/man-pages/man2/close.2.html.
+</verbatim> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A io_event* which will be resumed on completion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The file descriptor to close.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="108" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="221" bodyend="224"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="213" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="183" bodyend="186"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1aec0f1eedc3db85ca7147a0f18bac11cf" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
-        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; int &gt;</type>
-        <definition>simple_future&lt; int &gt; zab::event_loop::read</definition>
-        <argsstring>(int _fd, std::span&lt; std::byte &gt; _buffer, off_t _offset, io_handle *_cancle_token=nullptr) noexcept</argsstring>
+      <memberdef kind="function" id="classzab_1_1event__loop_1ad92141faa9b78d4849824f667f5985ed" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::event_loop::read</definition>
+        <argsstring>(int _fd, std::span&lt; std::byte &gt; _buffer, off_t _offset, cancelation_token *_cancel_token=nullptr) noexcept</argsstring>
         <name>read</name>
         <param>
           <type>int</type>
@@ -411,26 +549,62 @@
           <declname>_offset</declname>
         </param>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref> *</type>
-          <declname>_cancle_token</declname>
+          <type>cancelation_token *</type>
+          <declname>_cancel_token</declname>
           <defval>nullptr</defval>
         </param>
         <briefdescription>
+<para>Read from a file descriptor. </para>
         </briefdescription>
         <detaileddescription>
+<para>See <ulink url="https://man7.org/linux/man-pages/man2/read.2.html">https://man7.org/linux/man-pages/man2/read.2.html</ulink>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The file to read from. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The buffer to read into. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offset of the buffer to start from. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A ptr to a io_event* which will bet set to the cancelation handle.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+@co_return The result of <computeroutput>::read()</computeroutput> </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="111" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="227" bodyend="241"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="229" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="229" bodyend="251"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1a9862df32dc9a5393170b71d383838e02" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+      <memberdef kind="function" id="classzab_1_1event__loop_1af8b48a54dd7ea706fdd6dbc6f8a707df" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
         <definition>void zab::event_loop::read</definition>
-        <argsstring>(io_handle _cancle_token, int _fd, std::span&lt; std::byte &gt; _buffer, off_t _offset) noexcept</argsstring>
+        <argsstring>(io_event *_cancel_token, int _fd, std::span&lt; std::byte &gt; _buffer, off_t _offset) noexcept</argsstring>
         <name>read</name>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref></type>
-          <declname>_cancle_token</declname>
+          <type>io_event *</type>
+          <declname>_cancel_token</declname>
         </param>
         <param>
           <type>int</type>
@@ -445,17 +619,53 @@
           <declname>_offset</declname>
         </param>
         <briefdescription>
+<para>Read from a file descriptor. </para>
         </briefdescription>
         <detaileddescription>
+<para><emphasis>cancel_token-&gt;data</emphasis> will hold the return code of the op. <verbatim>     See https://man7.org/linux/man-pages/man2/read.2.html.
+</verbatim> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A io_event* which will be resumed on completion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The file to read from. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The buffer to read into. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offset of the buffer to start from. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="118" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="244" bodyend="258"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="267" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="189" bodyend="203"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1af9d7b0e54e654f6d83582b04eb42c883" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
-        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; int &gt;</type>
-        <definition>simple_future&lt; int &gt; zab::event_loop::fixed_read</definition>
-        <argsstring>(int _fd, std::span&lt; std::byte &gt; _buffer, off_t _offset, int _buf_index, io_handle *_cancle_token=nullptr) noexcept</argsstring>
+      <memberdef kind="function" id="classzab_1_1event__loop_1ada3db2ca1f7f5d716228be7592a63fdd" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::event_loop::fixed_read</definition>
+        <argsstring>(int _fd, std::span&lt; std::byte &gt; _buffer, off_t _offset, int _buf_index, cancelation_token *_cancel_token=nullptr) noexcept</argsstring>
         <name>fixed_read</name>
         <param>
           <type>int</type>
@@ -474,26 +684,70 @@
           <declname>_buf_index</declname>
         </param>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref> *</type>
-          <declname>_cancle_token</declname>
+          <type>cancelation_token *</type>
+          <declname>_cancel_token</declname>
           <defval>nullptr</defval>
         </param>
         <briefdescription>
+<para>Read from a file descriptor using a fixed buffer. </para>
         </briefdescription>
         <detaileddescription>
+<para>See <ulink url="https://man7.org/linux/man-pages/man2/read.2.html">https://man7.org/linux/man-pages/man2/read.2.html</ulink>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The file to read from. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The buffer to read into. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offset of the buffer to start from. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_buf_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index of the fixed buffer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A ptr to a io_event* which will bet set to the cancelation handle.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+@co_return The result of the <computeroutput><ref refid="classzab_1_1event__loop_1ada3db2ca1f7f5d716228be7592a63fdd" kindref="member">fixed_read()</ref></computeroutput> operation. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="125" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="297" bodyend="313"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="288" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="288" bodyend="316"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1a59e5a9e8560353634a56b42951c01a94" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+      <memberdef kind="function" id="classzab_1_1event__loop_1a6d4c3a43014d3a78ad42fc9201685b75" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
         <definition>void zab::event_loop::fixed_read</definition>
-        <argsstring>(io_handle _cancle_token, int _fd, std::span&lt; std::byte &gt; _buffer, off_t _offset, int _buf_index) noexcept</argsstring>
+        <argsstring>(io_event *_cancel_token, int _fd, std::span&lt; std::byte &gt; _buffer, off_t _offset, int _buf_index) noexcept</argsstring>
         <name>fixed_read</name>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref></type>
-          <declname>_cancle_token</declname>
+          <type>io_event *</type>
+          <declname>_cancel_token</declname>
         </param>
         <param>
           <type>int</type>
@@ -512,17 +766,61 @@
           <declname>_buf_index</declname>
         </param>
         <briefdescription>
+<para>Read from a file descriptor using a fixed buffer. </para>
         </briefdescription>
         <detaileddescription>
+<para><emphasis>cancel_token-&gt;data</emphasis> will hold the return code of the op. <verbatim>     See https://man7.org/linux/man-pages/man2/read.2.html.
+</verbatim> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A io_event* which will be resumed on completion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The file to read from. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The buffer to read into. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offset of the buffer to start from. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_buf_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The index of the fixed buffer. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="133" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="316" bodyend="332"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="333" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="224" bodyend="240"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1a02376b6b07cced37cddb14724b341fd6" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
-        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; int &gt;</type>
-        <definition>simple_future&lt; int &gt; zab::event_loop::read_v</definition>
-        <argsstring>(int _fd, const struct iovec *_iovecs, unsigned _nr_vecs, off_t _offset, io_handle *_cancle_token=nullptr) noexcept</argsstring>
+      <memberdef kind="function" id="classzab_1_1event__loop_1a401bed36487aed0a941b69403584314e" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::event_loop::read_v</definition>
+        <argsstring>(int _fd, const struct iovec *_iovecs, unsigned _nr_vecs, off_t _offset, cancelation_token *_cancel_token=nullptr) noexcept</argsstring>
         <name>read_v</name>
         <param>
           <type>int</type>
@@ -541,26 +839,70 @@
           <declname>_offset</declname>
         </param>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref> *</type>
-          <declname>_cancle_token</declname>
+          <type>cancelation_token *</type>
+          <declname>_cancel_token</declname>
           <defval>nullptr</defval>
         </param>
         <briefdescription>
+<para>Read from a file descriptor into multiple buffers. </para>
         </briefdescription>
         <detaileddescription>
+<para>See <ulink url="https://man7.org/linux/man-pages/man2/readv.2.html">https://man7.org/linux/man-pages/man2/readv.2.html</ulink></para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The file to read from. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_iovecs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The _iovecs array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_nr_vecs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The size of the _iovecs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offset of the buffer to start from. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A ptr to a io_event* which will bet set to the cancelation handle.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+@co_return The result of the <computeroutput>::readv()</computeroutput> operation. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="141" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="261" bodyend="276"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="355" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="355" bodyend="383"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1a6ba8e04ead99fe8a0403c0c2c5ca0f54" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+      <memberdef kind="function" id="classzab_1_1event__loop_1aac55a5c245a5b81a19c7e35ef674657f" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
         <definition>void zab::event_loop::read_v</definition>
-        <argsstring>(io_handle _cancle_token, int _fd, const struct iovec *_iovecs, unsigned _nr_vecs, off_t _offset) noexcept</argsstring>
+        <argsstring>(io_event *_cancel_token, int _fd, const struct iovec *_iovecs, unsigned _nr_vecs, off_t _offset) noexcept</argsstring>
         <name>read_v</name>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref></type>
-          <declname>_cancle_token</declname>
+          <type>io_event *</type>
+          <declname>_cancel_token</declname>
         </param>
         <param>
           <type>int</type>
@@ -579,17 +921,61 @@
           <declname>_offset</declname>
         </param>
         <briefdescription>
+<para>Read from a file descriptor into multiple buffers. </para>
         </briefdescription>
         <detaileddescription>
+<para><emphasis>cancel_token-&gt;data</emphasis> will hold the return code of the op. <verbatim>     See https://man7.org/linux/man-pages/man2/readv.2.html
+</verbatim> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A io_event* which will be resumed on completion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The file to read from. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_iovecs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The _iovecs array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_nr_vecs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The size of the _iovecs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offset of the buffer to start from. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="149" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="279" bodyend="294"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="400" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="206" bodyend="221"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1ad667054ede54dd8a968f170822d00324" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
-        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; int &gt;</type>
-        <definition>simple_future&lt; int &gt; zab::event_loop::write</definition>
-        <argsstring>(int _fd, std::span&lt; const std::byte &gt; _buffer, off_t _offset, io_handle *_cancle_token=nullptr) noexcept</argsstring>
+      <memberdef kind="function" id="classzab_1_1event__loop_1a82b15c8f9d283ea69b64f1582fedd7ad" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::event_loop::write</definition>
+        <argsstring>(int _fd, std::span&lt; const std::byte &gt; _buffer, off_t _offset, cancelation_token *_cancel_token=nullptr) noexcept</argsstring>
         <name>write</name>
         <param>
           <type>int</type>
@@ -604,26 +990,62 @@
           <declname>_offset</declname>
         </param>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref> *</type>
-          <declname>_cancle_token</declname>
+          <type>cancelation_token *</type>
+          <declname>_cancel_token</declname>
           <defval>nullptr</defval>
         </param>
         <briefdescription>
+<para>Write to a file descriptor. </para>
         </briefdescription>
         <detaileddescription>
+<para>See <ulink url="https://man7.org/linux/man-pages/man2/write.2.html">https://man7.org/linux/man-pages/man2/write.2.html</ulink>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The file descriptor to write to. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The buffer to write from. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offest from where to start writing. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A ptr to a io_event* which will bet set to the cancelation handle.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+@co_return The result of the <computeroutput>::write()</computeroutput> operation. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="157" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="335" bodyend="349"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="421" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="421" bodyend="443"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1a00ebd5beb64bc0c1a51117cd70e316f2" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+      <memberdef kind="function" id="classzab_1_1event__loop_1ad337f08e6d5481c7621714043e3df91e" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
         <definition>void zab::event_loop::write</definition>
-        <argsstring>(io_handle _cancle_token, int _fd, std::span&lt; const std::byte &gt; _buffer, off_t _offset) noexcept</argsstring>
+        <argsstring>(io_event *_cancel_token, int _fd, std::span&lt; const std::byte &gt; _buffer, off_t _offset) noexcept</argsstring>
         <name>write</name>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref></type>
-          <declname>_cancle_token</declname>
+          <type>io_event *</type>
+          <declname>_cancel_token</declname>
         </param>
         <param>
           <type>int</type>
@@ -638,17 +1060,53 @@
           <declname>_offset</declname>
         </param>
         <briefdescription>
+<para>Write to a file descriptor. </para>
         </briefdescription>
         <detaileddescription>
+<para><emphasis>cancel_token-&gt;data</emphasis> will hold the return code of the op. <verbatim>     See https://man7.org/linux/man-pages/man2/write.2.html
+</verbatim> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A io_event* which will be resumed on completion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The file descriptor to write to. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The buffer to write from. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offest from where to start writing. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="164" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="352" bodyend="366"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="459" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="243" bodyend="257"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1afff6f31f0505244d9094f4490bf98448" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
-        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; int &gt;</type>
-        <definition>simple_future&lt; int &gt; zab::event_loop::fixed_write</definition>
-        <argsstring>(int _fd, std::span&lt; const std::byte &gt; _buffer, off_t _offset, int _buf_index, io_handle *_cancle_token=nullptr) noexcept</argsstring>
+      <memberdef kind="function" id="classzab_1_1event__loop_1a33de05ddf11ac5e1ee42da8bb39e4d31" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::event_loop::fixed_write</definition>
+        <argsstring>(int _fd, std::span&lt; const std::byte &gt; _buffer, off_t _offset, int _buf_index, cancelation_token *_cancel_token=nullptr) noexcept</argsstring>
         <name>fixed_write</name>
         <param>
           <type>int</type>
@@ -667,26 +1125,70 @@
           <declname>_buf_index</declname>
         </param>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref> *</type>
-          <declname>_cancle_token</declname>
+          <type>cancelation_token *</type>
+          <declname>_cancel_token</declname>
           <defval>nullptr</defval>
         </param>
         <briefdescription>
+<para>Write from a fixed buffer into a file descriptor. </para>
         </briefdescription>
         <detaileddescription>
+<para>See <ulink url="https://man7.org/linux/man-pages/man2/write.2.html;">https://man7.org/linux/man-pages/man2/write.2.html;</ulink></para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The file descriptor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The buffer to write from. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offset of the buffer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_buf_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The pinned buffer index. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A ptr to a io_event* which will bet set to the cancelation handle.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+@co_return The result of the <computeroutput><ref refid="classzab_1_1event__loop_1a33de05ddf11ac5e1ee42da8bb39e4d31" kindref="member">fixed_write()</ref></computeroutput> operation. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="171" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="405" bodyend="421"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="480" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="480" bodyend="508"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1a4dd239bdb8ac3de5529302d3fa40cfc5" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+      <memberdef kind="function" id="classzab_1_1event__loop_1a7c26352c938f372e51611a5905f78e76" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
         <definition>void zab::event_loop::fixed_write</definition>
-        <argsstring>(io_handle _cancle_token, int _fd, std::span&lt; const std::byte &gt; _buffer, off_t _offset, int _buf_index) noexcept</argsstring>
+        <argsstring>(io_event *_cancel_token, int _fd, std::span&lt; const std::byte &gt; _buffer, off_t _offset, int _buf_index) noexcept</argsstring>
         <name>fixed_write</name>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref></type>
-          <declname>_cancle_token</declname>
+          <type>io_event *</type>
+          <declname>_cancel_token</declname>
         </param>
         <param>
           <type>int</type>
@@ -705,17 +1207,61 @@
           <declname>_buf_index</declname>
         </param>
         <briefdescription>
+<para>Write from a fixed buffer into a file descriptor. </para>
         </briefdescription>
         <detaileddescription>
+<para><emphasis>cancel_token-&gt;data</emphasis> will hold the return code of the op. <verbatim>     See https://man7.org/linux/man-pages/man2/write.2.html
+</verbatim> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A io_event* which will be resumed on completion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The file descriptor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The buffer to write from. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offset of the buffer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_buf_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The pinned buffer index. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="179" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="424" bodyend="440"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="525" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="278" bodyend="294"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1a6b304ef590760f9913ce01b6980cffc6" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
-        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; int &gt;</type>
-        <definition>simple_future&lt; int &gt; zab::event_loop::write_v</definition>
-        <argsstring>(int _fd, const struct iovec *_iovecs, unsigned _nr_vecs, off_t _offset, io_handle *_cancle_token=nullptr) noexcept</argsstring>
+      <memberdef kind="function" id="classzab_1_1event__loop_1aa78a0138d28c98a9e089f7d9396f58f5" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::event_loop::write_v</definition>
+        <argsstring>(int _fd, const struct iovec *_iovecs, unsigned _nr_vecs, off_t _offset, cancelation_token *_cancel_token=nullptr) noexcept</argsstring>
         <name>write_v</name>
         <param>
           <type>int</type>
@@ -734,26 +1280,70 @@
           <declname>_offset</declname>
         </param>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref> *</type>
-          <declname>_cancle_token</declname>
+          <type>cancelation_token *</type>
+          <declname>_cancel_token</declname>
           <defval>nullptr</defval>
         </param>
         <briefdescription>
+<para>Write data from multiple buffers. </para>
         </briefdescription>
         <detaileddescription>
+<para>See: <ulink url="https://man7.org/linux/man-pages/man2/writev.2.html">https://man7.org/linux/man-pages/man2/writev.2.html</ulink>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The file descriptor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_iovecs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The iovec structure array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_nr_vecs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The size of the iovec array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offest from where to start writing. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A ptr to a io_event* which will bet set to the cancelation handle.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+@co_return The result of the <computeroutput>::writev()</computeroutput> operation. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="187" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="369" bodyend="384"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="547" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="547" bodyend="575"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1a349196a781f20f52a2dc3ae7d43445a6" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+      <memberdef kind="function" id="classzab_1_1event__loop_1a7990c9ddb4789212cc876021738d05a3" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
         <definition>void zab::event_loop::write_v</definition>
-        <argsstring>(io_handle _cancle_token, int _fd, const struct iovec *_iovecs, unsigned _nr_vecs, off_t _offset) noexcept</argsstring>
+        <argsstring>(io_event *_cancel_token, int _fd, const struct iovec *_iovecs, unsigned _nr_vecs, off_t _offset) noexcept</argsstring>
         <name>write_v</name>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref></type>
-          <declname>_cancle_token</declname>
+          <type>io_event *</type>
+          <declname>_cancel_token</declname>
         </param>
         <param>
           <type>int</type>
@@ -772,21 +1362,65 @@
           <declname>_offset</declname>
         </param>
         <briefdescription>
+<para>Write data from multiple buffers. </para>
         </briefdescription>
         <detaileddescription>
+<para><emphasis>cancel_token-&gt;data</emphasis> will hold the return code of the op. <verbatim>     See https://man7.org/linux/man-pages/man2/writev.2.html
+</verbatim> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A io_event* which will be resumed on completion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The file descriptor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_iovecs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The iovec structure array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_nr_vecs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The size of the iovec array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offest from where to start writing. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="195" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="387" bodyend="402"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="592" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="260" bodyend="275"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1a1c017a5b7825cb764085945f3f6a5a14" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
-        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; int &gt;</type>
-        <definition>simple_future&lt; int &gt; zab::event_loop::recv</definition>
-        <argsstring>(int sockfd, std::span&lt; std::byte &gt; _buffer, int _flags, io_handle *_cancle_token=nullptr) noexcept</argsstring>
+      <memberdef kind="function" id="classzab_1_1event__loop_1a9dab008262a7ecefab72f7f3eabbaf60" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::event_loop::recv</definition>
+        <argsstring>(int _sockfd, std::span&lt; std::byte &gt; _buffer, int _flags, cancelation_token *_cancel_token=nullptr) noexcept</argsstring>
         <name>recv</name>
         <param>
           <type>int</type>
-          <declname>sockfd</declname>
+          <declname>_sockfd</declname>
         </param>
         <param>
           <type>std::span&lt; std::byte &gt;</type>
@@ -797,30 +1431,66 @@
           <declname>_flags</declname>
         </param>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref> *</type>
-          <declname>_cancle_token</declname>
+          <type>cancelation_token *</type>
+          <declname>_cancel_token</declname>
           <defval>nullptr</defval>
         </param>
         <briefdescription>
+<para>Receive a message from a socket. </para>
         </briefdescription>
         <detaileddescription>
+<para>See <ulink url="https://man7.org/linux/man-pages/man2/recv.2.html">https://man7.org/linux/man-pages/man2/recv.2.html</ulink>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_sockfd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The socket descriptor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The buffer to receive into. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The flags to apply to the read operation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A ptr to a io_event* which will bet set to the cancelation handle.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+@co_return The result of the <computeroutput>::recv()</computeroutput> operation. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="203" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="443" bodyend="457"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="614" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="614" bodyend="636"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1a12ceab5e19b5274b6c892c7a2a2bd151" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+      <memberdef kind="function" id="classzab_1_1event__loop_1a40d164ebf02b0d6f5558297a20256348" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
         <definition>void zab::event_loop::recv</definition>
-        <argsstring>(io_handle _cancle_token, int sockfd, std::span&lt; std::byte &gt; _buffer, int _flags) noexcept</argsstring>
+        <argsstring>(io_event *_cancel_token, int _sockfd, std::span&lt; std::byte &gt; _buffer, int _flags) noexcept</argsstring>
         <name>recv</name>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref></type>
-          <declname>_cancle_token</declname>
+          <type>io_event *</type>
+          <declname>_cancel_token</declname>
         </param>
         <param>
           <type>int</type>
-          <declname>sockfd</declname>
+          <declname>_sockfd</declname>
         </param>
         <param>
           <type>std::span&lt; std::byte &gt;</type>
@@ -831,21 +1501,57 @@
           <declname>_flags</declname>
         </param>
         <briefdescription>
+<para>Receive a message from a socket. </para>
         </briefdescription>
         <detaileddescription>
+<para><emphasis>cancel_token-&gt;data</emphasis> will hold the return code of the op. <verbatim>     See https://man7.org/linux/man-pages/man2/recv.2.html.
+</verbatim> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A io_event* which will be resumed on completion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_sockfd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The socket descriptor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The buffer to receive into. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The flags to apply to the read operation. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="210" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="460" bodyend="474"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="652" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="297" bodyend="311"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1a29a1749c5222d7c3e39ab2387f6b23d9" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
-        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; int &gt;</type>
-        <definition>simple_future&lt; int &gt; zab::event_loop::send</definition>
-        <argsstring>(int sockfd, std::span&lt; const std::byte &gt; _buffer, int _flags, io_handle *_cancle_token=nullptr) noexcept</argsstring>
+      <memberdef kind="function" id="classzab_1_1event__loop_1afb613cda441bb9e70666c353785c37f9" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::event_loop::send</definition>
+        <argsstring>(int _sockfd, std::span&lt; const std::byte &gt; _buffer, int _flags, cancelation_token *_cancel_token=nullptr) noexcept</argsstring>
         <name>send</name>
         <param>
           <type>int</type>
-          <declname>sockfd</declname>
+          <declname>_sockfd</declname>
         </param>
         <param>
           <type>std::span&lt; const std::byte &gt;</type>
@@ -856,30 +1562,66 @@
           <declname>_flags</declname>
         </param>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref> *</type>
-          <declname>_cancle_token</declname>
+          <type>cancelation_token *</type>
+          <declname>_cancel_token</declname>
           <defval>nullptr</defval>
         </param>
         <briefdescription>
+<para>Send a message on a socket. </para>
         </briefdescription>
         <detaileddescription>
+<para>: See <ulink url="https://man7.org/linux/man-pages/man2/send.2.html">https://man7.org/linux/man-pages/man2/send.2.html</ulink>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_sockfd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The socket descriptor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The buffer to receive into. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The flags to apply to the write operation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A ptr to a io_event* which will bet set to the cancelation handle.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+@co_return The result of the <computeroutput>::send()</computeroutput> operation. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="217" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="477" bodyend="491"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="672" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="672" bodyend="694"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1a7ddeacd26cce79963a7d581f324391a8" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+      <memberdef kind="function" id="classzab_1_1event__loop_1a222eb9a5eb1dd70dd6eccc0eff8530d9" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
         <definition>void zab::event_loop::send</definition>
-        <argsstring>(io_handle _cancle_token, int sockfd, std::span&lt; const std::byte &gt; _buffer, int _flags) noexcept</argsstring>
+        <argsstring>(io_event *_cancel_token, int _sockfd, std::span&lt; const std::byte &gt; _buffer, int _flags) noexcept</argsstring>
         <name>send</name>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref></type>
-          <declname>_cancle_token</declname>
+          <type>io_event *</type>
+          <declname>_cancel_token</declname>
         </param>
         <param>
           <type>int</type>
-          <declname>sockfd</declname>
+          <declname>_sockfd</declname>
         </param>
         <param>
           <type>std::span&lt; const std::byte &gt;</type>
@@ -890,21 +1632,57 @@
           <declname>_flags</declname>
         </param>
         <briefdescription>
+<para>Send a message on a socket. </para>
         </briefdescription>
         <detaileddescription>
+<para><emphasis>cancel_token-&gt;data</emphasis> will hold the return code of the op. <verbatim>     See https://man7.org/linux/man-pages/man2/send.2.html.
+</verbatim> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A io_event* which will be resumed on completion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_sockfd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The socket descriptor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The buffer to receive into. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The flags to apply to the write operation. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="224" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="494" bodyend="508"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="710" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="314" bodyend="328"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1aafdb41f9431b8888d8c871958e983b46" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
-        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; int &gt;</type>
-        <definition>simple_future&lt; int &gt; zab::event_loop::accept</definition>
-        <argsstring>(int _fd, struct sockaddr *_addr, socklen_t *_addrlen, int _flag_, io_handle *_cancle_token=nullptr) noexcept</argsstring>
+      <memberdef kind="function" id="classzab_1_1event__loop_1aa75ae5cc57723069ec1a340e70f95486" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::event_loop::accept</definition>
+        <argsstring>(int _sockfd, struct sockaddr *_addr, socklen_t *_addrlen, int _flags, cancelation_token *_cancel_token=nullptr) noexcept</argsstring>
         <name>accept</name>
         <param>
           <type>int</type>
-          <declname>_fd</declname>
+          <declname>_sockfd</declname>
         </param>
         <param>
           <type>struct sockaddr *</type>
@@ -916,33 +1694,77 @@
         </param>
         <param>
           <type>int</type>
-          <declname>_flag_</declname>
+          <declname>_flags</declname>
         </param>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref> *</type>
-          <declname>_cancle_token</declname>
+          <type>cancelation_token *</type>
+          <declname>_cancel_token</declname>
           <defval>nullptr</defval>
         </param>
         <briefdescription>
+<para>Accept a connection on a socket. </para>
         </briefdescription>
         <detaileddescription>
+<para>See <ulink url="https://man7.org/linux/man-pages/man2/accept.2.html">https://man7.org/linux/man-pages/man2/accept.2.html</ulink>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_sockfd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The socket descriptor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The sockaddr to use. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_addrlen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The length of the sockaddre region. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The flags to apply to the accept operation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A ptr to a io_event* which will bet set to the cancelation handle.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+@co_return The result of the <computeroutput>::accept()</computeroutput> operation. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="231" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="511" bodyend="526"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="731" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="731" bodyend="759"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1ad051764ed6779e808b8ad177e1b258cd" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+      <memberdef kind="function" id="classzab_1_1event__loop_1af36c11b1551fa4aea00d37ecb2bda66c" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
         <definition>void zab::event_loop::accept</definition>
-        <argsstring>(io_handle _cancle_token, int _fd, struct sockaddr *_addr, socklen_t *_addrlen, int _flag_) noexcept</argsstring>
+        <argsstring>(io_event *_cancel_token, int _sockfd, struct sockaddr *_addr, socklen_t *_addrlen, int _flag_) noexcept</argsstring>
         <name>accept</name>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref></type>
-          <declname>_cancle_token</declname>
+          <type>io_event *</type>
+          <declname>_cancel_token</declname>
         </param>
         <param>
           <type>int</type>
-          <declname>_fd</declname>
+          <declname>_sockfd</declname>
         </param>
         <param>
           <type>struct sockaddr *</type>
@@ -957,24 +1779,68 @@
           <declname>_flag_</declname>
         </param>
         <briefdescription>
+<para>Accept a connection on a socket. </para>
         </briefdescription>
         <detaileddescription>
+<para><emphasis>cancel_token-&gt;data</emphasis> will hold the return code of the op. <verbatim>     See https://man7.org/linux/man-pages/man2/accept.2.html.
+</verbatim> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A io_event* which will be resumed on completion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_sockfd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The socket descriptor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The sockaddr to use. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_addrlen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The length of the sockaddre region. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The flags to apply to the accept operation. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="239" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="529" bodyend="544"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="776" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="331" bodyend="346"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1a430449079ef48139243956127a8d1e17" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
-        <type><ref refid="classzab_1_1simple__future" kindref="compound">simple_future</ref>&lt; int &gt;</type>
-        <definition>simple_future&lt; int &gt; zab::event_loop::connect</definition>
-        <argsstring>(int _fd, struct sockaddr *_addr, socklen_t _addrlen, io_handle *_cancle_token=nullptr) noexcept</argsstring>
+      <memberdef kind="function" id="classzab_1_1event__loop_1a22d59491892f40c908054391a9863e23" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::event_loop::connect</definition>
+        <argsstring>(int _sockfd, const struct sockaddr *_addr, socklen_t _addrlen, cancelation_token *_cancel_token=nullptr) noexcept</argsstring>
         <name>connect</name>
         <param>
           <type>int</type>
-          <declname>_fd</declname>
+          <declname>_sockfd</declname>
         </param>
         <param>
-          <type>struct sockaddr *</type>
+          <type>const struct sockaddr *</type>
           <declname>_addr</declname>
         </param>
         <param>
@@ -982,33 +1848,69 @@
           <declname>_addrlen</declname>
         </param>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref> *</type>
-          <declname>_cancle_token</declname>
+          <type>cancelation_token *</type>
+          <declname>_cancel_token</declname>
           <defval>nullptr</defval>
         </param>
         <briefdescription>
+<para>Initiate a connection on a socket. </para>
         </briefdescription>
         <detaileddescription>
+<para>See <ulink url="https://man7.org/linux/man-pages/man2/connect.2.html">https://man7.org/linux/man-pages/man2/connect.2.html</ulink>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_sockfd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The socket descriptor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The sockaddr to use. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_addrlen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The length of the sockaddre region. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A ptr to a io_event* which will bet set to the cancelation handle.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+@co_return The result of the <computeroutput>::connect()</computeroutput> operation. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="247" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="547" bodyend="554"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="797" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="797" bodyend="819"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1a24259ab27e826dc7c09b4c094356e96a" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+      <memberdef kind="function" id="classzab_1_1event__loop_1a784ef1373186260b642b5f9654b17d88" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
         <definition>void zab::event_loop::connect</definition>
-        <argsstring>(io_handle _cancle_token, int _fd, struct sockaddr *_addr, socklen_t _addrlen) noexcept</argsstring>
+        <argsstring>(io_event *_cancel_token, int _sockfd, const struct sockaddr *_addr, socklen_t _addrlen) noexcept</argsstring>
         <name>connect</name>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref></type>
-          <declname>_cancle_token</declname>
+          <type>io_event *</type>
+          <declname>_cancel_token</declname>
         </param>
         <param>
           <type>int</type>
-          <declname>_fd</declname>
+          <declname>_sockfd</declname>
         </param>
         <param>
-          <type>struct sockaddr *</type>
+          <type>const struct sockaddr *</type>
           <declname>_addr</declname>
         </param>
         <param>
@@ -1016,39 +1918,134 @@
           <declname>_addrlen</declname>
         </param>
         <briefdescription>
+<para>Initiate a connection on a socket. </para>
         </briefdescription>
         <detaileddescription>
+<para><emphasis>cancel_token-&gt;data</emphasis> will hold the return code of the op. <verbatim>     See https://man7.org/linux/man-pages/man2/connect.2.html.
+</verbatim> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A io_event* which will be resumed on completion. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_sockfd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The socket descriptor. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The sockaddr to use. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_addrlen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The length of the sockaddre region. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="254" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="557" bodyend="564"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="834" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="349" bodyend="356"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1a993f83991b5ffbf7fa2ebf3d108411f2" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
-        <type><ref refid="classzab_1_1simple__future" kindref="compound">guaranteed_future</ref>&lt; CancelResults &gt;</type>
+      <memberdef kind="function" id="classzab_1_1event__loop_1a46c3cfc5ad79bfacd2339c8cf75e1143" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
         <definition>auto zab::event_loop::cancel_event</definition>
-        <argsstring>(io_handle _key, bool _resume=false, std::uintptr_t _cancel_code=std::numeric_limits&lt; std::uintptr_t &gt;::max() - 1) noexcept</argsstring>
+        <argsstring>(cancelation_token _key) noexcept</argsstring>
         <name>cancel_event</name>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref></type>
+          <type>cancelation_token</type>
           <declname>_key</declname>
         </param>
-        <param>
-          <type>bool</type>
-          <declname>_resume</declname>
-          <defval>false</defval>
-        </param>
-        <param>
-          <type>std::uintptr_t</type>
-          <declname>_cancel_code</declname>
-          <defval>std::numeric_limits&lt; std::uintptr_t &gt;::max() - 1</defval>
-        </param>
         <briefdescription>
+<para>Attempt to cancel an operation. </para>
         </briefdescription>
         <detaileddescription>
+<para>See <computeroutput>CancelResult</computeroutput> for possible results.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The io handle to cancel. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_resume</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether to resume or destroy the io_event*. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_cancel_code</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>On resumption, the code to resume the io_event* with.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+@co_return CancelResult The result of the cancel_event operation. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="269" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="567" bodyend="594"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="899" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="899" bodyend="915"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1event__loop_1a2993ed58aad3bc7da8b5da741692480a" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::event_loop::cancel_event</definition>
+        <argsstring>(io_event *_cancel_token, cancelation_token _key) noexcept</argsstring>
+        <name>cancel_event</name>
+        <param>
+          <type>io_event *</type>
+          <declname>_cancel_token</declname>
+        </param>
+        <param>
+          <type>cancelation_token</type>
+          <declname>_key</declname>
+        </param>
+        <briefdescription>
+<para>Intiate a cancel operation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This cancel does not attempt to clean up the waiting request.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_cancel_token</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The handle to resume once cancel has been attempted. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The handle to cancel. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="927" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="359" bodyend="372"/>
       </memberdef>
       <memberdef kind="function" id="classzab_1_1event__loop_1ae25e4a78d86f4ed9d4556df11b9b8267" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
@@ -1056,29 +2053,42 @@
         <argsstring>() noexcept</argsstring>
         <name>submit_pending_events</name>
         <briefdescription>
+<para>Updater the counter on the submission queue to include any new submission. </para>
         </briefdescription>
         <detaileddescription>
+<para>This is done on every pass of the completion qeue. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="283" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="173" bodyend="176"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="937" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="159" bodyend="162"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1afd606404e270b80d879a80b339825712" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+      <memberdef kind="function" id="classzab_1_1event__loop_1a0eb6e75b7132b2e4150f239e7558cba3" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
-        <definition>void zab::event_loop::user_event</definition>
-        <argsstring>(event _handle) noexcept</argsstring>
-        <name>user_event</name>
+        <definition>void zab::event_loop::dispatch_user_event</definition>
+        <argsstring>(user_event _handle) noexcept</argsstring>
+        <name>dispatch_user_event</name>
         <param>
-          <type>event</type>
+          <type>user_event</type>
           <declname>_handle</declname>
         </param>
         <briefdescription>
+<para>Submits a user event to the <ref refid="classzab_1_1event__loop" kindref="compound">event_loop</ref>. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The event to submit. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="286" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="658" bodyend="669"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="945" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="422" bodyend="433"/>
       </memberdef>
       <memberdef kind="function" id="classzab_1_1event__loop_1aca4da2777fd0a03b164a7776a2f7511d" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>std::size_t</type>
@@ -1086,12 +2096,16 @@
         <argsstring>() const noexcept</argsstring>
         <name>event_size</name>
         <briefdescription>
+<para>The number of user events currently waiting to be handled. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>std::size_t </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="289" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="289" bodyend="292"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="953" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="953" bodyend="956"/>
       </memberdef>
       <memberdef kind="function" id="classzab_1_1event__loop_1a67ff2b4cfb9dce63dd3c7db9b5720440" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>auto</type>
@@ -1099,12 +2113,17 @@
         <argsstring>() noexcept</argsstring>
         <name>get_stop_function</name>
         <briefdescription>
+<para>Get the stop function for the run time. </para>
         </briefdescription>
         <detaileddescription>
+<para>This is a lambda that just calls wake.</para>
+<para><simplesect kind="return"><para>A lambda wrapper for wake. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="295" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="295" bodyend="301"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="966" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="966" bodyend="972"/>
       </memberdef>
       <memberdef kind="function" id="classzab_1_1event__loop_1a6ace768c190a3d6f2e938dae35d529b7" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
@@ -1116,84 +2135,140 @@
           <declname>_st</declname>
         </param>
         <briefdescription>
+<para>Run the event loop until until signaled be the stop token. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_st</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The stop token. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="304" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="619" bodyend="655"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="980" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="436" bodyend="472"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1aba1520833f362c9a83074b42408f0248" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classzab_1_1event__loop_1a22d93284b7f42bd4422b3b80be9d772c" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
         <definition>void zab::event_loop::wake</definition>
-        <argsstring>()</argsstring>
+        <argsstring>(event_loop &amp;_from) noexcept</argsstring>
         <name>wake</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="307" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="608" bodyend="616"/>
-      </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1a08fcc03963fab68d5a1181d5da9c21a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>std::optional&lt; std::pair&lt; std::span&lt; std::byte &gt;, std::size_t &gt; &gt;</type>
-        <definition>std::optional&lt; std::pair&lt; std::span&lt; std::byte &gt;, std::size_t &gt; &gt; zab::event_loop::claim_fixed_buffer</definition>
-        <argsstring>()</argsstring>
-        <name>claim_fixed_buffer</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="310" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="152" bodyend="164"/>
-      </memberdef>
-      <memberdef kind="function" id="classzab_1_1event__loop_1ab2444c587902438ad86bf8ff689dca51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void zab::event_loop::release_fixed_buffer</definition>
-        <argsstring>(std::pair&lt; std::span&lt; std::byte &gt;, std::size_t &gt; _buffer)</argsstring>
-        <name>release_fixed_buffer</name>
         <param>
-          <type>std::pair&lt; std::span&lt; std::byte &gt;, std::size_t &gt;</type>
-          <declname>_buffer</declname>
+          <type><ref refid="classzab_1_1event__loop" kindref="compound">event_loop</ref> &amp;</type>
+          <declname>_from</declname>
         </param>
         <briefdescription>
+<para>Wakes the event loop by inserting a user space event. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_from</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The <ref refid="classzab_1_1event__loop" kindref="compound">event_loop</ref> to wake up from. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="989" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="399" bodyend="409"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1event__loop_1a93401e92aee2895baa0600cb7b64ca3e" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::event_loop::wake</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>wake</name>
+        <briefdescription>
+<para>Wakes the event loop by inserting a user space event. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="313" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="167" bodyend="170"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="996" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="412" bodyend="419"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1event__loop_1a2b0990d425688e0d01b24a6e83d4064e" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int zab::event_loop::io_fd</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>io_fd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="999" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="142" bodyend="145"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
-      <memberdef kind="function" id="classzab_1_1event__loop_1a71699b25ae03cee9ed3004d3c6ab4e69" prot="public" static="yes" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void zab::event_loop::clean_up</definition>
-        <argsstring>(io_handle _key, bool _resume=false, std::uintptr_t _cancel_code=std::numeric_limits&lt; std::uintptr_t &gt;::max() - 1) noexcept</argsstring>
-        <name>clean_up</name>
+      <memberdef kind="function" id="classzab_1_1event__loop_1a4c4e8a8da66270d9298ae376cd4c44ce" prot="public" static="yes" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1event__loop_1ad1d9a5b64efba25fb8d8adde6594c8a2" kindref="member">CancelResult</ref></type>
+        <definition>auto zab::event_loop::cancel_code</definition>
+        <argsstring>(std::intptr_t _result) noexcept</argsstring>
+        <name>cancel_code</name>
         <param>
-          <type><ref refid="structzab_1_1pause__pack" kindref="compound">io_handle</ref></type>
-          <declname>_key</declname>
-        </param>
-        <param>
-          <type>bool</type>
-          <declname>_resume</declname>
-          <defval>false</defval>
-        </param>
-        <param>
-          <type>std::uintptr_t</type>
-          <declname>_cancel_code</declname>
-          <defval>std::numeric_limits&lt; std::uintptr_t &gt;::max() - 1</defval>
+          <type>std::intptr_t</type>
+          <declname>_result</declname>
         </param>
         <briefdescription>
+<para>Converts errno error codes into CancelResult. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_result</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The errno result. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>CancelResult The corresponding CancelResult. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="276" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="597" bodyend="605"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="859" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="375" bodyend="394"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1event__loop_1af6b3ac4716b9194177c12047c24ba020" prot="public" static="yes" constexpr="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>constexpr std::string_view</type>
+        <definition>static constexpr std::string_view zab::event_loop::cancel_message</definition>
+        <argsstring>(CancelResult _result) noexcept</argsstring>
+        <name>cancel_message</name>
+        <param>
+          <type><ref refid="classzab_1_1event__loop_1ad1d9a5b64efba25fb8d8adde6594c8a2" kindref="member">CancelResult</ref></type>
+          <declname>_result</declname>
+        </param>
+        <briefdescription>
+<para>Converts CancelResult into a message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_result</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The errno result. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>CancelResult The corresponding CancelResult message. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="868" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="868" bodyend="884"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -1212,67 +2287,71 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="318" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="672" bodyend="716"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="1004" column="13" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="475" bodyend="514"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>This class implements an asynchronous <computeroutput>epoll</computeroutput> based descriptor notification service. </para>
+<para>This class implements a coroutine wrapper for the liburing service. </para>
     </briefdescription>
     <detaileddescription>
+<para><verbatim>        Investigate IORING_SETUP_ATTACH_WQ
+</verbatim> </para>
     </detaileddescription>
-    <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="65" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="65" bodyend="336"/>
+    <location file="/home/donald/rupin/zab/includes/zab/event_loop.hpp" line="67" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/event_loop.hpp" bodystart="67" bodyend="1016"/>
     <listofallmembers>
-      <member refid="classzab_1_1event__loop_1aafdb41f9431b8888d8c871958e983b46" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>accept</name></member>
-      <member refid="classzab_1_1event__loop_1ad051764ed6779e808b8ad177e1b258cd" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>accept</name></member>
-      <member refid="classzab_1_1event__loop_1a993f83991b5ffbf7fa2ebf3d108411f2" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>cancel_event</name></member>
-      <member refid="classzab_1_1event__loop_1a5d0e2838123ad0907963fc9e5f31b772" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>CancelResults</name></member>
-      <member refid="classzab_1_1event__loop_1a08fcc03963fab68d5a1181d5da9c21a1" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>claim_fixed_buffer</name></member>
-      <member refid="classzab_1_1event__loop_1a71699b25ae03cee9ed3004d3c6ab4e69" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>clean_up</name></member>
-      <member refid="classzab_1_1event__loop_1a4191f78fc5c2bd786070f66743d781c6" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>close</name></member>
-      <member refid="classzab_1_1event__loop_1a1dfe02f82e68f9cda046ec4507f26f36" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>close</name></member>
-      <member refid="classzab_1_1event__loop_1a430449079ef48139243956127a8d1e17" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>connect</name></member>
-      <member refid="classzab_1_1event__loop_1a24259ab27e826dc7c09b4c094356e96a" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>connect</name></member>
+      <member refid="classzab_1_1event__loop_1aa75ae5cc57723069ec1a340e70f95486" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>accept</name></member>
+      <member refid="classzab_1_1event__loop_1af36c11b1551fa4aea00d37ecb2bda66c" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>accept</name></member>
+      <member refid="classzab_1_1event__loop_1a4c4e8a8da66270d9298ae376cd4c44ce" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>cancel_code</name></member>
+      <member refid="classzab_1_1event__loop_1a46c3cfc5ad79bfacd2339c8cf75e1143" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>cancel_event</name></member>
+      <member refid="classzab_1_1event__loop_1a2993ed58aad3bc7da8b5da741692480a" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>cancel_event</name></member>
+      <member refid="classzab_1_1event__loop_1af6b3ac4716b9194177c12047c24ba020" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>cancel_message</name></member>
+      <member refid="classzab_1_1event__loop_1aea840fc16142d566b5454f19421bd4a9" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>cancelation_token</name></member>
+      <member refid="classzab_1_1event__loop_1ad1d9a5b64efba25fb8d8adde6594c8a2" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>CancelResult</name></member>
+      <member refid="classzab_1_1event__loop_1a78afeb13c60aba9df381d2e05217d513" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>close</name></member>
+      <member refid="classzab_1_1event__loop_1afe0d8bec9d0fae6b378f5ba8cb80f248" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>close</name></member>
+      <member refid="classzab_1_1event__loop_1a22d59491892f40c908054391a9863e23" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>connect</name></member>
+      <member refid="classzab_1_1event__loop_1a784ef1373186260b642b5f9654b17d88" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>connect</name></member>
+      <member refid="classzab_1_1event__loop_1a0eb6e75b7132b2e4150f239e7558cba3" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>dispatch_user_event</name></member>
       <member refid="classzab_1_1event__loop_1a9024ff7da0075bc65be27b9268e3c1ea" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>event_loop</name></member>
       <member refid="classzab_1_1event__loop_1aca4da2777fd0a03b164a7776a2f7511d" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>event_size</name></member>
-      <member refid="classzab_1_1event__loop_1af9d7b0e54e654f6d83582b04eb42c883" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>fixed_read</name></member>
-      <member refid="classzab_1_1event__loop_1a59e5a9e8560353634a56b42951c01a94" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>fixed_read</name></member>
-      <member refid="classzab_1_1event__loop_1afff6f31f0505244d9094f4490bf98448" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>fixed_write</name></member>
-      <member refid="classzab_1_1event__loop_1a4dd239bdb8ac3de5529302d3fa40cfc5" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>fixed_write</name></member>
-      <member refid="classzab_1_1event__loop_1a5c1869c8b895b2d7d5bf8f80b25fb861" prot="private" virt="non-virtual"><scope>zab::event_loop</scope><name>free_buffers_</name></member>
+      <member refid="classzab_1_1event__loop_1ada3db2ca1f7f5d716228be7592a63fdd" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>fixed_read</name></member>
+      <member refid="classzab_1_1event__loop_1a6d4c3a43014d3a78ad42fc9201685b75" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>fixed_read</name></member>
+      <member refid="classzab_1_1event__loop_1a33de05ddf11ac5e1ee42da8bb39e4d31" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>fixed_write</name></member>
+      <member refid="classzab_1_1event__loop_1a7c26352c938f372e51611a5905f78e76" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>fixed_write</name></member>
       <member refid="classzab_1_1event__loop_1a67ff2b4cfb9dce63dd3c7db9b5720440" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>get_stop_function</name></member>
-      <member refid="classzab_1_1event__loop_1a9d79775dc5eadac65deab101a1246d39" prot="private" virt="non-virtual"><scope>zab::event_loop</scope><name>handles_</name></member>
-      <member refid="classzab_1_1event__loop_1ac56a602dcda3544421672c93f8a455dd" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>io_handle</name></member>
-      <member refid="classzab_1_1event__loop_1a64a41cc6fb1e28c3490a3d3ffae4a395" prot="private" virt="non-virtual"><scope>zab::event_loop</scope><name>kPinSize</name></member>
+      <member refid="classzab_1_1event__loop_1a3825769e5ecdb89698e93e61ddde019b" prot="private" virt="non-virtual"><scope>zab::event_loop</scope><name>handles_</name></member>
+      <member refid="classzab_1_1event__loop_1a3c0d851b986da902783bb4f9d5e44256" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>initialise</name></member>
+      <member refid="classzab_1_1event__loop_1a506fc84ad7313723a4d7afda6687a621" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>initialise</name></member>
+      <member refid="classzab_1_1event__loop_1a5dc860d461ffc62bca288e8de87815c0" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>io_event</name></member>
+      <member refid="classzab_1_1event__loop_1a2b0990d425688e0d01b24a6e83d4064e" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>io_fd</name></member>
       <member refid="classzab_1_1event__loop_1a631391026e3a798279048ce2dc81e0c3" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>kQueueSize</name></member>
       <member refid="classzab_1_1event__loop_1a3238f4d73abbb816be905ce7028f41fc" prot="private" virt="non-virtual"><scope>zab::event_loop</scope><name>kReadIndex</name></member>
-      <member refid="classzab_1_1event__loop_1ad791c0a406c0341f6c1149864a60a204" prot="private" virt="non-virtual"><scope>zab::event_loop</scope><name>kTotalBuffers</name></member>
       <member refid="classzab_1_1event__loop_1a57b7982b4c79243d01421551a0fa232a" prot="private" virt="non-virtual"><scope>zab::event_loop</scope><name>kWriteIndex</name></member>
       <member refid="classzab_1_1event__loop_1a1748edba5bd6259c9e2454fa44d06270" prot="private" virt="non-virtual"><scope>zab::event_loop</scope><name>mtx_</name></member>
-      <member refid="classzab_1_1event__loop_1aef1f6cef1ba7d8273bae847e5b92c4c9" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>open_at</name></member>
-      <member refid="classzab_1_1event__loop_1a137b09c177df2316f345d4ec99db2b47" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>open_at</name></member>
-      <member refid="classzab_1_1event__loop_1a504d9ab3f06308865709b3428f8eaec3" prot="private" virt="non-virtual"><scope>zab::event_loop</scope><name>pinned_buffers_</name></member>
-      <member refid="classzab_1_1event__loop_1aec0f1eedc3db85ca7147a0f18bac11cf" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>read</name></member>
-      <member refid="classzab_1_1event__loop_1a9862df32dc9a5393170b71d383838e02" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>read</name></member>
-      <member refid="classzab_1_1event__loop_1a02376b6b07cced37cddb14724b341fd6" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>read_v</name></member>
-      <member refid="classzab_1_1event__loop_1a6ba8e04ead99fe8a0403c0c2c5ca0f54" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>read_v</name></member>
-      <member refid="classzab_1_1event__loop_1a1c017a5b7825cb764085945f3f6a5a14" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>recv</name></member>
-      <member refid="classzab_1_1event__loop_1a12ceab5e19b5274b6c892c7a2a2bd151" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>recv</name></member>
-      <member refid="classzab_1_1event__loop_1ab2444c587902438ad86bf8ff689dca51" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>release_fixed_buffer</name></member>
+      <member refid="classzab_1_1event__loop_1ae7057597b05ac498692b534632267e20" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>open_at</name></member>
+      <member refid="classzab_1_1event__loop_1a6abbb0ec7e2fb0cfc7b867c3f91a6199" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>open_at</name></member>
+      <member refid="classzab_1_1event__loop_1ad92141faa9b78d4849824f667f5985ed" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>read</name></member>
+      <member refid="classzab_1_1event__loop_1af8b48a54dd7ea706fdd6dbc6f8a707df" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>read</name></member>
+      <member refid="classzab_1_1event__loop_1a401bed36487aed0a941b69403584314e" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>read_v</name></member>
+      <member refid="classzab_1_1event__loop_1aac55a5c245a5b81a19c7e35ef674657f" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>read_v</name></member>
+      <member refid="classzab_1_1event__loop_1a9dab008262a7ecefab72f7f3eabbaf60" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>recv</name></member>
+      <member refid="classzab_1_1event__loop_1a40d164ebf02b0d6f5558297a20256348" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>recv</name></member>
       <member refid="classzab_1_1event__loop_1aa82688bbfcdecd9e7028228294b883ee" prot="private" virt="non-virtual"><scope>zab::event_loop</scope><name>ring_</name></member>
       <member refid="classzab_1_1event__loop_1a6ace768c190a3d6f2e938dae35d529b7" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>run</name></member>
       <member refid="classzab_1_1event__loop_1a05156c1572ca98a152c82d2a97cedfe8" prot="private" virt="non-virtual"><scope>zab::event_loop</scope><name>run_user_space</name></member>
-      <member refid="classzab_1_1event__loop_1a29a1749c5222d7c3e39ab2387f6b23d9" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>send</name></member>
-      <member refid="classzab_1_1event__loop_1a7ddeacd26cce79963a7d581f324391a8" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>send</name></member>
+      <member refid="classzab_1_1event__loop_1afb613cda441bb9e70666c353785c37f9" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>send</name></member>
+      <member refid="classzab_1_1event__loop_1a222eb9a5eb1dd70dd6eccc0eff8530d9" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>send</name></member>
       <member refid="classzab_1_1event__loop_1ad2ed9448e644d8d80f61b93fa2ed50cc" prot="private" virt="non-virtual"><scope>zab::event_loop</scope><name>size_</name></member>
       <member refid="classzab_1_1event__loop_1ae25e4a78d86f4ed9d4556df11b9b8267" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>submit_pending_events</name></member>
-      <member refid="classzab_1_1event__loop_1a690c459fa6aea83f9da7e31f461e2e77" prot="private" virt="non-virtual"><scope>zab::event_loop</scope><name>use_space_handle_</name></member>
-      <member refid="classzab_1_1event__loop_1afd606404e270b80d879a80b339825712" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>user_event</name></member>
+      <member refid="classzab_1_1event__loop_1acb6a6f587e70d8aa3fdd347f543c4765" prot="private" virt="non-virtual"><scope>zab::event_loop</scope><name>use_space_handle_</name></member>
+      <member refid="classzab_1_1event__loop_1a5bc5bdb49782e6fa71ed7f905c8acbc8" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>user_event</name></member>
       <member refid="classzab_1_1event__loop_1a51aa6508e6f78b05f6b09edd9c2f6b18" prot="private" virt="non-virtual"><scope>zab::event_loop</scope><name>user_space_event_fd_</name></member>
-      <member refid="classzab_1_1event__loop_1aba1520833f362c9a83074b42408f0248" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>wake</name></member>
-      <member refid="classzab_1_1event__loop_1ad667054ede54dd8a968f170822d00324" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>write</name></member>
-      <member refid="classzab_1_1event__loop_1a00ebd5beb64bc0c1a51117cd70e316f2" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>write</name></member>
-      <member refid="classzab_1_1event__loop_1a6b304ef590760f9913ce01b6980cffc6" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>write_v</name></member>
-      <member refid="classzab_1_1event__loop_1a349196a781f20f52a2dc3ae7d43445a6" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>write_v</name></member>
+      <member refid="classzab_1_1event__loop_1a22d93284b7f42bd4422b3b80be9d772c" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>wake</name></member>
+      <member refid="classzab_1_1event__loop_1a93401e92aee2895baa0600cb7b64ca3e" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>wake</name></member>
+      <member refid="classzab_1_1event__loop_1a82b15c8f9d283ea69b64f1582fedd7ad" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>write</name></member>
+      <member refid="classzab_1_1event__loop_1ad337f08e6d5481c7621714043e3df91e" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>write</name></member>
+      <member refid="classzab_1_1event__loop_1aa78a0138d28c98a9e089f7d9396f58f5" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>write_v</name></member>
+      <member refid="classzab_1_1event__loop_1a7990c9ddb4789212cc876021738d05a3" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>write_v</name></member>
       <member refid="classzab_1_1event__loop_1a93dcda18bf9fdb34e180b58bb00582c2" prot="public" virt="non-virtual"><scope>zab::event_loop</scope><name>~event_loop</name></member>
     </listofallmembers>
   </compounddef>

@@ -1,73 +1,34 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>reusable_promise &mdash; ZAB 0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Asynchronous Primitives" href="async_primitives.html" />
     <link rel="prev" title="vistor_promise" href="visitor_promise.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> ZAB
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -75,19 +36,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Visit:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -111,116 +61,71 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">ZAB</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="lib_root.html">ZAB Documentation</a> &raquo;</li>
-        
           <li><a href="coroutines.html">Coroutines</a> &raquo;</li>
-        
           <li><a href="promise_types.html">Promise Types</a> &raquo;</li>
-        
       <li>reusable_promise</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/lib/reusable_promise.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
 
-<div class="section" id="reusable-promise">
-<span id="id1"></span><h1>reusable_promise<a class="headerlink" href="#reusable-promise" title="Permalink to this headline">¶</a></h1>
+<section id="reusable-promise">
+<span id="id1"></span><h1>reusable_promise<a class="headerlink" href="#reusable-promise" title="Permalink to this headline"></a></h1>
 <hr class="docutils" />
 <p>A <code class="docutils literal notranslate"><span class="pre">reusable_promise&lt;T&gt;</span></code> allows a coroutine to return values to the caller multiple times. <code class="docutils literal notranslate"><span class="pre">reusable_promise&lt;T&gt;</span></code> satisfies the <code class="docutils literal notranslate"><span class="pre">Reoccurring</span></code> concept.</p>
 <p>The coroutine key words available are <code class="docutils literal notranslate"><span class="pre">co_yield</span> <span class="pre">(ARG)</span></code>, <code class="docutils literal notranslate"><span class="pre">co_return</span> <span class="pre">(ARG)</span></code> where T is constructible from <code class="docutils literal notranslate"><span class="pre">ARG</span></code>, and <code class="docutils literal notranslate"><span class="pre">co_yield</span> <span class="pre">(std::nullopt_t)</span></code>, <code class="docutils literal notranslate"><span class="pre">co_return</span> <span class="pre">(std::nullopt_t)</span></code> in the case the promise cannot be fulfilled.</p>
 <hr class="docutils" />
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3zab16reusable_promiseE">
-<span id="_CPPv3I0EN3zab16reusable_promiseE"></span><span id="_CPPv2I0EN3zab16reusable_promiseE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1reusable__promise"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">reusable_promise</span></span></span><a class="headerlink" href="#_CPPv4I0EN3zab16reusable_promiseE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I0EN3zab16reusable_promiseE"></span><span id="_CPPv2I0EN3zab16reusable_promiseE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1reusable__promise"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">reusable_promise</span></span></span><a class="headerlink" href="#_CPPv4I0EN3zab16reusable_promiseE" title="Permalink to this definition"></a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
 <dl class="cpp enum">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise5StateE">
-<span id="_CPPv3N3zab16reusable_promise5StateE"></span><span id="_CPPv2N3zab16reusable_promise5StateE"></span><span class="target" id="classzab_1_1reusable__promise_1acecbe3ba11efcbc4f9bc4dce08fb6779"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">State</span></span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise5StateE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise5StateE"></span><span id="_CPPv2N3zab16reusable_promise5StateE"></span><span class="target" id="classzab_1_1reusable__promise_1acecbe3ba11efcbc4f9bc4dce08fb6779"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">State</span></span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise5StateE" title="Permalink to this definition"></a><br /></dt>
 <dd><p><em>Values:</em></p>
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise5State6kEmptyE">
-<span id="_CPPv3N3zab16reusable_promise5State6kEmptyE"></span><span id="_CPPv2N3zab16reusable_promise5State6kEmptyE"></span><span class="target" id="classzab_1_1reusable__promise_1acecbe3ba11efcbc4f9bc4dce08fb6779a233b1e8d055d05aaa22b980e9820aaf3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kEmpty</span></span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise5State6kEmptyE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise5State6kEmptyE"></span><span id="_CPPv2N3zab16reusable_promise5State6kEmptyE"></span><span class="target" id="classzab_1_1reusable__promise_1acecbe3ba11efcbc4f9bc4dce08fb6779a233b1e8d055d05aaa22b980e9820aaf3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kEmpty</span></span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise5State6kEmptyE" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise5State5kItemE">
-<span id="_CPPv3N3zab16reusable_promise5State5kItemE"></span><span id="_CPPv2N3zab16reusable_promise5State5kItemE"></span><span class="target" id="classzab_1_1reusable__promise_1acecbe3ba11efcbc4f9bc4dce08fb6779aae00ee5fe60db3590968b995c1c344d9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kItem</span></span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise5State5kItemE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise5State5kItemE"></span><span id="_CPPv2N3zab16reusable_promise5State5kItemE"></span><span class="target" id="classzab_1_1reusable__promise_1acecbe3ba11efcbc4f9bc4dce08fb6779aae00ee5fe60db3590968b995c1c344d9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kItem</span></span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise5State5kItemE" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise5State9kCompleteE">
-<span id="_CPPv3N3zab16reusable_promise5State9kCompleteE"></span><span id="_CPPv2N3zab16reusable_promise5State9kCompleteE"></span><span class="target" id="classzab_1_1reusable__promise_1acecbe3ba11efcbc4f9bc4dce08fb6779a00ddf278e7c8c04726344f14bf1db63e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kComplete</span></span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise5State9kCompleteE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise5State9kCompleteE"></span><span id="_CPPv2N3zab16reusable_promise5State9kCompleteE"></span><span class="target" id="classzab_1_1reusable__promise_1acecbe3ba11efcbc4f9bc4dce08fb6779a00ddf278e7c8c04726344f14bf1db63e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kComplete</span></span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise5State9kCompleteE" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise7returnsE">
-<span id="_CPPv3N3zab16reusable_promise7returnsE"></span><span id="_CPPv2N3zab16reusable_promise7returnsE"></span><span class="target" id="classzab_1_1reusable__promise_1a64c8b61af339e24357fd8cba3ea58d86"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">returns</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3zab16reusable_promiseE" title="zab::reusable_promise::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise7returnsE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise7returnsE"></span><span id="_CPPv2N3zab16reusable_promise7returnsE"></span><span class="target" id="classzab_1_1reusable__promise_1a64c8b61af339e24357fd8cba3ea58d86"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">returns</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3zab16reusable_promiseE" title="zab::reusable_promise::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise7returnsE" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -228,42 +133,42 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promiseD0Ev">
-<span id="_CPPv3N3zab16reusable_promiseD0Ev"></span><span id="_CPPv2N3zab16reusable_promiseD0Ev"></span><span id="zab::reusable_promise::~reusable_promise"></span><span class="target" id="classzab_1_1reusable__promise_1afb0d332cc6d1f15b1de6197c4cb91950"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~reusable_promise</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab16reusable_promiseD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promiseD0Ev"></span><span id="_CPPv2N3zab16reusable_promiseD0Ev"></span><span id="zab::reusable_promise::~reusable_promise"></span><span class="target" id="classzab_1_1reusable__promise_1afb0d332cc6d1f15b1de6197c4cb91950"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~reusable_promise</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab16reusable_promiseD0Ev" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3zab16reusable_promise8completeEv">
-<span id="_CPPv3NK3zab16reusable_promise8completeEv"></span><span id="_CPPv2NK3zab16reusable_promise8completeEv"></span><span id="zab::reusable_promise::completeC"></span><span class="target" id="classzab_1_1reusable__promise_1a3ac8bd4df90106d05dfc094b2ec82a94"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">complete</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3zab16reusable_promise8completeEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3zab16reusable_promise8completeEv"></span><span id="_CPPv2NK3zab16reusable_promise8completeEv"></span><span id="zab::reusable_promise::completeC"></span><span class="target" id="classzab_1_1reusable__promise_1a3ac8bd4df90106d05dfc094b2ec82a94"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">complete</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3zab16reusable_promise8completeEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3zab16reusable_promise11value_readyEv">
-<span id="_CPPv3NK3zab16reusable_promise11value_readyEv"></span><span id="_CPPv2NK3zab16reusable_promise11value_readyEv"></span><span id="zab::reusable_promise::value_readyC"></span><span class="target" id="classzab_1_1reusable__promise_1a5371159dabc21de00d37628eef2afb0c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">value_ready</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3zab16reusable_promise11value_readyEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3zab16reusable_promise11value_readyEv"></span><span id="_CPPv2NK3zab16reusable_promise11value_readyEv"></span><span id="zab::reusable_promise::value_readyC"></span><span class="target" id="classzab_1_1reusable__promise_1a5371159dabc21de00d37628eef2afb0c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">value_ready</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3zab16reusable_promise11value_readyEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise4dataEv">
-<span id="_CPPv3N3zab16reusable_promise4dataEv"></span><span id="_CPPv2N3zab16reusable_promise4dataEv"></span><span id="zab::reusable_promise::data"></span><span class="target" id="classzab_1_1reusable__promise_1aaa502e783e0794f96d9d821c6e7f3017"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab16reusable_promise7returnsE" title="zab::reusable_promise::returns"><span class="n"><span class="pre">returns</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">data</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise4dataEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise4dataEv"></span><span id="_CPPv2N3zab16reusable_promise4dataEv"></span><span id="zab::reusable_promise::data"></span><span class="target" id="classzab_1_1reusable__promise_1aaa502e783e0794f96d9d821c6e7f3017"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab16reusable_promise7returnsE" title="zab::reusable_promise::returns"><span class="n"><span class="pre">returns</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">data</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise4dataEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise14set_underlyingENSt16coroutine_handleIEE">
-<span id="_CPPv3N3zab16reusable_promise14set_underlyingENSt16coroutine_handleIEE"></span><span id="_CPPv2N3zab16reusable_promise14set_underlyingENSt16coroutine_handleIEE"></span><span id="zab::reusable_promise::set_underlying__std::coroutine_handle::"></span><span class="target" id="classzab_1_1reusable__promise_1a70c7f35853b5d85e0e8f59dcc7d67fd2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_underlying</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">coroutine_handle</span></span><span class="p"><span class="pre">&lt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_under</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise14set_underlyingENSt16coroutine_handleIEE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise14set_underlyingENSt16coroutine_handleIEE"></span><span id="_CPPv2N3zab16reusable_promise14set_underlyingENSt16coroutine_handleIEE"></span><span id="zab::reusable_promise::set_underlying__std::coroutine_handle::"></span><span class="target" id="classzab_1_1reusable__promise_1a70c7f35853b5d85e0e8f59dcc7d67fd2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_underlying</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">coroutine_handle</span></span><span class="p"><span class="pre">&lt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_under</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise14set_underlyingENSt16coroutine_handleIEE" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise7prepareEv">
-<span id="_CPPv3N3zab16reusable_promise7prepareEv"></span><span id="_CPPv2N3zab16reusable_promise7prepareEv"></span><span id="zab::reusable_promise::prepare"></span><span class="target" id="classzab_1_1reusable__promise_1acb0c4d3b2e7c25674880f6542a5d9056"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">prepare</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise7prepareEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise7prepareEv"></span><span id="_CPPv2N3zab16reusable_promise7prepareEv"></span><span id="zab::reusable_promise::prepare"></span><span class="target" id="classzab_1_1reusable__promise_1acb0c4d3b2e7c25674880f6542a5d9056"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">prepare</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise7prepareEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise16force_completionEv">
-<span id="_CPPv3N3zab16reusable_promise16force_completionEv"></span><span id="_CPPv2N3zab16reusable_promise16force_completionEv"></span><span id="zab::reusable_promise::force_completion"></span><span class="target" id="classzab_1_1reusable__promise_1a968fa10e2e4cbcf4ec20fd885052cb0f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">force_completion</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise16force_completionEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise16force_completionEv"></span><span id="_CPPv2N3zab16reusable_promise16force_completionEv"></span><span id="zab::reusable_promise::force_completion"></span><span class="target" id="classzab_1_1reusable__promise_1a968fa10e2e4cbcf4ec20fd885052cb0f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">force_completion</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise16force_completionEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise17get_return_objectEv">
-<span id="_CPPv3N3zab16reusable_promise17get_return_objectEv"></span><span id="_CPPv2N3zab16reusable_promise17get_return_objectEv"></span><span id="zab::reusable_promise::get_return_object"></span><span class="target" id="classzab_1_1reusable__promise_1a1147f648a9ea0fad994024f276e2daed"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_return_object</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise17get_return_objectEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise17get_return_objectEv"></span><span id="_CPPv2N3zab16reusable_promise17get_return_objectEv"></span><span id="zab::reusable_promise::get_return_object"></span><span class="target" id="classzab_1_1reusable__promise_1a1147f648a9ea0fad994024f276e2daed"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_return_object</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise17get_return_objectEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Gets the coroutine handle from <code class="docutils literal notranslate"><span class="pre">this</span></code>. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -274,7 +179,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise15initial_suspendEv">
-<span id="_CPPv3N3zab16reusable_promise15initial_suspendEv"></span><span id="_CPPv2N3zab16reusable_promise15initial_suspendEv"></span><span id="zab::reusable_promise::initial_suspend"></span><span class="target" id="classzab_1_1reusable__promise_1aa4e0eef639e677b53d70045f9da3d70f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">initial_suspend</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise15initial_suspendEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise15initial_suspendEv"></span><span id="_CPPv2N3zab16reusable_promise15initial_suspendEv"></span><span id="zab::reusable_promise::initial_suspend"></span><span class="target" id="classzab_1_1reusable__promise_1aa4e0eef639e677b53d70045f9da3d70f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">initial_suspend</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise15initial_suspendEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Always suspend execution of the promise. wait for it to be co_awaited. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -285,7 +190,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise13final_suspendEv">
-<span id="_CPPv3N3zab16reusable_promise13final_suspendEv"></span><span id="_CPPv2N3zab16reusable_promise13final_suspendEv"></span><span id="zab::reusable_promise::final_suspend"></span><span class="target" id="classzab_1_1reusable__promise_1a28878ba1a2301080bb1a42f4aed933d0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">final_suspend</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise13final_suspendEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise13final_suspendEv"></span><span id="_CPPv2N3zab16reusable_promise13final_suspendEv"></span><span id="zab::reusable_promise::final_suspend"></span><span class="target" id="classzab_1_1reusable__promise_1a28878ba1a2301080bb1a42f4aed933d0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">final_suspend</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise13final_suspendEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Final suspension of Promise resumes the underlying coroutine that co_awaited the <code class="docutils literal notranslate"><span class="pre">reusable_promise</span></code>. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -296,7 +201,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4IDpEN3zab16reusable_promise12return_valueEvDpRR4Args">
-<span id="_CPPv3IDpEN3zab16reusable_promise12return_valueEDpRR4Args"></span><span id="_CPPv2IDpEN3zab16reusable_promise12return_valueEDpRR4Args"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Args</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1reusable__promise_1ad41c99822e7a1085ee02d5602f9d960a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">return_value</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4IDpEN3zab16reusable_promise12return_valueEvDpRR4Args" title="zab::reusable_promise::return_value::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_args</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4IDpEN3zab16reusable_promise12return_valueEvDpRR4Args" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3IDpEN3zab16reusable_promise12return_valueEDpRR4Args"></span><span id="_CPPv2IDpEN3zab16reusable_promise12return_valueEDpRR4Args"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Args</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1reusable__promise_1ad41c99822e7a1085ee02d5602f9d960a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">return_value</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4IDpEN3zab16reusable_promise12return_valueEvDpRR4Args" title="zab::reusable_promise::return_value::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_args</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4IDpEN3zab16reusable_promise12return_valueEvDpRR4Args" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Creates the promised object from some values. </p>
 <p>One day they may support <code class="docutils literal notranslate"><span class="pre">co_return</span> <span class="pre">x</span> <span class="pre">y</span> <span class="pre">z;</span></code></p>
 <dl class="field-list simple">
@@ -311,7 +216,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise12return_valueERRNSt8optionalI1TEE">
-<span id="_CPPv3N3zab16reusable_promise12return_valueERRNSt8optionalI1TEE"></span><span id="_CPPv2N3zab16reusable_promise12return_valueERRNSt8optionalI1TEE"></span><span id="zab::reusable_promise::return_value__std::optional:T:RR"></span><span class="target" id="classzab_1_1reusable__promise_1ab6f9e06ab521bc619c7bca7440367c27"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">return_value</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3zab16reusable_promiseE" title="zab::reusable_promise::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_move</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise12return_valueERRNSt8optionalI1TEE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise12return_valueERRNSt8optionalI1TEE"></span><span id="_CPPv2N3zab16reusable_promise12return_valueERRNSt8optionalI1TEE"></span><span id="zab::reusable_promise::return_value__std::optional:T:RR"></span><span class="target" id="classzab_1_1reusable__promise_1ab6f9e06ab521bc619c7bca7440367c27"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">return_value</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3zab16reusable_promiseE" title="zab::reusable_promise::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_move</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise12return_valueERRNSt8optionalI1TEE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Construct the optional of T. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -322,7 +227,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise12return_valueERNSt8optionalI1TEE">
-<span id="_CPPv3N3zab16reusable_promise12return_valueERNSt8optionalI1TEE"></span><span id="_CPPv2N3zab16reusable_promise12return_valueERNSt8optionalI1TEE"></span><span id="zab::reusable_promise::return_value__std::optional:T:R"></span><span class="target" id="classzab_1_1reusable__promise_1ac1acf88ffe12be4d475f6654f280d9eb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">return_value</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3zab16reusable_promiseE" title="zab::reusable_promise::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_move</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise12return_valueERNSt8optionalI1TEE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise12return_valueERNSt8optionalI1TEE"></span><span id="_CPPv2N3zab16reusable_promise12return_valueERNSt8optionalI1TEE"></span><span id="zab::reusable_promise::return_value__std::optional:T:R"></span><span class="target" id="classzab_1_1reusable__promise_1ac1acf88ffe12be4d475f6654f280d9eb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">return_value</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3zab16reusable_promiseE" title="zab::reusable_promise::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_move</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise12return_valueERNSt8optionalI1TEE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Construct the optional of T. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -333,7 +238,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4IDpEN3zab16reusable_promise11yield_valueEDaDpRR4Args">
-<span id="_CPPv3IDpEN3zab16reusable_promise11yield_valueEDpRR4Args"></span><span id="_CPPv2IDpEN3zab16reusable_promise11yield_valueEDpRR4Args"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Args</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1reusable__promise_1a4fc843d111e147d5415dff529512512d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">yield_value</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4IDpEN3zab16reusable_promise11yield_valueEDaDpRR4Args" title="zab::reusable_promise::yield_value::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_args</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4IDpEN3zab16reusable_promise11yield_valueEDaDpRR4Args" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3IDpEN3zab16reusable_promise11yield_valueEDpRR4Args"></span><span id="_CPPv2IDpEN3zab16reusable_promise11yield_valueEDpRR4Args"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Args</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1reusable__promise_1a4fc843d111e147d5415dff529512512d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">yield_value</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4IDpEN3zab16reusable_promise11yield_valueEDaDpRR4Args" title="zab::reusable_promise::yield_value::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_args</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4IDpEN3zab16reusable_promise11yield_valueEDaDpRR4Args" title="Permalink to this definition"></a><br /></dt>
 <dd><p>yield some value to the underlying coroutine. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -350,7 +255,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise11yield_valueERRNSt8optionalI1TEE">
-<span id="_CPPv3N3zab16reusable_promise11yield_valueERRNSt8optionalI1TEE"></span><span id="_CPPv2N3zab16reusable_promise11yield_valueERRNSt8optionalI1TEE"></span><span id="zab::reusable_promise::yield_value__std::optional:T:RR"></span><span class="target" id="classzab_1_1reusable__promise_1a668d7a8b316161ee72ab34898b97906e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">yield_value</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3zab16reusable_promiseE" title="zab::reusable_promise::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_move</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise11yield_valueERRNSt8optionalI1TEE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise11yield_valueERRNSt8optionalI1TEE"></span><span id="_CPPv2N3zab16reusable_promise11yield_valueERRNSt8optionalI1TEE"></span><span id="zab::reusable_promise::yield_value__std::optional:T:RR"></span><span class="target" id="classzab_1_1reusable__promise_1a668d7a8b316161ee72ab34898b97906e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">yield_value</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3zab16reusable_promiseE" title="zab::reusable_promise::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_move</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise11yield_valueERRNSt8optionalI1TEE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Construct the optional of T. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -361,7 +266,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise11yield_valueERNSt8optionalI1TEE">
-<span id="_CPPv3N3zab16reusable_promise11yield_valueERNSt8optionalI1TEE"></span><span id="_CPPv2N3zab16reusable_promise11yield_valueERNSt8optionalI1TEE"></span><span id="zab::reusable_promise::yield_value__std::optional:T:R"></span><span class="target" id="classzab_1_1reusable__promise_1a68f949fa55331910b58d841133256c26"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">yield_value</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3zab16reusable_promiseE" title="zab::reusable_promise::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_move</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise11yield_valueERNSt8optionalI1TEE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise11yield_valueERNSt8optionalI1TEE"></span><span id="_CPPv2N3zab16reusable_promise11yield_valueERNSt8optionalI1TEE"></span><span id="zab::reusable_promise::yield_value__std::optional:T:R"></span><span class="target" id="classzab_1_1reusable__promise_1a68f949fa55331910b58d841133256c26"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">yield_value</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3zab16reusable_promiseE" title="zab::reusable_promise::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_move</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise11yield_valueERNSt8optionalI1TEE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Construct the optional of T. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -372,7 +277,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise12return_valueENSt9nullopt_tE">
-<span id="_CPPv3N3zab16reusable_promise12return_valueENSt9nullopt_tE"></span><span id="_CPPv2N3zab16reusable_promise12return_valueENSt9nullopt_tE"></span><span id="zab::reusable_promise::return_value__std::nullopt_t"></span><span class="target" id="classzab_1_1reusable__promise_1a9328dfed43a880244436891f542b5833"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">return_value</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">nullopt_t</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise12return_valueENSt9nullopt_tE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise12return_valueENSt9nullopt_tE"></span><span id="_CPPv2N3zab16reusable_promise12return_valueENSt9nullopt_tE"></span><span id="zab::reusable_promise::return_value__std::nullopt_t"></span><span class="target" id="classzab_1_1reusable__promise_1a9328dfed43a880244436891f542b5833"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">return_value</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">nullopt_t</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise12return_valueENSt9nullopt_tE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Returns a nullopt. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -383,7 +288,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise11yield_valueENSt9nullopt_tE">
-<span id="_CPPv3N3zab16reusable_promise11yield_valueENSt9nullopt_tE"></span><span id="_CPPv2N3zab16reusable_promise11yield_valueENSt9nullopt_tE"></span><span id="zab::reusable_promise::yield_value__std::nullopt_t"></span><span class="target" id="classzab_1_1reusable__promise_1a40c666ef5a1643ede5b15b030236b486"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">yield_value</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">nullopt_t</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise11yield_valueENSt9nullopt_tE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise11yield_valueENSt9nullopt_tE"></span><span id="_CPPv2N3zab16reusable_promise11yield_valueENSt9nullopt_tE"></span><span id="zab::reusable_promise::yield_value__std::nullopt_t"></span><span class="target" id="classzab_1_1reusable__promise_1a40c666ef5a1643ede5b15b030236b486"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">yield_value</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">nullopt_t</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise11yield_valueENSt9nullopt_tE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>yield a nullopt. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -394,7 +299,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise19unhandled_exceptionEv">
-<span id="_CPPv3N3zab16reusable_promise19unhandled_exceptionEv"></span><span id="_CPPv2N3zab16reusable_promise19unhandled_exceptionEv"></span><span id="zab::reusable_promise::unhandled_exception"></span><span class="target" id="classzab_1_1reusable__promise_1a9bcbe5792c6973d6caafe7bafa323da9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">unhandled_exception</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise19unhandled_exceptionEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise19unhandled_exceptionEv"></span><span id="_CPPv2N3zab16reusable_promise19unhandled_exceptionEv"></span><span id="zab::reusable_promise::unhandled_exception"></span><span class="target" id="classzab_1_1reusable__promise_1a9bcbe5792c6973d6caafe7bafa323da9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">unhandled_exception</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise19unhandled_exceptionEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -402,23 +307,23 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise11underlying_E">
-<span id="_CPPv3N3zab16reusable_promise11underlying_E"></span><span id="_CPPv2N3zab16reusable_promise11underlying_E"></span><span id="zab::reusable_promise::underlying___std::coroutine_handle"></span><span class="target" id="classzab_1_1reusable__promise_1acb5195f4ec9d6aa2db349ce33d2b8ac2"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">coroutine_handle</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">underlying_</span></span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise11underlying_E" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise11underlying_E"></span><span id="_CPPv2N3zab16reusable_promise11underlying_E"></span><span id="zab::reusable_promise::underlying___std::coroutine_handle"></span><span class="target" id="classzab_1_1reusable__promise_1acb5195f4ec9d6aa2db349ce33d2b8ac2"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">coroutine_handle</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">underlying_</span></span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise11underlying_E" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise5data_E">
-<span id="_CPPv3N3zab16reusable_promise5data_E"></span><span id="_CPPv2N3zab16reusable_promise5data_E"></span><span id="zab::reusable_promise::data___returns"></span><span class="target" id="classzab_1_1reusable__promise_1afe461dac4a94fbf9fdc3d254341ea7a1"></span><a class="reference internal" href="#_CPPv4N3zab16reusable_promise7returnsE" title="zab::reusable_promise::returns"><span class="n"><span class="pre">returns</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">data_</span></span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise5data_E" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise5data_E"></span><span id="_CPPv2N3zab16reusable_promise5data_E"></span><span id="zab::reusable_promise::data___returns"></span><span class="target" id="classzab_1_1reusable__promise_1afe461dac4a94fbf9fdc3d254341ea7a1"></span><a class="reference internal" href="#_CPPv4N3zab16reusable_promise7returnsE" title="zab::reusable_promise::returns"><span class="n"><span class="pre">returns</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">data_</span></span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise5data_E" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab16reusable_promise6state_E">
-<span id="_CPPv3N3zab16reusable_promise6state_E"></span><span id="_CPPv2N3zab16reusable_promise6state_E"></span><span id="zab::reusable_promise::state___State"></span><span class="target" id="classzab_1_1reusable__promise_1a4380be92988945faa2cd587af0fdcde3"></span><a class="reference internal" href="#_CPPv4N3zab16reusable_promise5StateE" title="zab::reusable_promise::State"><span class="n"><span class="pre">State</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">state_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">kEmpty</span></span><a class="headerlink" href="#_CPPv4N3zab16reusable_promise6state_E" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab16reusable_promise6state_E"></span><span id="_CPPv2N3zab16reusable_promise6state_E"></span><span id="zab::reusable_promise::state___State"></span><span class="target" id="classzab_1_1reusable__promise_1a4380be92988945faa2cd587af0fdcde3"></span><a class="reference internal" href="#_CPPv4N3zab16reusable_promise5StateE" title="zab::reusable_promise::State"><span class="n"><span class="pre">State</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">state_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab16reusable_promise5State6kEmptyE" title="zab::reusable_promise::kEmpty"><span class="n"><span class="pre">kEmpty</span></span></a><a class="headerlink" href="#_CPPv4N3zab16reusable_promise6state_E" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
 </dd></dl>
 
-</div>
+</section>
 
 <hr>
 </hr>
@@ -434,50 +339,33 @@
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="async_primitives.html" class="btn btn-neutral float-right" title="Asynchronous Primitives" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="visitor_promise.html" class="btn btn-neutral float-left" title="vistor_promise" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="async_primitives.html" class="btn btn-neutral float-right" title="Asynchronous Primitives" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2022, Donald Rupin.
-
-    </p>
+    <p>&#169; Copyright 2022, Donald Rupin.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

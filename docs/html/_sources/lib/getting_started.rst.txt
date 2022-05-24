@@ -21,7 +21,11 @@ Built Tested on:
 
 * x86 g++ 11.0.1
 
-The dependancy liburing has kernal version requirments and the build has been tested on kernal version 5.11. 
+The dependency liburing has kernel version requirments.
+
+Using a Kenel with version less then 5.15.42-rc1 will be affected by the shutdown bug describe here `liburing <https://github.com/axboe/liburing/issues/582>`. This was fixed in this `patch <https://lore.kernel.org/all/9d06f3cb2c8b686d970269a87986f154edb83043.1634425438.git.asml.silence@gmail.com/>`.
+
+and the build has been tested on kernel version 5.11. 
 
 .. code-block:: bash
     :caption: Example

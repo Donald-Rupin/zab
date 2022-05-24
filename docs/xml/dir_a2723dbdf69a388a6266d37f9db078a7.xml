@@ -16,8 +16,10 @@
     <innerfile refid="execution__promise_8hpp">execution_promise.hpp</innerfile>
     <innerfile refid="first__of_8hpp">first_of.hpp</innerfile>
     <innerfile refid="for__each_8hpp">for_each.hpp</innerfile>
+    <innerfile refid="generic__awaitable_8hpp">generic_awaitable.hpp</innerfile>
     <innerfile refid="hardware__interface__size_8hpp">hardware_interface_size.hpp</innerfile>
-    <innerfile refid="network__overlay_8hpp">network_overlay.hpp</innerfile>
+    <innerfile refid="memory__type_8hpp">memory_type.hpp</innerfile>
+    <innerfile refid="network__operation_8hpp">network_operation.hpp</innerfile>
     <innerfile refid="observable_8hpp">observable.hpp</innerfile>
     <innerfile refid="pause_8hpp">pause.hpp</innerfile>
     <innerfile refid="pause__token_8hpp">pause_token.hpp</innerfile>
@@ -27,7 +29,9 @@
     <innerfile refid="simple__future_8hpp">simple_future.hpp</innerfile>
     <innerfile refid="simple__promise_8hpp">simple_promise.hpp</innerfile>
     <innerfile refid="spin__lock_8hpp">spin_lock.hpp</innerfile>
+    <innerfile refid="stateful__awaitable_8hpp">stateful_awaitable.hpp</innerfile>
     <innerfile refid="strong__types_8hpp">strong_types.hpp</innerfile>
+    <innerfile refid="tcp__networking_8hpp">tcp_networking.hpp</innerfile>
     <innerfile refid="tcp__stream_8hpp">tcp_stream.hpp</innerfile>
     <innerfile refid="timer__service_8hpp">timer_service.hpp</innerfile>
     <innerfile refid="visitor__promise_8hpp">visitor_promise.hpp</innerfile>

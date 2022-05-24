@@ -6,8 +6,8 @@
     <includes local="no">coroutine</includes>
     <includes local="no">cstddef</includes>
     <includes refid="async__semaphore_8hpp" local="yes">zab/async_semaphore.hpp</includes>
-    <includedby refid="network__overlay_8hpp" local="yes">/home/donald/rupin/zab/includes/zab/network_overlay.hpp</includedby>
     <includedby refid="observable_8hpp" local="yes">/home/donald/rupin/zab/includes/zab/observable.hpp</includedby>
+    <includedby refid="tcp__networking_8hpp" local="yes">/home/donald/rupin/zab/includes/zab/tcp_networking.hpp</includedby>
     <includedby refid="tcp__stream_8hpp" local="yes">/home/donald/rupin/zab/includes/zab/tcp_stream.hpp</includedby>
     <incdepgraph>
       <node id="2">
@@ -24,10 +24,10 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="30">
         <label>zab/simple_future.hpp</label>
         <link refid="simple__future_8hpp_source"/>
-        <childnode refid="30" relation="include">
+        <childnode refid="31" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
@@ -35,22 +35,24 @@
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
+        <childnode refid="29" relation="include">
         </childnode>
-        <childnode refid="31" relation="include">
+        <childnode refid="32" relation="include">
         </childnode>
       </node>
       <node id="19">
         <label>limits</label>
       </node>
-      <node id="27">
+      <node id="28">
         <label>zab/pause.hpp</label>
         <link refid="pause_8hpp_source"/>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
+        <childnode refid="29" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
@@ -72,7 +74,7 @@
       <node id="15">
         <label>variant</label>
       </node>
-      <node id="30">
+      <node id="31">
         <label>cassert</label>
       </node>
       <node id="21">
@@ -100,12 +102,14 @@
         </childnode>
         <childnode refid="27" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="28" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="32">
         <label>zab/simple_promise.hpp</label>
         <link refid="simple__promise_8hpp_source"/>
         <childnode refid="3" relation="include">
@@ -114,12 +118,16 @@
         </childnode>
         <childnode refid="23" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
+        <childnode refid="26" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
         </childnode>
       </node>
-      <node id="36">
+      <node id="37">
         <label>map</label>
       </node>
       <node id="5">
@@ -137,26 +145,26 @@
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="40" relation="include">
+        <childnode refid="41" relation="include">
         </childnode>
       </node>
       <node id="20">
         <label>ostream</label>
       </node>
-      <node id="34">
+      <node id="35">
         <label>zab/signal_handler.hpp</label>
         <link refid="signal__handler_8hpp_source"/>
-        <childnode refid="35" relation="include">
+        <childnode refid="36" relation="include">
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
         <childnode refid="14" relation="include">
         </childnode>
-        <childnode refid="36" relation="include">
-        </childnode>
         <childnode refid="37" relation="include">
         </childnode>
         <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
@@ -166,7 +174,7 @@
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
@@ -183,6 +191,8 @@
         <childnode refid="15" relation="include">
         </childnode>
         <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
         </childnode>
       </node>
       <node id="16">
@@ -202,12 +212,14 @@
       <node id="25">
         <label>string_view</label>
       </node>
-      <node id="40">
+      <node id="41">
         <label>zab/yield.hpp</label>
         <link refid="yield_8hpp_source"/>
-        <childnode refid="28" relation="include">
+        <childnode refid="29" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
@@ -218,10 +230,10 @@
       <node id="12">
         <label>vector</label>
       </node>
-      <node id="38">
+      <node id="39">
         <label>signal.h</label>
       </node>
-      <node id="28">
+      <node id="29">
         <label>utility</label>
       </node>
       <node id="9">
@@ -237,20 +249,30 @@
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="34" relation="include">
+        <childnode refid="35" relation="include">
         </childnode>
-        <childnode refid="39" relation="include">
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>zab/generic_awaitable.hpp</label>
+        <link refid="generic__awaitable_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
         </childnode>
       </node>
       <node id="8">
         <label>iostream</label>
       </node>
-      <node id="32">
+      <node id="33">
         <label>zab/spin_lock.hpp</label>
         <link refid="spin__lock_8hpp_source"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="33" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
       </node>
       <node id="4">
@@ -259,7 +281,7 @@
       <node id="22">
         <label>deque</label>
       </node>
-      <node id="37">
+      <node id="38">
         <label>mutex</label>
       </node>
       <node id="17">
@@ -289,23 +311,23 @@
       <node id="24">
         <label>span</label>
       </node>
-      <node id="35">
+      <node id="36">
         <label>algorithm</label>
       </node>
-      <node id="33">
+      <node id="34">
         <label>zab/hardware_interface_size.hpp</label>
         <link refid="hardware__interface__size_8hpp_source"/>
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="39">
+      <node id="40">
         <label>zab/timer_service.hpp</label>
         <link refid="timer__service_8hpp_source"/>
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
-        <childnode refid="36" relation="include">
+        <childnode refid="37" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
@@ -313,7 +335,7 @@
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
@@ -321,17 +343,17 @@
     </incdepgraph>
     <invincdepgraph>
       <node id="2">
-        <label>/home/donald/rupin/zab/includes/zab/network_overlay.hpp</label>
-        <link refid="network__overlay_8hpp_source"/>
-      </node>
-      <node id="3">
         <label>/home/donald/rupin/zab/includes/zab/observable.hpp</label>
         <link refid="observable_8hpp_source"/>
+      </node>
+      <node id="3">
+        <label>/home/donald/rupin/zab/includes/zab/tcp_networking.hpp</label>
+        <link refid="tcp__networking_8hpp_source"/>
       </node>
       <node id="4">
         <label>/home/donald/rupin/zab/includes/zab/tcp_stream.hpp</label>
         <link refid="tcp__stream_8hpp_source"/>
-        <childnode refid="2" relation="include">
+        <childnode refid="3" relation="include">
         </childnode>
       </node>
       <node id="1">

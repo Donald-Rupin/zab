@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structzab_1_1details_1_1context__generator" kind="struct" language="C++" prot="public">
+    <compoundname>zab::details::context_generator</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename ReturnType</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structzab_1_1details_1_1context__generator_1a37f4a6d165464b70894be0948cfcad04" prot="public" static="no">
+        <type>void(*)(void *, ReturnType)</type>
+        <definition>using zab::details::context_generator&lt; ReturnType &gt;::context_callback =  void (*)(void*, ReturnType)</definition>
+        <argsstring></argsstring>
+        <name>context_callback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event.hpp" line="57" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/event.hpp" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/event.hpp" line="56" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/event.hpp" bodystart="56" bodyend="58"/>
+    <listofallmembers>
+      <member refid="structzab_1_1details_1_1context__generator_1a37f4a6d165464b70894be0948cfcad04" prot="public" virt="non-virtual"><scope>zab::details::context_generator</scope><name>context_callback</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

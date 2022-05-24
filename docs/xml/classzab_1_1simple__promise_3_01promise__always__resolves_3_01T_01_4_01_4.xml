@@ -20,7 +20,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="252" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="252" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="263" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="263" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -35,7 +35,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="282" column="27" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="282" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="293" column="27" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="293" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -50,7 +50,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="254" column="13"/>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="265" column="13"/>
       </memberdef>
       <memberdef kind="function" id="classzab_1_1simple__promise_3_01promise__always__resolves_3_01T_01_4_01_4_1a33066ee7f40ccfef2baeaef2fa53ec50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -63,7 +63,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="256" column="13"/>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="267" column="13"/>
       </memberdef>
       <memberdef kind="function" id="classzab_1_1simple__promise_3_01promise__always__resolves_3_01T_01_4_01_4_1ae6e6b42def2e4bf6f3e094cd1d6007ab" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>returns &amp;&amp;</type>
@@ -76,7 +76,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="259" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="259" bodyend="262"/>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="270" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="270" bodyend="273"/>
       </memberdef>
       <memberdef kind="function" id="classzab_1_1simple__promise_3_01promise__always__resolves_3_01T_01_4_01_4_1a9d7caaa411c311e5848e277f44dba758" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <templateparamlist>
@@ -121,14 +121,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="275" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="275" bodyend="278"/>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="286" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="286" bodyend="289"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="247" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="248" bodyend="283"/>
+    <location file="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" line="258" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/simple_promise.hpp" bodystart="259" bodyend="294"/>
     <listofallmembers>
       <member refid="classzab_1_1simple__common_1ab772a146a1fadaf56c30f41c68ec9284" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; promise_always_resolves&lt; T &gt; &gt;</scope><name>complete</name></member>
       <member refid="classzab_1_1simple__promise_3_01promise__always__resolves_3_01T_01_4_01_4_1ae6e6b42def2e4bf6f3e094cd1d6007ab" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; promise_always_resolves&lt; T &gt; &gt;</scope><name>data</name></member>
@@ -139,10 +139,10 @@
       <member refid="classzab_1_1simple__common_1a71be4e797d23e4099c5036c5876f9845" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; promise_always_resolves&lt; T &gt; &gt;</scope><name>is_complete</name></member>
       <member refid="classzab_1_1simple__promise_3_01promise__always__resolves_3_01T_01_4_01_4_1a9d7caaa411c311e5848e277f44dba758" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; promise_always_resolves&lt; T &gt; &gt;</scope><name>return_value</name></member>
       <member refid="classzab_1_1simple__promise_3_01promise__always__resolves_3_01T_01_4_01_4_1ab9b12420e2da4b2688071f4b68d0a341" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; promise_always_resolves&lt; T &gt; &gt;</scope><name>returns</name></member>
-      <member refid="classzab_1_1simple__common_1a785a7eb5104909f68c4cd80d4d0b2210" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; promise_always_resolves&lt; T &gt; &gt;</scope><name>set_underlying</name></member>
+      <member refid="classzab_1_1simple__common_1a6247406ec14650f00f489c5dcc0a6d86" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; promise_always_resolves&lt; T &gt; &gt;</scope><name>set_underlying</name></member>
       <member refid="classzab_1_1simple__common_1a8c4fff11d8a379f9c57e633532a5a07d" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; promise_always_resolves&lt; T &gt; &gt;</scope><name>simple_common</name></member>
       <member refid="classzab_1_1simple__promise_3_01promise__always__resolves_3_01T_01_4_01_4_1a2e9a2495029244d01adcf4b2c3b72614" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; promise_always_resolves&lt; T &gt; &gt;</scope><name>simple_promise</name></member>
-      <member refid="classzab_1_1simple__common_1ad8231a492550fda1e52d2a8e7e69efa8" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; promise_always_resolves&lt; T &gt; &gt;</scope><name>underlying</name></member>
+      <member refid="classzab_1_1simple__common_1a44fcb10ef7068de4f2f7e59b9687ae6d" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; promise_always_resolves&lt; T &gt; &gt;</scope><name>underlying</name></member>
       <member refid="classzab_1_1simple__common_1a65343cd0bce64c263727d5cffe9b5190" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; promise_always_resolves&lt; T &gt; &gt;</scope><name>unhandled_exception</name></member>
       <member refid="classzab_1_1simple__common_1aa0bd8b34ed3ff4603e2ffcc2cf2fadd4" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; promise_always_resolves&lt; T &gt; &gt;</scope><name>~simple_common</name></member>
       <member refid="classzab_1_1simple__promise_3_01promise__always__resolves_3_01T_01_4_01_4_1a33066ee7f40ccfef2baeaef2fa53ec50" prot="public" virt="non-virtual"><scope>zab::simple_promise&lt; promise_always_resolves&lt; T &gt; &gt;</scope><name>~simple_promise</name></member>

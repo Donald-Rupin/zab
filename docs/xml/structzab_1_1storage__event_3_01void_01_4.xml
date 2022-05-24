@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structzab_1_1storage__event_3_01void_01_4" kind="struct" language="C++" prot="public">
+    <compoundname>zab::storage_event&lt; void &gt;</compoundname>
+    <templateparamlist>
+    </templateparamlist>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzab_1_1storage__event_3_01void_01_4_1ab671bee757edbf88be22d6ec4ca517ff" prot="public" static="no" mutable="no">
+        <type>tagged_event</type>
+        <definition>tagged_event zab::storage_event&lt; void &gt;::handle_</definition>
+        <argsstring></argsstring>
+        <name>handle_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event.hpp" line="83" column="26" bodyfile="/home/donald/rupin/zab/includes/zab/event.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/event.hpp" line="82" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/event.hpp" bodystart="82" bodyend="84"/>
+    <listofallmembers>
+      <member refid="structzab_1_1storage__event_3_01void_01_4_1ab671bee757edbf88be22d6ec4ca517ff" prot="public" virt="non-virtual"><scope>zab::storage_event&lt; void &gt;</scope><name>handle_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

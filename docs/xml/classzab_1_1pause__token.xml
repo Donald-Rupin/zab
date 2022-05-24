@@ -2,7 +2,26 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="classzab_1_1pause__token" kind="class" language="C++" prot="public">
     <compoundname>zab::pause_token</compoundname>
+    <includes refid="pause__token_8hpp" local="no">pause_token.hpp</includes>
     <innerclass refid="structzab_1_1pause__token_1_1pauser" prot="private">zab::pause_token::pauser</innerclass>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classzab_1_1pause__token_1a1791c4b71e052466221fe6341f063cf5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct</type>
+        <definition>pauser</definition>
+        <argsstring></argsstring>
+        <name>pauser</name>
+        <param>
+          <type>pauser</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="79" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
       <sectiondef kind="private-static-attrib">
       <memberdef kind="variable" id="classzab_1_1pause__token_1afdd0d2ffaad7395db6922a935f3a42b9" prot="private" static="yes" constexpr="yes" mutable="no">
         <type>constexpr std::uintptr_t</type>
@@ -16,25 +35,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="156" column="45" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="156" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="friend">
-      <memberdef kind="friend" id="classzab_1_1pause__token_1a266512500989669dfb707d614c7f4e46" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>struct</type>
-        <definition>friend struct pauser</definition>
-        <argsstring></argsstring>
-        <name>pauser</name>
-        <param>
-          <type>pauser</type>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="158" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="158" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="206" column="45" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="206" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -49,7 +50,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="160" column="20" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="160" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="210" column="20" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="210" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classzab_1_1pause__token_1a3028ed0dc38d4752c10115d4b5b4d757" prot="private" static="no" mutable="no">
         <type>std::atomic&lt; std::uintptr_t &gt;</type>
@@ -63,7 +64,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="162" column="25" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="162" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="212" column="25" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="212" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -77,12 +78,24 @@
           <declname>_engine</declname>
         </param>
         <briefdescription>
+<para>Construct a new pause token object that uses the given engine for resumption. </para>
         </briefdescription>
         <detaileddescription>
+<para>The pause token is constructed in an unpaused state.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_engine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The engine to use. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="76" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="76" bodyend="76"/>
+        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="90" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="90" bodyend="90"/>
       </memberdef>
       <memberdef kind="function" id="classzab_1_1pause__token_1a07af4cb6ac43bae42ec8de8aa921fcc0" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>bool</type>
@@ -90,12 +103,18 @@
         <argsstring>() const noexcept</argsstring>
         <name>paused</name>
         <briefdescription>
+<para>Determine if the pause token is in a paused state. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>true If paused. </para>
+</simplesect>
+<simplesect kind="return"><para>false If no paused. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="79" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="79" bodyend="82"/>
+        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="99" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="99" bodyend="102"/>
       </memberdef>
       <memberdef kind="function" id="classzab_1_1pause__token_1abf30bc402dbb30189eba3696b8581f36" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>void</type>
@@ -103,12 +122,14 @@
         <argsstring>() noexcept</argsstring>
         <name>pause</name>
         <briefdescription>
+<para>Set the state of the pause token to pause. </para>
         </briefdescription>
         <detaileddescription>
+<para>No-ops if the token is already paused. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="85" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="85" bodyend="96"/>
+        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="111" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="111" bodyend="122"/>
       </memberdef>
       <memberdef kind="function" id="classzab_1_1pause__token_1aea8bb5113eb01392fbaa6e6557ea15c6" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>void</type>
@@ -116,12 +137,18 @@
         <argsstring>() noexcept</argsstring>
         <name>unpause</name>
         <briefdescription>
+<para>Set the state of the pause token to unpaused. </para>
         </briefdescription>
         <detaileddescription>
+<para>No-ops if the pause token is already unpaused. <verbatim>    This function will resume any coroutines currently paused on the pause token
+    into the thread they where suspended on.
+
+    The resumption is not performed inlined, but is yielded.
+</verbatim> </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="99" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="99" bodyend="118"/>
+        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="135" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="135" bodyend="156"/>
       </memberdef>
       <memberdef kind="function" id="classzab_1_1pause__token_1a88357e5e552ea674bdc48ee553cf4ec3" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>pauser</type>
@@ -129,14 +156,18 @@
         <argsstring>() noexcept</argsstring>
         <name>operator co_await</name>
         <briefdescription>
+<para>Suspend the coroutine until the the pause token is unpaused. </para>
         </briefdescription>
         <detaileddescription>
+<para>@co_return void Suspend until unpaused. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="120" column="20" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="120" bodyend="120"/>
+        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="163" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="163" bodyend="170"/>
       </memberdef>
-      <memberdef kind="function" id="classzab_1_1pause__token_1a6dbf858bf34d85d2f8d8e3411d1150e1" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzab_1_1pause__token_1a6dbf858bf34d85d2f8d8e3411d1150e1" prot="private" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>bool</type>
         <definition>bool zab::pause_token::pause</definition>
         <argsstring>(pauser *pauser_) noexcept</argsstring>
@@ -151,23 +182,24 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="123" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="123" bodyend="152"/>
+        <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="175" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="175" bodyend="204"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>A thread-safe syncronization primitive for suspending and resuming groups of coroutines. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="47" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="47" bodyend="163"/>
+    <location file="/home/donald/rupin/zab/includes/zab/pause_token.hpp" line="52" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/pause_token.hpp" bodystart="52" bodyend="213"/>
     <listofallmembers>
       <member refid="classzab_1_1pause__token_1a9621d67d3b3d451f8fb92a9c1a1c6ffa" prot="private" virt="non-virtual"><scope>zab::pause_token</scope><name>engine_</name></member>
       <member refid="classzab_1_1pause__token_1afdd0d2ffaad7395db6922a935f3a42b9" prot="private" virt="non-virtual"><scope>zab::pause_token</scope><name>kUnpausedFlag</name></member>
       <member refid="classzab_1_1pause__token_1a88357e5e552ea674bdc48ee553cf4ec3" prot="public" virt="non-virtual"><scope>zab::pause_token</scope><name>operator co_await</name></member>
       <member refid="classzab_1_1pause__token_1abf30bc402dbb30189eba3696b8581f36" prot="public" virt="non-virtual"><scope>zab::pause_token</scope><name>pause</name></member>
-      <member refid="classzab_1_1pause__token_1a6dbf858bf34d85d2f8d8e3411d1150e1" prot="public" virt="non-virtual"><scope>zab::pause_token</scope><name>pause</name></member>
+      <member refid="classzab_1_1pause__token_1a6dbf858bf34d85d2f8d8e3411d1150e1" prot="private" virt="non-virtual"><scope>zab::pause_token</scope><name>pause</name></member>
       <member refid="classzab_1_1pause__token_1a28a1e9d071dbe5981c0573ce760f5502" prot="public" virt="non-virtual"><scope>zab::pause_token</scope><name>pause_token</name></member>
       <member refid="classzab_1_1pause__token_1a07af4cb6ac43bae42ec8de8aa921fcc0" prot="public" virt="non-virtual"><scope>zab::pause_token</scope><name>paused</name></member>
-      <member refid="classzab_1_1pause__token_1a266512500989669dfb707d614c7f4e46" prot="private" virt="non-virtual"><scope>zab::pause_token</scope><name>pauser</name></member>
+      <member refid="classzab_1_1pause__token_1a1791c4b71e052466221fe6341f063cf5" prot="private" virt="non-virtual"><scope>zab::pause_token</scope><name>pauser</name></member>
       <member refid="classzab_1_1pause__token_1a3028ed0dc38d4752c10115d4b5b4d757" prot="private" virt="non-virtual"><scope>zab::pause_token</scope><name>resuming_</name></member>
       <member refid="classzab_1_1pause__token_1aea8bb5113eb01392fbaa6e6557ea15c6" prot="public" virt="non-virtual"><scope>zab::pause_token</scope><name>unpause</name></member>
     </listofallmembers>

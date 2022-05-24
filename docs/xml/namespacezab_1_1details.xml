@@ -4,9 +4,12 @@
     <compoundname>zab::details</compoundname>
     <innerclass refid="structzab_1_1details_1_1no__op" prot="public">zab::details::no_op</innerclass>
     <innerclass refid="structzab_1_1details_1_1configs" prot="public">zab::details::configs</innerclass>
+    <innerclass refid="structzab_1_1details_1_1context__generator" prot="public">zab::details::context_generator</innerclass>
+    <innerclass refid="structzab_1_1details_1_1context__generator_3_01void_01_4" prot="public">zab::details::context_generator&lt; void &gt;</innerclass>
     <innerclass refid="structzab_1_1details_1_1one__of__these" prot="public">zab::details::one_of_these</innerclass>
     <innerclass refid="structzab_1_1details_1_1one__of__these_3_01std_1_1tuple_3_01T_8_8_8_01_4_01_4" prot="public">zab::details::one_of_these&lt; std::tuple&lt; T... &gt; &gt;</innerclass>
-    <innerclass refid="structzab_1_1details_1_1unwinder" prot="public">zab::details::unwinder</innerclass>
+    <innerclass refid="structzab_1_1details_1_1ready__tag" prot="public">zab::details::ready_tag</innerclass>
+    <innerclass refid="structzab_1_1details_1_1resume__tag" prot="public">zab::details::resume_tag</innerclass>
     <innerclass refid="structzab_1_1details_1_1simple__awaitable" prot="public">zab::details::simple_awaitable</innerclass>
     <innerclass refid="structzab_1_1details_1_1final__suspension" prot="public">zab::details::final_suspension</innerclass>
     <innerclass refid="structzab_1_1details_1_1extract__promise__types" prot="public">zab::details::extract_promise_types</innerclass>
@@ -231,6 +234,211 @@
         </inbodydescription>
         <location file="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" line="103" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/engine_enabled.hpp" bodystart="103" bodyend="-1"/>
       </memberdef>
+      <memberdef kind="variable" id="namespacezab_1_1details_1a36e4057267b1f67423f5742a6db8c0f2" prot="public" static="no" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>typename Base</type>
+          </param>
+        </templateparamlist>
+        <type>concept</type>
+        <definition>concept zab::details::PassThroughSuspend</definition>
+        <argsstring></argsstring>
+        <name>PassThroughSuspend</name>
+        <initializer>= requires(Base a)
+        {
+            {
+                a.await_suspend(std::declval&lt;tagged_event&gt;())
+            }
+            noexcept;
+        }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="50" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezab_1_1details_1a36e3bad96ad53bf2f1a9ec61748274e6" prot="public" static="no" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>typename Base</type>
+          </param>
+        </templateparamlist>
+        <type>concept</type>
+        <definition>concept zab::details::GenericSuspend</definition>
+        <argsstring></argsstring>
+        <name>GenericSuspend</name>
+        <initializer>= requires(Base a)
+        {
+            {
+                a(std::declval&lt;tagged_event&gt;())
+            }
+            noexcept;
+        }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="59" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezab_1_1details_1aa3bc8724607597e9aadf5cacf4f8694c" prot="public" static="no" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>typename Base</type>
+          </param>
+        </templateparamlist>
+        <type>concept</type>
+        <definition>concept zab::details::PassThroughReady</definition>
+        <argsstring></argsstring>
+        <name>PassThroughReady</name>
+        <initializer>= requires(Base a)
+        {
+            {
+                a.await_ready()
+            }
+            noexcept-&gt;std::same_as&lt;bool&gt;;
+        }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="70" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezab_1_1details_1a5fb79bc0a693d45c1ecc4c47ba2eff7b" prot="public" static="no" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>typename Base</type>
+          </param>
+        </templateparamlist>
+        <type>concept</type>
+        <definition>concept zab::details::GenericReady</definition>
+        <argsstring></argsstring>
+        <name>GenericReady</name>
+        <initializer>= requires(Base a)
+        {
+            {
+                a(ready_tag{})
+            }
+            noexcept;
+        }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="79" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezab_1_1details_1ae07ea31f2616caddf138875d35158b70" prot="public" static="no" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>typename Base</type>
+          </param>
+        </templateparamlist>
+        <type>concept</type>
+        <definition>concept zab::details::ReadyReturnsBool</definition>
+        <argsstring></argsstring>
+        <name>ReadyReturnsBool</name>
+        <initializer>= requires(Base a)
+        {
+            {
+                a(ready_tag{})
+            }
+            noexcept-&gt;std::same_as&lt;bool&gt;;
+        }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="88" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezab_1_1details_1a42e108f34c13bedbff0959bb08a872c1" prot="public" static="no" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>typename Base</type>
+          </param>
+        </templateparamlist>
+        <type>concept</type>
+        <definition>concept zab::details::PassThroughResume</definition>
+        <argsstring></argsstring>
+        <name>PassThroughResume</name>
+        <initializer>= requires(Base a)
+        {
+            {
+                a.await_resume()
+            }
+            noexcept;
+        }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="99" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezab_1_1details_1a2a670d939883e4a5de2ea5f5c9cbd2eb" prot="public" static="no" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>typename Base</type>
+          </param>
+        </templateparamlist>
+        <type>concept</type>
+        <definition>concept zab::details::GenericResume</definition>
+        <argsstring></argsstring>
+        <name>GenericResume</name>
+        <initializer>= requires(Base a)
+        {
+            {
+                a(resume_tag{})
+            }
+            noexcept;
+        }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="108" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezab_1_1details_1a62abdf752171c91445dbfb0644546a62" prot="public" static="no" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>typename Functor</type>
+          </param>
+        </templateparamlist>
+        <type>concept</type>
+        <definition>concept zab::details::NoThrowInvoacablePP</definition>
+        <argsstring></argsstring>
+        <name>NoThrowInvoacablePP</name>
+        <initializer>= std::is_nothrow_invocable_v&lt;Functor, <ref refid="structzab_1_1pause__pack" kindref="compound">pause_pack</ref>*&gt;</initializer>
+        <briefdescription>
+<para>Can the callable be nothrow called with a pause_pack*. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Functor</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The callable type. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/pause.hpp" line="84" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/pause.hpp" bodystart="84" bodyend="-1"/>
+      </memberdef>
       <memberdef kind="variable" id="namespacezab_1_1details_1aef21cf880c6c43ddb10eef307dcd4b06" prot="public" static="no" mutable="no">
         <templateparamlist>
           <param>
@@ -331,6 +539,113 @@
         <inbodydescription>
         </inbodydescription>
         <location file="/home/donald/rupin/zab/includes/zab/simple_future.hpp" line="88" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/simple_future.hpp" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezab_1_1details_1a27bca408f8182103c4b2b81644fe1b33" prot="public" static="no" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>typename Base</type>
+          </param>
+          <param>
+            <type>typename NotifyType</type>
+          </param>
+        </templateparamlist>
+        <type>concept</type>
+        <definition>concept zab::details::Notifiable</definition>
+        <argsstring></argsstring>
+        <name>Notifiable</name>
+        <initializer>= requires(Base a)
+        {
+            {
+                a(std::declval&lt;NotifyType&gt;())
+            }
+            noexcept-&gt;std::same_as&lt;notify_ctl&gt;;
+        }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" line="53" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezab_1_1details_1a4ff93f3008751d1ba86821c51512dd12" prot="public" static="no" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>typename Base</type>
+          </param>
+          <param>
+            <type>typename NotifyType</type>
+          </param>
+        </templateparamlist>
+        <type>concept</type>
+        <definition>concept zab::details::HasStatefulSuspension</definition>
+        <argsstring></argsstring>
+        <name>HasStatefulSuspension</name>
+        <initializer>= requires(Base a)
+        {
+            {
+                a(std::declval&lt;storage_event&lt;NotifyType&gt;*&gt;())
+            }
+            noexcept;
+        }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" line="62" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezab_1_1details_1a279fa175f38208789a94d6ae23c680b4" prot="public" static="no" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>typename Base</type>
+          </param>
+          <param>
+            <type>typename NotifyType</type>
+          </param>
+        </templateparamlist>
+        <type>concept</type>
+        <definition>concept zab::details::StatefulPassThroughSuspend</definition>
+        <argsstring></argsstring>
+        <name>StatefulPassThroughSuspend</name>
+        <initializer>= requires(Base a)
+        {
+            {
+                a.await_suspend(std::declval&lt;storage_event&lt;NotifyType&gt;*&gt;())
+            }
+            noexcept;
+        }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" line="71" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezab_1_1details_1af3c37048ad1b29becda8e1905fc2db97" prot="public" static="no" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>typename Base</type>
+          </param>
+          <param>
+            <type>typename NotifyType</type>
+          </param>
+        </templateparamlist>
+        <type>concept</type>
+        <definition>concept zab::details::StatefulAwaitable</definition>
+        <argsstring></argsstring>
+        <name>StatefulAwaitable</name>
+        <initializer>=
+            Notifiable&lt;Base, NotifyType&gt; &amp;&amp; HasStatefulSuspension&lt;Base, NotifyType&gt;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" line="80" column="17" bodyfile="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" bodystart="80" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="namespacezab_1_1details_1a611370b4f5ad878d0ebefff451f3edce" prot="public" static="no" mutable="no">
         <templateparamlist>

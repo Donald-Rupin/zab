@@ -5,10 +5,12 @@
     <includes local="no">type_traits</includes>
     <includes refid="reusable__future_8hpp" local="yes">zab/reusable_future.hpp</includes>
     <includes refid="simple__future_8hpp" local="yes">zab/simple_future.hpp</includes>
-    <includedby refid="tcp__stream_8cpp" local="yes">/home/donald/rupin/zab/src/tcp_stream.cpp</includedby>
     <incdepgraph>
-      <node id="13">
+      <node id="22">
         <label>atomic</label>
+      </node>
+      <node id="14">
+        <label>functional</label>
       </node>
       <node id="7">
         <label>zab/simple_future.hpp</label>
@@ -36,8 +38,17 @@
         <childnode refid="7" relation="include">
         </childnode>
       </node>
+      <node id="19">
+        <label>limits</label>
+      </node>
+      <node id="13">
+        <label>cstdint</label>
+      </node>
       <node id="4">
         <label>coroutine</label>
+      </node>
+      <node id="15">
+        <label>variant</label>
       </node>
       <node id="6">
         <label>zab/reusable_promise.hpp</label>
@@ -63,9 +74,46 @@
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
         <childnode refid="9" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>ostream</label>
+      </node>
+      <node id="12">
+        <label>zab/event.hpp</label>
+        <link refid="event_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>zab/strong_types.hpp</label>
+        <link refid="strong__types_8hpp_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
         </childnode>
       </node>
       <node id="5">
@@ -77,15 +125,15 @@
       <node id="11">
         <label>iostream</label>
       </node>
-      <node id="12">
+      <node id="21">
         <label>zab/spin_lock.hpp</label>
         <link refid="spin__lock_8hpp_source"/>
-        <childnode refid="13" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
-        <childnode refid="14" relation="include">
+        <childnode refid="23" relation="include">
         </childnode>
       </node>
-      <node id="15">
+      <node id="24">
         <label>cstddef</label>
       </node>
       <node id="3">
@@ -100,13 +148,19 @@
         <childnode refid="7" relation="include">
         </childnode>
       </node>
+      <node id="17">
+        <label>chrono</label>
+      </node>
+      <node id="18">
+        <label>concepts</label>
+      </node>
       <node id="2">
         <label>type_traits</label>
       </node>
-      <node id="14">
+      <node id="23">
         <label>zab/hardware_interface_size.hpp</label>
         <link refid="hardware__interface__size_8hpp_source"/>
-        <childnode refid="15" relation="include">
+        <childnode refid="24" relation="include">
         </childnode>
       </node>
     </incdepgraph>

@@ -1,72 +1,33 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Welcome to ZAB’s Home Page &mdash; ZAB 0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="ZAB Documentation" href="lib/lib_root.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="#" class="icon icon-home"> ZAB
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -74,108 +35,55 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Visit:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Visit:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="lib/lib_root.html">ZAB Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="#">ZAB</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Welcome to ZAB’s Home Page</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
 
-<div class="section" id="welcome-to-zab-s-home-page">
-<h1>Welcome to ZAB’s Home Page<a class="headerlink" href="#welcome-to-zab-s-home-page" title="Permalink to this headline">¶</a></h1>
+<section id="welcome-to-zab-s-home-page">
+<h1>Welcome to ZAB’s Home Page<a class="headerlink" href="#welcome-to-zab-s-home-page" title="Permalink to this headline"></a></h1>
 <hr class="docutils" />
 <p><a class="reference external" href="https://github.com/Donald-Rupin/zab">Github Repository</a></p>
 <hr class="docutils" />
-<p>A high-performance framework for building asynchronous and multi-threaded programs.</p>
+<p>A high-performance liburing backed event loop for building asynchronous and multi-threaded programs.</p>
 <p>The original goal of this library was to learn the new <a class="reference external" href="https://en.cppreference.com/w/cpp/coroutine">coroutines TS</a> for C++. I found the most difficult part of the coroutine TS is when you want to develop an asynchronous architecture or “executer/runtime” that can handle re-entrant code across possibly different threads. Thus, <strong>ZAB</strong> was born.</p>
-<p>The goal then became to provide a generic framework so users can utilise coroutines to easily develop concise, multi-threaded asynchronous code.</p>
-<p>The framework is fairly opinionated with the aim of providing multi-threaded and asynchronous functionality in a way that works like within high-level languages with built-in async support. The design largely takes inspiration from <a class="reference external" href="https://github.com/libuv/libuv">libuv</a> and its use with javascript in the <a class="reference external" href="https://nodejs.org/en/">node.js</a> runtime.</p>
+<p>ZAB uses io_uring and liburing as its back end to provide asynchronous system calls. ZAB so far does not try to provide QoL or improvements on the posix system call API’s. However, C++ classes are provided to provide resource management and group similar function calls.</p>
+<p><cite>benchmarks can be found here &lt;https://github.com/Donald-Rupin/zab_benchmark&lt;</cite></p>
 <p>Contact: <a class="reference external" href="mailto:donald&#46;rupin&#37;&#52;&#48;pm&#46;me">donald<span>&#46;</span>rupin<span>&#64;</span>pm<span>&#46;</span>me</a></p>
 <hr class="docutils" />
-<div class="section" id="disclosure">
-<h2>Disclosure<a class="headerlink" href="#disclosure" title="Permalink to this headline">¶</a></h2>
+<section id="disclosure">
+<h2>Disclosure<a class="headerlink" href="#disclosure" title="Permalink to this headline"></a></h2>
 <p><strong>ZAB</strong> is still in the _alpha_ stage so all feedback and suggestions are welcome and encouraged. I do not expect the interface to change significantly but it is possible. Tests are provided and I’ve tried to be thorough but I don’t have the capacity to test everything at this stage. If people are interested in using the <strong>ZAB</strong> framework, I will work to release a fully stable version.</p>
 <div class="toctree-wrapper compound">
 </div>
-</div>
-</div>
+</section>
+</section>
 
 <hr>
 </hr>
@@ -191,49 +99,32 @@
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="lib/lib_root.html" class="btn btn-neutral float-right" title="ZAB Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2022, Donald Rupin.
-
-    </p>
+    <p>&#169; Copyright 2022, Donald Rupin.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

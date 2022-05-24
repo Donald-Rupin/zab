@@ -17,10 +17,6 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="3">
-        <label>/home/donald/rupin/zab/includes/zab/network_overlay.hpp</label>
-        <link refid="network__overlay_8hpp_source"/>
-      </node>
       <node id="4">
         <label>/home/donald/rupin/zab/includes/zab/visitor_promise.hpp</label>
         <link refid="visitor__promise_8hpp_source"/>
@@ -32,6 +28,10 @@
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
+      </node>
+      <node id="3">
+        <label>/home/donald/rupin/zab/includes/zab/tcp_networking.hpp</label>
+        <link refid="tcp__networking_8hpp_source"/>
       </node>
       <node id="2">
         <label>/home/donald/rupin/zab/includes/zab/tcp_stream.hpp</label>

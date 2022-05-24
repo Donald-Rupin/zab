@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1suspension__point" kind="class" language="C++" prot="public">
+    <compoundname>zab::suspension_point</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename Functor</type>
+      </param>
+      <param>
+        <type>typename AwaitableType</type>
+        <defval>generic_awaitable&lt;Functor&gt;</defval>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzab_1_1suspension__point_1afea4611149919be7631862179935c96a" prot="private" static="no" mutable="no">
+        <type>Functor</type>
+        <definition>Functor zab::suspension_point&lt; Functor, AwaitableType &gt;::functor_</definition>
+        <argsstring></argsstring>
+        <name>functor_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="308" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1suspension__point_1a45132aac599b2aacb58809bb7cc5f9be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::suspension_point&lt; Functor, AwaitableType &gt;::suspension_point</definition>
+        <argsstring>(const suspension_point &amp;_copy)=default</argsstring>
+        <name>suspension_point</name>
+        <param>
+          <type>const suspension_point &amp;</type>
+          <declname>_copy</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="289" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1suspension__point_1ade723a9a2e2b36c22a9fe184735d247a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::suspension_point&lt; Functor, AwaitableType &gt;::suspension_point</definition>
+        <argsstring>(suspension_point &amp;&amp;_move)=default</argsstring>
+        <name>suspension_point</name>
+        <param>
+          <type>suspension_point &amp;&amp;</type>
+          <declname>_move</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="291" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1suspension__point_1a80bf969374ef81cc7fe3856dfa6ba0eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>suspension_point &amp;</type>
+        <definition>suspension_point&amp; zab::suspension_point&lt; Functor, AwaitableType &gt;::operator=</definition>
+        <argsstring>(suspension_point &amp;&amp;_move_op)=default</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>suspension_point &amp;&amp;</type>
+          <declname>_move_op</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="294" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1suspension__point_1aa7044c8a824c349765490d66e1961397" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::suspension_point&lt; Functor, AwaitableType &gt;::suspension_point</definition>
+        <argsstring>(Functor &amp;&amp;_functor)</argsstring>
+        <name>suspension_point</name>
+        <param>
+          <type>Functor &amp;&amp;</type>
+          <declname>_functor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="296" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="296" bodyend="296"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1suspension__point_1a9ab779de77b008d706850ae860c02996" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::suspension_point&lt; Functor, AwaitableType &gt;::suspension_point</definition>
+        <argsstring>(const Functor &amp;_functor)</argsstring>
+        <name>suspension_point</name>
+        <param>
+          <type>const Functor &amp;</type>
+          <declname>_functor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="298" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="298" bodyend="298"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1suspension__point_1ae17ae34298399c147c325e3c19d36027" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>zab::suspension_point&lt; Functor, AwaitableType &gt;::suspension_point</definition>
+        <argsstring>(Args &amp;&amp;... _args)</argsstring>
+        <name>suspension_point</name>
+        <param>
+          <type>Args &amp;&amp;...</type>
+          <declname>_args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="301" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="301" bodyend="302"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1suspension__point_1aaf18aba8754e008a843cd88d43afd672" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::suspension_point&lt; Functor, AwaitableType &gt;::operator co_await</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>operator co_await</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="304" column="18" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="304" bodyend="304"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="285" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="285" bodyend="309"/>
+    <listofallmembers>
+      <member refid="classzab_1_1suspension__point_1afea4611149919be7631862179935c96a" prot="private" virt="non-virtual"><scope>zab::suspension_point</scope><name>functor_</name></member>
+      <member refid="classzab_1_1suspension__point_1aaf18aba8754e008a843cd88d43afd672" prot="public" virt="non-virtual"><scope>zab::suspension_point</scope><name>operator co_await</name></member>
+      <member refid="classzab_1_1suspension__point_1a80bf969374ef81cc7fe3856dfa6ba0eb" prot="public" virt="non-virtual"><scope>zab::suspension_point</scope><name>operator=</name></member>
+      <member refid="classzab_1_1suspension__point_1a45132aac599b2aacb58809bb7cc5f9be" prot="public" virt="non-virtual"><scope>zab::suspension_point</scope><name>suspension_point</name></member>
+      <member refid="classzab_1_1suspension__point_1ade723a9a2e2b36c22a9fe184735d247a" prot="public" virt="non-virtual"><scope>zab::suspension_point</scope><name>suspension_point</name></member>
+      <member refid="classzab_1_1suspension__point_1aa7044c8a824c349765490d66e1961397" prot="public" virt="non-virtual"><scope>zab::suspension_point</scope><name>suspension_point</name></member>
+      <member refid="classzab_1_1suspension__point_1a9ab779de77b008d706850ae860c02996" prot="public" virt="non-virtual"><scope>zab::suspension_point</scope><name>suspension_point</name></member>
+      <member refid="classzab_1_1suspension__point_1ae17ae34298399c147c325e3c19d36027" prot="public" virt="non-virtual"><scope>zab::suspension_point</scope><name>suspension_point</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

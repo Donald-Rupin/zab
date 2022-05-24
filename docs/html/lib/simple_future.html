@@ -1,73 +1,34 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>simple_future &mdash; ZAB 0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="reusable_future" href="reusable_future.html" />
     <link rel="prev" title="async_function" href="async_function.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> ZAB
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -75,19 +36,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Visit:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -109,124 +59,79 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">ZAB</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="lib_root.html">ZAB Documentation</a> &raquo;</li>
-        
           <li><a href="coroutines.html">Coroutines</a> &raquo;</li>
-        
           <li><a href="task_types.html">Task Types</a> &raquo;</li>
-        
       <li>simple_future</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/lib/simple_future.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
 
-<div class="section" id="simple-future">
-<span id="id1"></span><h1>simple_future<a class="headerlink" href="#simple-future" title="Permalink to this headline">¶</a></h1>
+<section id="simple-future">
+<span id="id1"></span><h1>simple_future<a class="headerlink" href="#simple-future" title="Permalink to this headline"></a></h1>
 <hr class="docutils" />
 <p>A function can mark itself as a coroutine by having a return type of <code class="docutils literal notranslate"><span class="pre">simple_future&lt;T,</span> <span class="pre">Promise&gt;</span></code>. The purpose of a simple_future is to provide a method for asynchronous functions to have a return type. Since the <code class="docutils literal notranslate"><span class="pre">simple_future&lt;T&gt;</span></code> may exhibit asynchronous behaviour the return type must be accessed through <code class="docutils literal notranslate"><span class="pre">co_await</span></code>. A <code class="docutils literal notranslate"><span class="pre">simple_future&lt;T&gt;</span></code> will wake up the waiting coroutine and return a value to it be using the <code class="docutils literal notranslate"><span class="pre">co_return</span></code> keyword.</p>
 <p>The promise type for an <code class="docutils literal notranslate"><span class="pre">simple_future&lt;T&gt;</span></code> must satisfy the <code class="docutils literal notranslate"><span class="pre">Returnable</span></code> concept. The default promise type is the <a class="reference internal" href="simple_promise.html#simple-promise"><span class="std std-ref">simple_promise</span></a>.</p>
 <hr class="docutils" />
 <div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span> <span class="o">=</span> <span class="kt">void</span><span class="o">&gt;</span>
-<span class="n">simple_future</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
-<span class="n">future_value</span><span class="p">()</span> <span class="k">noexcept</span>
-<span class="p">{</span>
-    <span class="cm">/* async behaviour goes here... */</span>
-    <span class="k">co_return</span> <span class="n">T</span><span class="p">{};</span>
-<span class="p">}</span>
+<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code"></a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;</span><span class="w"></span>
+<span class="n">simple_future</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"></span>
+<span class="n">future_value</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/* async behaviour goes here... */</span><span class="w"></span>
+<span class="w">    </span><span class="k">co_return</span><span class="w"> </span><span class="n">T</span><span class="p">{};</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
 <span class="cm">/*</span>
 <span class="cm">    template &lt;typename T&gt;</span>
 <span class="cm">    using guaranteed_future = simple_future&lt;promise_always_resolves&lt;T&gt;,  simple_promise&lt;promise_always_resolves&lt;T&gt;&gt;&gt;;</span>
-<span class="cm">*/</span>
-<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span> <span class="o">=</span> <span class="kt">void</span><span class="o">&gt;</span>
-<span class="n">guaranteed_future</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
-<span class="n">guaranteed_future_value</span><span class="p">()</span> <span class="k">noexcept</span>
-<span class="p">{</span>
-    <span class="cm">/* async behaviour goes here... */</span>
-    <span class="k">co_return</span> <span class="n">T</span><span class="p">{};</span>
-<span class="p">}</span>
+<span class="cm">*/</span><span class="w"></span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;</span><span class="w"></span>
+<span class="n">guaranteed_future</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"></span>
+<span class="n">guaranteed_future_value</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/* async behaviour goes here... */</span><span class="w"></span>
+<span class="w">    </span><span class="k">co_return</span><span class="w"> </span><span class="n">T</span><span class="p">{};</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="n">async_function</span><span class="o">&lt;&gt;</span>
-<span class="n">foo</span><span class="p">()</span> <span class="k">noexcept</span>
-<span class="p">{</span>
-    <span class="cm">/* no return type (just awaitable)- void */</span>
-    <span class="k">co_await</span> <span class="n">future_value</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+<span class="n">async_function</span><span class="o">&lt;&gt;</span><span class="w"></span>
+<span class="n">foo</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/* no return type (just awaitable)- void */</span><span class="w"></span>
+<span class="w">    </span><span class="k">co_await</span><span class="w"> </span><span class="n">future_value</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w"></span>
 
-    <span class="cm">/* Simple return type - bool */</span>
-    <span class="kt">bool</span> <span class="n">predicate</span> <span class="o">=</span> <span class="k">co_await</span> <span class="n">future_value</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="w">    </span><span class="cm">/* Simple return type - bool */</span><span class="w"></span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">predicate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">co_await</span><span class="w"> </span><span class="n">future_value</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">();</span><span class="w"></span>
 
-    <span class="cm">/* All others return an std::optional&lt;T&gt; - std::size_t */</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="o">&gt;</span> <span class="n">value</span> <span class="o">=</span> <span class="k">co_await</span> <span class="n">future_value</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="w">    </span><span class="cm">/* All others return an std::optional&lt;T&gt; - std::size_t */</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">co_await</span><span class="w"> </span><span class="n">future_value</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">();</span><span class="w"></span>
 
-    <span class="cm">/* Turn off optional by guaranteeing it will resolve - std::size_t */</span>
-    <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">value</span> <span class="o">=</span> <span class="k">co_await</span> <span class="n">guaranteed_future_value</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">();</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="cm">/* Turn off optional by guaranteeing it will resolve - std::size_t */</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">co_await</span><span class="w"> </span><span class="n">guaranteed_future_value</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -235,24 +140,23 @@
 <hr class="docutils" />
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE">
-<span id="_CPPv3I0_N7details10ReturnableEEN3zab13simple_futureE"></span><span id="_CPPv2I0_N7details10ReturnableEEN3zab13simple_futureE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Returnable</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Promise</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="simple_promise.html#_CPPv4I0EN3zab14simple_promiseE" title="zab::simple_promise"><span class="n"><span class="pre">simple_promise</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1simple__future"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">simple_future</span></span></span><a class="headerlink" href="#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I0_N7details10ReturnableEEN3zab13simple_futureE"></span><span id="_CPPv2I0_N7details10ReturnableEEN3zab13simple_futureE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Returnable</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Promise</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="simple_promise.html#_CPPv4I0EN3zab14simple_promiseE" title="zab::simple_promise"><span class="n"><span class="pre">simple_promise</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1simple__future"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">simple_future</span></span></span><a class="headerlink" href="#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Represents the future value of a simple promise. </p>
-<p><dl class="field-list simple">
-<dt class="field-odd">tparam T</dt>
-<dd class="field-odd"><p>The type of the promised value. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><p><strong>T</strong> – The type of the promised value. </p>
 </dd>
 </dl>
-</p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13simple_future12promise_typeE">
-<span id="_CPPv3N3zab13simple_future12promise_typeE"></span><span id="_CPPv2N3zab13simple_future12promise_typeE"></span><span class="target" id="classzab_1_1simple__future_1a6b12bbb0277df362dace02e01309ad18"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">promise_type</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future::Promise"><span class="n"><span class="pre">Promise</span></span></a><a class="headerlink" href="#_CPPv4N3zab13simple_future12promise_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13simple_future12promise_typeE"></span><span id="_CPPv2N3zab13simple_future12promise_typeE"></span><span class="target" id="classzab_1_1simple__future_1a6b12bbb0277df362dace02e01309ad18"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">promise_type</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future::Promise"><span class="n"><span class="pre">Promise</span></span></a><a class="headerlink" href="#_CPPv4N3zab13simple_future12promise_typeE" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13simple_future12return_valueE">
-<span id="_CPPv3N3zab13simple_future12return_valueE"></span><span id="_CPPv2N3zab13simple_future12return_valueE"></span><span class="target" id="classzab_1_1simple__future_1a91e861440d91ce4f4b922ce559bedb46"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">return_value</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="n"><span class="pre">deduce_type</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab13simple_future12promise_typeE" title="zab::simple_future::promise_type"><span class="n"><span class="pre">promise_type</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">returns</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">type</span></span><a class="headerlink" href="#_CPPv4N3zab13simple_future12return_valueE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13simple_future12return_valueE"></span><span id="_CPPv2N3zab13simple_future12return_valueE"></span><span class="target" id="classzab_1_1simple__future_1a91e861440d91ce4f4b922ce559bedb46"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">return_value</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="n"><span class="pre">deduce_type</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab13simple_future12promise_typeE" title="zab::simple_future::promise_type"><span class="n"><span class="pre">promise_type</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">returns</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">type</span></span><a class="headerlink" href="#_CPPv4N3zab13simple_future12return_valueE" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -260,7 +164,7 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13simple_future13simple_futureENSt16coroutine_handleI12promise_typeEE">
-<span id="_CPPv3N3zab13simple_future13simple_futureENSt16coroutine_handleI12promise_typeEE"></span><span id="_CPPv2N3zab13simple_future13simple_futureENSt16coroutine_handleI12promise_typeEE"></span><span id="zab::simple_future::simple_future__std::coroutine_handle:promise_type:"></span><span class="target" id="classzab_1_1simple__future_1aac0cfbd30bf388eab5e8f8639994eec1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">simple_future</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">coroutine_handle</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3zab13simple_future12promise_typeE" title="zab::simple_future::promise_type"><span class="n"><span class="pre">promise_type</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_handle</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab13simple_future13simple_futureENSt16coroutine_handleI12promise_typeEE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13simple_future13simple_futureENSt16coroutine_handleI12promise_typeEE"></span><span id="_CPPv2N3zab13simple_future13simple_futureENSt16coroutine_handleI12promise_typeEE"></span><span id="zab::simple_future::simple_future__std::coroutine_handle:promise_type:"></span><span class="target" id="classzab_1_1simple__future_1aac0cfbd30bf388eab5e8f8639994eec1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">simple_future</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">coroutine_handle</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3zab13simple_future12promise_typeE" title="zab::simple_future::promise_type"><span class="n"><span class="pre">promise_type</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_handle</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab13simple_future13simple_futureENSt16coroutine_handleI12promise_typeEE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Construct with the future with a handle to its coroutine. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -271,14 +175,14 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13simple_futureD0Ev">
-<span id="_CPPv3N3zab13simple_futureD0Ev"></span><span id="_CPPv2N3zab13simple_futureD0Ev"></span><span id="zab::simple_future::~simple_future"></span><span class="target" id="classzab_1_1simple__future_1a98cf8f925a4d09762e7ef7e66a512424"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~simple_future</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab13simple_futureD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13simple_futureD0Ev"></span><span id="_CPPv2N3zab13simple_futureD0Ev"></span><span id="zab::simple_future::~simple_future"></span><span class="target" id="classzab_1_1simple__future_1a98cf8f925a4d09762e7ef7e66a512424"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~simple_future</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab13simple_futureD0Ev" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Destroys the future and cleans up the coroutine handle. </p>
 <p>We destroy the coroutine handle here as the the final_suspend in the <code class="docutils literal notranslate"><a class="reference internal" href="simple_promise.html#classzab_1_1simple__promise"><span class="std std-ref"><span class="pre">simple_promise</span></span></a></code> does not resume. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13simple_future13simple_futureERK13simple_future">
-<span id="_CPPv3N3zab13simple_future13simple_futureERK13simple_future"></span><span id="_CPPv2N3zab13simple_future13simple_futureERK13simple_future"></span><span id="zab::simple_future::simple_future__simple_futureCR"></span><span class="target" id="classzab_1_1simple__future_1ac5e22f4677d863b491688da1af6d5ea9"></span><span class="sig-name descname"><span class="n"><span class="pre">simple_future</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab13simple_future13simple_futureERK13simple_future" title="zab::simple_future::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab13simple_future13simple_futureERK13simple_future" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13simple_future13simple_futureERK13simple_future"></span><span id="_CPPv2N3zab13simple_future13simple_futureERK13simple_future"></span><span id="zab::simple_future::simple_future__simple_futureCR"></span><span class="target" id="classzab_1_1simple__future_1ac5e22f4677d863b491688da1af6d5ea9"></span><span class="sig-name descname"><span class="n"><span class="pre">simple_future</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab13simple_future13simple_futureERK13simple_future" title="zab::simple_future::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3zab13simple_future13simple_futureERK13simple_future" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Cannot be coppied. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -289,7 +193,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13simple_future13simple_futureERR13simple_future">
-<span id="_CPPv3N3zab13simple_future13simple_futureERR13simple_future"></span><span id="_CPPv2N3zab13simple_future13simple_futureERR13simple_future"></span><span id="zab::simple_future::simple_future__simple_futureRR"></span><span class="target" id="classzab_1_1simple__future_1a9ac8bac43943f47fe7c55ec6435bdfb4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">simple_future</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab13simple_future13simple_futureERR13simple_future" title="zab::simple_future::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab13simple_future13simple_futureERR13simple_future" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13simple_future13simple_futureERR13simple_future"></span><span id="_CPPv2N3zab13simple_future13simple_futureERR13simple_future"></span><span id="zab::simple_future::simple_future__simple_futureRR"></span><span class="target" id="classzab_1_1simple__future_1a9ac8bac43943f47fe7c55ec6435bdfb4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">simple_future</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab13simple_future13simple_futureERR13simple_future" title="zab::simple_future::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab13simple_future13simple_futureERR13simple_future" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Moving makes the moved <a class="reference internal" href="#classzab_1_1simple__future"><span class="std std-ref">simple_future</span></a> lose ownership of the handle. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -300,7 +204,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13simple_futureaSERR13simple_future">
-<span id="_CPPv3N3zab13simple_futureaSERR13simple_future"></span><span id="_CPPv2N3zab13simple_futureaSERR13simple_future"></span><span id="zab::simple_future::assign-operator__simple_futureRR"></span><span class="target" id="classzab_1_1simple__future_1af4e3825377a74a478c6d6b4fdc0dee66"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab13simple_futureaSERR13simple_future" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13simple_futureaSERR13simple_future"></span><span id="_CPPv2N3zab13simple_futureaSERR13simple_future"></span><span id="zab::simple_future::assign-operator__simple_futureRR"></span><span class="target" id="classzab_1_1simple__future_1af4e3825377a74a478c6d6b4fdc0dee66"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0_N7details10ReturnableEEN3zab13simple_futureE" title="zab::simple_future"><span class="n"><span class="pre">simple_future</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab13simple_futureaSERR13simple_future" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Move Assignment operator. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -314,7 +218,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13simple_futurecv8co_awaitEv">
-<span id="_CPPv3N3zab13simple_futurecv8co_awaitEv"></span><span id="_CPPv2N3zab13simple_futurecv8co_awaitEv"></span><span id="zab::simple_future::castto-co_await-operator"></span><span class="target" id="classzab_1_1simple__future_1a0dd9708c4281d674f4d527e11a9a1fb1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">simple_awaitable</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3zab13simple_future12promise_typeE" title="zab::simple_future::promise_type"><span class="n"><span class="pre">promise_type</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="n"><span class="pre">co_await</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab13simple_futurecv8co_awaitEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13simple_futurecv8co_awaitEv"></span><span id="_CPPv2N3zab13simple_futurecv8co_awaitEv"></span><span id="zab::simple_future::castto-co_await-operator"></span><span class="target" id="classzab_1_1simple__future_1a0dd9708c4281d674f4d527e11a9a1fb1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">simple_awaitable</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3zab13simple_future12promise_typeE" title="zab::simple_future::promise_type"><span class="n"><span class="pre">promise_type</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="n"><span class="pre">co_await</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab13simple_futurecv8co_awaitEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>wait for the <code class="docutils literal notranslate"><a class="reference internal" href="simple_promise.html#classzab_1_1simple__promise"><span class="std std-ref"><span class="pre">simple_promise</span></span></a></code> to be fulfilled or fail. </p>
 <p>Then co_await returns an <code class="docutils literal notranslate"><span class="pre">std::optional&lt;T&gt;&amp;&amp;</span></code> which represents if the <a class="reference internal" href="simple_promise.html#classzab_1_1simple__promise"><span class="std std-ref">simple_promise</span></a> was fulfilled or failed.</p>
 <dl class="field-list simple">
@@ -324,18 +228,28 @@
 </dl>
 </dd></dl>
 
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab13simple_future15inline_co_awaitE12tagged_event">
+<span id="_CPPv3N3zab13simple_future15inline_co_awaitE12tagged_event"></span><span id="_CPPv2N3zab13simple_future15inline_co_awaitE12tagged_event"></span><span id="zab::simple_future::inline_co_await__tagged_event"></span><span class="target" id="classzab_1_1simple__future_1a30dc9f6afc8a31f9459b367aadfd5631"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">inline_co_await</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">tagged_event</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_event</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab13simple_future15inline_co_awaitE12tagged_event" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3zab13simple_future17get_inline_resultEv">
+<span id="_CPPv3N3zab13simple_future17get_inline_resultEv"></span><span id="_CPPv2N3zab13simple_future17get_inline_resultEv"></span><span id="zab::simple_future::get_inline_result"></span><span class="target" id="classzab_1_1simple__future_1a8175f0357f5c2fb15ebf609daf41e065"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">decltype</span></span><span class="p"><span class="pre">(</span></span><span class="k"><span class="pre">auto</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_inline_result</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab13simple_future17get_inline_resultEv" title="Permalink to this definition"></a><br /></dt>
+<dd></dd></dl>
+
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab13simple_future7handle_E">
-<span id="_CPPv3N3zab13simple_future7handle_E"></span><span id="_CPPv2N3zab13simple_future7handle_E"></span><span id="zab::simple_future::handle___std::coroutine_handle:promise_type:"></span><span class="target" id="classzab_1_1simple__future_1afb9e98d1b6f82130957ca3f1c4287a18"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">coroutine_handle</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3zab13simple_future12promise_typeE" title="zab::simple_future::promise_type"><span class="n"><span class="pre">promise_type</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">handle_</span></span></span><a class="headerlink" href="#_CPPv4N3zab13simple_future7handle_E" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab13simple_future7handle_E"></span><span id="_CPPv2N3zab13simple_future7handle_E"></span><span id="zab::simple_future::handle___std::coroutine_handle:promise_type:"></span><span class="target" id="classzab_1_1simple__future_1afb9e98d1b6f82130957ca3f1c4287a18"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">coroutine_handle</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3zab13simple_future12promise_typeE" title="zab::simple_future::promise_type"><span class="n"><span class="pre">promise_type</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">handle_</span></span></span><a class="headerlink" href="#_CPPv4N3zab13simple_future7handle_E" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
 </dd></dl>
 
-</div>
+</section>
 
 <hr>
 </hr>
@@ -351,50 +265,33 @@
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="reusable_future.html" class="btn btn-neutral float-right" title="reusable_future" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="async_function.html" class="btn btn-neutral float-left" title="async_function" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="reusable_future.html" class="btn btn-neutral float-right" title="reusable_future" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2022, Donald Rupin.
-
-    </p>
+    <p>&#169; Copyright 2022, Donald Rupin.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

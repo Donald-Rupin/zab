@@ -1,0 +1,236 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1stateful__awaitable" kind="class" language="C++" prot="public">
+    <compoundname>zab::stateful_awaitable</compoundname>
+    <basecompoundref prot="private" virt="non-virtual">zab::generic_awaitable&lt; Functor &gt;</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>typename NotifyType</type>
+      </param>
+      <param>
+        <type>details::StatefulAwaitable&lt; NotifyType &gt;</type>
+        <declname>Functor</declname>
+        <defname>Functor</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzab_1_1stateful__awaitable_1af3b4b6995622d416d536ecdb226dac51" prot="private" static="no" mutable="no">
+        <type>storage_event&lt; NotifyType &gt;</type>
+        <definition>storage_event&lt;NotifyType&gt; zab::stateful_awaitable&lt; NotifyType, Functor &gt;::context_</definition>
+        <argsstring></argsstring>
+        <name>context_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" line="246" column="27" bodyfile="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1stateful__awaitable_1a23e1840bc328dd50a5e2cfa2bee6fa1d" prot="private" static="no" mutable="no">
+        <type>tagged_event</type>
+        <definition>tagged_event zab::stateful_awaitable&lt; NotifyType, Functor &gt;::underlying_</definition>
+        <argsstring></argsstring>
+        <name>underlying_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" line="247" column="39" bodyfile="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1stateful__awaitable_1a80e029ae718308cfc329d629147521a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::stateful_awaitable&lt; NotifyType, Functor &gt;::stateful_awaitable</definition>
+        <argsstring>(const stateful_awaitable &amp;_copy)=default</argsstring>
+        <name>stateful_awaitable</name>
+        <param>
+          <type>const stateful_awaitable &amp;</type>
+          <declname>_copy</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" line="104" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1stateful__awaitable_1a65e8851cfc383937ea0e2e0379e29eac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::stateful_awaitable&lt; NotifyType, Functor &gt;::stateful_awaitable</definition>
+        <argsstring>(stateful_awaitable &amp;&amp;_move)=default</argsstring>
+        <name>stateful_awaitable</name>
+        <param>
+          <type>stateful_awaitable &amp;&amp;</type>
+          <declname>_move</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" line="106" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1stateful__awaitable_1a78824687006e0f3c50e6f166493a55dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>stateful_awaitable &amp;</type>
+        <definition>stateful_awaitable&amp; zab::stateful_awaitable&lt; NotifyType, Functor &gt;::operator=</definition>
+        <argsstring>(stateful_awaitable &amp;&amp;_move_op)=default</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>stateful_awaitable &amp;&amp;</type>
+          <declname>_move_op</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" line="109" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1stateful__awaitable_1a1a8100782f098c2c57e5e3bebc473fa5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::stateful_awaitable&lt; NotifyType, Functor &gt;::stateful_awaitable</definition>
+        <argsstring>(Functor *_functor)</argsstring>
+        <name>stateful_awaitable</name>
+        <param>
+          <type>Functor *</type>
+          <declname>_functor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" line="111" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" bodystart="111" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1stateful__awaitable_1a60379523198993d7efb35c1c0b10c86c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::stateful_awaitable&lt; NotifyType, Functor &gt;::notify</definition>
+        <argsstring>()</argsstring>
+        <name>notify</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" line="126" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" bodystart="126" bodyend="167"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1stateful__awaitable_1a8071fe7e6c68de7ce6919bbf0ec1d001" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>details::StatefulAwaitable&lt; NotifyType &gt;</type>
+            <declname>F</declname>
+            <defname>F</defname>
+            <defval>Functor</defval>
+          </param>
+        </templateparamlist>
+        <type>decltype(auto)</type>
+        <definition>decltype(auto) zab::stateful_awaitable&lt; NotifyType, Functor &gt;::await_suspend</definition>
+        <argsstring>(std::coroutine_handle&lt;&gt; _awaiter) noexcept</argsstring>
+        <name>await_suspend</name>
+        <param>
+          <type>std::coroutine_handle&lt;&gt;</type>
+          <declname>_awaiter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" line="171" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" bodystart="171" bodyend="175"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1stateful__awaitable_1ab8a3c8dfc95dec25ef1fe950169e1bc1" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>details::StatefulAwaitable&lt; NotifyType &gt;</type>
+            <declname>F</declname>
+            <defname>F</defname>
+            <defval>Functor</defval>
+          </param>
+        </templateparamlist>
+        <type>decltype(auto)</type>
+        <definition>decltype(auto) zab::stateful_awaitable&lt; NotifyType, Functor &gt;::await_suspend</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>await_suspend</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" line="179" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" bodystart="179" bodyend="228"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1stateful__awaitable_1ab8d64cc252a83a7376d1b5f729a0d726" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>details::StatefulAwaitable&lt; NotifyType &gt;</type>
+            <declname>F</declname>
+            <defname>F</defname>
+            <defval>Functor</defval>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool zab::stateful_awaitable&lt; NotifyType, Functor &gt;::await_ready</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>await_ready</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" line="232" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" bodystart="232" bodyend="235"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1stateful__awaitable_1a57e58bd63923144334547105da7a331c" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>details::StatefulAwaitable&lt; NotifyType &gt;</type>
+            <declname>F</declname>
+            <defname>F</defname>
+            <defval>Functor</defval>
+          </param>
+        </templateparamlist>
+        <type>decltype(auto)</type>
+        <definition>decltype(auto) zab::stateful_awaitable&lt; NotifyType, Functor &gt;::await_resume</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>await_resume</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" line="239" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" bodystart="239" bodyend="242"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" line="100" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" bodystart="100" bodyend="248"/>
+    <listofallmembers>
+      <member refid="classzab_1_1stateful__awaitable_1ab8d64cc252a83a7376d1b5f729a0d726" prot="public" virt="non-virtual"><scope>zab::stateful_awaitable</scope><name>await_ready</name></member>
+      <member refid="classzab_1_1stateful__awaitable_1a57e58bd63923144334547105da7a331c" prot="public" virt="non-virtual"><scope>zab::stateful_awaitable</scope><name>await_resume</name></member>
+      <member refid="classzab_1_1stateful__awaitable_1a8071fe7e6c68de7ce6919bbf0ec1d001" prot="public" virt="non-virtual"><scope>zab::stateful_awaitable</scope><name>await_suspend</name></member>
+      <member refid="classzab_1_1stateful__awaitable_1ab8a3c8dfc95dec25ef1fe950169e1bc1" prot="public" virt="non-virtual"><scope>zab::stateful_awaitable</scope><name>await_suspend</name></member>
+      <member refid="classzab_1_1generic__awaitable_1a6daf8f8f47663c5a84ea0059c784545c" prot="private" virt="non-virtual" ambiguityscope="zab::generic_awaitable::"><scope>zab::stateful_awaitable</scope><name>await_suspend</name></member>
+      <member refid="classzab_1_1stateful__awaitable_1af3b4b6995622d416d536ecdb226dac51" prot="private" virt="non-virtual"><scope>zab::stateful_awaitable</scope><name>context_</name></member>
+      <member refid="classzab_1_1stateful__awaitable_1a60379523198993d7efb35c1c0b10c86c" prot="public" virt="non-virtual"><scope>zab::stateful_awaitable</scope><name>notify</name></member>
+      <member refid="classzab_1_1stateful__awaitable_1a78824687006e0f3c50e6f166493a55dc" prot="public" virt="non-virtual"><scope>zab::stateful_awaitable</scope><name>operator=</name></member>
+      <member refid="classzab_1_1generic__awaitable_1ac25b79fdafc6f4e618adfd543f0f39f7" prot="private" virt="non-virtual" ambiguityscope="zab::generic_awaitable::"><scope>zab::stateful_awaitable</scope><name>operator=</name></member>
+      <member refid="classzab_1_1stateful__awaitable_1a80e029ae718308cfc329d629147521a1" prot="public" virt="non-virtual"><scope>zab::stateful_awaitable</scope><name>stateful_awaitable</name></member>
+      <member refid="classzab_1_1stateful__awaitable_1a65e8851cfc383937ea0e2e0379e29eac" prot="public" virt="non-virtual"><scope>zab::stateful_awaitable</scope><name>stateful_awaitable</name></member>
+      <member refid="classzab_1_1stateful__awaitable_1a1a8100782f098c2c57e5e3bebc473fa5" prot="public" virt="non-virtual"><scope>zab::stateful_awaitable</scope><name>stateful_awaitable</name></member>
+      <member refid="classzab_1_1stateful__awaitable_1a23e1840bc328dd50a5e2cfa2bee6fa1d" prot="private" virt="non-virtual"><scope>zab::stateful_awaitable</scope><name>underlying_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

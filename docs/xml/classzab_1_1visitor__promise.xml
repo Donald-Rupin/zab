@@ -164,10 +164,10 @@
       <member refid="classzab_1_1visitor__promise_1afbfd48d6e4b988faa6768aa8c97bfffd" prot="public" virt="non-virtual"><scope>zab::visitor_promise</scope><name>requires</name></member>
       <member refid="classzab_1_1simple__promise_3_01void_01_4_1a30bbf95fa66760a0cb731bd19a6dbc71" prot="public" virt="non-virtual"><scope>zab::visitor_promise</scope><name>return_void</name></member>
       <member refid="classzab_1_1simple__promise_3_01void_01_4_1ac91447c4598ca0063bb9e1205357ee18" prot="public" virt="non-virtual"><scope>zab::visitor_promise</scope><name>returns</name></member>
-      <member refid="classzab_1_1simple__common_1a785a7eb5104909f68c4cd80d4d0b2210" prot="public" virt="non-virtual"><scope>zab::visitor_promise</scope><name>set_underlying</name></member>
+      <member refid="classzab_1_1simple__common_1a6247406ec14650f00f489c5dcc0a6d86" prot="public" virt="non-virtual"><scope>zab::visitor_promise</scope><name>set_underlying</name></member>
       <member refid="classzab_1_1simple__common_1a8c4fff11d8a379f9c57e633532a5a07d" prot="public" virt="non-virtual"><scope>zab::visitor_promise</scope><name>simple_common</name></member>
       <member refid="classzab_1_1simple__promise_3_01void_01_4_1af55bc2d1f24c6a8f822ad8620d0c8d0a" prot="public" virt="non-virtual"><scope>zab::visitor_promise</scope><name>simple_promise</name></member>
-      <member refid="classzab_1_1simple__common_1ad8231a492550fda1e52d2a8e7e69efa8" prot="public" virt="non-virtual"><scope>zab::visitor_promise</scope><name>underlying</name></member>
+      <member refid="classzab_1_1simple__common_1a44fcb10ef7068de4f2f7e59b9687ae6d" prot="public" virt="non-virtual"><scope>zab::visitor_promise</scope><name>underlying</name></member>
       <member refid="classzab_1_1simple__common_1a65343cd0bce64c263727d5cffe9b5190" prot="public" virt="non-virtual"><scope>zab::visitor_promise</scope><name>unhandled_exception</name></member>
       <member refid="classzab_1_1visitor__promise_1afb410ccd445bd5086a592d3236a2a373" prot="public" virt="non-virtual"><scope>zab::visitor_promise</scope><name>yield_value</name></member>
       <member refid="classzab_1_1simple__common_1aa0bd8b34ed3ff4603e2ffcc2cf2fadd4" prot="public" virt="non-virtual"><scope>zab::visitor_promise</scope><name>~simple_common</name></member>

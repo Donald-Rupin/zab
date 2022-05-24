@@ -22,10 +22,6 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="6">
-        <label>/home/donald/rupin/zab/includes/zab/network_overlay.hpp</label>
-        <link refid="network__overlay_8hpp_source"/>
-      </node>
       <node id="1">
         <label>/home/donald/rupin/zab/includes/zab/execution_promise.hpp</label>
         <link refid="execution__promise_8hpp"/>
@@ -45,17 +41,19 @@
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
         <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
         </childnode>
         <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
         </childnode>
       </node>
       <node id="10">
@@ -63,13 +61,15 @@
         <link refid="event__loop_8hpp_source"/>
         <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="6" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
       </node>
       <node id="9">
@@ -84,17 +84,17 @@
         <childnode refid="9" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="19">
         <label>/home/donald/rupin/zab/includes/zab/signal_handler.hpp</label>
         <link refid="signal__handler_8hpp_source"/>
         <childnode refid="11" relation="include">
         </childnode>
       </node>
-      <node id="7">
+      <node id="6">
         <label>/home/donald/rupin/zab/includes/zab/observable.hpp</label>
         <link refid="observable_8hpp_source"/>
       </node>
-      <node id="17">
+      <node id="18">
         <label>/home/donald/rupin/zab/includes/zab/yield.hpp</label>
         <link refid="yield_8hpp_source"/>
         <childnode refid="3" relation="include">
@@ -107,13 +107,21 @@
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
       </node>
-      <node id="15">
+      <node id="14">
+        <label>/home/donald/rupin/zab/includes/zab/network_operation.hpp</label>
+        <link refid="network__operation_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
         <label>/home/donald/rupin/zab/includes/zab/async_latch.hpp</label>
         <link refid="async__latch_8hpp_source"/>
-        <childnode refid="16" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
       </node>
       <node id="11">
@@ -127,26 +135,32 @@
         </childnode>
         <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="15" relation="include">
         </childnode>
         <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
         </childnode>
       </node>
       <node id="12">
         <label>/home/donald/rupin/zab/includes/zab/async_file.hpp</label>
         <link refid="async__file_8hpp_source"/>
       </node>
-      <node id="14">
+      <node id="7">
+        <label>/home/donald/rupin/zab/includes/zab/tcp_networking.hpp</label>
+        <link refid="tcp__networking_8hpp_source"/>
+      </node>
+      <node id="15">
         <label>/home/donald/rupin/zab/includes/zab/pause_token.hpp</label>
         <link refid="pause__token_8hpp_source"/>
-        <childnode refid="15" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
       </node>
       <node id="13">
         <label>/home/donald/rupin/zab/includes/zab/engine_enabled.hpp</label>
         <link refid="engine__enabled_8hpp_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
         <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="7" relation="include">
@@ -157,7 +171,7 @@
       <node id="8">
         <label>/home/donald/rupin/zab/includes/zab/tcp_stream.hpp</label>
         <link refid="tcp__stream_8hpp_source"/>
-        <childnode refid="6" relation="include">
+        <childnode refid="7" relation="include">
         </childnode>
       </node>
       <node id="5">
@@ -170,7 +184,7 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="17">
         <label>/home/donald/rupin/zab/includes/zab/wait_for.hpp</label>
         <link refid="wait__for_8hpp_source"/>
         <childnode refid="13" relation="include">
@@ -178,7 +192,7 @@
         <childnode refid="9" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="20">
         <label>/home/donald/rupin/zab/includes/zab/timer_service.hpp</label>
         <link refid="timer__service_8hpp_source"/>
         <childnode refid="11" relation="include">

@@ -1,0 +1,707 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1network__operation" kind="class" language="C++" prot="public">
+    <compoundname>zab::network_operation</compoundname>
+    <derivedcompoundref refid="classzab_1_1tcp__acceptor" prot="public" virt="non-virtual">zab::tcp_acceptor</derivedcompoundref>
+    <includes refid="network__operation_8hpp" local="no">network_operation.hpp</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classzab_1_1network__operation_1ae344f077cd8b6b33e1e5729a4b83a17b" prot="public" static="no">
+        <type>event_loop::io_event</type>
+        <definition>using zab::network_operation::net_op =  event_loop::io_event</definition>
+        <argsstring></argsstring>
+        <name>net_op</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="72" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classzab_1_1network__operation_1a84bd0e7d0b09be028dbd9b4b619194dc" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr int</type>
+        <definition>constexpr int zab::network_operation::kNoDescriptor</definition>
+        <argsstring></argsstring>
+        <name>kNoDescriptor</name>
+        <initializer>= -1</initializer>
+        <briefdescription>
+<para>The value for not having a valid socket descriptor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="70" column="34" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzab_1_1network__operation_1a631d914c8ad550d291a9a5ce34a96064" prot="private" static="no" mutable="no">
+        <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+        <definition>engine* zab::network_operation::engine_</definition>
+        <argsstring></argsstring>
+        <name>engine_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="389" column="20" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="389" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1network__operation_1a2e857704c8ff3575021f1a8d251e1be9" prot="private" static="no" mutable="no">
+        <type>net_op *</type>
+        <definition>net_op* zab::network_operation::cancel_token_</definition>
+        <argsstring></argsstring>
+        <name>cancel_token_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="390" column="20" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="390" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1network__operation_1a5dd23a012eebbcbac615ffc20ccdfb71" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int zab::network_operation::sd_</definition>
+        <argsstring></argsstring>
+        <name>sd_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="391" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="391" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzab_1_1network__operation_1a1e9919e32ba7229b63ecfeeedc9e9a56" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int zab::network_operation::last_error_</definition>
+        <argsstring></argsstring>
+        <name>last_error_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="392" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="392" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1network__operation_1af0828bdea3488c7afde6a862271979ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::network_operation::network_operation</definition>
+        <argsstring>()</argsstring>
+        <name>network_operation</name>
+        <briefdescription>
+<para>Construct a new network operation object in an empty state. Using the <computeroutput><ref refid="classzab_1_1network__operation" kindref="compound">network_operation</ref></computeroutput> after constructing it with this constructor is undefined behaviour unless <computeroutput><ref refid="classzab_1_1network__operation_1ae0fe1fe161f39fe80fc031282b161747" kindref="member">register_engine()</ref></computeroutput> is called with a valid engine. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="80" column="13" bodyfile="/home/donald/rupin/zab/src/network_operation.cpp" bodystart="49" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1adf97d447011974120c46eca53b14e4b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::network_operation::network_operation</definition>
+        <argsstring>(engine *_engine)</argsstring>
+        <name>network_operation</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <briefdescription>
+<para>Construct a new network operation object and register an engine with it. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_engine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The engine for this object to use. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="87" column="13" bodyfile="/home/donald/rupin/zab/src/network_operation.cpp" bodystart="53" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1a6f4b29dab497502a5991c233628adea9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::network_operation::network_operation</definition>
+        <argsstring>(engine *_engine, int _sd)</argsstring>
+        <name>network_operation</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_sd</declname>
+        </param>
+        <briefdescription>
+<para>Construct a new network operation object, register an engine with it and take ownership of the socket descriptor given. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_engine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The engine for this object to use. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_sd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The socket to take ownership of it. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="96" column="13" bodyfile="/home/donald/rupin/zab/src/network_operation.cpp" bodystart="57" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1ac791de60c6b83c92ae58ca1138ad22d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::network_operation::~network_operation</definition>
+        <argsstring>()</argsstring>
+        <name>~network_operation</name>
+        <briefdescription>
+<para>Destroy the network operation object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If <computeroutput><ref refid="classzab_1_1network__operation_1a538c899b5540cda6204e856912364597" kindref="member">close()</ref></computeroutput> is not awaited before destruction, and the <ref refid="classzab_1_1network__operation" kindref="compound">network_operation</ref> holds a valid socket descriptor, its closure is pushed to a background fibre.</para>
+<para>If <computeroutput><ref refid="classzab_1_1network__operation_1a048418e7a1f65150461b31ed1b914fbb" kindref="member">cancel()</ref></computeroutput> is not awaited before destruction, and the <ref refid="classzab_1_1network__operation" kindref="compound">network_operation</ref> holds a valid io_handle, its cancelation is pushed to a background fibre. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="110" column="13" bodyfile="/home/donald/rupin/zab/src/network_operation.cpp" bodystart="61" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1a3dbae42d8a7e7636b3ed890029b4043f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::network_operation::network_operation</definition>
+        <argsstring>(const network_operation &amp;)=delete</argsstring>
+        <name>network_operation</name>
+        <param>
+          <type>const <ref refid="classzab_1_1network__operation" kindref="compound">network_operation</ref> &amp;</type>
+        </param>
+        <briefdescription>
+<para>Cannot copy this object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="116" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1a2c7137b4fb0ca5528218e710a775e65a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::network_operation::network_operation</definition>
+        <argsstring>(network_operation &amp;&amp;_move)</argsstring>
+        <name>network_operation</name>
+        <param>
+          <type><ref refid="classzab_1_1network__operation" kindref="compound">network_operation</ref> &amp;&amp;</type>
+          <declname>_move</declname>
+        </param>
+        <briefdescription>
+<para>Construct a new network operation object moving the resources into it. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_move</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The <ref refid="classzab_1_1network__operation" kindref="compound">network_operation</ref> to move resources from. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="123" column="13" bodyfile="/home/donald/rupin/zab/src/network_operation.cpp" bodystart="68" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1a6934ddde97513422db08d933b425820f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzab_1_1network__operation" kindref="compound">network_operation</ref> &amp;</type>
+        <definition>network_operation &amp; zab::network_operation::operator=</definition>
+        <argsstring>(network_operation &amp;&amp;_move_op)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type><ref refid="classzab_1_1network__operation" kindref="compound">network_operation</ref> &amp;&amp;</type>
+          <declname>_move_op</declname>
+        </param>
+        <briefdescription>
+<para>Background close and cancel on the current resources and then take resources from the given <ref refid="classzab_1_1network__operation" kindref="compound">network_operation</ref>. See <computeroutput><ref refid="classzab_1_1network__operation_1ac791de60c6b83c92ae58ca1138ad22d5" kindref="member">~network_operation()</ref>;</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_move_op</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The <ref refid="classzab_1_1network__operation" kindref="compound">network_operation</ref> to move. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classzab_1_1network__operation" kindref="compound">network_operation</ref>&amp; this </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="133" column="13" bodyfile="/home/donald/rupin/zab/src/network_operation.cpp" bodystart="74" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1ae0fe1fe161f39fe80fc031282b161747" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::network_operation::register_engine</definition>
+        <argsstring>(engine *_engine) noexcept</argsstring>
+        <name>register_engine</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <briefdescription>
+<para>Register a new engine with this. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_engine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The engine to register. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="150" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="150" bodyend="153"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1a59c122cabc542859d4f970666877b30e" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::network_operation::set_descriptor</definition>
+        <argsstring>(int _sd) noexcept</argsstring>
+        <name>set_descriptor</name>
+        <param>
+          <type>int</type>
+          <declname>_sd</declname>
+        </param>
+        <briefdescription>
+<para>Set the socket descriptor to take ownership of. If this object holds a valid socket descriptor it is closed in the background. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_sd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The socket descriptor to take owernship of. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="162" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="162" bodyend="166"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1a623ce5b2f4dc4bdee25b508f242ea643" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::network_operation::clear_descriptor</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>clear_descriptor</name>
+        <briefdescription>
+<para>Clear the socket descriptor. <emphasis>Warning</emphasis> this wipes the state and releases owernship of the descriptor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="174" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="174" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1a63f74e1e10727a033e3df9636279a8f0" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+        <definition>engine* zab::network_operation::get_engine</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>get_engine</name>
+        <briefdescription>
+<para>Get the engine that is registered. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>engine* </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="185" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="185" bodyend="188"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1aa7d4950daf03cb569d55a305cc37e0b5" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int zab::network_operation::descriptor</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>descriptor</name>
+        <briefdescription>
+<para>Get the underlying socket descriptor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>int The socket descriptor. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="196" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="196" bodyend="199"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1a0742b6758cb38291ab82729fe3e9f5b8" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int zab::network_operation::last_error</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>last_error</name>
+        <briefdescription>
+<para>Get the last error that was set. Clears the error. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>int The last error. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="207" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="207" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1ac82422b1fe5969ba60f27497e1737b59" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int zab::network_operation::peek_error</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>peek_error</name>
+        <briefdescription>
+<para>Get the last error without resetting it. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>int The last error. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="220" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="220" bodyend="223"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1a7f7e82c4653f61ef5cd0fdfb748d0a9a" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::network_operation::clear_error</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>clear_error</name>
+        <briefdescription>
+<para>Clear the error without checking it. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="230" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="230" bodyend="233"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1a877aa954f1f7683a57802bad76407497" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::network_operation::set_error</definition>
+        <argsstring>(int _error) noexcept</argsstring>
+        <name>set_error</name>
+        <param>
+          <type>int</type>
+          <declname>_error</declname>
+        </param>
+        <briefdescription>
+<para>Set the last error. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_error</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The error to set. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="241" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="241" bodyend="244"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1a5d7dad8211bc683e0338404222633361" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>net_op *&amp;</type>
+        <definition>net_op*&amp; zab::network_operation::get_cancel</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>get_cancel</name>
+        <briefdescription>
+<para>Get a reference to the cancelation token held by this object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>io_handle&amp; </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="252" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="252" bodyend="255"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1acbda0a4caae007cf9e2391a4c46894d1" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::network_operation::set_cancel</definition>
+        <argsstring>(net_op *_handle) noexcept</argsstring>
+        <name>set_cancel</name>
+        <param>
+          <type>net_op *</type>
+          <declname>_handle</declname>
+        </param>
+        <briefdescription>
+<para>Set the value cancelaltion token. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The value to set. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="263" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="263" bodyend="266"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1afbe3c3ab80422d29446a68bb92f90825" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::network_operation::clear_cancel</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>clear_cancel</name>
+        <briefdescription>
+<para>Clear the value of the cancelation token. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="273" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="273" bodyend="276"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1a048418e7a1f65150461b31ed1b914fbb" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::network_operation::cancel</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>cancel</name>
+        <briefdescription>
+<para>Convience function for passing the correct arguments to the static cancel function. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>@co_return void Resumes once the operation has been cancelled or an error occurs. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="321" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="321" bodyend="324"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1a538c899b5540cda6204e856912364597" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zab::network_operation::close</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>close</name>
+        <briefdescription>
+<para>Attempt to close the socket. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>@co_return true If the socket was successfully closed. @co_return false If the socket could not be closed. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="333" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="333" bodyend="367"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1aefb6fe91e7d330d17f211a990312a276" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1async__function" kindref="compound">async_function</ref></type>
+        <definition>async_function zab::network_operation::background_close</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>background_close</name>
+        <briefdescription>
+<para>Attempt to close the socket in the background. Error&apos;s in closing cannot be caught. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>async_function&lt;&gt; </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="376" column="13" bodyfile="/home/donald/rupin/zab/src/network_operation.cpp" bodystart="99" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1network__operation_1a5c05a4413ff2826f56163c5a981877c6" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classzab_1_1async__function" kindref="compound">async_function</ref></type>
+        <definition>async_function zab::network_operation::background_cancel</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>background_cancel</name>
+        <briefdescription>
+<para>Attempt to cancel the pending operation in the background. Error&apos;s in cancelling cannot be caught. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>async_function&lt;&gt; </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="385" column="13" bodyfile="/home/donald/rupin/zab/src/network_operation.cpp" bodystart="126" bodyend="131"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classzab_1_1network__operation_1acd21ea694092aedf8f7a16738829b6e7" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void swap</definition>
+        <argsstring>(network_operation &amp;_first, network_operation &amp;_second) noexcept</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="classzab_1_1network__operation" kindref="compound">network_operation</ref> &amp;</type>
+          <declname>_first</declname>
+        </param>
+        <param>
+          <type><ref refid="classzab_1_1network__operation" kindref="compound">network_operation</ref> &amp;</type>
+          <declname>_second</declname>
+        </param>
+        <briefdescription>
+<para>Swap two <ref refid="classzab_1_1network__operation" kindref="compound">network_operation</ref>&apos;s. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_first</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The first <ref refid="classzab_1_1network__operation" kindref="compound">network_operation</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_second</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The second <ref refid="classzab_1_1network__operation" kindref="compound">network_operation</ref>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="142" column="13" bodyfile="/home/donald/rupin/zab/src/network_operation.cpp" bodystart="89" bodyend="96"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classzab_1_1network__operation_1a3fdd2710a10cf95d42e45742fd4cbdcb" prot="public" static="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>static auto zab::network_operation::cancel</definition>
+        <argsstring>(engine *_engine, net_op *&amp;_handle) noexcept</argsstring>
+        <name>cancel</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <param>
+          <type>net_op *&amp;</type>
+          <declname>_handle</declname>
+        </param>
+        <briefdescription>
+<para>Cancel an operation on a given handle. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_engine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The engine to use for cancelation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">_handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The handle to use and clear on successful cancelation.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+@co_return void Resumes once the operation has been cancelled or an error occurs. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="287" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="287" bodyend="312"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="classzab_1_1network__operation" kindref="compound">network_operation</ref> operation class is a ownership class for a socket descriptor and a cancelation token. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>zab::network_operation</label>
+        <link refid="classzab_1_1network__operation"/>
+      </node>
+      <node id="2">
+        <label>zab::tcp_acceptor</label>
+        <link refid="classzab_1_1tcp__acceptor"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="/home/donald/rupin/zab/includes/zab/network_operation.hpp" line="62" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/network_operation.hpp" bodystart="62" bodyend="393"/>
+    <listofallmembers>
+      <member refid="classzab_1_1network__operation_1a5c05a4413ff2826f56163c5a981877c6" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>background_cancel</name></member>
+      <member refid="classzab_1_1network__operation_1aefb6fe91e7d330d17f211a990312a276" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>background_close</name></member>
+      <member refid="classzab_1_1network__operation_1a3fdd2710a10cf95d42e45742fd4cbdcb" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>cancel</name></member>
+      <member refid="classzab_1_1network__operation_1a048418e7a1f65150461b31ed1b914fbb" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>cancel</name></member>
+      <member refid="classzab_1_1network__operation_1a2e857704c8ff3575021f1a8d251e1be9" prot="private" virt="non-virtual"><scope>zab::network_operation</scope><name>cancel_token_</name></member>
+      <member refid="classzab_1_1network__operation_1afbe3c3ab80422d29446a68bb92f90825" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>clear_cancel</name></member>
+      <member refid="classzab_1_1network__operation_1a623ce5b2f4dc4bdee25b508f242ea643" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>clear_descriptor</name></member>
+      <member refid="classzab_1_1network__operation_1a7f7e82c4653f61ef5cd0fdfb748d0a9a" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>clear_error</name></member>
+      <member refid="classzab_1_1network__operation_1a538c899b5540cda6204e856912364597" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>close</name></member>
+      <member refid="classzab_1_1network__operation_1aa7d4950daf03cb569d55a305cc37e0b5" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>descriptor</name></member>
+      <member refid="classzab_1_1network__operation_1a631d914c8ad550d291a9a5ce34a96064" prot="private" virt="non-virtual"><scope>zab::network_operation</scope><name>engine_</name></member>
+      <member refid="classzab_1_1network__operation_1a5d7dad8211bc683e0338404222633361" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>get_cancel</name></member>
+      <member refid="classzab_1_1network__operation_1a63f74e1e10727a033e3df9636279a8f0" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>get_engine</name></member>
+      <member refid="classzab_1_1network__operation_1a84bd0e7d0b09be028dbd9b4b619194dc" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>kNoDescriptor</name></member>
+      <member refid="classzab_1_1network__operation_1a0742b6758cb38291ab82729fe3e9f5b8" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>last_error</name></member>
+      <member refid="classzab_1_1network__operation_1a1e9919e32ba7229b63ecfeeedc9e9a56" prot="private" virt="non-virtual"><scope>zab::network_operation</scope><name>last_error_</name></member>
+      <member refid="classzab_1_1network__operation_1ae344f077cd8b6b33e1e5729a4b83a17b" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>net_op</name></member>
+      <member refid="classzab_1_1network__operation_1af0828bdea3488c7afde6a862271979ed" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>network_operation</name></member>
+      <member refid="classzab_1_1network__operation_1adf97d447011974120c46eca53b14e4b0" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>network_operation</name></member>
+      <member refid="classzab_1_1network__operation_1a6f4b29dab497502a5991c233628adea9" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>network_operation</name></member>
+      <member refid="classzab_1_1network__operation_1a3dbae42d8a7e7636b3ed890029b4043f" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>network_operation</name></member>
+      <member refid="classzab_1_1network__operation_1a2c7137b4fb0ca5528218e710a775e65a" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>network_operation</name></member>
+      <member refid="classzab_1_1network__operation_1a6934ddde97513422db08d933b425820f" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>operator=</name></member>
+      <member refid="classzab_1_1network__operation_1ac82422b1fe5969ba60f27497e1737b59" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>peek_error</name></member>
+      <member refid="classzab_1_1network__operation_1ae0fe1fe161f39fe80fc031282b161747" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>register_engine</name></member>
+      <member refid="classzab_1_1network__operation_1a5dd23a012eebbcbac615ffc20ccdfb71" prot="private" virt="non-virtual"><scope>zab::network_operation</scope><name>sd_</name></member>
+      <member refid="classzab_1_1network__operation_1acbda0a4caae007cf9e2391a4c46894d1" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>set_cancel</name></member>
+      <member refid="classzab_1_1network__operation_1a59c122cabc542859d4f970666877b30e" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>set_descriptor</name></member>
+      <member refid="classzab_1_1network__operation_1a877aa954f1f7683a57802bad76407497" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>set_error</name></member>
+      <member refid="classzab_1_1network__operation_1acd21ea694092aedf8f7a16738829b6e7" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>swap</name></member>
+      <member refid="classzab_1_1network__operation_1ac791de60c6b83c92ae58ca1138ad22d5" prot="public" virt="non-virtual"><scope>zab::network_operation</scope><name>~network_operation</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

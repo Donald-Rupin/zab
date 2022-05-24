@@ -15,11 +15,15 @@
     <innerclass refid="classzab_1_1defer__block__promise" prot="public">zab::defer_block_promise</innerclass>
     <innerclass refid="classzab_1_1engine" prot="public">zab::engine</innerclass>
     <innerclass refid="classzab_1_1engine__enabled" prot="public">zab::engine_enabled</innerclass>
+    <innerclass refid="structzab_1_1event" prot="public">zab::event</innerclass>
+    <innerclass refid="structzab_1_1storage__event" prot="public">zab::storage_event</innerclass>
+    <innerclass refid="structzab_1_1storage__event_3_01void_01_4" prot="public">zab::storage_event&lt; void &gt;</innerclass>
     <innerclass refid="classzab_1_1event__loop" prot="public">zab::event_loop</innerclass>
     <innerclass refid="classzab_1_1execution__promise" prot="public">zab::execution_promise</innerclass>
     <innerclass refid="structzab_1_1AwaitWrapper" prot="public">zab::AwaitWrapper</innerclass>
-    <innerclass refid="classzab_1_1tcp__acceptor" prot="public">zab::tcp_acceptor</innerclass>
-    <innerclass refid="classzab_1_1tcp__connector" prot="public">zab::tcp_connector</innerclass>
+    <innerclass refid="classzab_1_1generic__awaitable" prot="public">zab::generic_awaitable</innerclass>
+    <innerclass refid="classzab_1_1suspension__point" prot="public">zab::suspension_point</innerclass>
+    <innerclass refid="classzab_1_1network__operation" prot="public">zab::network_operation</innerclass>
     <innerclass refid="classzab_1_1observable" prot="public">zab::observable</innerclass>
     <innerclass refid="structzab_1_1pause__pack" prot="public">zab::pause_pack</innerclass>
     <innerclass refid="classzab_1_1pause__token" prot="public">zab::pause_token</innerclass>
@@ -39,8 +43,10 @@
     <innerclass refid="classzab_1_1simple__promise_3_01bool_01_4" prot="public">zab::simple_promise&lt; bool &gt;</innerclass>
     <innerclass refid="structzab_1_1spin__lock" prot="public">zab::spin_lock</innerclass>
     <innerclass refid="structzab_1_1recursive__spin__lock" prot="public">zab::recursive_spin_lock</innerclass>
+    <innerclass refid="classzab_1_1stateful__awaitable" prot="public">zab::stateful_awaitable</innerclass>
     <innerclass refid="structzab_1_1thread__t" prot="public">zab::thread_t</innerclass>
     <innerclass refid="structzab_1_1order__t" prot="public">zab::order_t</innerclass>
+    <innerclass refid="classzab_1_1tcp__acceptor" prot="public">zab::tcp_acceptor</innerclass>
     <innerclass refid="classzab_1_1tcp__stream" prot="public">zab::tcp_stream</innerclass>
     <innerclass refid="classzab_1_1timer__service" prot="public">zab::timer_service</innerclass>
     <innerclass refid="classzab_1_1visitor__promise" prot="public">zab::visitor_promise</innerclass>
@@ -76,6 +82,38 @@
         </inbodydescription>
         <location file="/home/donald/rupin/zab/includes/zab/for_each.hpp" line="51" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/for_each.hpp" bodystart="51" bodyend="54"/>
       </memberdef>
+      <memberdef kind="enum" id="stateful__awaitable_8hpp_1ae08f88389e2d5da971f841e3265d3db6" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>notify_ctl</name>
+        <enumvalue id="stateful__awaitable_8hpp_1ae08f88389e2d5da971f841e3265d3db6a3cce98af66db8fecc27ee60ad140eb2b" prot="public">
+          <name>kSuspend</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="stateful__awaitable_8hpp_1ae08f88389e2d5da971f841e3265d3db6a4d39cb21151dcb67f4c04220140c34f0" prot="public">
+          <name>kResume</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="stateful__awaitable_8hpp_1ae08f88389e2d5da971f841e3265d3db6a25d5606fe07425ea73f245c48612c039" prot="public">
+          <name>kReady</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" line="45" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" bodystart="45" bodyend="49"/>
+      </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
       <memberdef kind="typedef" id="async__semaphore_8hpp_1ab8d7e7aa8d2419caa6aed39301bd4d51" prot="public" static="no">
@@ -89,20 +127,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="424" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="424" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" line="431" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/async_semaphore.hpp" bodystart="431" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="typedef" id="event_8hpp_1ac8a21fdfecb60bb7e00dfb6d62feeed5" prot="public" static="no">
-        <type>std::coroutine_handle&lt;&gt;</type>
-        <definition>using zab::event = typedef std::coroutine_handle&lt;&gt;</definition>
+      <memberdef kind="typedef" id="event_8hpp_1af02f805e6ddec01e962e6f8f57dce11b" prot="public" static="no">
+        <type>std::variant&lt; event&lt;&gt;, std::coroutine_handle&lt;&gt; &gt;</type>
+        <definition>using zab::tagged_event = typedef std::variant&lt;event&lt;&gt;, std::coroutine_handle&lt;&gt; &gt;</definition>
         <argsstring></argsstring>
-        <name>event</name>
+        <name>tagged_event</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/event.hpp" line="49" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/event.hpp" bodystart="49" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/event.hpp" line="73" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/event.hpp" bodystart="73" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="simple__future_8hpp_1aadd31e08f84d24f721410cf5c92efaa2" prot="public" static="no">
         <templateparamlist>
@@ -117,11 +155,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Conveince for when the promise will always resolve. </para>
+<para>Convenience for when the promise will always resolve. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/simple_future.hpp" line="224" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/simple_future.hpp" bodystart="225" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/simple_future.hpp" line="237" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/simple_future.hpp" bodystart="238" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="visitor__promise_8hpp_1aed43df122c3d1840c2dc205e84d1824c" prot="public" static="no">
         <templateparamlist>
@@ -157,8 +195,263 @@
         </inbodydescription>
         <location file="/home/donald/rupin/zab/includes/zab/for_each.hpp" line="78" column="8" bodyfile="/home/donald/rupin/zab/includes/zab/for_each.hpp" bodystart="78" bodyend="-1"/>
       </memberdef>
+      <memberdef kind="variable" id="memory__type_8hpp_1ac911484e178888ec8e6f66c6b88224f6" prot="public" static="no" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>typename Type</type>
+          </param>
+        </templateparamlist>
+        <type>concept</type>
+        <definition>concept zab::MemoryType</definition>
+        <argsstring></argsstring>
+        <name>MemoryType</name>
+        <initializer>= std::is_same_v&lt;Type, std::byte&gt; || std::is_same_v&lt;Type, char&gt; ||
+        std::is_same_v&lt;Type, unsigned char&gt;</initializer>
+        <briefdescription>
+<para>Possible types for underlying memory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/memory_type.hpp" line="52" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/memory_type.hpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="event__loop_8cpp_1a9c5dfcb4179a20685d6e5e35b529fb7c" prot="public" static="yes" mutable="no">
+        <type>const std::uint64_t</type>
+        <definition>const std::uint64_t zab::item</definition>
+        <argsstring></argsstring>
+        <name>item</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/src/event_loop.cpp" line="396" column="32" bodyfile="/home/donald/rupin/zab/src/event_loop.cpp" bodystart="396" bodyend="-1"/>
+      </memberdef>
       </sectiondef>
       <sectiondef kind="func">
+      <memberdef kind="function" id="event_8hpp_1a19c67561e0b8ecb6e46392d0884caa22" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zab::is_coroutine</definition>
+        <argsstring>(tagged_event _event)</argsstring>
+        <name>is_coroutine</name>
+        <param>
+          <type>tagged_event</type>
+          <declname>_event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event.hpp" line="87" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/event.hpp" bodystart="87" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="event_8hpp_1a0706421739f18a35fc8a746951803c7f" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename ReturnType</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void zab::execute_event</definition>
+        <argsstring>(event&lt; ReturnType &gt; *_event_address, ReturnType _result) noexcept</argsstring>
+        <name>execute_event</name>
+        <param>
+          <type>event&lt; ReturnType &gt; *</type>
+          <declname>_event_address</declname>
+        </param>
+        <param>
+          <type>ReturnType</type>
+          <declname>_result</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event.hpp" line="94" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/event.hpp" bodystart="94" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="event_8hpp_1a321e3df2d4971922cd85c0b4f230e1f4" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::execute_event</definition>
+        <argsstring>(event&lt;&gt; *_event_address) noexcept</argsstring>
+        <name>execute_event</name>
+        <param>
+          <type>event&lt;&gt; *</type>
+          <declname>_event_address</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event.hpp" line="100" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/event.hpp" bodystart="100" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="event_8hpp_1a065a09c2804946629e4418943a0155f6" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::execute_event</definition>
+        <argsstring>(event&lt;&gt; _event_address) noexcept</argsstring>
+        <name>execute_event</name>
+        <param>
+          <type>event&lt;&gt;</type>
+          <declname>_event_address</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event.hpp" line="106" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/event.hpp" bodystart="106" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="event_8hpp_1a4f100d73214af4023f3d359d42af537b" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::execute_event</definition>
+        <argsstring>(std::coroutine_handle&lt;&gt; _handle) noexcept</argsstring>
+        <name>execute_event</name>
+        <param>
+          <type>std::coroutine_handle&lt;&gt;</type>
+          <declname>_handle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event.hpp" line="112" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/event.hpp" bodystart="112" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="event_8hpp_1a3fe35bb965eaf6b67496cf4d14665c9b" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::execute_event</definition>
+        <argsstring>(tagged_event *_event_address) noexcept</argsstring>
+        <name>execute_event</name>
+        <param>
+          <type>tagged_event *</type>
+          <declname>_event_address</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event.hpp" line="118" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/event.hpp" bodystart="118" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="event_8hpp_1a0d1c7ea01ea0c577a4a12d88fdd54aec" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::execute_event</definition>
+        <argsstring>(tagged_event _event_address) noexcept</argsstring>
+        <name>execute_event</name>
+        <param>
+          <type>tagged_event</type>
+          <declname>_event_address</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event.hpp" line="124" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/event.hpp" bodystart="124" bodyend="127"/>
+      </memberdef>
+      <memberdef kind="function" id="event_8hpp_1af4f2d2bb35e9621e50a4bc1bec344fcd" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename EventType</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void zab::execute_event</definition>
+        <argsstring>(storage_event&lt; EventType &gt; *_event_address, EventType _result) noexcept</argsstring>
+        <name>execute_event</name>
+        <param>
+          <type>storage_event&lt; EventType &gt; *</type>
+          <declname>_event_address</declname>
+        </param>
+        <param>
+          <type>EventType</type>
+          <declname>_result</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event.hpp" line="131" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/event.hpp" bodystart="131" bodyend="144"/>
+      </memberdef>
+      <memberdef kind="function" id="event_8hpp_1a1509d9c3fac8ae182ca317d2295b53f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename EventType</type>
+          </param>
+        </templateparamlist>
+        <type>event&lt; EventType &gt;</type>
+        <definition>event&lt;EventType&gt; zab::create_generic_event</definition>
+        <argsstring>(storage_event&lt; EventType &gt; *_event)</argsstring>
+        <name>create_generic_event</name>
+        <param>
+          <type>storage_event&lt; EventType &gt; *</type>
+          <declname>_event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event.hpp" line="148" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/event.hpp" bodystart="148" bodyend="160"/>
+      </memberdef>
+      <memberdef kind="function" id="event_8hpp_1a745d1b9f18f2164440890dc3c33cc3f9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>event</type>
+        <definition>event zab::create_generic_event</definition>
+        <argsstring>(std::coroutine_handle&lt;&gt; _handle)</argsstring>
+        <name>create_generic_event</name>
+        <param>
+          <type>std::coroutine_handle&lt;&gt;</type>
+          <declname>_handle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event.hpp" line="163" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/event.hpp" bodystart="163" bodyend="170"/>
+      </memberdef>
+      <memberdef kind="function" id="event_8hpp_1aaef40f88663a50734e524c46dfe67448" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>event</type>
+        <definition>event zab::get_event</definition>
+        <argsstring>(tagged_event _event)</argsstring>
+        <name>get_event</name>
+        <param>
+          <type>tagged_event</type>
+          <declname>_event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event.hpp" line="173" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/event.hpp" bodystart="173" bodyend="177"/>
+      </memberdef>
       <memberdef kind="function" id="first__of_8hpp_1a56c5f1c9f912bc6781ad8990a752234d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
           <param>
@@ -185,7 +478,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/first_of.hpp" line="119" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/first_of.hpp" bodystart="119" bodyend="187"/>
+        <location file="/home/donald/rupin/zab/includes/zab/first_of.hpp" line="101" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/first_of.hpp" bodystart="101" bodyend="162"/>
       </memberdef>
       <memberdef kind="function" id="for__each_8hpp_1af936a752463508e573b945cd68539ce2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -259,26 +552,103 @@
         </inbodydescription>
         <location file="/home/donald/rupin/zab/includes/zab/for_each.hpp" line="70" column="9"/>
       </memberdef>
-      <memberdef kind="function" id="pause_8hpp_1ab90d90ea032482bdf2006a0318e7bb62" prot="public" static="no" const="no" explicit="no" inline="no" refqual="rvalue" noexcept="yes" virt="non-virtual">
+      <memberdef kind="function" id="generic__awaitable_8hpp_1a83a1bc258fae0417e522fa100ac95691" prot="public" static="yes" constexpr="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
           <param>
-            <type>typename Functor</type>
+            <type>typename T</type>
           </param>
         </templateparamlist>
-        <type></type>
-        <definition>zab::requires</definition>
-        <argsstring>(std::is_nothrow_invocable_v&lt; Functor, pause_pack * &gt;) inline auto pause(Functor &amp;&amp;_func) noexcept</argsstring>
-        <name>requires</name>
-        <param>
-          <type>std::is_nothrow_invocable_v&lt; Functor, <ref refid="structzab_1_1pause__pack" kindref="compound">pause_pack</ref> * &gt;</type>
-        </param>
+        <type>constexpr bool</type>
+        <definition>static constexpr bool zab::is_suspend</definition>
+        <argsstring>()</argsstring>
+        <name>is_suspend</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/pause.hpp" line="66" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/pause.hpp" bodystart="66" bodyend="108"/>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="120" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="120" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="generic__awaitable_8hpp_1a75a96e5632a7ad9587e7a48f1eb462e7" prot="public" static="yes" constexpr="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr bool</type>
+        <definition>static constexpr bool zab::is_ready</definition>
+        <argsstring>()</argsstring>
+        <name>is_ready</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="127" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="127" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="generic__awaitable_8hpp_1a684f1fcbc5e30c7d0f4a684cd7a64b7b" prot="public" static="yes" constexpr="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr bool</type>
+        <definition>static constexpr bool zab::is_resume</definition>
+        <argsstring>()</argsstring>
+        <name>is_resume</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="134" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="134" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="pause_8hpp_1a5ec6e5c2cc57f4a3003cea695973e2a8" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>details::NoThrowInvoacablePP</type>
+            <declname>Functor</declname>
+            <defname>Functor</defname>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>auto zab::pause</definition>
+        <argsstring>(Functor &amp;&amp;_func) noexcept</argsstring>
+        <name>pause</name>
+        <param>
+          <type>Functor &amp;&amp;</type>
+          <declname>_func</declname>
+        </param>
+        <briefdescription>
+<para>Suspend a coroutine until unpause is called. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Functor</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>callable type. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The callable that is given the pause_pack* for resumption. @co_return std::intptr_t The value of pause_pack-&gt;data_ given to the Functor. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/pause.hpp" line="97" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/pause.hpp" bodystart="97" bodyend="115"/>
       </memberdef>
       <memberdef kind="function" id="pause_8hpp_1a4eeff482493e4a80f8054e2df402a222" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
@@ -322,7 +692,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/src/pause.cpp" line="46" column="5" bodyfile="/home/donald/rupin/zab/src/pause.cpp" bodystart="46" bodyend="49" declfile="/home/donald/rupin/zab/includes/zab/pause.hpp" declline="117" declcolumn="5"/>
+        <location file="/home/donald/rupin/zab/src/pause.cpp" line="46" column="5" bodyfile="/home/donald/rupin/zab/src/pause.cpp" bodystart="46" bodyend="49" declfile="/home/donald/rupin/zab/includes/zab/pause.hpp" declline="124" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="pause_8hpp_1a2b20a3101db006fd04b8afafcd7c06ef" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
@@ -354,20 +724,68 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/src/pause.cpp" line="52" column="5" bodyfile="/home/donald/rupin/zab/src/pause.cpp" bodystart="52" bodyend="55" declfile="/home/donald/rupin/zab/includes/zab/pause.hpp" declline="125" declcolumn="5"/>
+        <location file="/home/donald/rupin/zab/src/pause.cpp" line="52" column="5" bodyfile="/home/donald/rupin/zab/src/pause.cpp" bodystart="52" bodyend="55" declfile="/home/donald/rupin/zab/includes/zab/pause.hpp" declline="132" declcolumn="5"/>
       </memberdef>
-      <memberdef kind="function" id="strong__types_8hpp_1abac9540a54b97954710d4e0abb6b77c5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>std::ostream &amp;</type>
-        <definition>std::ostream&amp; zab::operator&lt;&lt;</definition>
-        <argsstring>(std::ostream &amp;os, const thread_t _thread)</argsstring>
-        <name>operator&lt;&lt;</name>
+      <memberdef kind="function" id="stateful__awaitable_8hpp_1aaa3a1c214d8091a5147d93771b976013" prot="public" static="yes" constexpr="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename NotifyType</type>
+          </param>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr bool</type>
+        <definition>static constexpr bool zab::is_stateful_suspend</definition>
+        <argsstring>()</argsstring>
+        <name>is_stateful_suspend</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" line="87" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" bodystart="87" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="stateful__awaitable_8hpp_1a8139ac8ef412e3cfb716339d712ce5e1" prot="public" static="yes" constexpr="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename NotifyType</type>
+          </param>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr bool</type>
+        <definition>static constexpr bool zab::is_notify</definition>
+        <argsstring>()</argsstring>
+        <name>is_notify</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" line="94" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" bodystart="94" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="stateful__awaitable_8hpp_1a1207bb945eca3f44e2190175ea3ab54c" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename NotifyType</type>
+          </param>
+          <param>
+            <type>details::StatefulAwaitable&lt; NotifyType &gt;</type>
+            <declname>Functor</declname>
+            <defname>Functor</defname>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>auto zab::stateful_suspension_point</definition>
+        <argsstring>(Functor &amp;&amp;_functor) noexcept</argsstring>
+        <name>stateful_suspension_point</name>
         <param>
-          <type>std::ostream &amp;</type>
-          <declname>os</declname>
-        </param>
-        <param>
-          <type>const <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
-          <declname>_thread</declname>
+          <type>Functor &amp;&amp;</type>
+          <declname>_functor</declname>
         </param>
         <briefdescription>
         </briefdescription>
@@ -375,7 +793,148 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="110" column="12" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="111" bodyend="115"/>
+        <location file="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" line="252" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/stateful_awaitable.hpp" bodystart="252" bodyend="256"/>
+      </memberdef>
+      <memberdef kind="function" id="strong__types_8hpp_1a20035a83baa3d8092bb6432914207dac" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream&amp; zab::operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;_os, const thread_t _thread)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>_os</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref></type>
+          <declname>_thread</declname>
+        </param>
+        <briefdescription>
+<para>Print the value of a thread to a stream. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_os</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The out stream. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_thread</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The thread to print. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>std::ostream&amp; _os </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="191" column="12" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="192" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="tcp__networking_8hpp_1a2fadff169b20c8b5ec32226b72c7ed25" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>MemoryType</type>
+            <declname>DataType</declname>
+            <defname>DataType</defname>
+            <defval>std::byte</defval>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>auto zab::tcp_connect</definition>
+        <argsstring>(engine *_engine, const struct sockaddr *_details, socklen_t _size, event_loop::io_event **cancel_token_=nullptr, int _sock_flags=SOCK_CLOEXEC)</argsstring>
+        <name>tcp_connect</name>
+        <param>
+          <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
+          <declname>_engine</declname>
+        </param>
+        <param>
+          <type>const struct sockaddr *</type>
+          <declname>_details</declname>
+        </param>
+        <param>
+          <type>socklen_t</type>
+          <declname>_size</declname>
+        </param>
+        <param>
+          <type>event_loop::io_event **</type>
+          <declname>cancel_token_</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_sock_flags</declname>
+          <defval>SOCK_CLOEXEC</defval>
+        </param>
+        <briefdescription>
+<para>A free function for connecting to a server. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function suspends only if there is no error on socket creation. <verbatim>     This function is cancelable using the event loop and the value filled out on
+     cancel_token_.
+
+     This function is equivelent to calling `::socket()` and `::connect()`.
+</verbatim> <parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>DataType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The memory type of the tcp stream. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_engine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The engine to use. It is expected that the caller is currently in an engines thread. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_details</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The sockaddr* uses that is pre-filled out with the connection details. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The size of the memory region used by _details. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cancel_token_</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An option <computeroutput>cancel_token_</computeroutput> that can be passed in that can be used to the cancel the operation. If a io_handle* is passed it it will be set before suspension. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_sock_flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flags to apply to the socket during socket creation. The SOCK_STREAM is always given, SOCK_CLOEXEC is the default. @co_return <ref refid="classzab_1_1tcp__stream" kindref="compound">tcp_stream</ref> A stream is always returned to take ownership of the connector socket. If an error occurred the streams last_error is set. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/tcp_networking.hpp" line="222" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/tcp_networking.hpp" bodystart="222" bodyend="280"/>
       </memberdef>
       <memberdef kind="function" id="wait__for_8hpp_1a616774f77dfa9b6abd36b9908b6d10ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -469,10 +1028,10 @@
         </inbodydescription>
         <location file="/home/donald/rupin/zab/includes/zab/wait_for.hpp" line="280" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/wait_for.hpp" bodystart="280" bodyend="316"/>
       </memberdef>
-      <memberdef kind="function" id="yield_8hpp_1a383d0db798c9eb98b287c081ae320c97" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="yield_8hpp_1a9f83f27de681fd37f50914c9fe561812" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>auto</type>
         <definition>auto zab::yield</definition>
-        <argsstring>(engine *_engine)</argsstring>
+        <argsstring>(engine *_engine) noexcept</argsstring>
         <name>yield</name>
         <param>
           <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
@@ -491,18 +1050,16 @@
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>A co_await&apos;ble structure. </para>
-</simplesect>
-</para>
+@co_return void Will be resumed by the engine in the current thread. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/yield.hpp" line="55" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/yield.hpp" bodystart="55" bodyend="91"/>
+        <location file="/home/donald/rupin/zab/includes/zab/yield.hpp" line="56" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/yield.hpp" bodystart="56" bodyend="63"/>
       </memberdef>
-      <memberdef kind="function" id="yield_8hpp_1aad5233dcad320a5538ea8f70d01a6c08" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="yield_8hpp_1a05abe866a3a440b99d53668a63a1dea4" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>auto</type>
         <definition>auto zab::yield</definition>
-        <argsstring>(engine *_engine, thread_t _thread)</argsstring>
+        <argsstring>(engine *_engine, thread_t _thread) noexcept</argsstring>
         <name>yield</name>
         <param>
           <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
@@ -533,18 +1090,16 @@
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>A co_await&apos;ble structure. </para>
-</simplesect>
-</para>
+@co_return void Will be resumed by the engine in _thread. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/yield.hpp" line="102" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/yield.hpp" bodystart="102" bodyend="139"/>
+        <location file="/home/donald/rupin/zab/includes/zab/yield.hpp" line="74" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/yield.hpp" bodystart="74" bodyend="84"/>
       </memberdef>
-      <memberdef kind="function" id="yield_8hpp_1a7a8463b3d87768de2433fecf2226e794" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="yield_8hpp_1aa1e9252e42ea1942d152395ed03ee305" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>auto</type>
         <definition>auto zab::yield</definition>
-        <argsstring>(engine *_engine, order_t _order, thread_t _thread)</argsstring>
+        <argsstring>(engine *_engine, order_t _order, thread_t _thread) noexcept</argsstring>
         <name>yield</name>
         <param>
           <type><ref refid="classzab_1_1engine" kindref="compound">engine</ref> *</type>
@@ -587,15 +1142,52 @@
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>A co_await&apos;ble structure. </para>
-</simplesect>
+@co_return void Will be resumed by the engine in _thread after _order nanoseconds have passed. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/yield.hpp" line="97" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/yield.hpp" bodystart="97" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="network__operation_8cpp_1abf5a5f706288479fb64aad0d8963e36f" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zab::swap</definition>
+        <argsstring>(network_operation &amp;_first, network_operation &amp;_second) noexcept</argsstring>
+        <name>swap</name>
+        <param>
+          <type><ref refid="classzab_1_1network__operation" kindref="compound">network_operation</ref> &amp;</type>
+          <declname>_first</declname>
+        </param>
+        <param>
+          <type><ref refid="classzab_1_1network__operation" kindref="compound">network_operation</ref> &amp;</type>
+          <declname>_second</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_first</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The first <ref refid="classzab_1_1network__operation" kindref="compound">network_operation</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_second</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The second <ref refid="classzab_1_1network__operation" kindref="compound">network_operation</ref>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/yield.hpp" line="151" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/yield.hpp" bodystart="151" bodyend="192"/>
+        <location file="/home/donald/rupin/zab/src/network_operation.cpp" line="89" column="5" bodyfile="/home/donald/rupin/zab/src/network_operation.cpp" bodystart="89" bodyend="96"/>
       </memberdef>
-      <memberdef kind="function" id="network__overlay_8cpp_1ae35268e933a8b4e80e32beb88e1cfde4" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+      <memberdef kind="function" id="tcp__networking_8cpp_1ae35268e933a8b4e80e32beb88e1cfde4" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>void</type>
         <definition>void zab::swap</definition>
         <argsstring>(tcp_acceptor &amp;_first, tcp_acceptor &amp;_second) noexcept</argsstring>
@@ -632,85 +1224,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/src/network_overlay.cpp" line="124" column="5" bodyfile="/home/donald/rupin/zab/src/network_overlay.cpp" bodystart="124" bodyend="130"/>
-      </memberdef>
-      <memberdef kind="function" id="network__overlay_8cpp_1aae97c66d8a00d00a194d828524149ec4" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void zab::swap</definition>
-        <argsstring>(tcp_connector &amp;_first, tcp_connector &amp;_second) noexcept</argsstring>
-        <name>swap</name>
-        <param>
-          <type><ref refid="classzab_1_1tcp__connector" kindref="compound">tcp_connector</ref> &amp;</type>
-          <declname>_first</declname>
-        </param>
-        <param>
-          <type><ref refid="classzab_1_1tcp__connector" kindref="compound">tcp_connector</ref> &amp;</type>
-          <declname>_second</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>_first</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The first </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>_second</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The second </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/donald/rupin/zab/src/network_overlay.cpp" line="142" column="5" bodyfile="/home/donald/rupin/zab/src/network_overlay.cpp" bodystart="142" bodyend="148"/>
-      </memberdef>
-      <memberdef kind="function" id="tcp__stream_8cpp_1a3547fc5ab49e90332fd1e402559d8b12" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void zab::swap</definition>
-        <argsstring>(tcp_stream &amp;_first, tcp_stream &amp;_second) noexcept</argsstring>
-        <name>swap</name>
-        <param>
-          <type><ref refid="classzab_1_1tcp__stream" kindref="compound">tcp_stream</ref> &amp;</type>
-          <declname>_first</declname>
-        </param>
-        <param>
-          <type><ref refid="classzab_1_1tcp__stream" kindref="compound">tcp_stream</ref> &amp;</type>
-          <declname>_second</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>_first</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The first </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>_second</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The second </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/donald/rupin/zab/src/tcp_stream.cpp" line="143" column="5" bodyfile="/home/donald/rupin/zab/src/tcp_stream.cpp" bodystart="143" bodyend="150"/>
+        <location file="/home/donald/rupin/zab/src/tcp_networking.cpp" line="55" column="5" bodyfile="/home/donald/rupin/zab/src/tcp_networking.cpp" bodystart="55" bodyend="59"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

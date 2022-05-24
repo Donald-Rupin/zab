@@ -72,27 +72,29 @@
     <member refid="classzab_1_1async__file_1a204e4304ed327800b00170f8ab6137f2" kind="variable"><name>engine_</name></member>
     <member refid="classzab_1_1async__file_1a000eedba69e6dd1cf20d8446419d2b10" kind="variable"><name>file_</name></member>
     <member refid="classzab_1_1async__file_1a8772e59fa42709a6eb111b0419f62a9c" kind="function"><name>relative_dir</name></member>
-    <member refid="classzab_1_1async__file_1a1303dd83d363e91f6b044e37594b2ca3" kind="function"><name>close</name></member>
+    <member refid="classzab_1_1async__file_1a6b9d1a1b211e7a80b0c1bbc678245ead" kind="function"><name>open</name></member>
+    <member refid="classzab_1_1async__file_1a975350d194219e2bc0ada0e29fb68281" kind="function"><name>close</name></member>
     <member refid="classzab_1_1async__file_1a8a683a3a09eeea80671d646d5d9f5aab" kind="function"><name>close_in_background</name></member>
     <member refid="classzab_1_1async__file_1aa0d7cfdb6ae6d8741add9da76ada55ed" kind="function"><name>async_file</name></member>
     <member refid="classzab_1_1async__file_1a3741b0f9b1a6dcb492de4fab8a79cbaf" kind="function"><name>async_file</name></member>
     <member refid="classzab_1_1async__file_1aac0701ef7bc075d2795bca19b5a0a083" kind="function"><name>async_file</name></member>
+    <member refid="classzab_1_1async__file_1a1b30097e6f9a0e48ae10bada29a559d4" kind="function"><name>operator=</name></member>
     <member refid="classzab_1_1async__file_1a0e32396638075e58027e6b92e18447ad" kind="function"><name>~async_file</name></member>
-    <member refid="classzab_1_1async__file_1a3d88e227cfb680ae6d422e9f35d8a86a" kind="function"><name>open</name></member>
-    <member refid="classzab_1_1async__file_1ae182971684dc9fcb92d33a1947dba3ce" kind="function"><name>open</name></member>
-    <member refid="classzab_1_1async__file_1aae3cc8d44ba74777820fa12ac812f88c" kind="function"><name>open</name></member>
-    <member refid="classzab_1_1async__file_1ae2e438e9cf57087bd1f27b4f239e87e8" kind="function"><name>open</name></member>
-    <member refid="classzab_1_1async__file_1a2a54a31d70b5f391ec0886f617ed4972" kind="function"><name>close</name></member>
+    <member refid="classzab_1_1async__file_1afb3e65cab846034255150f982b811f22" kind="function"><name>open</name></member>
+    <member refid="classzab_1_1async__file_1a6e6cd8d6bc57a1114cf370a775daa908" kind="function"><name>open</name></member>
+    <member refid="classzab_1_1async__file_1aa78ef6f16da3e60dfc06fb2b692ed8b6" kind="function"><name>open</name></member>
+    <member refid="classzab_1_1async__file_1a0b0dacb2408d2dbd6b7800e2780ad08a" kind="function"><name>open</name></member>
+    <member refid="classzab_1_1async__file_1a5d34567e4a5516b1cc3f27ba06d764c4" kind="function"><name>close</name></member>
     <member refid="classzab_1_1async__file_1a4be74df7c9ab0b0539a4bc5ded8def6e" kind="function"><name>read_file</name></member>
-    <member refid="classzab_1_1async__file_1a868fae8d8d4359a329ac97d72d4efb94" kind="function"><name>read_some</name></member>
-    <member refid="classzab_1_1async__file_1a33e1b3344069850ab88e113d74a1a76c" kind="function"><name>read_some</name></member>
-    <member refid="classzab_1_1async__file_1a0813809c75cf4eb11d72feae2b0c9f9c" kind="function"><name>write_to_file</name></member>
+    <member refid="classzab_1_1async__file_1ae686b37f52019e7c20c1dbe31380a0fa" kind="function"><name>read_some</name></member>
+    <member refid="classzab_1_1async__file_1af55732789f05d9fb46d5d591cb45a2b9" kind="function"><name>read_some</name></member>
+    <member refid="classzab_1_1async__file_1a5537661416addf80a17201709010748f" kind="function"><name>write_to_file</name></member>
+    <member refid="classzab_1_1async__file_1a91c3fbd3dce4cdf63b55619c44b74bf5" kind="function"><name>write_some</name></member>
     <member refid="classzab_1_1async__file_1a5a5ebc7850e24903658debc2c10b4a36" kind="function"><name>position</name></member>
     <member refid="classzab_1_1async__file_1a5d12ed22dbefbab2320e5b83805ae23c" kind="function"><name>size</name></member>
     <member refid="classzab_1_1async__file_1a137343468ad1a014572c4042c88bde00" kind="function"><name>good</name></member>
-    <member refid="classzab_1_1async__file_1a9718c3c2897c3152b5c51ea2b1448961" kind="function"><name>size_conversion</name></member>
-    <member refid="classzab_1_1async__file_1a28591c58c85c948368a6d3bf64644932" kind="function"><name>convert</name></member>
-    <member refid="classzab_1_1async__file_1ad3122c4327899fec429d4b999b467d06" kind="function"><name>convert</name></member>
+    <member refid="classzab_1_1async__file_1a160c734aa99ba3a4c50d0466323502b9" kind="function"><name>convert</name></member>
+    <member refid="classzab_1_1async__file_1ab6529a1e500736279013aa608d313d70" kind="function"><name>convert</name></member>
   </compound>
   <compound refid="classzab_1_1async__function" kind="class"><name>zab::async_function</name>
     <member refid="classzab_1_1async__function_1a06c04dc6889cfd7fcdf30fdbd4877ddf" kind="typedef"><name>promise_type</name></member>
@@ -131,11 +133,6 @@
     <member refid="classzab_1_1async__mutex_1a82e8b03008eaa183c42df6dff21e816a" kind="function"><name>unlock</name></member>
     <member refid="classzab_1_1async__mutex_1a2694d42916adf77ef897a99e7b74c2d1" kind="function"><name>operator co_await</name></member>
   </compound>
-  <compound refid="structzab_1_1timer__service_1_1await__proxy" kind="struct"><name>zab::timer_service::await_proxy</name>
-    <member refid="structzab_1_1timer__service_1_1await__proxy_1a45417d155bd5efc7dc5664c789438610" kind="variable"><name>ts_</name></member>
-    <member refid="structzab_1_1timer__service_1_1await__proxy_1a5d20578ad5b7c61d9c87c8dfafb6d26f" kind="variable"><name>nano_seconds_</name></member>
-    <member refid="structzab_1_1timer__service_1_1await__proxy_1a5ea1df0a6b215d67112e1b752fef938c" kind="function"><name>await_suspend</name></member>
-  </compound>
   <compound refid="structzab_1_1AwaitWrapper" kind="struct"><name>zab::AwaitWrapper</name>
     <member refid="structzab_1_1AwaitWrapper_1a57e8761a978c327d84a8c1b9eaa996c2" kind="variable"><name>wrapper_</name></member>
     <member refid="structzab_1_1AwaitWrapper_1a80d3e1c4f7c69f5af5b58527813443f5" kind="function"><name>AwaitWrapper</name></member>
@@ -156,6 +153,12 @@
     <member refid="structzab_1_1engine_1_1configs_1a3cf9ee092a50dcc826b53001d3f7ed63" kind="variable"><name>opt_</name></member>
     <member refid="structzab_1_1engine_1_1configs_1af5fb0897baef512d79ed09f204605857" kind="variable"><name>affinity_set_</name></member>
     <member refid="structzab_1_1engine_1_1configs_1a3985f90dfad2c13186c3f17a808cb70f" kind="variable"><name>affinity_offset_</name></member>
+  </compound>
+  <compound refid="structzab_1_1details_1_1context__generator" kind="struct"><name>zab::details::context_generator</name>
+    <member refid="structzab_1_1details_1_1context__generator_1a37f4a6d165464b70894be0948cfcad04" kind="typedef"><name>context_callback</name></member>
+  </compound>
+  <compound refid="structzab_1_1details_1_1context__generator_3_01void_01_4" kind="struct"><name>zab::details::context_generator&lt; void &gt;</name>
+    <member refid="structzab_1_1details_1_1context__generator_3_01void_01_4_1a07f9fdba3c49b7e524e9d535523867d7" kind="typedef"><name>context_callback</name></member>
   </compound>
   <compound refid="structzab_1_1deduce__type" kind="struct"><name>zab::deduce_type</name>
     <member refid="structzab_1_1deduce__type_1ac541f936b35deac284df3f80f5b02ebe" kind="typedef"><name>type</name></member>
@@ -186,6 +189,7 @@
   </compound>
   <compound refid="classzab_1_1engine" kind="class"><name>zab::engine</name>
     <member refid="classzab_1_1engine_1aca530ba195d8745e26f2161c7de6e3b0" kind="variable"><name>this_thead_</name></member>
+    <member refid="classzab_1_1engine_1a275bad46f2da371ae74a265f163d1263" kind="variable"><name>mtx_</name></member>
     <member refid="classzab_1_1engine_1a8a7c0b13d37435981147c65a04a84827" kind="variable"><name>event_loop_</name></member>
     <member refid="classzab_1_1engine_1addcb0bc1fdee216d71120de60da3eb05" kind="variable"><name>timers_</name></member>
     <member refid="classzab_1_1engine_1a58c88ddb4fd8c59dceb92057d7e5a2eb" kind="variable"><name>sig_handler_</name></member>
@@ -201,16 +205,16 @@
     <member refid="classzab_1_1engine_1ad1731f6adbebc522b83c529a3dbffb59" kind="function"><name>get_timer</name></member>
     <member refid="classzab_1_1engine_1a0152c98e0a9098f7488b136cdf395438" kind="function"><name>get_timer</name></member>
     <member refid="classzab_1_1engine_1a0445734515afba97d3618a41b306c234" kind="function"><name>execute</name></member>
-    <member refid="classzab_1_1engine_1a828c81cb6117828c06be28fdfee712ca" kind="function"><name>resume</name></member>
-    <member refid="classzab_1_1engine_1a4542b68b83d5ec1d5f04844c666516f3" kind="function"><name>thread_resume</name></member>
-    <member refid="classzab_1_1engine_1a7a9bd8a116033a6b4332bdc191aed2a3" kind="function"><name>delayed_resume</name></member>
-    <member refid="classzab_1_1engine_1afaa797779e08c54de530dbe39cc52d81" kind="function"><name>delayed_resume</name></member>
+    <member refid="classzab_1_1engine_1a26ab9e81fd0bb68fb007e604a33a3c58" kind="function"><name>resume</name></member>
+    <member refid="classzab_1_1engine_1adaa518b3f3bf633d3968e474cdd292d4" kind="function"><name>thread_resume</name></member>
+    <member refid="classzab_1_1engine_1ab1771903b659996767eadd5a46547d2c" kind="function"><name>delayed_resume</name></member>
+    <member refid="classzab_1_1engine_1a501724cf441105d130c419f9caae62f8" kind="function"><name>delayed_resume</name></member>
     <member refid="classzab_1_1engine_1a750521969f5797447f29ff9f0c46c7b6" kind="function"><name>start</name></member>
     <member refid="classzab_1_1engine_1a5d4ef6e3465d1a99a297aa7763b4c516" kind="function"><name>stop</name></member>
-    <member refid="classzab_1_1engine_1a13dea91640a140e9d077b8e257ad4e66" kind="function"><name>current_id</name></member>
     <member refid="classzab_1_1engine_1a78093e0912c3e7c50840fc4f2e1560e4" kind="function"><name>number_of_workers</name></member>
     <member refid="classzab_1_1engine_1ad4afd9324a9f645950c86031883af30c" kind="function"><name>core_count</name></member>
     <member refid="classzab_1_1engine_1a0e81ad45cb54af9890a415b5620ba1ba" kind="function"><name>validate</name></member>
+    <member refid="classzab_1_1engine_1abb21fdd7b2f3956146ce3e2603e78b5e" kind="function"><name>current_id</name></member>
     <member refid="classzab_1_1engine_1a769be960a0cf27b5deabf75d5ac87bf1" kind="function"><name>get_any_thread</name></member>
   </compound>
   <compound refid="classzab_1_1engine__enabled" kind="class"><name>zab::engine_enabled</name>
@@ -231,77 +235,83 @@
     <member refid="classzab_1_1engine__enabled_1a6d844708281a80ac5c0e75c55d5a74bc" kind="function"><name>~engine_enabled</name></member>
     <member refid="classzab_1_1engine__enabled_1a8f5953d0970da89287bd8315790e8826" kind="function"><name>register_engine</name></member>
     <member refid="classzab_1_1engine__enabled_1af2d450a6e5301687a542c5439be08bde" kind="friend"><name>swap</name></member>
-    <member refid="classzab_1_1engine__enabled_1a8691cd5fd0506c1335ae152f65869a8e" kind="function"><name>order</name></member>
+    <member refid="classzab_1_1engine__enabled_1ab26223aaa0735629e20cbba8b3170c3d" kind="function"><name>order</name></member>
     <member refid="classzab_1_1engine__enabled_1a985dac14994ad7f9b672ebee6f99f9ef" kind="function"><name>now</name></member>
-    <member refid="classzab_1_1engine__enabled_1a259d395cdabcf50e69f5386333413c5c" kind="function"><name>next</name></member>
-    <member refid="classzab_1_1engine__enabled_1a2916f8852cd332dd033b078c5c90f6be" kind="function"><name>thread</name></member>
-    <member refid="classzab_1_1engine__enabled_1a5e805bcc7940325a07a6ba78e03bfa76" kind="function"><name>any_thread</name></member>
-    <member refid="classzab_1_1engine__enabled_1a538f1163ef8c8198122f155bf8cc1946" kind="function"><name>default_thread</name></member>
+    <member refid="classzab_1_1engine__enabled_1a4ebe62ed7ef4fabfc68155eb3753f060" kind="function"><name>next</name></member>
+    <member refid="classzab_1_1engine__enabled_1afc644621bede5ec74751eb88abbcc74e" kind="function"><name>thread</name></member>
+    <member refid="classzab_1_1engine__enabled_1ac2d560c21182b99b3ec6f000adf56033" kind="function"><name>any_thread</name></member>
+    <member refid="classzab_1_1engine__enabled_1a9e54c476e2134d5e3b3d073e3bece40f" kind="function"><name>default_thread</name></member>
     <member refid="classzab_1_1engine__enabled_1a5b0b1a34b89ef10693e0f5d5af6332b5" kind="function"><name>requires</name></member>
-    <member refid="classzab_1_1engine__enabled_1a5060e0c0c85df49158531959fb4f23be" kind="function"><name>proxy</name></member>
-    <member refid="classzab_1_1engine__enabled_1a1eb13d7ce25756d35514ce2251381044" kind="function"><name>proxy</name></member>
-    <member refid="classzab_1_1engine__enabled_1aa6520009ad04c091256bafccc948d7a8" kind="function"><name>proxy</name></member>
-    <member refid="classzab_1_1engine__enabled_1a6a366b9c1e7ca54145d2c8c0eb5fa0ed" kind="function"><name>proxy</name></member>
-    <member refid="classzab_1_1engine__enabled_1a1e7a053f67732ce3ee055075e8226a22" kind="function"><name>proxy</name></member>
-    <member refid="classzab_1_1engine__enabled_1ab0de115f16c08344b467909dd2c8da30" kind="function"><name>proxy</name></member>
+    <member refid="classzab_1_1engine__enabled_1affc0d28e7395ddd3e180cda98a67055d" kind="function"><name>proxy</name></member>
+    <member refid="classzab_1_1engine__enabled_1a51daf6a380ac23df21072a97c9dd3cf0" kind="function"><name>proxy</name></member>
+    <member refid="classzab_1_1engine__enabled_1afa802598b0bd636d48d8f400262eea5f" kind="function"><name>proxy</name></member>
+    <member refid="classzab_1_1engine__enabled_1a9e7b898f24dbfc8761f586d2cdc43555" kind="function"><name>proxy</name></member>
+    <member refid="classzab_1_1engine__enabled_1aa1eb79b7912659cd47ce9eebd67413eb" kind="function"><name>proxy</name></member>
+    <member refid="classzab_1_1engine__enabled_1a29fa66ee4a58f18a9002ae3961e74d56" kind="function"><name>proxy</name></member>
+  </compound>
+  <compound refid="structzab_1_1event" kind="struct"><name>zab::event</name>
+    <member refid="structzab_1_1event_1ab9b932c1effb4376090da089eeb88dc3" kind="variable"><name>cb_</name></member>
+    <member refid="structzab_1_1event_1a73128896ec617b5a060d9691f640449f" kind="variable"><name>context_</name></member>
   </compound>
   <compound refid="classzab_1_1event__loop" kind="class"><name>zab::event_loop</name>
-    <member refid="classzab_1_1event__loop_1a5d0e2838123ad0907963fc9e5f31b772" kind="enum"><name>CancelResults</name></member>
-    <member refid="classzab_1_1event__loop_1a5d0e2838123ad0907963fc9e5f31b772a9e2024e27d037d51bb46ef86d2e0ea4d" kind="enumvalue"><name>kDone</name></member>
-    <member refid="classzab_1_1event__loop_1a5d0e2838123ad0907963fc9e5f31b772ab096e4f92f6c4184d188166e8f156fbb" kind="enumvalue"><name>kNotFound</name></member>
-    <member refid="classzab_1_1event__loop_1a5d0e2838123ad0907963fc9e5f31b772a662060693f074df0c3ca4ecae9626990" kind="enumvalue"><name>kTried</name></member>
-    <member refid="classzab_1_1event__loop_1a5d0e2838123ad0907963fc9e5f31b772ab62fa3c9492b6dae76c23d6dfa466611" kind="enumvalue"><name>kFailed</name></member>
-    <member refid="classzab_1_1event__loop_1a5d0e2838123ad0907963fc9e5f31b772a25c2dc47991b3df171ed5192bcf70390" kind="enumvalue"><name>kUnknown</name></member>
-    <member refid="classzab_1_1event__loop_1ac56a602dcda3544421672c93f8a455dd" kind="typedef"><name>io_handle</name></member>
+    <member refid="classzab_1_1event__loop_1ad1d9a5b64efba25fb8d8adde6594c8a2" kind="enum"><name>CancelResult</name></member>
+    <member refid="classzab_1_1event__loop_1ad1d9a5b64efba25fb8d8adde6594c8a2a9e2024e27d037d51bb46ef86d2e0ea4d" kind="enumvalue"><name>kDone</name></member>
+    <member refid="classzab_1_1event__loop_1ad1d9a5b64efba25fb8d8adde6594c8a2ab096e4f92f6c4184d188166e8f156fbb" kind="enumvalue"><name>kNotFound</name></member>
+    <member refid="classzab_1_1event__loop_1ad1d9a5b64efba25fb8d8adde6594c8a2a662060693f074df0c3ca4ecae9626990" kind="enumvalue"><name>kTried</name></member>
+    <member refid="classzab_1_1event__loop_1ad1d9a5b64efba25fb8d8adde6594c8a2ab62fa3c9492b6dae76c23d6dfa466611" kind="enumvalue"><name>kFailed</name></member>
+    <member refid="classzab_1_1event__loop_1ad1d9a5b64efba25fb8d8adde6594c8a2a25c2dc47991b3df171ed5192bcf70390" kind="enumvalue"><name>kUnknown</name></member>
+    <member refid="classzab_1_1event__loop_1a5dc860d461ffc62bca288e8de87815c0" kind="typedef"><name>io_event</name></member>
+    <member refid="classzab_1_1event__loop_1aea840fc16142d566b5454f19421bd4a9" kind="typedef"><name>cancelation_token</name></member>
+    <member refid="classzab_1_1event__loop_1a5bc5bdb49782e6fa71ed7f905c8acbc8" kind="typedef"><name>user_event</name></member>
     <member refid="classzab_1_1event__loop_1a631391026e3a798279048ce2dc81e0c3" kind="variable"><name>kQueueSize</name></member>
     <member refid="classzab_1_1event__loop_1aa82688bbfcdecd9e7028228294b883ee" kind="variable"><name>ring_</name></member>
-    <member refid="classzab_1_1event__loop_1a504d9ab3f06308865709b3428f8eaec3" kind="variable"><name>pinned_buffers_</name></member>
-    <member refid="classzab_1_1event__loop_1a5c1869c8b895b2d7d5bf8f80b25fb861" kind="variable"><name>free_buffers_</name></member>
     <member refid="classzab_1_1event__loop_1a51aa6508e6f78b05f6b09edd9c2f6b18" kind="variable"><name>user_space_event_fd_</name></member>
     <member refid="classzab_1_1event__loop_1ad2ed9448e644d8d80f61b93fa2ed50cc" kind="variable"><name>size_</name></member>
     <member refid="classzab_1_1event__loop_1a1748edba5bd6259c9e2454fa44d06270" kind="variable"><name>mtx_</name></member>
-    <member refid="classzab_1_1event__loop_1a9d79775dc5eadac65deab101a1246d39" kind="variable"><name>handles_</name></member>
-    <member refid="classzab_1_1event__loop_1a690c459fa6aea83f9da7e31f461e2e77" kind="variable"><name>use_space_handle_</name></member>
-    <member refid="classzab_1_1event__loop_1a64a41cc6fb1e28c3490a3d3ffae4a395" kind="variable"><name>kPinSize</name></member>
-    <member refid="classzab_1_1event__loop_1ad791c0a406c0341f6c1149864a60a204" kind="variable"><name>kTotalBuffers</name></member>
+    <member refid="classzab_1_1event__loop_1a3825769e5ecdb89698e93e61ddde019b" kind="variable"><name>handles_</name></member>
+    <member refid="classzab_1_1event__loop_1acb6a6f587e70d8aa3fdd347f543c4765" kind="variable"><name>use_space_handle_</name></member>
     <member refid="classzab_1_1event__loop_1a57b7982b4c79243d01421551a0fa232a" kind="variable"><name>kWriteIndex</name></member>
     <member refid="classzab_1_1event__loop_1a3238f4d73abbb816be905ce7028f41fc" kind="variable"><name>kReadIndex</name></member>
     <member refid="classzab_1_1event__loop_1a9024ff7da0075bc65be27b9268e3c1ea" kind="function"><name>event_loop</name></member>
+    <member refid="classzab_1_1event__loop_1a3c0d851b986da902783bb4f9d5e44256" kind="function"><name>initialise</name></member>
+    <member refid="classzab_1_1event__loop_1a506fc84ad7313723a4d7afda6687a621" kind="function"><name>initialise</name></member>
     <member refid="classzab_1_1event__loop_1a93dcda18bf9fdb34e180b58bb00582c2" kind="function"><name>~event_loop</name></member>
-    <member refid="classzab_1_1event__loop_1aef1f6cef1ba7d8273bae847e5b92c4c9" kind="function"><name>open_at</name></member>
-    <member refid="classzab_1_1event__loop_1a137b09c177df2316f345d4ec99db2b47" kind="function"><name>open_at</name></member>
-    <member refid="classzab_1_1event__loop_1a4191f78fc5c2bd786070f66743d781c6" kind="function"><name>close</name></member>
-    <member refid="classzab_1_1event__loop_1a1dfe02f82e68f9cda046ec4507f26f36" kind="function"><name>close</name></member>
-    <member refid="classzab_1_1event__loop_1aec0f1eedc3db85ca7147a0f18bac11cf" kind="function"><name>read</name></member>
-    <member refid="classzab_1_1event__loop_1a9862df32dc9a5393170b71d383838e02" kind="function"><name>read</name></member>
-    <member refid="classzab_1_1event__loop_1af9d7b0e54e654f6d83582b04eb42c883" kind="function"><name>fixed_read</name></member>
-    <member refid="classzab_1_1event__loop_1a59e5a9e8560353634a56b42951c01a94" kind="function"><name>fixed_read</name></member>
-    <member refid="classzab_1_1event__loop_1a02376b6b07cced37cddb14724b341fd6" kind="function"><name>read_v</name></member>
-    <member refid="classzab_1_1event__loop_1a6ba8e04ead99fe8a0403c0c2c5ca0f54" kind="function"><name>read_v</name></member>
-    <member refid="classzab_1_1event__loop_1ad667054ede54dd8a968f170822d00324" kind="function"><name>write</name></member>
-    <member refid="classzab_1_1event__loop_1a00ebd5beb64bc0c1a51117cd70e316f2" kind="function"><name>write</name></member>
-    <member refid="classzab_1_1event__loop_1afff6f31f0505244d9094f4490bf98448" kind="function"><name>fixed_write</name></member>
-    <member refid="classzab_1_1event__loop_1a4dd239bdb8ac3de5529302d3fa40cfc5" kind="function"><name>fixed_write</name></member>
-    <member refid="classzab_1_1event__loop_1a6b304ef590760f9913ce01b6980cffc6" kind="function"><name>write_v</name></member>
-    <member refid="classzab_1_1event__loop_1a349196a781f20f52a2dc3ae7d43445a6" kind="function"><name>write_v</name></member>
-    <member refid="classzab_1_1event__loop_1a1c017a5b7825cb764085945f3f6a5a14" kind="function"><name>recv</name></member>
-    <member refid="classzab_1_1event__loop_1a12ceab5e19b5274b6c892c7a2a2bd151" kind="function"><name>recv</name></member>
-    <member refid="classzab_1_1event__loop_1a29a1749c5222d7c3e39ab2387f6b23d9" kind="function"><name>send</name></member>
-    <member refid="classzab_1_1event__loop_1a7ddeacd26cce79963a7d581f324391a8" kind="function"><name>send</name></member>
-    <member refid="classzab_1_1event__loop_1aafdb41f9431b8888d8c871958e983b46" kind="function"><name>accept</name></member>
-    <member refid="classzab_1_1event__loop_1ad051764ed6779e808b8ad177e1b258cd" kind="function"><name>accept</name></member>
-    <member refid="classzab_1_1event__loop_1a430449079ef48139243956127a8d1e17" kind="function"><name>connect</name></member>
-    <member refid="classzab_1_1event__loop_1a24259ab27e826dc7c09b4c094356e96a" kind="function"><name>connect</name></member>
-    <member refid="classzab_1_1event__loop_1a993f83991b5ffbf7fa2ebf3d108411f2" kind="function"><name>cancel_event</name></member>
+    <member refid="classzab_1_1event__loop_1ae7057597b05ac498692b534632267e20" kind="function"><name>open_at</name></member>
+    <member refid="classzab_1_1event__loop_1a6abbb0ec7e2fb0cfc7b867c3f91a6199" kind="function"><name>open_at</name></member>
+    <member refid="classzab_1_1event__loop_1a78afeb13c60aba9df381d2e05217d513" kind="function"><name>close</name></member>
+    <member refid="classzab_1_1event__loop_1afe0d8bec9d0fae6b378f5ba8cb80f248" kind="function"><name>close</name></member>
+    <member refid="classzab_1_1event__loop_1ad92141faa9b78d4849824f667f5985ed" kind="function"><name>read</name></member>
+    <member refid="classzab_1_1event__loop_1af8b48a54dd7ea706fdd6dbc6f8a707df" kind="function"><name>read</name></member>
+    <member refid="classzab_1_1event__loop_1ada3db2ca1f7f5d716228be7592a63fdd" kind="function"><name>fixed_read</name></member>
+    <member refid="classzab_1_1event__loop_1a6d4c3a43014d3a78ad42fc9201685b75" kind="function"><name>fixed_read</name></member>
+    <member refid="classzab_1_1event__loop_1a401bed36487aed0a941b69403584314e" kind="function"><name>read_v</name></member>
+    <member refid="classzab_1_1event__loop_1aac55a5c245a5b81a19c7e35ef674657f" kind="function"><name>read_v</name></member>
+    <member refid="classzab_1_1event__loop_1a82b15c8f9d283ea69b64f1582fedd7ad" kind="function"><name>write</name></member>
+    <member refid="classzab_1_1event__loop_1ad337f08e6d5481c7621714043e3df91e" kind="function"><name>write</name></member>
+    <member refid="classzab_1_1event__loop_1a33de05ddf11ac5e1ee42da8bb39e4d31" kind="function"><name>fixed_write</name></member>
+    <member refid="classzab_1_1event__loop_1a7c26352c938f372e51611a5905f78e76" kind="function"><name>fixed_write</name></member>
+    <member refid="classzab_1_1event__loop_1aa78a0138d28c98a9e089f7d9396f58f5" kind="function"><name>write_v</name></member>
+    <member refid="classzab_1_1event__loop_1a7990c9ddb4789212cc876021738d05a3" kind="function"><name>write_v</name></member>
+    <member refid="classzab_1_1event__loop_1a9dab008262a7ecefab72f7f3eabbaf60" kind="function"><name>recv</name></member>
+    <member refid="classzab_1_1event__loop_1a40d164ebf02b0d6f5558297a20256348" kind="function"><name>recv</name></member>
+    <member refid="classzab_1_1event__loop_1afb613cda441bb9e70666c353785c37f9" kind="function"><name>send</name></member>
+    <member refid="classzab_1_1event__loop_1a222eb9a5eb1dd70dd6eccc0eff8530d9" kind="function"><name>send</name></member>
+    <member refid="classzab_1_1event__loop_1aa75ae5cc57723069ec1a340e70f95486" kind="function"><name>accept</name></member>
+    <member refid="classzab_1_1event__loop_1af36c11b1551fa4aea00d37ecb2bda66c" kind="function"><name>accept</name></member>
+    <member refid="classzab_1_1event__loop_1a22d59491892f40c908054391a9863e23" kind="function"><name>connect</name></member>
+    <member refid="classzab_1_1event__loop_1a784ef1373186260b642b5f9654b17d88" kind="function"><name>connect</name></member>
+    <member refid="classzab_1_1event__loop_1a46c3cfc5ad79bfacd2339c8cf75e1143" kind="function"><name>cancel_event</name></member>
+    <member refid="classzab_1_1event__loop_1a2993ed58aad3bc7da8b5da741692480a" kind="function"><name>cancel_event</name></member>
     <member refid="classzab_1_1event__loop_1ae25e4a78d86f4ed9d4556df11b9b8267" kind="function"><name>submit_pending_events</name></member>
-    <member refid="classzab_1_1event__loop_1afd606404e270b80d879a80b339825712" kind="function"><name>user_event</name></member>
+    <member refid="classzab_1_1event__loop_1a0eb6e75b7132b2e4150f239e7558cba3" kind="function"><name>dispatch_user_event</name></member>
     <member refid="classzab_1_1event__loop_1aca4da2777fd0a03b164a7776a2f7511d" kind="function"><name>event_size</name></member>
     <member refid="classzab_1_1event__loop_1a67ff2b4cfb9dce63dd3c7db9b5720440" kind="function"><name>get_stop_function</name></member>
     <member refid="classzab_1_1event__loop_1a6ace768c190a3d6f2e938dae35d529b7" kind="function"><name>run</name></member>
-    <member refid="classzab_1_1event__loop_1aba1520833f362c9a83074b42408f0248" kind="function"><name>wake</name></member>
-    <member refid="classzab_1_1event__loop_1a08fcc03963fab68d5a1181d5da9c21a1" kind="function"><name>claim_fixed_buffer</name></member>
-    <member refid="classzab_1_1event__loop_1ab2444c587902438ad86bf8ff689dca51" kind="function"><name>release_fixed_buffer</name></member>
-    <member refid="classzab_1_1event__loop_1a71699b25ae03cee9ed3004d3c6ab4e69" kind="function"><name>clean_up</name></member>
+    <member refid="classzab_1_1event__loop_1a22d93284b7f42bd4422b3b80be9d772c" kind="function"><name>wake</name></member>
+    <member refid="classzab_1_1event__loop_1a93401e92aee2895baa0600cb7b64ca3e" kind="function"><name>wake</name></member>
+    <member refid="classzab_1_1event__loop_1a2b0990d425688e0d01b24a6e83d4064e" kind="function"><name>io_fd</name></member>
+    <member refid="classzab_1_1event__loop_1a4c4e8a8da66270d9298ae376cd4c44ce" kind="function"><name>cancel_code</name></member>
+    <member refid="classzab_1_1event__loop_1af6b3ac4716b9194177c12047c24ba020" kind="function"><name>cancel_message</name></member>
     <member refid="classzab_1_1event__loop_1a05156c1572ca98a152c82d2a97cedfe8" kind="function"><name>run_user_space</name></member>
   </compound>
   <compound refid="classzab_1_1execution__promise" kind="class"><name>zab::execution_promise</name>
@@ -332,6 +342,20 @@
     <member refid="structzab_1_1details_1_1final__suspension_1abe52318f4728ea9b797363dafc701248" kind="function"><name>await_ready</name></member>
     <member refid="structzab_1_1details_1_1final__suspension_1a0e01fdcbba94420f1e4af026285195fe" kind="function"><name>await_resume</name></member>
   </compound>
+  <compound refid="classzab_1_1generic__awaitable" kind="class"><name>zab::generic_awaitable</name>
+    <member refid="classzab_1_1generic__awaitable_1a89b11b71bc08b510141e9e89cf249e95" kind="variable"><name>functor_</name></member>
+    <member refid="classzab_1_1generic__awaitable_1a7fd3b6bd505ddc685b0807ac93062391" kind="function"><name>generic_awaitable</name></member>
+    <member refid="classzab_1_1generic__awaitable_1af11a95dd2ded091a964841d9081535fc" kind="function"><name>generic_awaitable</name></member>
+    <member refid="classzab_1_1generic__awaitable_1ac25b79fdafc6f4e618adfd543f0f39f7" kind="function"><name>operator=</name></member>
+    <member refid="classzab_1_1generic__awaitable_1ab64626615e9a797f14d27a7e90fd63c9" kind="function"><name>generic_awaitable</name></member>
+    <member refid="classzab_1_1generic__awaitable_1a6daf8f8f47663c5a84ea0059c784545c" kind="function"><name>await_suspend</name></member>
+    <member refid="classzab_1_1generic__awaitable_1a6645f07443ca5c4b1eb6404432ca6e46" kind="function"><name>await_ready</name></member>
+    <member refid="classzab_1_1generic__awaitable_1a4f5494e58b7123c8b84659ff2b4fae0a" kind="function"><name>await_resume</name></member>
+    <member refid="classzab_1_1generic__awaitable_1a29d8ccbf15f39cef39c39d8ebcbce4bd" kind="function"><name>functor</name></member>
+    <member refid="classzab_1_1generic__awaitable_1a91b7493e3abf4a6c3a572809db416b61" kind="function"><name>handle_suspend</name></member>
+    <member refid="classzab_1_1generic__awaitable_1a6aa7bf7c890c2fcefaf799d9752e4ceb" kind="function"><name>handle_suspend</name></member>
+    <member refid="classzab_1_1generic__awaitable_1a80f578af624e2fc23907bec737d21b3d" kind="function"><name>handle_suspend</name></member>
+  </compound>
   <compound refid="structzab_1_1observable_1_1internal__observer" kind="struct"><name>zab::observable::internal_observer</name>
     <member refid="structzab_1_1observable_1_1internal__observer_1a61c9f68f20d3566b3d6ee3e10d782be9" kind="variable"><name>mtx_</name></member>
     <member refid="structzab_1_1observable_1_1internal__observer_1a58713415a38dd63a8ff3d1dab57620ad" kind="variable"><name>result_</name></member>
@@ -344,6 +368,39 @@
     <member refid="structzab_1_1async__barrier_1_1arrival__token_1_1InternalState_1a2d4916aafaa75674b51bb9c75558a319" kind="variable"><name>thread_</name></member>
     <member refid="structzab_1_1async__barrier_1_1arrival__token_1_1InternalState_1ac37ea34ffff345a9c086148b973d1fe5" kind="variable"><name>next_</name></member>
     <member refid="structzab_1_1async__barrier_1_1arrival__token_1_1InternalState_1a3c37ff448c73b6503265af065d191173" kind="variable"><name>handle_</name></member>
+  </compound>
+  <compound refid="classzab_1_1network__operation" kind="class"><name>zab::network_operation</name>
+    <member refid="classzab_1_1network__operation_1ae344f077cd8b6b33e1e5729a4b83a17b" kind="typedef"><name>net_op</name></member>
+    <member refid="classzab_1_1network__operation_1a84bd0e7d0b09be028dbd9b4b619194dc" kind="variable"><name>kNoDescriptor</name></member>
+    <member refid="classzab_1_1network__operation_1a631d914c8ad550d291a9a5ce34a96064" kind="variable"><name>engine_</name></member>
+    <member refid="classzab_1_1network__operation_1a2e857704c8ff3575021f1a8d251e1be9" kind="variable"><name>cancel_token_</name></member>
+    <member refid="classzab_1_1network__operation_1a5dd23a012eebbcbac615ffc20ccdfb71" kind="variable"><name>sd_</name></member>
+    <member refid="classzab_1_1network__operation_1a1e9919e32ba7229b63ecfeeedc9e9a56" kind="variable"><name>last_error_</name></member>
+    <member refid="classzab_1_1network__operation_1af0828bdea3488c7afde6a862271979ed" kind="function"><name>network_operation</name></member>
+    <member refid="classzab_1_1network__operation_1adf97d447011974120c46eca53b14e4b0" kind="function"><name>network_operation</name></member>
+    <member refid="classzab_1_1network__operation_1a6f4b29dab497502a5991c233628adea9" kind="function"><name>network_operation</name></member>
+    <member refid="classzab_1_1network__operation_1ac791de60c6b83c92ae58ca1138ad22d5" kind="function"><name>~network_operation</name></member>
+    <member refid="classzab_1_1network__operation_1a3dbae42d8a7e7636b3ed890029b4043f" kind="function"><name>network_operation</name></member>
+    <member refid="classzab_1_1network__operation_1a2c7137b4fb0ca5528218e710a775e65a" kind="function"><name>network_operation</name></member>
+    <member refid="classzab_1_1network__operation_1a6934ddde97513422db08d933b425820f" kind="function"><name>operator=</name></member>
+    <member refid="classzab_1_1network__operation_1ae0fe1fe161f39fe80fc031282b161747" kind="function"><name>register_engine</name></member>
+    <member refid="classzab_1_1network__operation_1a59c122cabc542859d4f970666877b30e" kind="function"><name>set_descriptor</name></member>
+    <member refid="classzab_1_1network__operation_1a623ce5b2f4dc4bdee25b508f242ea643" kind="function"><name>clear_descriptor</name></member>
+    <member refid="classzab_1_1network__operation_1a63f74e1e10727a033e3df9636279a8f0" kind="function"><name>get_engine</name></member>
+    <member refid="classzab_1_1network__operation_1aa7d4950daf03cb569d55a305cc37e0b5" kind="function"><name>descriptor</name></member>
+    <member refid="classzab_1_1network__operation_1a0742b6758cb38291ab82729fe3e9f5b8" kind="function"><name>last_error</name></member>
+    <member refid="classzab_1_1network__operation_1ac82422b1fe5969ba60f27497e1737b59" kind="function"><name>peek_error</name></member>
+    <member refid="classzab_1_1network__operation_1a7f7e82c4653f61ef5cd0fdfb748d0a9a" kind="function"><name>clear_error</name></member>
+    <member refid="classzab_1_1network__operation_1a877aa954f1f7683a57802bad76407497" kind="function"><name>set_error</name></member>
+    <member refid="classzab_1_1network__operation_1a5d7dad8211bc683e0338404222633361" kind="function"><name>get_cancel</name></member>
+    <member refid="classzab_1_1network__operation_1acbda0a4caae007cf9e2391a4c46894d1" kind="function"><name>set_cancel</name></member>
+    <member refid="classzab_1_1network__operation_1afbe3c3ab80422d29446a68bb92f90825" kind="function"><name>clear_cancel</name></member>
+    <member refid="classzab_1_1network__operation_1a048418e7a1f65150461b31ed1b914fbb" kind="function"><name>cancel</name></member>
+    <member refid="classzab_1_1network__operation_1a538c899b5540cda6204e856912364597" kind="function"><name>close</name></member>
+    <member refid="classzab_1_1network__operation_1aefb6fe91e7d330d17f211a990312a276" kind="function"><name>background_close</name></member>
+    <member refid="classzab_1_1network__operation_1a5c05a4413ff2826f56163c5a981877c6" kind="function"><name>background_cancel</name></member>
+    <member refid="classzab_1_1network__operation_1acd21ea694092aedf8f7a16738829b6e7" kind="friend"><name>swap</name></member>
+    <member refid="classzab_1_1network__operation_1a3fdd2710a10cf95d42e45742fd4cbdcb" kind="function"><name>cancel</name></member>
   </compound>
   <compound refid="structzab_1_1details_1_1no__op" kind="struct"><name>zab::details::no_op</name>
     <member refid="structzab_1_1details_1_1no__op_1afdbdb907ebaadeb9a189f5b42f9145f9" kind="function"><name>operator()</name></member>
@@ -382,25 +439,21 @@
   <compound refid="structzab_1_1details_1_1one__of__these_3_01std_1_1tuple_3_01T_8_8_8_01_4_01_4" kind="struct"><name>zab::details::one_of_these&lt; std::tuple&lt; T... &gt; &gt;</name>
     <member refid="structzab_1_1details_1_1one__of__these_3_01std_1_1tuple_3_01T_8_8_8_01_4_01_4_1a1b9866d3dd3102cae970394e373d4c43" kind="typedef"><name>types</name></member>
   </compound>
-  <compound refid="structzab_1_1tcp__stream_1_1op__control" kind="struct"><name>zab::tcp_stream::op_control</name>
-    <member refid="structzab_1_1tcp__stream_1_1op__control_1a3de3330b1fc920dcc332174ae108444c" kind="variable"><name>data_</name></member>
-    <member refid="structzab_1_1tcp__stream_1_1op__control_1a241471644ddde985ad9d68c4c4df10f8" kind="variable"><name>size_</name></member>
-  </compound>
   <compound refid="structzab_1_1order__t" kind="struct"><name>zab::order_t</name>
     <member refid="structzab_1_1order__t_1a5ce9c350dfca9f6e0dc7c6de82bdc750" kind="variable"><name>order_</name></member>
     <member refid="structzab_1_1order__t_1af8e31b771fc4b2b02465f6ab14b0bfdb" kind="function"><name>operator&lt;=&gt;</name></member>
-    <member refid="structzab_1_1order__t_1af14cf2392ae931455d558df539575365" kind="function"><name>operator&lt;=&gt;</name></member>
+    <member refid="structzab_1_1order__t_1a8912f376c423bd4b12b3cbde2007298d" kind="function"><name>operator&lt;=&gt;</name></member>
     <member refid="structzab_1_1order__t_1ad12cf7dc070cadbda534bfab4fc239f2" kind="friend"><name>operator+</name></member>
     <member refid="structzab_1_1order__t_1a36e9ae74c43492032921bd0a23456d48" kind="friend"><name>operator-</name></member>
   </compound>
   <compound refid="structzab_1_1pause__pack" kind="struct"><name>zab::pause_pack</name>
     <member refid="structzab_1_1pause__pack_1a7846c8d2b9cffb0f318717b8339d53b8" kind="variable"><name>thread_</name></member>
     <member refid="structzab_1_1pause__pack_1a358fb4c6aaa663ec11d1a8b9708ecb65" kind="variable"><name>data_</name></member>
-    <member refid="structzab_1_1pause__pack_1a10a3ca5fa635edd8f0a4e1360f401f05" kind="variable"><name>handle_</name></member>
+    <member refid="structzab_1_1pause__pack_1a857039a16ec777c2b8997c99fcb75125" kind="variable"><name>handle_</name></member>
   </compound>
   <compound refid="classzab_1_1pause__token" kind="class"><name>zab::pause_token</name>
+    <member refid="classzab_1_1pause__token_1a1791c4b71e052466221fe6341f063cf5" kind="friend"><name>pauser</name></member>
     <member refid="classzab_1_1pause__token_1afdd0d2ffaad7395db6922a935f3a42b9" kind="variable"><name>kUnpausedFlag</name></member>
-    <member refid="classzab_1_1pause__token_1a266512500989669dfb707d614c7f4e46" kind="friend"><name>pauser</name></member>
     <member refid="classzab_1_1pause__token_1a9621d67d3b3d451f8fb92a9c1a1c6ffa" kind="variable"><name>engine_</name></member>
     <member refid="classzab_1_1pause__token_1a3028ed0dc38d4752c10115d4b5b4d757" kind="variable"><name>resuming_</name></member>
     <member refid="classzab_1_1pause__token_1a28a1e9d071dbe5981c0573ce760f5502" kind="function"><name>pause_token</name></member>
@@ -431,6 +484,8 @@
   </compound>
   <compound refid="structzab_1_1purge__block" kind="struct"><name>zab::purge_block</name>
   </compound>
+  <compound refid="structzab_1_1details_1_1ready__tag" kind="struct"><name>zab::details::ready_tag</name>
+  </compound>
   <compound refid="structzab_1_1recursive__spin__lock" kind="struct"><name>zab::recursive_spin_lock</name>
     <member refid="structzab_1_1recursive__spin__lock_1a3d12bedadde53b1a363a759a9d571d9a" kind="variable"><name>thread_</name></member>
     <member refid="structzab_1_1recursive__spin__lock_1ad2af48eb1bb8906ebec2d6beba5841d1" kind="variable"><name>count_</name></member>
@@ -438,6 +493,8 @@
     <member refid="structzab_1_1recursive__spin__lock_1af3667b24f1e7b00184b75ee1799557b4" kind="function"><name>lock</name></member>
     <member refid="structzab_1_1recursive__spin__lock_1aabdf9e3d2eb45ea79ff937cbbc2976f9" kind="function"><name>try_lock</name></member>
     <member refid="structzab_1_1recursive__spin__lock_1a5f8b41e86532f26592a3de0a50935235" kind="function"><name>unlock</name></member>
+  </compound>
+  <compound refid="structzab_1_1details_1_1resume__tag" kind="struct"><name>zab::details::resume_tag</name>
   </compound>
   <compound refid="classzab_1_1reusable__future" kind="class"><name>zab::reusable_future</name>
     <member refid="classzab_1_1reusable__future_1a0deec04551cd5fa6fe2d28213b81308b" kind="typedef"><name>promise_type</name></member>
@@ -511,7 +568,7 @@
     <member refid="classzab_1_1signal__handler_1abe2f5e96e8da08ac63bd9f78cc56714b" kind="variable"><name>handlers_mtx_</name></member>
     <member refid="classzab_1_1signal__handler_1a9aeafe9321638cdb474167ef867783cd" kind="variable"><name>handlers_</name></member>
     <member refid="classzab_1_1signal__handler_1a7170c1dd6b40cf9d20196238f9fb19da" kind="variable"><name>engine_</name></member>
-    <member refid="classzab_1_1signal__handler_1a200dcba20f7e7e986058f5bf2bd867db" kind="variable"><name>handle_</name></member>
+    <member refid="classzab_1_1signal__handler_1abcca5c38d55128b646f01cab045257f7" kind="variable"><name>handle_</name></member>
     <member refid="classzab_1_1signal__handler_1a9ffb5971f51976345e8462dca15dbf14" kind="variable"><name>fds_</name></member>
     <member refid="classzab_1_1signal__handler_1aefe71e6715a600a8a75530d7177680a5" kind="variable"><name>running_</name></member>
     <member refid="classzab_1_1signal__handler_1aac84a022622ceb0fce7d01c214bd7f30" kind="function"><name>signal_handler</name></member>
@@ -529,13 +586,13 @@
     <member refid="structzab_1_1details_1_1simple__awaitable_1a6889210850a512165118b944e7e8a5b4" kind="function"><name>await_resume</name></member>
   </compound>
   <compound refid="classzab_1_1simple__common" kind="class"><name>zab::simple_common</name>
-    <member refid="classzab_1_1simple__common_1a5b4d4d5fe7f2f8fa4c7212c75dccab5c" kind="variable"><name>underlying_</name></member>
+    <member refid="classzab_1_1simple__common_1a67c908d39922ee1fc2da2f5e975e0b91" kind="variable"><name>underlying_</name></member>
     <member refid="classzab_1_1simple__common_1a370fb58fc404be937c6340c7dff946aa" kind="variable"><name>complete_</name></member>
     <member refid="classzab_1_1simple__common_1a8c4fff11d8a379f9c57e633532a5a07d" kind="function"><name>simple_common</name></member>
     <member refid="classzab_1_1simple__common_1aa0bd8b34ed3ff4603e2ffcc2cf2fadd4" kind="function"><name>~simple_common</name></member>
     <member refid="classzab_1_1simple__common_1a2fb0f6479190f926a05d1e502dd45a1f" kind="function"><name>get_return_object</name></member>
-    <member refid="classzab_1_1simple__common_1a785a7eb5104909f68c4cd80d4d0b2210" kind="function"><name>set_underlying</name></member>
-    <member refid="classzab_1_1simple__common_1ad8231a492550fda1e52d2a8e7e69efa8" kind="function"><name>underlying</name></member>
+    <member refid="classzab_1_1simple__common_1a6247406ec14650f00f489c5dcc0a6d86" kind="function"><name>set_underlying</name></member>
+    <member refid="classzab_1_1simple__common_1a44fcb10ef7068de4f2f7e59b9687ae6d" kind="function"><name>underlying</name></member>
     <member refid="classzab_1_1simple__common_1ab772a146a1fadaf56c30f41c68ec9284" kind="function"><name>complete</name></member>
     <member refid="classzab_1_1simple__common_1a71be4e797d23e4099c5036c5876f9845" kind="function"><name>is_complete</name></member>
     <member refid="classzab_1_1simple__common_1acfb27f21499a377ee9d144fa8385a7d6" kind="function"><name>initial_suspend</name></member>
@@ -552,6 +609,8 @@
     <member refid="classzab_1_1simple__future_1a9ac8bac43943f47fe7c55ec6435bdfb4" kind="function"><name>simple_future</name></member>
     <member refid="classzab_1_1simple__future_1af4e3825377a74a478c6d6b4fdc0dee66" kind="function"><name>operator=</name></member>
     <member refid="classzab_1_1simple__future_1a0dd9708c4281d674f4d527e11a9a1fb1" kind="function"><name>operator co_await</name></member>
+    <member refid="classzab_1_1simple__future_1a30dc9f6afc8a31f9459b367aadfd5631" kind="function"><name>inline_co_await</name></member>
+    <member refid="classzab_1_1simple__future_1a8175f0357f5c2fb15ebf609daf41e065" kind="function"><name>get_inline_result</name></member>
   </compound>
   <compound refid="classzab_1_1simple__promise" kind="class"><name>zab::simple_promise</name>
     <member refid="classzab_1_1simple__promise_1a11d1e22fe078954b34e90b580a4ad3a4" kind="typedef"><name>returns</name></member>
@@ -593,68 +652,74 @@
     <member refid="structzab_1_1spin__lock_1a6b51d77c6ba9acdba261f8b01fa0d677" kind="function"><name>try_lock</name></member>
     <member refid="structzab_1_1spin__lock_1af9146b72a5e41889665d1e441bb1f738" kind="function"><name>unlock</name></member>
   </compound>
+  <compound refid="classzab_1_1stateful__awaitable" kind="class"><name>zab::stateful_awaitable</name>
+    <member refid="classzab_1_1stateful__awaitable_1af3b4b6995622d416d536ecdb226dac51" kind="variable"><name>context_</name></member>
+    <member refid="classzab_1_1stateful__awaitable_1a23e1840bc328dd50a5e2cfa2bee6fa1d" kind="variable"><name>underlying_</name></member>
+    <member refid="classzab_1_1stateful__awaitable_1a80e029ae718308cfc329d629147521a1" kind="function"><name>stateful_awaitable</name></member>
+    <member refid="classzab_1_1stateful__awaitable_1a65e8851cfc383937ea0e2e0379e29eac" kind="function"><name>stateful_awaitable</name></member>
+    <member refid="classzab_1_1stateful__awaitable_1a78824687006e0f3c50e6f166493a55dc" kind="function"><name>operator=</name></member>
+    <member refid="classzab_1_1stateful__awaitable_1a1a8100782f098c2c57e5e3bebc473fa5" kind="function"><name>stateful_awaitable</name></member>
+    <member refid="classzab_1_1stateful__awaitable_1a60379523198993d7efb35c1c0b10c86c" kind="function"><name>notify</name></member>
+    <member refid="classzab_1_1stateful__awaitable_1a8071fe7e6c68de7ce6919bbf0ec1d001" kind="function"><name>await_suspend</name></member>
+    <member refid="classzab_1_1stateful__awaitable_1ab8a3c8dfc95dec25ef1fe950169e1bc1" kind="function"><name>await_suspend</name></member>
+    <member refid="classzab_1_1stateful__awaitable_1ab8d64cc252a83a7376d1b5f729a0d726" kind="function"><name>await_ready</name></member>
+    <member refid="classzab_1_1stateful__awaitable_1a57e58bd63923144334547105da7a331c" kind="function"><name>await_resume</name></member>
+  </compound>
+  <compound refid="structzab_1_1storage__event" kind="struct"><name>zab::storage_event</name>
+    <member refid="structzab_1_1storage__event_1a3c46ec8acde4614febcae7849596c6a9" kind="variable"><name>handle_</name></member>
+    <member refid="structzab_1_1storage__event_1a242a1d532abd96bc56e89ddbd8327781" kind="variable"><name>result_</name></member>
+  </compound>
+  <compound refid="structzab_1_1storage__event_3_01void_01_4" kind="struct"><name>zab::storage_event&lt; void &gt;</name>
+    <member refid="structzab_1_1storage__event_3_01void_01_4_1ab671bee757edbf88be22d6ec4ca517ff" kind="variable"><name>handle_</name></member>
+  </compound>
+  <compound refid="classzab_1_1suspension__point" kind="class"><name>zab::suspension_point</name>
+    <member refid="classzab_1_1suspension__point_1afea4611149919be7631862179935c96a" kind="variable"><name>functor_</name></member>
+    <member refid="classzab_1_1suspension__point_1a45132aac599b2aacb58809bb7cc5f9be" kind="function"><name>suspension_point</name></member>
+    <member refid="classzab_1_1suspension__point_1ade723a9a2e2b36c22a9fe184735d247a" kind="function"><name>suspension_point</name></member>
+    <member refid="classzab_1_1suspension__point_1a80bf969374ef81cc7fe3856dfa6ba0eb" kind="function"><name>operator=</name></member>
+    <member refid="classzab_1_1suspension__point_1aa7044c8a824c349765490d66e1961397" kind="function"><name>suspension_point</name></member>
+    <member refid="classzab_1_1suspension__point_1a9ab779de77b008d706850ae860c02996" kind="function"><name>suspension_point</name></member>
+    <member refid="classzab_1_1suspension__point_1ae17ae34298399c147c325e3c19d36027" kind="function"><name>suspension_point</name></member>
+    <member refid="classzab_1_1suspension__point_1aaf18aba8754e008a843cd88d43afd672" kind="function"><name>operator co_await</name></member>
+  </compound>
   <compound refid="classzab_1_1tcp__acceptor" kind="class"><name>zab::tcp_acceptor</name>
-    <member refid="classzab_1_1tcp__acceptor_1a8c5288499f5cd2cb109c9be61e22e65d" kind="variable"><name>engine_</name></member>
-    <member refid="classzab_1_1tcp__acceptor_1a84057b288e354e72c03e2ef2c241a9c8" kind="variable"><name>cancel_token_</name></member>
-    <member refid="classzab_1_1tcp__acceptor_1ae4de72170835fd1c745c872b7f80e3f0" kind="variable"><name>acceptor_</name></member>
-    <member refid="classzab_1_1tcp__acceptor_1a24b4f7eecc9f51fb8b5cd88fd5a00d4f" kind="variable"><name>last_error_</name></member>
     <member refid="classzab_1_1tcp__acceptor_1a4e5777877a9420fc6135f1d05a927618" kind="function"><name>tcp_acceptor</name></member>
     <member refid="classzab_1_1tcp__acceptor_1a71c7b568fb16d3b80f53d8b598bc79de" kind="function"><name>tcp_acceptor</name></member>
-    <member refid="classzab_1_1tcp__acceptor_1af0dab6efdd923f6af62cdec6a0e42438" kind="function"><name>tcp_acceptor</name></member>
-    <member refid="classzab_1_1tcp__acceptor_1af8f7e2392b8b36073f388007299f8b56" kind="function"><name>tcp_acceptor</name></member>
-    <member refid="classzab_1_1tcp__acceptor_1acfd3317397b48be92d02bd81cfea7bdf" kind="function"><name>register_engine</name></member>
-    <member refid="classzab_1_1tcp__acceptor_1aebe22ea3566c66747d0389eaa0f733c3" kind="function"><name>operator=</name></member>
-    <member refid="classzab_1_1tcp__acceptor_1a815eaa1c4b4c6d10fceb4ccab267069e" kind="function"><name>~tcp_acceptor</name></member>
+    <member refid="classzab_1_1tcp__acceptor_1abeda9c49255de19c049e6ce9185e2bb4" kind="function"><name>tcp_acceptor</name></member>
+    <member refid="classzab_1_1tcp__acceptor_1a660858ada2a1ad05c4eff6fab0066985" kind="function"><name>tcp_acceptor</name></member>
+    <member refid="classzab_1_1tcp__acceptor_1a77bfb429be9ef2590f6c2b6b9ddbe512" kind="function"><name>operator=</name></member>
+    <member refid="classzab_1_1tcp__acceptor_1a4068033d276c7ab690010a8f6f69282c" kind="function"><name>~tcp_acceptor</name></member>
     <member refid="classzab_1_1tcp__acceptor_1a71422211cbb518344ebeacd8bc4bf00f" kind="function"><name>listen</name></member>
-    <member refid="classzab_1_1tcp__acceptor_1abfd0af66c0698fcbd1ae636b8cebc521" kind="function"><name>accept</name></member>
-    <member refid="classzab_1_1tcp__acceptor_1a4040017ab4d2db4ff00ec4a8fa919c56" kind="function"><name>get_accepter</name></member>
-    <member refid="classzab_1_1tcp__acceptor_1ac38602a83d850bf1b3ef89a56ac21a0a" kind="function"><name>cancel</name></member>
-    <member refid="classzab_1_1tcp__acceptor_1a200599336bffe491fc83e58ac5a4b6a9" kind="function"><name>close</name></member>
-    <member refid="classzab_1_1tcp__acceptor_1a0a741d54e87823b8c9939ccd131a9f4d" kind="function"><name>last_error</name></member>
+    <member refid="classzab_1_1tcp__acceptor_1a42efa49ded128eb85d8b633a381cd979" kind="function"><name>accept</name></member>
     <member refid="classzab_1_1tcp__acceptor_1a29193b248e50b7468877453bd96c4547" kind="friend"><name>swap</name></member>
   </compound>
-  <compound refid="classzab_1_1tcp__connector" kind="class"><name>zab::tcp_connector</name>
-    <member refid="classzab_1_1tcp__connector_1a8a5152febe166b6642e7948ab3ff7d88" kind="variable"><name>engine_</name></member>
-    <member refid="classzab_1_1tcp__connector_1ab5977c41a2835953b7ec9520785288d2" kind="variable"><name>cancel_token_</name></member>
-    <member refid="classzab_1_1tcp__connector_1ae381a8e8a91a7f1703dfe3fd44f82c27" kind="variable"><name>connection_</name></member>
-    <member refid="classzab_1_1tcp__connector_1a357562563acc081d10101a82a7fafe14" kind="variable"><name>last_error_</name></member>
-    <member refid="classzab_1_1tcp__connector_1a09b31c3f7fce9683526ced1a0ab7ee2f" kind="function"><name>tcp_connector</name></member>
-    <member refid="classzab_1_1tcp__connector_1a52e50dc6f894f7994859aa73549dd6a5" kind="function"><name>tcp_connector</name></member>
-    <member refid="classzab_1_1tcp__connector_1ae8650d52b43341abf186aff75369489c" kind="function"><name>tcp_connector</name></member>
-    <member refid="classzab_1_1tcp__connector_1ab1a5f9f1102967e548e5306aae1bbb00" kind="function"><name>tcp_connector</name></member>
-    <member refid="classzab_1_1tcp__connector_1acced5357bc6b4ab6cbf9901b334e03c6" kind="function"><name>register_engine</name></member>
-    <member refid="classzab_1_1tcp__connector_1a4b082cd9f2362cb89b108ca9b4c26a95" kind="function"><name>operator=</name></member>
-    <member refid="classzab_1_1tcp__connector_1a2ee68c5014c0efa14c76a9c0d8cee1c2" kind="function"><name>~tcp_connector</name></member>
-    <member refid="classzab_1_1tcp__connector_1a0a793893de57f4c6ed3fd391223f5e26" kind="function"><name>connect</name></member>
-    <member refid="classzab_1_1tcp__connector_1af24084e1e94defe2bfb319bf2a50778f" kind="function"><name>cancel</name></member>
-    <member refid="classzab_1_1tcp__connector_1a31c2b980a67d87e5b56a779efa068cee" kind="function"><name>close</name></member>
-    <member refid="classzab_1_1tcp__connector_1aba467f7f70198e09fa5d3075443b2080" kind="function"><name>last_error</name></member>
-    <member refid="classzab_1_1tcp__connector_1ae173939f47613c9e315d00545d02dc6e" kind="friend"><name>swap</name></member>
-  </compound>
   <compound refid="classzab_1_1tcp__stream" kind="class"><name>zab::tcp_stream</name>
-    <member refid="classzab_1_1tcp__stream_1aa5c2d47f69bb7234ddfaccc5b57671bb" kind="variable"><name>engine_</name></member>
-    <member refid="classzab_1_1tcp__stream_1a8048a333a0a8335dd495f7815ee013e0" kind="variable"><name>cancel_token_</name></member>
-    <member refid="classzab_1_1tcp__stream_1a94ae80d2161136edaf3144f152384c60" kind="variable"><name>connection_</name></member>
-    <member refid="classzab_1_1tcp__stream_1a38bab1ca6ee72cedc206e9023f72bd4a" kind="variable"><name>last_error_</name></member>
-    <member refid="classzab_1_1tcp__stream_1ab2533e557f7503c6308349b9d9124a60" kind="function"><name>tcp_stream</name></member>
-    <member refid="classzab_1_1tcp__stream_1a8d76b99f8fe7202addcf802c9ea87f7c" kind="function"><name>tcp_stream</name></member>
-    <member refid="classzab_1_1tcp__stream_1a455e459357743ba54059555e6078d23b" kind="function"><name>tcp_stream</name></member>
-    <member refid="classzab_1_1tcp__stream_1acab104a5a2bed236db5791aa852326f3" kind="function"><name>tcp_stream</name></member>
-    <member refid="classzab_1_1tcp__stream_1a5f4020bbcb39365ce2db0f90efcc5748" kind="function"><name>~tcp_stream</name></member>
-    <member refid="classzab_1_1tcp__stream_1af139dbb426941c9c5d678a2d5538c4d6" kind="function"><name>shutdown</name></member>
-    <member refid="classzab_1_1tcp__stream_1a5e53580e782155c907eb2e998e13bdb2" kind="function"><name>read</name></member>
-    <member refid="classzab_1_1tcp__stream_1af28b149e8e899f383bdcbef517b86d77" kind="function"><name>read</name></member>
-    <member refid="classzab_1_1tcp__stream_1aa1c25dab0b7a32d3a8443485b27a2f7d" kind="function"><name>read_some</name></member>
-    <member refid="classzab_1_1tcp__stream_1ac50120d1ed9d089bb42b36bb9a5308dc" kind="function"><name>read_some</name></member>
-    <member refid="classzab_1_1tcp__stream_1a1916dac0c1cf2c553e6f6491d0856a65" kind="function"><name>write</name></member>
-    <member refid="classzab_1_1tcp__stream_1adbfda95924f1f306502079c4a27708b7" kind="function"><name>write_fixed</name></member>
-    <member refid="classzab_1_1tcp__stream_1a2f50e10f76644d64bbf21047d082006c" kind="function"><name>read_fixed</name></member>
-    <member refid="classzab_1_1tcp__stream_1a1e47b06770dc9ce38de5b3db9fedd78c" kind="function"><name>get_reader</name></member>
-    <member refid="classzab_1_1tcp__stream_1add1975f3395e7a17bc2f902b01a43b7f" kind="function"><name>get_writer</name></member>
-    <member refid="classzab_1_1tcp__stream_1ac1c8588a719a8a202d4c7ae4c1e725dd" kind="function"><name>cancel</name></member>
-    <member refid="classzab_1_1tcp__stream_1a94888dc5208bd92bb7d818469c38ad80" kind="function"><name>last_error</name></member>
-    <member refid="classzab_1_1tcp__stream_1a25fe7b5e2c8799dde96dedce3243136a" kind="function"><name>clear_last_error</name></member>
-    <member refid="classzab_1_1tcp__stream_1a82e52448ea02bf92ab78cb847017602b" kind="friend"><name>swap</name></member>
+    <member refid="classzab_1_1tcp__stream_1a6d105eebcdffe8a55670aa38a410832b" kind="typedef"><name>net_op</name></member>
+    <member refid="classzab_1_1tcp__stream_1ad51c0d396bac755654e48105e0ff8ae6" kind="variable"><name>kMaxWrite</name></member>
+    <member refid="classzab_1_1tcp__stream_1ae35575e2b2150f3339c343b459e05062" kind="variable"><name>kMaxRead</name></member>
+    <member refid="classzab_1_1tcp__stream_1a2d9a6f362f1cec39e81fd360a4a07fc1" kind="variable"><name>net_op_</name></member>
+    <member refid="classzab_1_1tcp__stream_1a628b4bb0879fba7d8c3b8013464931ad" kind="variable"><name>write_cancel_</name></member>
+    <member refid="classzab_1_1tcp__stream_1ab46f44caecb7e853b81eb1aa3acc4c5b" kind="function"><name>tcp_stream</name></member>
+    <member refid="classzab_1_1tcp__stream_1a70a17d99e5966cbd9c75b96e35e98e06" kind="function"><name>tcp_stream</name></member>
+    <member refid="classzab_1_1tcp__stream_1a4022182e2734441e4b0928c9953fc507" kind="function"><name>tcp_stream</name></member>
+    <member refid="classzab_1_1tcp__stream_1a2f541f55b6408f7ca9a62da5f5eb7b62" kind="function"><name>tcp_stream</name></member>
+    <member refid="classzab_1_1tcp__stream_1a8e35daab6c9288cff3b53bf9866b08f7" kind="function"><name>~tcp_stream</name></member>
+    <member refid="classzab_1_1tcp__stream_1a1c9ce25f4dc7cb901b13dfcbccd531c3" kind="function"><name>operator=</name></member>
+    <member refid="classzab_1_1tcp__stream_1a01805eadfc53e878ecc20b339aefffa9" kind="function"><name>descriptor</name></member>
+    <member refid="classzab_1_1tcp__stream_1a8a02a0d7519b768f2ca0c705f2d0f71d" kind="function"><name>last_error</name></member>
+    <member refid="classzab_1_1tcp__stream_1acd76147d8dc8816c161235d73a4eee49" kind="function"><name>set_error</name></member>
+    <member refid="classzab_1_1tcp__stream_1a38160b75114221e1a51926e9bf05b6ae" kind="function"><name>cancel_read</name></member>
+    <member refid="classzab_1_1tcp__stream_1ab50a6c85d17d8a2e1d11a1deb6ad8a18" kind="function"><name>cancel_write</name></member>
+    <member refid="classzab_1_1tcp__stream_1aaaa427e34ffd07b5819ce53273ed5595" kind="function"><name>close</name></member>
+    <member refid="classzab_1_1tcp__stream_1aefceeef819a636598ca89f7a6c2af12d" kind="function"><name>shutdown</name></member>
+    <member refid="classzab_1_1tcp__stream_1a0b39d1dd6e5cc5760b6eaaf151908dc2" kind="function"><name>read_some</name></member>
+    <member refid="classzab_1_1tcp__stream_1a4e93dcb7788a1c1b0875cead36ff79e9" kind="function"><name>read</name></member>
+    <member refid="classzab_1_1tcp__stream_1ad44ddeb402d85e442f35039d12125050" kind="function"><name>write_some</name></member>
+    <member refid="classzab_1_1tcp__stream_1af1fc29720fdb54eb4b36785a06b2fde0" kind="function"><name>write</name></member>
+    <member refid="classzab_1_1tcp__stream_1a03fc3b73f180c78d779f784d9d57e40a" kind="friend"><name>swap</name></member>
+    <member refid="classzab_1_1tcp__stream_1acbedfae9e2dfba2936867a32e6e0a08b" kind="friend"><name>swap</name></member>
+    <member refid="classzab_1_1tcp__stream_1a16137436d23cf62c5fb16495442a6eba" kind="friend"><name>rebind</name></member>
+    <member refid="classzab_1_1tcp__stream_1abda62e186fedb4a60a1f9dd0f0327802" kind="function"><name>background_cancel_write</name></member>
   </compound>
   <compound refid="structzab_1_1thread__t" kind="struct"><name>zab::thread_t</name>
     <member refid="structzab_1_1thread__t_1a2f161cb6b3e332b4ac5fffa23df942ff" kind="variable"><name>kAnyThread</name></member>
@@ -670,27 +735,22 @@
   <compound refid="classzab_1_1timer__service" kind="class"><name>zab::timer_service</name>
     <member refid="classzab_1_1timer__service_1ae49bfb9d10e7d3221609feb01003eceb" kind="variable"><name>kNanoInSeconds</name></member>
     <member refid="classzab_1_1timer__service_1a374ef43f63e564dffe546b1e09d4a51b" kind="variable"><name>engine_</name></member>
-    <member refid="classzab_1_1timer__service_1a5840bcc38d65d6ac252a3faa27cc9bfb" kind="variable"><name>handle_</name></member>
+    <member refid="classzab_1_1timer__service_1acabead7dddff12dd25f998e04a3d42c8" kind="variable"><name>handle_</name></member>
+    <member refid="classzab_1_1timer__service_1a225b6645931b07404e779cef980bdfd9" kind="variable"><name>waiting_</name></member>
     <member refid="classzab_1_1timer__service_1ac64d88125e7dfe0fae92744429329ed1" kind="variable"><name>read_buffer_</name></member>
-    <member refid="classzab_1_1timer__service_1a6c3d398578b58572757fbc253d8e73ad" kind="variable"><name>timer_fd_</name></member>
     <member refid="classzab_1_1timer__service_1a825d1b2b121d3901e89f39bde9fe0a40" kind="variable"><name>current_</name></member>
-    <member refid="classzab_1_1timer__service_1ab4a3cb71f12d6079897d5f65d8653fca" kind="variable"><name>waiting_</name></member>
+    <member refid="classzab_1_1timer__service_1a1d7e4affa565b6eaaeaa8571701c3dad" kind="variable"><name>timer_fd_</name></member>
     <member refid="classzab_1_1timer__service_1aa1f1fc48c9195284ce3850e95c4fcfbc" kind="function"><name>timer_service</name></member>
     <member refid="classzab_1_1timer__service_1ad894cdff9bf4462f476b09584a4e6cd4" kind="function"><name>timer_service</name></member>
-    <member refid="classzab_1_1timer__service_1aa2fd04e7c0eecfbf6a157f4a901d7d1d" kind="function"><name>timer_service</name></member>
+    <member refid="classzab_1_1timer__service_1ae1a344ce61c7c532c32f27ed27785146" kind="function"><name>timer_service</name></member>
     <member refid="classzab_1_1timer__service_1ad2eca9e5f9d8bcee3ef405b3f3104ff4" kind="function"><name>~timer_service</name></member>
-    <member refid="classzab_1_1timer__service_1ade8c746b8e8f394dcea111bc2f8b1006" kind="function"><name>initialise</name></member>
-    <member refid="classzab_1_1timer__service_1a0f5089ad7169125b3f3ea4beb846df6a" kind="function"><name>wait</name></member>
-    <member refid="classzab_1_1timer__service_1a4ad78bb80c067008cbc3fba8ed697b41" kind="function"><name>wait</name></member>
-    <member refid="classzab_1_1timer__service_1a0851444085bfdfd3847f60f566ca7275" kind="function"><name>wait_proxy</name></member>
+    <member refid="classzab_1_1timer__service_1ae5383c8fde205b177ea2a86428818535" kind="function"><name>wait</name></member>
+    <member refid="classzab_1_1timer__service_1a4eca2b96b962bda74246576431b3261b" kind="function"><name>wait</name></member>
+    <member refid="classzab_1_1timer__service_1ab5b7481e27746de81152a0fbad209954" kind="function"><name>wait</name></member>
+    <member refid="classzab_1_1timer__service_1abff66fba332b197036152707c2ccb88b" kind="function"><name>wait</name></member>
     <member refid="classzab_1_1timer__service_1a09ff967a10902ba2e080c88ae0a40c2a" kind="function"><name>wait_future</name></member>
     <member refid="classzab_1_1timer__service_1a2c4737a5eec1b561d77c2cf57aec32d0" kind="function"><name>run</name></member>
     <member refid="classzab_1_1timer__service_1a95589da21b1e2fe6ec913a706b0dfbea" kind="function"><name>change_timer</name></member>
-  </compound>
-  <compound refid="structzab_1_1details_1_1unwinder" kind="struct"><name>zab::details::unwinder</name>
-    <member refid="structzab_1_1details_1_1unwinder_1a5ecc7014f019ba3cfaf9e41a97a9b440" kind="variable"><name>data_</name></member>
-    <member refid="structzab_1_1details_1_1unwinder_1add1e0cfa0d60146f7a6ca9aaf1d2f54e" kind="function"><name>unwinder</name></member>
-    <member refid="structzab_1_1details_1_1unwinder_1a1e236bfe52f5a98479f03040d436eeb7" kind="function"><name>~unwinder</name></member>
   </compound>
   <compound refid="classzab_1_1visitor__promise" kind="class"><name>zab::visitor_promise</name>
     <member refid="classzab_1_1visitor__promise_1a2204126005c05d0c58bd81dc3e4083cc" kind="variable"><name>defer_</name></member>
@@ -742,43 +802,58 @@
     <member refid="structzab_1_1async__counting__semaphore_3_011_01_4_1_1waiter_1afca54b90816201f78cacd20395de8751" kind="function"><name>await_ready</name></member>
     <member refid="structzab_1_1async__counting__semaphore_3_011_01_4_1_1waiter_1a118ff50369ca5d5db3d9073b3f471c5f" kind="function"><name>await_resume</name></member>
   </compound>
-  <compound refid="namespacestd" kind="namespace"><name>std</name>
-  </compound>
   <compound refid="namespacezab" kind="namespace"><name>zab</name>
     <member refid="for__each_8hpp_1a68b916f4722dbf416c134292c7477f5f" kind="enum"><name>for_ctl</name></member>
     <member refid="for__each_8hpp_1a68b916f4722dbf416c134292c7477f5fab1cec4b5157c0bc35a95b44a2c1a36f0" kind="enumvalue"><name>kBreak</name></member>
     <member refid="for__each_8hpp_1a68b916f4722dbf416c134292c7477f5fa234b41cc8342dc898d9100f4ca35098d" kind="enumvalue"><name>kContinue</name></member>
+    <member refid="stateful__awaitable_8hpp_1ae08f88389e2d5da971f841e3265d3db6" kind="enum"><name>notify_ctl</name></member>
+    <member refid="stateful__awaitable_8hpp_1ae08f88389e2d5da971f841e3265d3db6a3cce98af66db8fecc27ee60ad140eb2b" kind="enumvalue"><name>kSuspend</name></member>
+    <member refid="stateful__awaitable_8hpp_1ae08f88389e2d5da971f841e3265d3db6a4d39cb21151dcb67f4c04220140c34f0" kind="enumvalue"><name>kResume</name></member>
+    <member refid="stateful__awaitable_8hpp_1ae08f88389e2d5da971f841e3265d3db6a25d5606fe07425ea73f245c48612c039" kind="enumvalue"><name>kReady</name></member>
     <member refid="async__semaphore_8hpp_1ab8d7e7aa8d2419caa6aed39301bd4d51" kind="typedef"><name>async_binary_semaphore</name></member>
-    <member refid="event_8hpp_1ac8a21fdfecb60bb7e00dfb6d62feeed5" kind="typedef"><name>event</name></member>
+    <member refid="event_8hpp_1af02f805e6ddec01e962e6f8f57dce11b" kind="typedef"><name>tagged_event</name></member>
     <member refid="simple__future_8hpp_1aadd31e08f84d24f721410cf5c92efaa2" kind="typedef"><name>guaranteed_future</name></member>
     <member refid="visitor__promise_8hpp_1aed43df122c3d1840c2dc205e84d1824c" kind="typedef"><name>visitor_future</name></member>
     <member refid="for__each_8hpp_1ab86f7a59e8aa820062fbfb09262d1c8d" kind="variable"><name>_reusable</name></member>
+    <member refid="memory__type_8hpp_1ac911484e178888ec8e6f66c6b88224f6" kind="variable"><name>MemoryType</name></member>
+    <member refid="event__loop_8cpp_1a9c5dfcb4179a20685d6e5e35b529fb7c" kind="variable"><name>item</name></member>
+    <member refid="event_8hpp_1a19c67561e0b8ecb6e46392d0884caa22" kind="function"><name>is_coroutine</name></member>
+    <member refid="event_8hpp_1a0706421739f18a35fc8a746951803c7f" kind="function"><name>execute_event</name></member>
+    <member refid="event_8hpp_1a321e3df2d4971922cd85c0b4f230e1f4" kind="function"><name>execute_event</name></member>
+    <member refid="event_8hpp_1a065a09c2804946629e4418943a0155f6" kind="function"><name>execute_event</name></member>
+    <member refid="event_8hpp_1a4f100d73214af4023f3d359d42af537b" kind="function"><name>execute_event</name></member>
+    <member refid="event_8hpp_1a3fe35bb965eaf6b67496cf4d14665c9b" kind="function"><name>execute_event</name></member>
+    <member refid="event_8hpp_1a0d1c7ea01ea0c577a4a12d88fdd54aec" kind="function"><name>execute_event</name></member>
+    <member refid="event_8hpp_1af4f2d2bb35e9621e50a4bc1bec344fcd" kind="function"><name>execute_event</name></member>
+    <member refid="event_8hpp_1a1509d9c3fac8ae182ca317d2295b53f5" kind="function"><name>create_generic_event</name></member>
+    <member refid="event_8hpp_1a745d1b9f18f2164440890dc3c33cc3f9" kind="function"><name>create_generic_event</name></member>
+    <member refid="event_8hpp_1aaef40f88663a50734e524c46dfe67448" kind="function"><name>get_event</name></member>
     <member refid="first__of_8hpp_1a56c5f1c9f912bc6781ad8990a752234d" kind="function"><name>first_of</name></member>
     <member refid="for__each_8hpp_1af936a752463508e573b945cd68539ce2" kind="function"><name>requires</name></member>
-    <member refid="pause_8hpp_1ab90d90ea032482bdf2006a0318e7bb62" kind="function"><name>requires</name></member>
+    <member refid="generic__awaitable_8hpp_1a83a1bc258fae0417e522fa100ac95691" kind="function"><name>is_suspend</name></member>
+    <member refid="generic__awaitable_8hpp_1a75a96e5632a7ad9587e7a48f1eb462e7" kind="function"><name>is_ready</name></member>
+    <member refid="generic__awaitable_8hpp_1a684f1fcbc5e30c7d0f4a684cd7a64b7b" kind="function"><name>is_resume</name></member>
+    <member refid="pause_8hpp_1a5ec6e5c2cc57f4a3003cea695973e2a8" kind="function"><name>pause</name></member>
     <member refid="pause_8hpp_1a4eeff482493e4a80f8054e2df402a222" kind="function"><name>unpause</name></member>
     <member refid="pause_8hpp_1a2b20a3101db006fd04b8afafcd7c06ef" kind="function"><name>unpause</name></member>
-    <member refid="strong__types_8hpp_1abac9540a54b97954710d4e0abb6b77c5" kind="function"><name>operator&lt;&lt;</name></member>
+    <member refid="stateful__awaitable_8hpp_1aaa3a1c214d8091a5147d93771b976013" kind="function"><name>is_stateful_suspend</name></member>
+    <member refid="stateful__awaitable_8hpp_1a8139ac8ef412e3cfb716339d712ce5e1" kind="function"><name>is_notify</name></member>
+    <member refid="stateful__awaitable_8hpp_1a1207bb945eca3f44e2190175ea3ab54c" kind="function"><name>stateful_suspension_point</name></member>
+    <member refid="strong__types_8hpp_1a20035a83baa3d8092bb6432914207dac" kind="function"><name>operator&lt;&lt;</name></member>
+    <member refid="tcp__networking_8hpp_1a2fadff169b20c8b5ec32226b72c7ed25" kind="function"><name>tcp_connect</name></member>
     <member refid="wait__for_8hpp_1a616774f77dfa9b6abd36b9908b6d10ff" kind="function"><name>wait_for</name></member>
     <member refid="wait__for_8hpp_1a168c653aff066ad010f15b9aafb08fe3" kind="function"><name>wait_for</name></member>
-    <member refid="yield_8hpp_1a383d0db798c9eb98b287c081ae320c97" kind="function"><name>yield</name></member>
-    <member refid="yield_8hpp_1aad5233dcad320a5538ea8f70d01a6c08" kind="function"><name>yield</name></member>
-    <member refid="yield_8hpp_1a7a8463b3d87768de2433fecf2226e794" kind="function"><name>yield</name></member>
-    <member refid="network__overlay_8cpp_1ae35268e933a8b4e80e32beb88e1cfde4" kind="function"><name>swap</name></member>
-    <member refid="network__overlay_8cpp_1aae97c66d8a00d00a194d828524149ec4" kind="function"><name>swap</name></member>
-    <member refid="tcp__stream_8cpp_1a3547fc5ab49e90332fd1e402559d8b12" kind="function"><name>swap</name></member>
-  </compound>
-  <compound refid="namespacezab_1_1_0d31" kind="namespace"><name>zab::@31</name>
-  </compound>
-  <compound refid="namespacezab_1_1_0d32" kind="namespace"><name>zab::@32</name>
-  </compound>
-  <compound refid="namespacezab_1_1_0d33" kind="namespace"><name>zab::@33</name>
+    <member refid="yield_8hpp_1a9f83f27de681fd37f50914c9fe561812" kind="function"><name>yield</name></member>
+    <member refid="yield_8hpp_1a05abe866a3a440b99d53668a63a1dea4" kind="function"><name>yield</name></member>
+    <member refid="yield_8hpp_1aa1e9252e42ea1942d152395ed03ee305" kind="function"><name>yield</name></member>
+    <member refid="network__operation_8cpp_1abf5a5f706288479fb64aad0d8963e36f" kind="function"><name>swap</name></member>
+    <member refid="tcp__networking_8cpp_1ae35268e933a8b4e80e32beb88e1cfde4" kind="function"><name>swap</name></member>
   </compound>
   <compound refid="namespacezab_1_1_0d35" kind="namespace"><name>zab::@35</name>
   </compound>
   <compound refid="namespacezab_1_1_0d36" kind="namespace"><name>zab::@36</name>
   </compound>
-  <compound refid="namespacezab_1_1_0d37" kind="namespace"><name>zab::@37</name>
+  <compound refid="namespacezab_1_1_0d39" kind="namespace"><name>zab::@39</name>
   </compound>
   <compound refid="namespacezab_1_1details" kind="namespace"><name>zab::details</name>
     <member refid="namespacezab_1_1details_1a6bdb0ede6bbee3549454e674c34247e2" kind="typedef"><name>tuple_cat_t</name></member>
@@ -788,10 +863,22 @@
     <member refid="namespacezab_1_1details_1adff4c450c8e9073e24c2facacff22f81" kind="variable"><name>Execution</name></member>
     <member refid="namespacezab_1_1details_1aae2337a00137bca1ff62f0f369c0f6aa" kind="variable"><name>HasInitialise</name></member>
     <member refid="namespacezab_1_1details_1a041619824392973e2e94a2cde2b9f482" kind="variable"><name>HasMain</name></member>
+    <member refid="namespacezab_1_1details_1a36e4057267b1f67423f5742a6db8c0f2" kind="variable"><name>PassThroughSuspend</name></member>
+    <member refid="namespacezab_1_1details_1a36e3bad96ad53bf2f1a9ec61748274e6" kind="variable"><name>GenericSuspend</name></member>
+    <member refid="namespacezab_1_1details_1aa3bc8724607597e9aadf5cacf4f8694c" kind="variable"><name>PassThroughReady</name></member>
+    <member refid="namespacezab_1_1details_1a5fb79bc0a693d45c1ecc4c47ba2eff7b" kind="variable"><name>GenericReady</name></member>
+    <member refid="namespacezab_1_1details_1ae07ea31f2616caddf138875d35158b70" kind="variable"><name>ReadyReturnsBool</name></member>
+    <member refid="namespacezab_1_1details_1a42e108f34c13bedbff0959bb08a872c1" kind="variable"><name>PassThroughResume</name></member>
+    <member refid="namespacezab_1_1details_1a2a670d939883e4a5de2ea5f5c9cbd2eb" kind="variable"><name>GenericResume</name></member>
+    <member refid="namespacezab_1_1details_1a62abdf752171c91445dbfb0644546a62" kind="variable"><name>NoThrowInvoacablePP</name></member>
     <member refid="namespacezab_1_1details_1aef21cf880c6c43ddb10eef307dcd4b06" kind="variable"><name>Reoccurring</name></member>
     <member refid="namespacezab_1_1details_1a6d1e92df96bb05bc5eb7a436e0a85d24" kind="variable"><name>Returns</name></member>
     <member refid="namespacezab_1_1details_1aa7050466b4c89e44b60b52f432c9dbcb" kind="variable"><name>IsVoid</name></member>
     <member refid="namespacezab_1_1details_1acf52e0f9c6657000e7c4955dc85e51d9" kind="variable"><name>Returnable</name></member>
+    <member refid="namespacezab_1_1details_1a27bca408f8182103c4b2b81644fe1b33" kind="variable"><name>Notifiable</name></member>
+    <member refid="namespacezab_1_1details_1a4ff93f3008751d1ba86821c51512dd12" kind="variable"><name>HasStatefulSuspension</name></member>
+    <member refid="namespacezab_1_1details_1a279fa175f38208789a94d6ae23c680b4" kind="variable"><name>StatefulPassThroughSuspend</name></member>
+    <member refid="namespacezab_1_1details_1af3c37048ad1b29becda8e1905fc2db97" kind="variable"><name>StatefulAwaitable</name></member>
     <member refid="namespacezab_1_1details_1a611370b4f5ad878d0ebefff451f3edce" kind="variable"><name>AwaitableVoid</name></member>
     <member refid="namespacezab_1_1details_1a63a6aa88b35378967509203098d362e9" kind="variable"><name>AwaitableProxy</name></member>
     <member refid="namespacezab_1_1details_1ae2fb31ab8cdcfe21973bb062ce04b0d4" kind="function"><name>init_first_imple</name></member>
@@ -814,15 +901,15 @@
     <member refid="async__file_8hpp_1a1aede935ad89831bc7c253bede1cdc13" kind="function"><name>open_options</name></member>
   </compound>
   <compound refid="namespacezab_1_1order" kind="namespace"><name>zab::order</name>
-    <member refid="strong__types_8hpp_1a999b1309aeb26e6ed1c4873e27b7b28c" kind="function"><name>seconds</name></member>
-    <member refid="strong__types_8hpp_1abc9e62000fe7258d27470383829dbda6" kind="function"><name>milli</name></member>
-    <member refid="strong__types_8hpp_1a8f4040b70c6aa1d7831db4bdc8a4b5df" kind="function"><name>now</name></member>
-    <member refid="strong__types_8hpp_1a19a37d9a144266a961fe6552f1fa9b96" kind="function"><name>in_seconds</name></member>
-    <member refid="strong__types_8hpp_1ab215560c6604d0a5c41da3705d0a1fe3" kind="function"><name>in_milli</name></member>
+    <member refid="namespacezab_1_1order_1a999b1309aeb26e6ed1c4873e27b7b28c" kind="function"><name>seconds</name></member>
+    <member refid="namespacezab_1_1order_1a211983aac9a71263879996e66d374d6e" kind="function"><name>in_seconds</name></member>
+    <member refid="namespacezab_1_1order_1abc9e62000fe7258d27470383829dbda6" kind="function"><name>milli</name></member>
+    <member refid="namespacezab_1_1order_1a16c34a396aa5bdcea7a1cd697f2b90c7" kind="function"><name>in_milli</name></member>
+    <member refid="namespacezab_1_1order_1a8f4040b70c6aa1d7831db4bdc8a4b5df" kind="function"><name>now</name></member>
   </compound>
   <compound refid="namespacezab_1_1thread" kind="namespace"><name>zab::thread</name>
-    <member refid="strong__types_8hpp_1adec24231853b36f68aeb062077edaacb" kind="function"><name>in</name></member>
-    <member refid="strong__types_8hpp_1a7593f86d74665a4229345a6a45964068" kind="function"><name>any</name></member>
+    <member refid="namespacezab_1_1thread_1adec24231853b36f68aeb062077edaacb" kind="function"><name>in</name></member>
+    <member refid="namespacezab_1_1thread_1a7593f86d74665a4229345a6a45964068" kind="function"><name>any</name></member>
   </compound>
   <compound refid="async__barrier_8hpp" kind="file"><name>async_barrier.hpp</name>
   </compound>
@@ -852,11 +939,15 @@
   </compound>
   <compound refid="for__each_8hpp" kind="file"><name>for_each.hpp</name>
   </compound>
+  <compound refid="generic__awaitable_8hpp" kind="file"><name>generic_awaitable.hpp</name>
+  </compound>
   <compound refid="hardware__interface__size_8hpp" kind="file"><name>hardware_interface_size.hpp</name>
     <member refid="hardware__interface__size_8hpp_1a04e6ab9de579e642a59c9c71908419f5" kind="variable"><name>hardware_constructive_interference_size</name></member>
     <member refid="hardware__interface__size_8hpp_1afcfcf0ecf646b16dd2b471dc568cf6c6" kind="variable"><name>hardware_destructive_interference_size</name></member>
   </compound>
-  <compound refid="network__overlay_8hpp" kind="file"><name>network_overlay.hpp</name>
+  <compound refid="memory__type_8hpp" kind="file"><name>memory_type.hpp</name>
+  </compound>
+  <compound refid="network__operation_8hpp" kind="file"><name>network_operation.hpp</name>
   </compound>
   <compound refid="observable_8hpp" kind="file"><name>observable.hpp</name>
   </compound>
@@ -876,7 +967,11 @@
   </compound>
   <compound refid="spin__lock_8hpp" kind="file"><name>spin_lock.hpp</name>
   </compound>
+  <compound refid="stateful__awaitable_8hpp" kind="file"><name>stateful_awaitable.hpp</name>
+  </compound>
   <compound refid="strong__types_8hpp" kind="file"><name>strong_types.hpp</name>
+  </compound>
+  <compound refid="tcp__networking_8hpp" kind="file"><name>tcp_networking.hpp</name>
   </compound>
   <compound refid="tcp__stream_8hpp" kind="file"><name>tcp_stream.hpp</name>
   </compound>
@@ -893,13 +988,13 @@
   <compound refid="event__loop_8cpp" kind="file"><name>event_loop.cpp</name>
     <member refid="event__loop_8cpp_1a43b960a8705f5f2f4d89bacb386aeaa3" kind="define"><name>do_op</name></member>
   </compound>
-  <compound refid="network__overlay_8cpp" kind="file"><name>network_overlay.cpp</name>
+  <compound refid="network__operation_8cpp" kind="file"><name>network_operation.cpp</name>
   </compound>
   <compound refid="pause_8cpp" kind="file"><name>pause.cpp</name>
   </compound>
   <compound refid="signal__handler_8cpp" kind="file"><name>signal_handler.cpp</name>
   </compound>
-  <compound refid="tcp__stream_8cpp" kind="file"><name>tcp_stream.cpp</name>
+  <compound refid="tcp__networking_8cpp" kind="file"><name>tcp_networking.cpp</name>
   </compound>
   <compound refid="timer__service_8cpp" kind="file"><name>timer_service.cpp</name>
   </compound>

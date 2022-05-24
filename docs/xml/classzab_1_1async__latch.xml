@@ -17,7 +17,7 @@
         <location file="/home/donald/rupin/zab/includes/zab/async_latch.hpp" line="94" column="25" bodyfile="/home/donald/rupin/zab/includes/zab/async_latch.hpp" bodystart="94" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classzab_1_1async__latch_1a9b5ae992e292309f094ed7feb9a99ecd" prot="private" static="no" mutable="no">
-        <type>pause_token</type>
+        <type><ref refid="classzab_1_1pause__token" kindref="compound">pause_token</ref></type>
         <definition>pause_token zab::async_latch::complete_</definition>
         <argsstring></argsstring>
         <name>complete_</name>

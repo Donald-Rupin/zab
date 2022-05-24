@@ -74,9 +74,9 @@
         </inbodydescription>
         <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="124" column="34" bodyfile="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" bodystart="124" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classzab_1_1signal__handler_1a200dcba20f7e7e986058f5bf2bd867db" prot="private" static="no" mutable="no">
-        <type><ref refid="structzab_1_1pause__pack" kindref="compound">event_loop::io_handle</ref></type>
-        <definition>event_loop::io_handle zab::signal_handler::handle_</definition>
+      <memberdef kind="variable" id="classzab_1_1signal__handler_1abcca5c38d55128b646f01cab045257f7" prot="private" static="no" mutable="no">
+        <type>event_loop::io_event *</type>
+        <definition>event_loop::io_event* zab::signal_handler::handle_</definition>
         <argsstring></argsstring>
         <name>handle_</name>
         <briefdescription>
@@ -85,7 +85,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="125" column="35" bodyfile="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" bodystart="125" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="125" column="34" bodyfile="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" bodystart="125" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classzab_1_1signal__handler_1a9ffb5971f51976345e8462dca15dbf14" prot="private" static="no" mutable="no">
         <type>int</type>
@@ -173,7 +173,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="85" column="13" bodyfile="/home/donald/rupin/zab/src/signal_handler.cpp" bodystart="72" bodyend="87"/>
+        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="85" column="13" bodyfile="/home/donald/rupin/zab/src/signal_handler.cpp" bodystart="72" bodyend="91"/>
       </memberdef>
       <memberdef kind="function" id="classzab_1_1signal__handler_1a40fc6dc35d4d7b18f627a436d8e8e93f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classzab_1_1async__function" kindref="compound">async_function</ref></type>
@@ -187,7 +187,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="91" column="13" bodyfile="/home/donald/rupin/zab/src/signal_handler.cpp" bodystart="90" bodyend="128"/>
+        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="91" column="13" bodyfile="/home/donald/rupin/zab/src/signal_handler.cpp" bodystart="94" bodyend="132"/>
       </memberdef>
       <memberdef kind="function" id="classzab_1_1signal__handler_1ac2d23fcbed15dd09fc143f92b25faae8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -201,7 +201,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="97" column="13" bodyfile="/home/donald/rupin/zab/src/signal_handler.cpp" bodystart="137" bodyend="154"/>
+        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="97" column="13" bodyfile="/home/donald/rupin/zab/src/signal_handler.cpp" bodystart="141" bodyend="158"/>
       </memberdef>
       <memberdef kind="function" id="classzab_1_1signal__handler_1ae280134e323454b06dc385dc25910682" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
         <type>bool</type>
@@ -256,7 +256,7 @@
         <inbodydescription>
 <para>Its new...</para>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="109" column="13" bodyfile="/home/donald/rupin/zab/src/signal_handler.cpp" bodystart="157" bodyend="188"/>
+        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="109" column="13" bodyfile="/home/donald/rupin/zab/src/signal_handler.cpp" bodystart="161" bodyend="192"/>
       </memberdef>
       <memberdef kind="function" id="classzab_1_1signal__handler_1a625788bc7f3b107dccb5d4500f24bd47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -273,7 +273,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="117" column="13" bodyfile="/home/donald/rupin/zab/src/signal_handler.cpp" bodystart="131" bodyend="134"/>
+        <location file="/home/donald/rupin/zab/includes/zab/signal_handler.hpp" line="117" column="13" bodyfile="/home/donald/rupin/zab/src/signal_handler.cpp" bodystart="135" bodyend="138"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -300,7 +300,7 @@
       <member refid="classzab_1_1signal__handler_1a7170c1dd6b40cf9d20196238f9fb19da" prot="private" virt="non-virtual"><scope>zab::signal_handler</scope><name>engine_</name></member>
       <member refid="classzab_1_1signal__handler_1a9ffb5971f51976345e8462dca15dbf14" prot="private" virt="non-virtual"><scope>zab::signal_handler</scope><name>fds_</name></member>
       <member refid="classzab_1_1signal__handler_1ae280134e323454b06dc385dc25910682" prot="public" virt="non-virtual"><scope>zab::signal_handler</scope><name>handle</name></member>
-      <member refid="classzab_1_1signal__handler_1a200dcba20f7e7e986058f5bf2bd867db" prot="private" virt="non-virtual"><scope>zab::signal_handler</scope><name>handle_</name></member>
+      <member refid="classzab_1_1signal__handler_1abcca5c38d55128b646f01cab045257f7" prot="private" virt="non-virtual"><scope>zab::signal_handler</scope><name>handle_</name></member>
       <member refid="classzab_1_1signal__handler_1a43bf789492554c19983f08183391fe4b" prot="public" virt="non-virtual"><scope>zab::signal_handler</scope><name>handler</name></member>
       <member refid="classzab_1_1signal__handler_1a9aeafe9321638cdb474167ef867783cd" prot="private" virt="non-virtual"><scope>zab::signal_handler</scope><name>handlers_</name></member>
       <member refid="classzab_1_1signal__handler_1abe2f5e96e8da08ac63bd9f78cc56714b" prot="private" virt="non-virtual"><scope>zab::signal_handler</scope><name>handlers_mtx_</name></member>

@@ -1,0 +1,246 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classzab_1_1generic__awaitable" kind="class" language="C++" prot="public">
+    <compoundname>zab::generic_awaitable</compoundname>
+    <derivedcompoundref refid="classzab_1_1stateful__awaitable" prot="private" virt="non-virtual">zab::stateful_awaitable&lt; NotifyType, Functor &gt;</derivedcompoundref>
+    <templateparamlist>
+      <param>
+        <type>typename Functor</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzab_1_1generic__awaitable_1a89b11b71bc08b510141e9e89cf249e95" prot="private" static="no" mutable="no">
+        <type>Functor *</type>
+        <definition>Functor* zab::generic_awaitable&lt; Functor &gt;::functor_</definition>
+        <argsstring></argsstring>
+        <name>functor_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="281" column="21" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzab_1_1generic__awaitable_1a7fd3b6bd505ddc685b0807ac93062391" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::generic_awaitable&lt; Functor &gt;::generic_awaitable</definition>
+        <argsstring>(const generic_awaitable &amp;_copy)=default</argsstring>
+        <name>generic_awaitable</name>
+        <param>
+          <type>const generic_awaitable &amp;</type>
+          <declname>_copy</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="144" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1generic__awaitable_1af11a95dd2ded091a964841d9081535fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zab::generic_awaitable&lt; Functor &gt;::generic_awaitable</definition>
+        <argsstring>(generic_awaitable &amp;&amp;_move)=default</argsstring>
+        <name>generic_awaitable</name>
+        <param>
+          <type>generic_awaitable &amp;&amp;</type>
+          <declname>_move</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="146" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1generic__awaitable_1ac25b79fdafc6f4e618adfd543f0f39f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>generic_awaitable &amp;</type>
+        <definition>generic_awaitable&amp; zab::generic_awaitable&lt; Functor &gt;::operator=</definition>
+        <argsstring>(generic_awaitable &amp;&amp;_move_op)=default</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>generic_awaitable &amp;&amp;</type>
+          <declname>_move_op</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="149" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1generic__awaitable_1ab64626615e9a797f14d27a7e90fd63c9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zab::generic_awaitable&lt; Functor &gt;::generic_awaitable</definition>
+        <argsstring>(Functor *_functor)</argsstring>
+        <name>generic_awaitable</name>
+        <param>
+          <type>Functor *</type>
+          <declname>_functor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="151" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="151" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1generic__awaitable_1a6daf8f8f47663c5a84ea0059c784545c" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename F</type>
+            <defval>Functor</defval>
+          </param>
+          <param>
+            <type>typename PromiseType</type>
+          </param>
+        </templateparamlist>
+        <type>decltype(auto)</type>
+        <definition>decltype(auto) zab::generic_awaitable&lt; Functor &gt;::await_suspend</definition>
+        <argsstring>(std::coroutine_handle&lt; PromiseType &gt; _awaiter) noexcept</argsstring>
+        <name>await_suspend</name>
+        <param>
+          <type>std::coroutine_handle&lt; PromiseType &gt;</type>
+          <declname>_awaiter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="155" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="155" bodyend="189"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1generic__awaitable_1a6645f07443ca5c4b1eb6404432ca6e46" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename F</type>
+            <defval>Functor</defval>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool zab::generic_awaitable&lt; Functor &gt;::await_ready</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>await_ready</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="193" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="193" bodyend="217"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1generic__awaitable_1a4f5494e58b7123c8b84659ff2b4fae0a" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename F</type>
+            <defval>Functor</defval>
+          </param>
+        </templateparamlist>
+        <type>decltype(auto)</type>
+        <definition>decltype(auto) zab::generic_awaitable&lt; Functor &gt;::await_resume</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>await_resume</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="221" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="221" bodyend="235"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1generic__awaitable_1a29d8ccbf15f39cef39c39d8ebcbce4bd" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>Functor *</type>
+        <definition>Functor* zab::generic_awaitable&lt; Functor &gt;::functor</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>functor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="238" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="238" bodyend="241"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classzab_1_1generic__awaitable_1a91b7493e3abf4a6c3a572809db416b61" prot="protected" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zab::generic_awaitable&lt; Functor &gt;::handle_suspend</definition>
+        <argsstring>(bool _result) noexcept</argsstring>
+        <name>handle_suspend</name>
+        <param>
+          <type>bool</type>
+          <declname>_result</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="246" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="246" bodyend="249"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1generic__awaitable_1a6aa7bf7c890c2fcefaf799d9752e4ceb" prot="protected" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>std::coroutine_handle</type>
+        <definition>std::coroutine_handle zab::generic_awaitable&lt; Functor &gt;::handle_suspend</definition>
+        <argsstring>(std::coroutine_handle&lt;&gt; _result) noexcept</argsstring>
+        <name>handle_suspend</name>
+        <param>
+          <type>std::coroutine_handle&lt;&gt;</type>
+          <declname>_result</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="252" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="252" bodyend="255"/>
+      </memberdef>
+      <memberdef kind="function" id="classzab_1_1generic__awaitable_1a80f578af624e2fc23907bec737d21b3d" prot="protected" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>std::coroutine_handle</type>
+        <definition>std::coroutine_handle zab::generic_awaitable&lt; Functor &gt;::handle_suspend</definition>
+        <argsstring>(tagged_event _result) noexcept</argsstring>
+        <name>handle_suspend</name>
+        <param>
+          <type>tagged_event</type>
+          <declname>_result</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="258" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="258" bodyend="277"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" line="140" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/generic_awaitable.hpp" bodystart="140" bodyend="282"/>
+    <listofallmembers>
+      <member refid="classzab_1_1generic__awaitable_1a6645f07443ca5c4b1eb6404432ca6e46" prot="public" virt="non-virtual"><scope>zab::generic_awaitable</scope><name>await_ready</name></member>
+      <member refid="classzab_1_1generic__awaitable_1a4f5494e58b7123c8b84659ff2b4fae0a" prot="public" virt="non-virtual"><scope>zab::generic_awaitable</scope><name>await_resume</name></member>
+      <member refid="classzab_1_1generic__awaitable_1a6daf8f8f47663c5a84ea0059c784545c" prot="public" virt="non-virtual"><scope>zab::generic_awaitable</scope><name>await_suspend</name></member>
+      <member refid="classzab_1_1generic__awaitable_1a29d8ccbf15f39cef39c39d8ebcbce4bd" prot="public" virt="non-virtual"><scope>zab::generic_awaitable</scope><name>functor</name></member>
+      <member refid="classzab_1_1generic__awaitable_1a89b11b71bc08b510141e9e89cf249e95" prot="private" virt="non-virtual"><scope>zab::generic_awaitable</scope><name>functor_</name></member>
+      <member refid="classzab_1_1generic__awaitable_1a7fd3b6bd505ddc685b0807ac93062391" prot="public" virt="non-virtual"><scope>zab::generic_awaitable</scope><name>generic_awaitable</name></member>
+      <member refid="classzab_1_1generic__awaitable_1af11a95dd2ded091a964841d9081535fc" prot="public" virt="non-virtual"><scope>zab::generic_awaitable</scope><name>generic_awaitable</name></member>
+      <member refid="classzab_1_1generic__awaitable_1ab64626615e9a797f14d27a7e90fd63c9" prot="public" virt="non-virtual"><scope>zab::generic_awaitable</scope><name>generic_awaitable</name></member>
+      <member refid="classzab_1_1generic__awaitable_1a91b7493e3abf4a6c3a572809db416b61" prot="protected" virt="non-virtual"><scope>zab::generic_awaitable</scope><name>handle_suspend</name></member>
+      <member refid="classzab_1_1generic__awaitable_1a6aa7bf7c890c2fcefaf799d9752e4ceb" prot="protected" virt="non-virtual"><scope>zab::generic_awaitable</scope><name>handle_suspend</name></member>
+      <member refid="classzab_1_1generic__awaitable_1a80f578af624e2fc23907bec737d21b3d" prot="protected" virt="non-virtual"><scope>zab::generic_awaitable</scope><name>handle_suspend</name></member>
+      <member refid="classzab_1_1generic__awaitable_1ac25b79fdafc6f4e618adfd543f0f39f7" prot="public" virt="non-virtual"><scope>zab::generic_awaitable</scope><name>operator=</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,73 +1,34 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>async_counting_semaphore &mdash; ZAB 0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="async_binary_semaphore" href="async_binary_semaphore.html" />
     <link rel="prev" title="pause_token" href="pause_token.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> ZAB
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -75,19 +36,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Visit:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -108,81 +58,37 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">ZAB</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="lib_root.html">ZAB Documentation</a> &raquo;</li>
-        
           <li><a href="async_sync.html">Asynchronous Synchronisation</a> &raquo;</li>
-        
       <li>async_counting_semaphore</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/lib/async_counting_semaphore.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
 
-<div class="section" id="async-counting-semaphore">
-<span id="id1"></span><h1>async_counting_semaphore<a class="headerlink" href="#async-counting-semaphore" title="Permalink to this headline">¶</a></h1>
+<section id="async-counting-semaphore">
+<span id="id1"></span><h1>async_counting_semaphore<a class="headerlink" href="#async-counting-semaphore" title="Permalink to this headline"></a></h1>
 <hr class="docutils" />
 <p>A <code class="docutils literal notranslate"><span class="pre">async_counting_semaphore</span></code> is the equivalent of the <a class="reference external" href="https://en.cppreference.com/w/cpp/thread/counting_semaphore">std::counting_semaphore</a>.</p>
 <blockquote>
@@ -192,111 +98,111 @@
 <p><code class="docutils literal notranslate"><span class="pre">try_acquire_for()</span></code> and <code class="docutils literal notranslate"><span class="pre">try_acquire_until()</span></code> are not included in this interface.</p>
 <hr class="docutils" />
 <div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">guaranteed_future</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span>
-<span class="n">your_class</span><span class="o">::</span><span class="n">to_wake_up</span><span class="p">();</span>
+<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id2" title="Permalink to this code"></a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">guaranteed_future</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="w"></span>
+<span class="n">your_class</span><span class="o">::</span><span class="n">to_wake_up</span><span class="p">();</span><span class="w"></span>
 
-<span class="n">async_function</span><span class="o">&lt;&gt;</span>
-<span class="n">your_class</span><span class="o">::</span><span class="n">do_work</span><span class="p">(</span><span class="n">thread_t</span> <span class="n">_thread</span><span class="p">,</span> <span class="n">async_counting_semaphore</span><span class="o">&lt;&gt;&amp;</span> <span class="n">_sem</span><span class="p">)</span>
-<span class="p">{</span>
-   <span class="cm">/* Move into our thread */</span>
-   <span class="k">co_await</span> <span class="nf">yield</span><span class="p">(</span><span class="n">_thread</span><span class="p">);</span>
+<span class="n">async_function</span><span class="o">&lt;&gt;</span><span class="w"></span>
+<span class="n">your_class</span><span class="o">::</span><span class="n">do_work</span><span class="p">(</span><span class="n">thread_t</span><span class="w"> </span><span class="n">_thread</span><span class="p">,</span><span class="w"> </span><span class="n">async_counting_semaphore</span><span class="o">&lt;&gt;&amp;</span><span class="w"> </span><span class="n">_sem</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="cm">/* Move into our thread */</span><span class="w"></span>
+<span class="w">   </span><span class="k">co_await</span><span class="w"> </span><span class="n">yield</span><span class="p">(</span><span class="n">_thread</span><span class="p">);</span><span class="w"></span>
 
-   <span class="cm">/* Consumer loop wont block as it suspends... */</span>
-   <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span>
-   <span class="p">{</span>
+<span class="w">   </span><span class="cm">/* Consumer loop wont block as it suspends... */</span><span class="w"></span>
+<span class="w">   </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="p">{</span><span class="w"></span>
 
-      <span class="cm">/* Process work as it comes in... */</span>
-      <span class="k">co_await</span> <span class="n">_sem</span><span class="p">;</span>
+<span class="w">      </span><span class="cm">/* Process work as it comes in... */</span><span class="w"></span>
+<span class="w">      </span><span class="k">co_await</span><span class="w"> </span><span class="n">_sem</span><span class="p">;</span><span class="w"></span>
 
-      <span class="cm">/* Do some work... */</span>
-   <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="cm">/* Do some work... */</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="n">async_function</span><span class="o">&lt;&gt;</span>
-<span class="n">your_class</span><span class="o">::</span><span class="n">queue_work</span><span class="p">()</span>
-<span class="p">{</span>
-   <span class="cm">/* Move into thread 0 */</span>
-   <span class="k">co_await</span> <span class="nf">yield</span><span class="p">(</span><span class="n">thread_t</span><span class="p">{</span><span class="mi">0</span><span class="p">})</span>
+<span class="n">async_function</span><span class="o">&lt;&gt;</span><span class="w"></span>
+<span class="n">your_class</span><span class="o">::</span><span class="n">queue_work</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="cm">/* Move into thread 0 */</span><span class="w"></span>
+<span class="w">   </span><span class="k">co_await</span><span class="w"> </span><span class="n">yield</span><span class="p">(</span><span class="n">thread_t</span><span class="p">{</span><span class="mi">0</span><span class="p">})</span><span class="w"></span>
 
-   <span class="n">async_counting_semaphore</span><span class="o">&lt;&gt;</span> <span class="n">sem</span><span class="p">(</span><span class="n">engine_</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="w">   </span><span class="n">async_counting_semaphore</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">sem</span><span class="p">(</span><span class="n">engine_</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
 
-   <span class="cm">/* Create worker [logical] threads 1 - n */</span>
-   <span class="k">const</span> <span class="k">auto</span> <span class="n">threads</span> <span class="o">=</span> <span class="n">engine_</span><span class="o">-&gt;</span><span class="n">number_of_workers</span><span class="p">();</span>
-   <span class="n">assert</span><span class="p">(</span><span class="n">t</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">);</span>
-   <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">uint16_t</span> <span class="n">t</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">threads</span><span class="p">;</span> <span class="o">++</span><span class="n">t</span><span class="p">)</span>
-   <span class="p">{</span>
-      <span class="n">do_work</span><span class="p">(</span><span class="n">thread_t</span><span class="p">{</span><span class="n">t</span><span class="p">},</span> <span class="n">sem</span><span class="p">);</span>
-   <span class="p">}</span>
+<span class="w">   </span><span class="cm">/* Create worker [logical] threads 1 - n */</span><span class="w"></span>
+<span class="w">   </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">threads</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">engine_</span><span class="o">-&gt;</span><span class="n">number_of_workers</span><span class="p">();</span><span class="w"></span>
+<span class="w">   </span><span class="n">assert</span><span class="p">(</span><span class="n">t</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">threads</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">t</span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">do_work</span><span class="p">(</span><span class="n">thread_t</span><span class="p">{</span><span class="n">t</span><span class="p">},</span><span class="w"> </span><span class="n">sem</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
 
-   <span class="cm">/* Producer loop wont block as it suspends... */</span>
-   <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span>
-   <span class="p">{</span>
-      <span class="cm">/* Get work from somewhere */</span>
-      <span class="k">auto</span> <span class="n">to_wake_up</span> <span class="o">=</span> <span class="k">co_await</span> <span class="n">to_wake_up</span><span class="p">();</span>
+<span class="w">   </span><span class="cm">/* Producer loop wont block as it suspends... */</span><span class="w"></span>
+<span class="w">   </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="cm">/* Get work from somewhere */</span><span class="w"></span>
+<span class="w">      </span><span class="k">auto</span><span class="w"> </span><span class="n">to_wake_up</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">co_await</span><span class="w"> </span><span class="n">to_wake_up</span><span class="p">();</span><span class="w"></span>
 
-      <span class="cm">/* notify to wake up threads */</span>
-      <span class="n">sem</span><span class="p">.</span><span class="n">release</span><span class="p">(</span><span class="n">to_wake_up</span><span class="p">);</span>
-   <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="cm">/* notify to wake up threads */</span><span class="w"></span>
+<span class="w">      </span><span class="n">sem</span><span class="p">.</span><span class="n">release</span><span class="p">(</span><span class="n">to_wake_up</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <hr class="docutils" />
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4I_NSt9ptrdiff_tEEN3zab24async_counting_semaphoreE">
-<span id="_CPPv3I_NSt9ptrdiff_tEEN3zab24async_counting_semaphoreE"></span><span id="_CPPv2I_NSt9ptrdiff_tEEN3zab24async_counting_semaphoreE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ptrdiff_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Count</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1async__counting__semaphore"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">async_counting_semaphore</span></span></span><a class="headerlink" href="#_CPPv4I_NSt9ptrdiff_tEEN3zab24async_counting_semaphoreE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I_NSt9ptrdiff_tEEN3zab24async_counting_semaphoreE"></span><span id="_CPPv2I_NSt9ptrdiff_tEEN3zab24async_counting_semaphoreE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ptrdiff_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Count</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classzab_1_1async__counting__semaphore"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">async_counting_semaphore</span></span></span><a class="headerlink" href="#_CPPv4I_NSt9ptrdiff_tEEN3zab24async_counting_semaphoreE" title="Permalink to this definition"></a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab24async_counting_semaphore24async_counting_semaphoreEP6engineNSt9ptrdiff_tE">
-<span id="_CPPv3N3zab24async_counting_semaphore24async_counting_semaphoreEP6engineNSt9ptrdiff_tE"></span><span id="_CPPv2N3zab24async_counting_semaphore24async_counting_semaphoreEP6engineNSt9ptrdiff_tE"></span><span id="zab::async_counting_semaphore::async_counting_semaphore__engineP.std::ptrdiff_t"></span><span class="target" id="classzab_1_1async__counting__semaphore_1a2a4cdde546329fa0660b0d6414ac22b8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">async_counting_semaphore</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ptrdiff_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_start</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphore24async_counting_semaphoreEP6engineNSt9ptrdiff_tE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab24async_counting_semaphore24async_counting_semaphoreEP6engineNSt9ptrdiff_tE"></span><span id="_CPPv2N3zab24async_counting_semaphore24async_counting_semaphoreEP6engineNSt9ptrdiff_tE"></span><span id="zab::async_counting_semaphore::async_counting_semaphore__engineP.std::ptrdiff_t"></span><span class="target" id="classzab_1_1async__counting__semaphore_1a2a4cdde546329fa0660b0d6414ac22b8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">async_counting_semaphore</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ptrdiff_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_start</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphore24async_counting_semaphoreEP6engineNSt9ptrdiff_tE" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab24async_counting_semaphore24async_counting_semaphoreEP6engine">
-<span id="_CPPv3N3zab24async_counting_semaphore24async_counting_semaphoreEP6engine"></span><span id="_CPPv2N3zab24async_counting_semaphore24async_counting_semaphoreEP6engine"></span><span id="zab::async_counting_semaphore::async_counting_semaphore__engineP"></span><span class="target" id="classzab_1_1async__counting__semaphore_1aedf5efe3262844b949150505fb71b318"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">async_counting_semaphore</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphore24async_counting_semaphoreEP6engine" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab24async_counting_semaphore24async_counting_semaphoreEP6engine"></span><span id="_CPPv2N3zab24async_counting_semaphore24async_counting_semaphoreEP6engine"></span><span id="zab::async_counting_semaphore::async_counting_semaphore__engineP"></span><span class="target" id="classzab_1_1async__counting__semaphore_1aedf5efe3262844b949150505fb71b318"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">async_counting_semaphore</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphore24async_counting_semaphoreEP6engine" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab24async_counting_semaphoreD0Ev">
-<span id="_CPPv3N3zab24async_counting_semaphoreD0Ev"></span><span id="_CPPv2N3zab24async_counting_semaphoreD0Ev"></span><span id="zab::async_counting_semaphore::~async_counting_semaphore"></span><span class="target" id="classzab_1_1async__counting__semaphore_1afd961b404892c6a1b3e8e05a7a056985"></span><span class="sig-name descname"><span class="n"><span class="pre">~async_counting_semaphore</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphoreD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab24async_counting_semaphoreD0Ev"></span><span id="_CPPv2N3zab24async_counting_semaphoreD0Ev"></span><span id="zab::async_counting_semaphore::~async_counting_semaphore"></span><span class="target" id="classzab_1_1async__counting__semaphore_1afd961b404892c6a1b3e8e05a7a056985"></span><span class="sig-name descname"><span class="n"><span class="pre">~async_counting_semaphore</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphoreD0Ev" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab24async_counting_semaphore10try_aquireEv">
-<span id="_CPPv3N3zab24async_counting_semaphore10try_aquireEv"></span><span id="_CPPv2N3zab24async_counting_semaphore10try_aquireEv"></span><span id="zab::async_counting_semaphore::try_aquire"></span><span class="target" id="classzab_1_1async__counting__semaphore_1af72ebe157d97af92eb7134d2ada43d7d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">try_aquire</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphore10try_aquireEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab24async_counting_semaphore10try_aquireEv"></span><span id="_CPPv2N3zab24async_counting_semaphore10try_aquireEv"></span><span id="zab::async_counting_semaphore::try_aquire"></span><span class="target" id="classzab_1_1async__counting__semaphore_1af72ebe157d97af92eb7134d2ada43d7d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">try_aquire</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphore10try_aquireEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab24async_counting_semaphore7releaseENSt9ptrdiff_tE">
-<span id="_CPPv3N3zab24async_counting_semaphore7releaseENSt9ptrdiff_tE"></span><span id="_CPPv2N3zab24async_counting_semaphore7releaseENSt9ptrdiff_tE"></span><span id="zab::async_counting_semaphore::release__std::ptrdiff_t"></span><span class="target" id="classzab_1_1async__counting__semaphore_1a491e221959be3af359a9aec9249c256a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">release</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ptrdiff_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_update</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphore7releaseENSt9ptrdiff_tE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab24async_counting_semaphore7releaseENSt9ptrdiff_tE"></span><span id="_CPPv2N3zab24async_counting_semaphore7releaseENSt9ptrdiff_tE"></span><span id="zab::async_counting_semaphore::release__std::ptrdiff_t"></span><span class="target" id="classzab_1_1async__counting__semaphore_1a491e221959be3af359a9aec9249c256a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">release</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ptrdiff_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_update</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphore7releaseENSt9ptrdiff_tE" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab24async_counting_semaphorecv8co_awaitEv">
-<span id="_CPPv3N3zab24async_counting_semaphorecv8co_awaitEv"></span><span id="_CPPv2N3zab24async_counting_semaphorecv8co_awaitEv"></span><span id="zab::async_counting_semaphore::castto-co_await-operator"></span><span class="target" id="classzab_1_1async__counting__semaphore_1a6be4bf637b661070e46a991c2a57366b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab24async_counting_semaphore6waiterE" title="zab::async_counting_semaphore::waiter"><span class="n"><span class="pre">waiter</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="n"><span class="pre">co_await</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphorecv8co_awaitEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab24async_counting_semaphorecv8co_awaitEv"></span><span id="_CPPv2N3zab24async_counting_semaphorecv8co_awaitEv"></span><span id="zab::async_counting_semaphore::castto-co_await-operator"></span><span class="target" id="classzab_1_1async__counting__semaphore_1a6be4bf637b661070e46a991c2a57366b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3zab24async_counting_semaphore6waiterE" title="zab::async_counting_semaphore::waiter"><span class="n"><span class="pre">waiter</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="n"><span class="pre">co_await</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphorecv8co_awaitEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab24async_counting_semaphore6waiterE">
-<span id="_CPPv3N3zab24async_counting_semaphore6waiterE"></span><span id="_CPPv2N3zab24async_counting_semaphore6waiterE"></span><span id="zab::async_counting_semaphore::waiter"></span><span class="target" id="structzab_1_1async__counting__semaphore_1_1waiter"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">waiter</span></span></span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphore6waiterE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab24async_counting_semaphore6waiterE"></span><span id="_CPPv2N3zab24async_counting_semaphore6waiterE"></span><span id="zab::async_counting_semaphore::waiter"></span><span class="target" id="structzab_1_1async__counting__semaphore_1_1waiter"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">waiter</span></span></span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphore6waiterE" title="Permalink to this definition"></a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab24async_counting_semaphore6waiter13await_suspendENSt16coroutine_handleIEE">
-<span id="_CPPv3N3zab24async_counting_semaphore6waiter13await_suspendENSt16coroutine_handleIEE"></span><span id="_CPPv2N3zab24async_counting_semaphore6waiter13await_suspendENSt16coroutine_handleIEE"></span><span id="zab::async_counting_semaphore::waiter::await_suspend__std::coroutine_handle::"></span><span class="target" id="structzab_1_1async__counting__semaphore_1_1waiter_1a5a0e5a3f8d6ee87f1ecf04cf6e6b9a74"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">await_suspend</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">coroutine_handle</span></span><span class="p"><span class="pre">&lt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_awaiter</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphore6waiter13await_suspendENSt16coroutine_handleIEE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab24async_counting_semaphore6waiter13await_suspendENSt16coroutine_handleIEE"></span><span id="_CPPv2N3zab24async_counting_semaphore6waiter13await_suspendENSt16coroutine_handleIEE"></span><span id="zab::async_counting_semaphore::waiter::await_suspend__std::coroutine_handle::"></span><span class="target" id="structzab_1_1async__counting__semaphore_1_1waiter_1a5a0e5a3f8d6ee87f1ecf04cf6e6b9a74"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">await_suspend</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">coroutine_handle</span></span><span class="p"><span class="pre">&lt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_awaiter</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphore6waiter13await_suspendENSt16coroutine_handleIEE" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3zab24async_counting_semaphore6waiter11await_readyEv">
-<span id="_CPPv3NK3zab24async_counting_semaphore6waiter11await_readyEv"></span><span id="_CPPv2NK3zab24async_counting_semaphore6waiter11await_readyEv"></span><span id="zab::async_counting_semaphore::waiter::await_readyC"></span><span class="target" id="structzab_1_1async__counting__semaphore_1_1waiter_1a4376740ac639748ebb6ac6166b98c7ca"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">await_ready</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3zab24async_counting_semaphore6waiter11await_readyEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3zab24async_counting_semaphore6waiter11await_readyEv"></span><span id="_CPPv2NK3zab24async_counting_semaphore6waiter11await_readyEv"></span><span id="zab::async_counting_semaphore::waiter::await_readyC"></span><span class="target" id="structzab_1_1async__counting__semaphore_1_1waiter_1a4376740ac639748ebb6ac6166b98c7ca"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">await_ready</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3zab24async_counting_semaphore6waiter11await_readyEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3zab24async_counting_semaphore6waiter12await_resumeEv">
-<span id="_CPPv3NK3zab24async_counting_semaphore6waiter12await_resumeEv"></span><span id="_CPPv2NK3zab24async_counting_semaphore6waiter12await_resumeEv"></span><span id="zab::async_counting_semaphore::waiter::await_resumeC"></span><span class="target" id="structzab_1_1async__counting__semaphore_1_1waiter_1ab8f900fe060357f88e02e8a16a6afecd"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">await_resume</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3zab24async_counting_semaphore6waiter12await_resumeEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3zab24async_counting_semaphore6waiter12await_resumeEv"></span><span id="_CPPv2NK3zab24async_counting_semaphore6waiter12await_resumeEv"></span><span id="zab::async_counting_semaphore::waiter::await_resumeC"></span><span class="target" id="structzab_1_1async__counting__semaphore_1_1waiter_1ab8f900fe060357f88e02e8a16a6afecd"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">await_resume</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3zab24async_counting_semaphore6waiter12await_resumeEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -304,22 +210,22 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab24async_counting_semaphore6waiter10semaphore_E">
-<span id="_CPPv3N3zab24async_counting_semaphore6waiter10semaphore_E"></span><span id="_CPPv2N3zab24async_counting_semaphore6waiter10semaphore_E"></span><span id="zab::async_counting_semaphore::waiter::semaphore___async_counting_semaphoreR"></span><span class="target" id="structzab_1_1async__counting__semaphore_1_1waiter_1a25861a055e334a19bc125fbf1f261080"></span><a class="reference internal" href="#_CPPv4I_NSt9ptrdiff_tEEN3zab24async_counting_semaphoreE" title="zab::async_counting_semaphore"><span class="n"><span class="pre">async_counting_semaphore</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">semaphore_</span></span></span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphore6waiter10semaphore_E" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab24async_counting_semaphore6waiter10semaphore_E"></span><span id="_CPPv2N3zab24async_counting_semaphore6waiter10semaphore_E"></span><span id="zab::async_counting_semaphore::waiter::semaphore___async_counting_semaphoreR"></span><span class="target" id="structzab_1_1async__counting__semaphore_1_1waiter_1a25861a055e334a19bc125fbf1f261080"></span><a class="reference internal" href="#_CPPv4I_NSt9ptrdiff_tEEN3zab24async_counting_semaphoreE" title="zab::async_counting_semaphore"><span class="n"><span class="pre">async_counting_semaphore</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">semaphore_</span></span></span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphore6waiter10semaphore_E" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab24async_counting_semaphore6waiter7thread_E">
-<span id="_CPPv3N3zab24async_counting_semaphore6waiter7thread_E"></span><span id="_CPPv2N3zab24async_counting_semaphore6waiter7thread_E"></span><span id="zab::async_counting_semaphore::waiter::thread___thread_t"></span><span class="target" id="structzab_1_1async__counting__semaphore_1_1waiter_1aac7b5e8506c95489435c35c930588a42"></span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">thread_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphore6waiter7thread_E" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab24async_counting_semaphore6waiter7thread_E"></span><span id="_CPPv2N3zab24async_counting_semaphore6waiter7thread_E"></span><span id="zab::async_counting_semaphore::waiter::thread___thread_t"></span><span class="target" id="structzab_1_1async__counting__semaphore_1_1waiter_1aac7b5e8506c95489435c35c930588a42"></span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">thread_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphore6waiter7thread_E" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab24async_counting_semaphore6waiter13next_waiting_E">
-<span id="_CPPv3N3zab24async_counting_semaphore6waiter13next_waiting_E"></span><span id="_CPPv2N3zab24async_counting_semaphore6waiter13next_waiting_E"></span><span id="zab::async_counting_semaphore::waiter::next_waiting___waiterP"></span><span class="target" id="structzab_1_1async__counting__semaphore_1_1waiter_1ada75fba6f150d7408fd93d2f67be108f"></span><a class="reference internal" href="#_CPPv4N3zab24async_counting_semaphore6waiterE" title="zab::async_counting_semaphore::waiter"><span class="n"><span class="pre">waiter</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">next_waiting_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphore6waiter13next_waiting_E" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab24async_counting_semaphore6waiter13next_waiting_E"></span><span id="_CPPv2N3zab24async_counting_semaphore6waiter13next_waiting_E"></span><span id="zab::async_counting_semaphore::waiter::next_waiting___waiterP"></span><span class="target" id="structzab_1_1async__counting__semaphore_1_1waiter_1ada75fba6f150d7408fd93d2f67be108f"></span><a class="reference internal" href="#_CPPv4N3zab24async_counting_semaphore6waiterE" title="zab::async_counting_semaphore::waiter"><span class="n"><span class="pre">waiter</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">next_waiting_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphore6waiter13next_waiting_E" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab24async_counting_semaphore6waiter7handle_E">
-<span id="_CPPv3N3zab24async_counting_semaphore6waiter7handle_E"></span><span id="_CPPv2N3zab24async_counting_semaphore6waiter7handle_E"></span><span id="zab::async_counting_semaphore::waiter::handle___std::coroutine_handle"></span><span class="target" id="structzab_1_1async__counting__semaphore_1_1waiter_1a4869697a871c3d71676880b03ceb97ec"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">coroutine_handle</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">handle_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphore6waiter7handle_E" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab24async_counting_semaphore6waiter7handle_E"></span><span id="_CPPv2N3zab24async_counting_semaphore6waiter7handle_E"></span><span id="zab::async_counting_semaphore::waiter::handle___std::coroutine_handle"></span><span class="target" id="structzab_1_1async__counting__semaphore_1_1waiter_1a4869697a871c3d71676880b03ceb97ec"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">coroutine_handle</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">handle_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N3zab24async_counting_semaphore6waiter7handle_E" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -327,7 +233,7 @@
 
 </dd></dl>
 
-</div>
+</section>
 
 <hr>
 </hr>
@@ -343,50 +249,33 @@
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="async_binary_semaphore.html" class="btn btn-neutral float-right" title="async_binary_semaphore" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="pause_token.html" class="btn btn-neutral float-left" title="pause_token" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="async_binary_semaphore.html" class="btn btn-neutral float-right" title="async_binary_semaphore" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2022, Donald Rupin.
-
-    </p>
+    <p>&#169; Copyright 2022, Donald Rupin.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

@@ -11,12 +11,13 @@
         <name>thread_</name>
         <initializer>= <ref refid="structzab_1_1thread__t" kindref="compound">thread_t</ref>{}</initializer>
         <briefdescription>
+<para>The thread to resume the coroutine in. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/pause.hpp" line="60" column="37" bodyfile="/home/donald/rupin/zab/includes/zab/pause.hpp" bodystart="60" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/pause.hpp" line="61" column="22" bodyfile="/home/donald/rupin/zab/includes/zab/pause.hpp" bodystart="61" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structzab_1_1pause__pack_1a358fb4c6aaa663ec11d1a8b9708ecb65" prot="public" static="no" mutable="no">
         <type>std::intptr_t</type>
@@ -25,38 +26,33 @@
         <name>data_</name>
         <initializer>= 0</initializer>
         <briefdescription>
+<para>Any data that you wish to pass to the coroutine. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/pause.hpp" line="61" column="37" bodyfile="/home/donald/rupin/zab/includes/zab/pause.hpp" bodystart="61" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/pause.hpp" line="67" column="27" bodyfile="/home/donald/rupin/zab/includes/zab/pause.hpp" bodystart="67" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structzab_1_1pause__pack_1a10a3ca5fa635edd8f0a4e1360f401f05" prot="public" static="no" mutable="no">
-        <type>std::coroutine_handle</type>
-        <definition>std::coroutine_handle zab::pause_pack::handle_</definition>
+      <memberdef kind="variable" id="structzab_1_1pause__pack_1a857039a16ec777c2b8997c99fcb75125" prot="public" static="no" mutable="no">
+        <type>tagged_event</type>
+        <definition>tagged_event zab::pause_pack::handle_</definition>
         <argsstring></argsstring>
         <name>handle_</name>
-        <initializer>= nullptr</initializer>
         <briefdescription>
+<para>The coroutine to resume. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/pause.hpp" line="62" column="14" bodyfile="/home/donald/rupin/zab/includes/zab/pause.hpp" bodystart="62" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/pause.hpp" line="73" column="26" bodyfile="/home/donald/rupin/zab/includes/zab/pause.hpp" bodystart="73" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Data pack for pausing coroutines. </para>
     </briefdescription>
     <detaileddescription>
-<para><itemizedlist>
-<listitem><para>thread_: The thread to resume the coroutine in.</para>
-</listitem><listitem><para>data_ : Any data that you wish to pass to the coroutine.</para>
-</listitem><listitem><para>handle_: The coroutine to resume. </para>
-</listitem></itemizedlist>
-</para>
     </detaileddescription>
     <collaborationgraph>
       <node id="2">
@@ -71,10 +67,10 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/donald/rupin/zab/includes/zab/pause.hpp" line="59" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/pause.hpp" bodystart="59" bodyend="63"/>
+    <location file="/home/donald/rupin/zab/includes/zab/pause.hpp" line="55" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/pause.hpp" bodystart="55" bodyend="74"/>
     <listofallmembers>
       <member refid="structzab_1_1pause__pack_1a358fb4c6aaa663ec11d1a8b9708ecb65" prot="public" virt="non-virtual"><scope>zab::pause_pack</scope><name>data_</name></member>
-      <member refid="structzab_1_1pause__pack_1a10a3ca5fa635edd8f0a4e1360f401f05" prot="public" virt="non-virtual"><scope>zab::pause_pack</scope><name>handle_</name></member>
+      <member refid="structzab_1_1pause__pack_1a857039a16ec777c2b8997c99fcb75125" prot="public" virt="non-virtual"><scope>zab::pause_pack</scope><name>handle_</name></member>
       <member refid="structzab_1_1pause__pack_1a7846c8d2b9cffb0f318717b8339d53b8" prot="public" virt="non-virtual"><scope>zab::pause_pack</scope><name>thread_</name></member>
     </listofallmembers>
   </compounddef>

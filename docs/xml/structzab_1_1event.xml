@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structzab_1_1event" kind="struct" language="C++" prot="public">
+    <compoundname>zab::event</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename EventType</type>
+        <defval>void</defval>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzab_1_1event_1ab9b932c1effb4376090da089eeb88dc3" prot="public" static="no" mutable="no">
+        <type>details::context_generator&lt; EventType &gt;::context_callback</type>
+        <definition>details::context_generator&lt;EventType&gt;::context_callback zab::event&lt; EventType &gt;::cb_</definition>
+        <argsstring></argsstring>
+        <name>cb_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event.hpp" line="69" column="59" bodyfile="/home/donald/rupin/zab/includes/zab/event.hpp" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzab_1_1event_1a73128896ec617b5a060d9691f640449f" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* zab::event&lt; EventType &gt;::context_</definition>
+        <argsstring></argsstring>
+        <name>context_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/event.hpp" line="70" column="68" bodyfile="/home/donald/rupin/zab/includes/zab/event.hpp" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/donald/rupin/zab/includes/zab/event.hpp" line="68" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/event.hpp" bodystart="68" bodyend="71"/>
+    <listofallmembers>
+      <member refid="structzab_1_1event_1ab9b932c1effb4376090da089eeb88dc3" prot="public" virt="non-virtual"><scope>zab::event</scope><name>cb_</name></member>
+      <member refid="structzab_1_1event_1a73128896ec617b5a060d9691f640449f" prot="public" virt="non-virtual"><scope>zab::event</scope><name>context_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

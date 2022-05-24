@@ -13,18 +13,22 @@
     <includedby refid="engine__enabled_8hpp" local="yes">/home/donald/rupin/zab/includes/zab/engine_enabled.hpp</includedby>
     <includedby refid="event__loop_8hpp" local="yes">/home/donald/rupin/zab/includes/zab/event_loop.hpp</includedby>
     <includedby refid="for__each_8hpp" local="yes">/home/donald/rupin/zab/includes/zab/for_each.hpp</includedby>
-    <includedby refid="network__overlay_8hpp" local="yes">/home/donald/rupin/zab/includes/zab/network_overlay.hpp</includedby>
+    <includedby refid="network__operation_8hpp" local="yes">/home/donald/rupin/zab/includes/zab/network_operation.hpp</includedby>
     <includedby refid="observable_8hpp" local="yes">/home/donald/rupin/zab/includes/zab/observable.hpp</includedby>
     <includedby refid="reusable__future_8hpp" local="yes">/home/donald/rupin/zab/includes/zab/reusable_future.hpp</includedby>
     <includedby refid="reusable__promise_8hpp" local="yes">/home/donald/rupin/zab/includes/zab/reusable_promise.hpp</includedby>
     <includedby refid="signal__handler_8hpp" local="yes">/home/donald/rupin/zab/includes/zab/signal_handler.hpp</includedby>
+    <includedby refid="tcp__networking_8hpp" local="yes">/home/donald/rupin/zab/includes/zab/tcp_networking.hpp</includedby>
     <includedby refid="tcp__stream_8hpp" local="yes">/home/donald/rupin/zab/includes/zab/tcp_stream.hpp</includedby>
     <includedby refid="timer__service_8hpp" local="yes">/home/donald/rupin/zab/includes/zab/timer_service.hpp</includedby>
     <includedby refid="visitor__promise_8hpp" local="yes">/home/donald/rupin/zab/includes/zab/visitor_promise.hpp</includedby>
     <includedby refid="wait__for_8hpp" local="yes">/home/donald/rupin/zab/includes/zab/wait_for.hpp</includedby>
     <incdepgraph>
-      <node id="10">
+      <node id="19">
         <label>atomic</label>
+      </node>
+      <node id="11">
+        <label>functional</label>
       </node>
       <node id="1">
         <label>/home/donald/rupin/zab/includes/zab/simple_future.hpp</label>
@@ -42,8 +46,17 @@
         <childnode refid="7" relation="include">
         </childnode>
       </node>
+      <node id="16">
+        <label>limits</label>
+      </node>
+      <node id="10">
+        <label>cstdint</label>
+      </node>
       <node id="3">
         <label>coroutine</label>
+      </node>
+      <node id="12">
+        <label>variant</label>
       </node>
       <node id="2">
         <label>cassert</label>
@@ -57,9 +70,46 @@
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
         <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>ostream</label>
+      </node>
+      <node id="9">
+        <label>zab/event.hpp</label>
+        <link refid="event_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>zab/strong_types.hpp</label>
+        <link refid="strong__types_8hpp_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
         </childnode>
       </node>
       <node id="4">
@@ -71,32 +121,34 @@
       <node id="8">
         <label>iostream</label>
       </node>
-      <node id="9">
+      <node id="18">
         <label>zab/spin_lock.hpp</label>
         <link refid="spin__lock_8hpp_source"/>
-        <childnode refid="10" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="21">
         <label>cstddef</label>
+      </node>
+      <node id="14">
+        <label>chrono</label>
+      </node>
+      <node id="15">
+        <label>concepts</label>
       </node>
       <node id="5">
         <label>type_traits</label>
       </node>
-      <node id="11">
+      <node id="20">
         <label>zab/hardware_interface_size.hpp</label>
         <link refid="hardware__interface__size_8hpp_source"/>
-        <childnode refid="12" relation="include">
+        <childnode refid="21" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="5">
-        <label>/home/donald/rupin/zab/includes/zab/network_overlay.hpp</label>
-        <link refid="network__overlay_8hpp_source"/>
-      </node>
       <node id="1">
         <label>/home/donald/rupin/zab/includes/zab/simple_future.hpp</label>
         <link refid="simple__future_8hpp"/>
@@ -106,30 +158,32 @@
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
         <childnode refid="20" relation="include">
         </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
         <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="18" relation="include">
         </childnode>
         <childnode refid="22" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="20">
         <label>/home/donald/rupin/zab/includes/zab/for_each.hpp</label>
         <link refid="for__each_8hpp_source"/>
       </node>
@@ -137,116 +191,132 @@
         <label>/home/donald/rupin/zab/includes/zab/async_barrier.hpp</label>
         <link refid="async__barrier_8hpp_source"/>
       </node>
-      <node id="21">
+      <node id="22">
         <label>/home/donald/rupin/zab/includes/zab/reusable_promise.hpp</label>
         <link refid="reusable__promise_8hpp_source"/>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="21" relation="include">
         </childnode>
       </node>
-      <node id="8">
+      <node id="9">
         <label>/home/donald/rupin/zab/includes/zab/event_loop.hpp</label>
         <link refid="event__loop_8hpp_source"/>
-        <childnode refid="9" relation="include">
+        <childnode refid="10" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="17" relation="include">
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="13">
         <label>/home/donald/rupin/zab/includes/zab/first_of.hpp</label>
         <link refid="first__of_8hpp_source"/>
       </node>
-      <node id="10">
+      <node id="11">
         <label>/home/donald/rupin/zab/includes/zab/async_semaphore.hpp</label>
         <link refid="async__semaphore_8hpp_source"/>
-        <childnode refid="11" relation="include">
-        </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-      </node>
-      <node id="17">
-        <label>/home/donald/rupin/zab/includes/zab/signal_handler.hpp</label>
-        <link refid="signal__handler_8hpp_source"/>
-        <childnode refid="9" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
       </node>
-      <node id="6">
+      <node id="18">
+        <label>/home/donald/rupin/zab/includes/zab/signal_handler.hpp</label>
+        <link refid="signal__handler_8hpp_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
         <label>/home/donald/rupin/zab/includes/zab/observable.hpp</label>
         <link refid="observable_8hpp_source"/>
       </node>
-      <node id="22">
+      <node id="23">
         <label>/home/donald/rupin/zab/includes/zab/visitor_promise.hpp</label>
         <link refid="visitor__promise_8hpp_source"/>
       </node>
-      <node id="16">
+      <node id="17">
         <label>/home/donald/rupin/zab/includes/zab/yield.hpp</label>
         <link refid="yield_8hpp_source"/>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
+        <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="5">
+        <label>/home/donald/rupin/zab/includes/zab/network_operation.hpp</label>
+        <link refid="network__operation_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
         <label>/home/donald/rupin/zab/includes/zab/async_latch.hpp</label>
         <link refid="async__latch_8hpp_source"/>
-        <childnode refid="15" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
       </node>
-      <node id="9">
+      <node id="10">
         <label>/home/donald/rupin/zab/includes/zab/engine.hpp</label>
         <link refid="engine_8hpp_source"/>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
+        <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="15" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
       </node>
-      <node id="20">
+      <node id="21">
         <label>/home/donald/rupin/zab/includes/zab/reusable_future.hpp</label>
         <link refid="reusable__future_8hpp_source"/>
-        <childnode refid="19" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
       </node>
       <node id="3">
         <label>/home/donald/rupin/zab/includes/zab/async_file.hpp</label>
         <link refid="async__file_8hpp_source"/>
       </node>
-      <node id="13">
+      <node id="6">
+        <label>/home/donald/rupin/zab/includes/zab/tcp_networking.hpp</label>
+        <link refid="tcp__networking_8hpp_source"/>
+      </node>
+      <node id="14">
         <label>/home/donald/rupin/zab/includes/zab/pause_token.hpp</label>
         <link refid="pause__token_8hpp_source"/>
-        <childnode refid="14" relation="include">
+        <childnode refid="15" relation="include">
         </childnode>
       </node>
       <node id="4">
         <label>/home/donald/rupin/zab/includes/zab/engine_enabled.hpp</label>
         <link refid="engine__enabled_8hpp_source"/>
         <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
@@ -256,31 +326,31 @@
       <node id="7">
         <label>/home/donald/rupin/zab/includes/zab/tcp_stream.hpp</label>
         <link refid="tcp__stream_8hpp_source"/>
-        <childnode refid="5" relation="include">
+        <childnode refid="6" relation="include">
         </childnode>
       </node>
-      <node id="11">
+      <node id="12">
         <label>/home/donald/rupin/zab/includes/zab/async_mutex.hpp</label>
         <link refid="async__mutex_8hpp_source"/>
-        <childnode refid="5" relation="include">
+        <childnode refid="8" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="15">
+      <node id="16">
         <label>/home/donald/rupin/zab/includes/zab/wait_for.hpp</label>
         <link refid="wait__for_8hpp_source"/>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="19">
         <label>/home/donald/rupin/zab/includes/zab/timer_service.hpp</label>
         <link refid="timer__service_8hpp_source"/>
-        <childnode refid="9" relation="include">
+        <childnode refid="10" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -393,7 +463,7 @@
 <codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>await_suspend(std::coroutine_handle&lt;UnderlyingPromise&gt;<sp/>_remsumptor)<sp/>noexcept</highlight></codeline>
 <codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>handle_.promise().set_underlying(_remsumptor);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>handle_.promise().set_underlying({_remsumptor});</highlight></codeline>
 <codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>handle_;</highlight></codeline>
 <codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="104"><highlight class="normal"></highlight></codeline>
@@ -464,16 +534,29 @@
 <codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>details::simple_awaitable&lt;promise_type&gt;{.handle_<sp/>=<sp/>handle_};</highlight></codeline>
 <codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="216"><highlight class="normal"></highlight></codeline>
-<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::coroutine_handle&lt;promise_type&gt;<sp/>handle_;</highlight></codeline>
-<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
-<codeline lineno="219"><highlight class="normal"></highlight></codeline>
-<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
-<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>guaranteed_future<sp/>=</highlight></codeline>
-<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>simple_future&lt;promise_always_resolves&lt;T&gt;,<sp/>simple_promise&lt;promise_always_resolves&lt;T&gt;&gt;&gt;;</highlight></codeline>
-<codeline lineno="226"><highlight class="normal"></highlight></codeline>
-<codeline lineno="227"><highlight class="normal">}<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>zab</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="228"><highlight class="normal"></highlight></codeline>
-<codeline lineno="229"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>ZAB_SIMPLE_FUTURE_HPP_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>inline_co_await(tagged_event<sp/>_event)<sp/>noexcept</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>handle_.promise().set_underlying(_event);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>handle_.resume();</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>decltype(</highlight><highlight class="keyword">auto</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>get_inline_result()<sp/>noexcept</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>handle_.promise().data();</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::coroutine_handle&lt;promise_type&gt;<sp/>handle_;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>guaranteed_future<sp/>=</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>simple_future&lt;promise_always_resolves&lt;T&gt;,<sp/>simple_promise&lt;promise_always_resolves&lt;T&gt;&gt;&gt;;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal">}<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>zab</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>ZAB_SIMPLE_FUTURE_HPP_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
     <location file="/home/donald/rupin/zab/includes/zab/simple_future.hpp"/>
   </compounddef>

@@ -3,7 +3,7 @@
   <compounddef id="namespacezab_1_1order" kind="namespace" language="C++">
     <compoundname>zab::order</compoundname>
       <sectiondef kind="func">
-      <memberdef kind="function" id="strong__types_8hpp_1a999b1309aeb26e6ed1c4873e27b7b28c" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+      <memberdef kind="function" id="namespacezab_1_1order_1a999b1309aeb26e6ed1c4873e27b7b28c" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>constexpr <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref></type>
         <definition>constexpr order_t zab::order::seconds</definition>
         <argsstring>(std::uint64_t _number) noexcept</argsstring>
@@ -13,14 +13,57 @@
           <declname>_number</declname>
         </param>
         <briefdescription>
+<para>Get an <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref> for _number seconds. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_number</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of seconds. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>constexpr <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref> <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref>{_number * 1000000000} </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="153" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="153" bodyend="156"/>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="270" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="270" bodyend="273"/>
       </memberdef>
-      <memberdef kind="function" id="strong__types_8hpp_1abc9e62000fe7258d27470383829dbda6" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+      <memberdef kind="function" id="namespacezab_1_1order_1a211983aac9a71263879996e66d374d6e" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>constexpr <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref></type>
+        <definition>constexpr order_t zab::order::in_seconds</definition>
+        <argsstring>(std::uint64_t _number) noexcept</argsstring>
+        <name>in_seconds</name>
+        <param>
+          <type>std::uint64_t</type>
+          <declname>_number</declname>
+        </param>
+        <briefdescription>
+<para>Get an <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref> for _number seconds. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_number</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of seconds. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>constexpr <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref> <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref>{_number * 1000000000} </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="282" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="282" bodyend="285"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacezab_1_1order_1abc9e62000fe7258d27470383829dbda6" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>constexpr <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref></type>
         <definition>constexpr order_t zab::order::milli</definition>
         <argsstring>(std::uint64_t _number) noexcept</argsstring>
@@ -30,46 +73,29 @@
           <declname>_number</declname>
         </param>
         <briefdescription>
+<para>Get an <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref> for _number milliseconds. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_number</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of milliseconds. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>constexpr <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref> <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref>{_number * 1000000} </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="159" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="159" bodyend="162"/>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="294" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="294" bodyend="297"/>
       </memberdef>
-      <memberdef kind="function" id="strong__types_8hpp_1a8f4040b70c6aa1d7831db4bdc8a4b5df" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+      <memberdef kind="function" id="namespacezab_1_1order_1a16c34a396aa5bdcea7a1cd697f2b90c7" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>constexpr <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref></type>
-        <definition>constexpr order_t zab::order::now</definition>
-        <argsstring>() noexcept</argsstring>
-        <name>now</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="165" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="165" bodyend="168"/>
-      </memberdef>
-      <memberdef kind="function" id="strong__types_8hpp_1a19a37d9a144266a961fe6552f1fa9b96" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
-        <type><ref refid="structzab_1_1order__t" kindref="compound">order_t</ref></type>
-        <definition>order_t zab::order::in_seconds</definition>
-        <argsstring>(std::uint64_t _number) noexcept</argsstring>
-        <name>in_seconds</name>
-        <param>
-          <type>std::uint64_t</type>
-          <declname>_number</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="171" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="171" bodyend="174"/>
-      </memberdef>
-      <memberdef kind="function" id="strong__types_8hpp_1ab215560c6604d0a5c41da3705d0a1fe3" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
-        <type><ref refid="structzab_1_1order__t" kindref="compound">order_t</ref></type>
-        <definition>order_t zab::order::in_milli</definition>
+        <definition>constexpr order_t zab::order::in_milli</definition>
         <argsstring>(std::uint64_t _number) noexcept</argsstring>
         <name>in_milli</name>
         <param>
@@ -77,18 +103,49 @@
           <declname>_number</declname>
         </param>
         <briefdescription>
+<para>Get an <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref> for _number milliseconds. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_number</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of milliseconds. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>constexpr <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref> <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref>{_number * 1000000} </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="177" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="177" bodyend="180"/>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="306" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="306" bodyend="309"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacezab_1_1order_1a8f4040b70c6aa1d7831db4bdc8a4b5df" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>constexpr <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref></type>
+        <definition>constexpr order_t zab::order::now</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>now</name>
+        <briefdescription>
+<para>Get an <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref> that represents now. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>constexpr <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref> <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref>{}; </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="317" column="9" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="317" bodyend="320"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Namespace for <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref> based helper functions. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="150" column="5"/>
+    <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="261" column="5"/>
   </compounddef>
 </doxygen>

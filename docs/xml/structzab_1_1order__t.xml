@@ -11,12 +11,13 @@
         <name>order_</name>
         <initializer>= 0</initializer>
         <briefdescription>
+<para>The amount of time in nanoseconds. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="122" column="27" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="122" bodyend="-1"/>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="207" column="27" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="207" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -30,36 +31,38 @@
           <declname>_other</declname>
         </param>
         <briefdescription>
+<para>3-way operator for a std::strong_ordering </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="124" column="23" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="125" bodyend="128"/>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="213" column="23" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="214" bodyend="217"/>
       </memberdef>
-      <memberdef kind="function" id="structzab_1_1order__t_1af14cf2392ae931455d558df539575365" prot="public" static="no" constexpr="yes" const="yes" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="structzab_1_1order__t_1a8912f376c423bd4b12b3cbde2007298d" prot="public" static="no" constexpr="yes" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
           <param>
             <type>std::integral</type>
-            <declname>Intergral</declname>
-            <defname>Intergral</defname>
+            <declname>Integral</declname>
+            <defname>Integral</defname>
           </param>
         </templateparamlist>
         <type>constexpr auto</type>
         <definition>constexpr auto zab::order_t::operator&lt;=&gt;</definition>
-        <argsstring>(const Intergral _number) const</argsstring>
+        <argsstring>(const Integral _number) const</argsstring>
         <name>operator&lt;=&gt;</name>
         <param>
-          <type>const Intergral</type>
+          <type>const Integral</type>
           <declname>_number</declname>
         </param>
         <briefdescription>
+<para>3-way operator with a std::integral for a std::strong_ordering </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="131" column="23" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="132" bodyend="135"/>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="224" column="23" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="225" bodyend="228"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="friend">
@@ -77,12 +80,33 @@
           <declname>_rhs</declname>
         </param>
         <briefdescription>
+<para>Add two <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref>&apos;s together. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_lhs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The lhs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_rhs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The rhs. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>constexpr auto <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref>{<emphasis>lhs.order</emphasis> + <emphasis>rhs.order</emphasis>} </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="138" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="138" bodyend="141"/>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="238" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="238" bodyend="241"/>
       </memberdef>
       <memberdef kind="friend" id="structzab_1_1order__t_1a36e9ae74c43492032921bd0a23456d48" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
         <type>constexpr friend auto</type>
@@ -98,25 +122,46 @@
           <declname>_rhs</declname>
         </param>
         <briefdescription>
+<para>subtract two <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref>&apos;s together. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_lhs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The lhs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_rhs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The rhs. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>constexpr auto <ref refid="structzab_1_1order__t" kindref="compound">order_t</ref>{<emphasis>lhs.order</emphasis> - <emphasis>rhs.order</emphasis>} </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="144" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="144" bodyend="147"/>
+        <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="251" column="13" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="251" bodyend="254"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>A struct for providing strict typing for ordering. </para>
+<para>A struct for providing strict typing for timing. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="120" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="120" bodyend="148"/>
+    <location file="/home/donald/rupin/zab/includes/zab/strong_types.hpp" line="201" column="5" bodyfile="/home/donald/rupin/zab/includes/zab/strong_types.hpp" bodystart="201" bodyend="255"/>
     <listofallmembers>
       <member refid="structzab_1_1order__t_1ad12cf7dc070cadbda534bfab4fc239f2" prot="public" virt="non-virtual"><scope>zab::order_t</scope><name>operator+</name></member>
       <member refid="structzab_1_1order__t_1a36e9ae74c43492032921bd0a23456d48" prot="public" virt="non-virtual"><scope>zab::order_t</scope><name>operator-</name></member>
       <member refid="structzab_1_1order__t_1af8e31b771fc4b2b02465f6ab14b0bfdb" prot="public" virt="non-virtual"><scope>zab::order_t</scope><name>operator&lt;=&gt;</name></member>
-      <member refid="structzab_1_1order__t_1af14cf2392ae931455d558df539575365" prot="public" virt="non-virtual"><scope>zab::order_t</scope><name>operator&lt;=&gt;</name></member>
+      <member refid="structzab_1_1order__t_1a8912f376c423bd4b12b3cbde2007298d" prot="public" virt="non-virtual"><scope>zab::order_t</scope><name>operator&lt;=&gt;</name></member>
       <member refid="structzab_1_1order__t_1a5ce9c350dfca9f6e0dc7c6de82bdc750" prot="public" virt="non-virtual"><scope>zab::order_t</scope><name>order_</name></member>
     </listofallmembers>
   </compounddef>

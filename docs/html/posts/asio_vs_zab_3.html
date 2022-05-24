@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Benchmarking: ZAB vs ASIO 3/3 &mdash; ZAB 0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> ZAB
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Visit:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../lib/lib_root.html">ZAB Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ZAB</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Benchmarking: ZAB vs ASIO 3/3</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/posts/asio_vs_zab_3.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+
+<section id="benchmarking-zab-vs-asio-3-3">
+<h1>Benchmarking: ZAB vs ASIO 3/3<a class="headerlink" href="#benchmarking-zab-vs-asio-3-3" title="Permalink to this headline"></a></h1>
+<p>To benchmark the ZAB’s performance we performed benchmarks doing a client/server ping-pong networking test to measure total throughput and using an independent echo benchmark tester to test requests per second. We compared the results against a program with identical logic that uses the <a class="reference external" href="https://github.com/chriskohlhoff/asio">asio library</a>. The results were surprising and showed on average ZAB had in comparison to asio around 20% increased throughput and 60% increased requests per second.</p>
+<p>The two main differences between the programs are that ZAB is entirely coroutine based and is driven in the backend by <a class="reference external" href="https://github.com/axboe/liburing">liburing</a>. Asio on the other handle is entirely callback based and is driven in the backend by an epoll based event loop. So this comparison is essentially callbacks vs coroutines and event loop vs asynchronous syscall facility.</p>
+<p>The benchmark code and raw results can be found <a class="reference external" href="https://github.com/Donald-Rupin/zab_benchmark">here: zab_benchmark</a> and the customary link to the <a class="reference external" href="https://github.com/Donald-Rupin/zab">ZAB repo is here</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Disclaimer 1: I don’t claim to be an asio expert so I may be doing something wrong or inefficiently.</p>
+<p>Disclaimer 2: The benchmarks were performed over localhost. Benchmarks using production like network channels are the next step.</p>
+</div>
+<section id="methodology">
+<h2>Methodology<a class="headerlink" href="#methodology" title="Permalink to this headline"></a></h2>
+<section id="io-throughput">
+<h3>IO Throughput<a class="headerlink" href="#io-throughput" title="Permalink to this headline"></a></h3>
+<p>The first test is for IO throughput for a client and server built using their respective backends. It was a ping-pong test comprised of three options: the number of concurrent connections (Con), the number of messages to send (#m) and the size of the message (S). A client and server program was built for both ZAB and asio.</p>
+<section id="client-program">
+<h4>Client Program<a class="headerlink" href="#client-program" title="Permalink to this headline"></a></h4>
+<p>The client program takes the options and implements the ping-pong logic.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Client Logic</span><a class="headerlink" href="#id1" title="Permalink to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="m">0</span> to Con:
+    concurrently <span class="k">do</span>:
+        connect
+        <span class="k">for</span> <span class="m">0</span> to <span class="c1">#m:</span>
+            send message of size s
+            <span class="nb">read</span> message of size s
+</pre></div>
+</div>
+</div>
+<p>The duration of the above logic is timed and compared against the total amount of data sent and received by the client to produce the Mb/s IO throughput. Context and event loop setup is outside of the timed zone.</p>
+<p>An exmaple of what the stream loop looks like across both libraries (with error handling removed) is:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Zab Client</span><a class="headerlink" href="#id2" title="Permalink to this code"></a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">zab</span><span class="o">::</span><span class="n">simple_future</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="w"></span>
+<span class="n">echo_client</span><span class="o">::</span><span class="n">run_stream</span><span class="p">(</span><span class="n">zab</span><span class="o">::</span><span class="n">tcp_stream</span><span class="w"> </span><span class="n">_stream</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="w"> </span><span class="n">buffer</span><span class="p">(</span><span class="n">message_size_</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0ull</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">meesage_count_</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/* Write and read the message back */</span><span class="w"></span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="p">[</span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">amount</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">            </span><span class="k">co_await</span><span class="w"> </span><span class="n">zab</span><span class="o">::</span><span class="n">wait_for</span><span class="p">(</span><span class="n">engine_</span><span class="p">,</span><span class="w"> </span><span class="n">_stream</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">buffer</span><span class="p">),</span><span class="w"> </span><span class="n">_stream</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">buffer</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">co_return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<p>While for asio it looks like this:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Asio Client</span><a class="headerlink" href="#id3" title="Permalink to this code"></a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"></span>
+<span class="nf">session::run_stream</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">buffer_</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">message_size_</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">do_write</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="n">do_read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"></span>
+<span class="nf">session::do_read</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">_up_to</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">_iterations</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">self</span><span class="p">(</span><span class="n">shared_from_this</span><span class="p">());</span><span class="w"></span>
+<span class="w">    </span><span class="n">socket_</span><span class="p">.</span><span class="n">async_read_some</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">asio</span><span class="o">::</span><span class="n">buffer</span><span class="p">(</span><span class="n">buffer_</span><span class="p">.</span><span class="n">data</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">_up_to</span><span class="p">,</span><span class="w"> </span><span class="n">buffer_</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">_up_to</span><span class="p">),</span><span class="w"></span>
+<span class="w">        </span><span class="p">[</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="n">_up_to</span><span class="p">,</span><span class="w"> </span><span class="n">_iterations</span><span class="p">](</span><span class="n">std</span><span class="o">::</span><span class="n">error_code</span><span class="w"> </span><span class="n">ec</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">length</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">_up_to</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">buffer_</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="w"></span>
+<span class="w">            </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="cm">/* Keep going in this iteration */</span><span class="w"></span>
+<span class="w">                </span><span class="n">do_read</span><span class="p">(</span><span class="n">_up_to</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="n">_iterations</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="k">else</span><span class="w"></span>
+<span class="w">            </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">_iterations</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">meesage_count_</span><span class="p">)</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="cm">/* Do next iteration */</span><span class="w"></span>
+<span class="w">                    </span><span class="n">do_write</span><span class="p">();</span><span class="w"></span>
+<span class="w">                    </span><span class="n">do_read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">_iterations</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="p">}</span><span class="w"></span>
+<span class="w">                </span><span class="k">else</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="cm">/* finished */</span><span class="w"></span>
+<span class="w">                </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">});</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"></span>
+<span class="nf">session::do_write</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">self</span><span class="p">(</span><span class="n">shared_from_this</span><span class="p">());</span><span class="w"></span>
+<span class="w">    </span><span class="n">asio</span><span class="o">::</span><span class="n">async_write</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">socket_</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">asio</span><span class="o">::</span><span class="n">buffer</span><span class="p">(</span><span class="n">buffer_</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">buffer_</span><span class="p">.</span><span class="n">size</span><span class="p">()),</span><span class="w"></span>
+<span class="w">        </span><span class="p">[</span><span class="n">self</span><span class="p">](</span><span class="n">std</span><span class="o">::</span><span class="n">error_code</span><span class="w"> </span><span class="n">ec</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">length</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="cm">/* async_write guarantees all is written or error */</span><span class="w"></span>
+<span class="w">        </span><span class="p">});</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="server-program">
+<h4>Server Program<a class="headerlink" href="#server-program" title="Permalink to this headline"></a></h4>
+<p>In the server case, the server does not know the message length nor the number of messages to echo. The server will simply keep echoing anything it receives until the connection is dropped.</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Server Logic</span><a class="headerlink" href="#id4" title="Permalink to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>concurrently <span class="k">do</span>:
+    <span class="k">while</span> true:
+        accept
+
+    concurrently <span class="k">for</span> each conection:
+        <span class="k">while</span> connected:
+            read_some
+            write_some
+</pre></div>
+</div>
+</div>
+<p>The server logic for ZAB looks like this (error checking removed):</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Zab Server</span><a class="headerlink" href="#id5" title="Permalink to this code"></a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">zab</span><span class="o">::</span><span class="n">async_function</span><span class="o">&lt;&gt;</span><span class="w"></span>
+<span class="n">echo_server</span><span class="o">::</span><span class="n">run_acceptor</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">connection_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">acceptor_</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span><span class="w"> </span><span class="n">port_</span><span class="p">,</span><span class="w"> </span><span class="mi">50000</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">co_await</span><span class="w"> </span><span class="n">zab</span><span class="o">::</span><span class="n">for_each</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="n">acceptor_</span><span class="p">.</span><span class="n">get_accepter</span><span class="p">(),</span><span class="w"></span>
+<span class="w">            </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">auto</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">_stream</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w"></span>
+<span class="w">            </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="n">run_stream</span><span class="p">(</span><span class="n">connection_count</span><span class="o">++</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="o">*</span><span class="n">_stream</span><span class="p">));</span><span class="w"></span>
+<span class="w">            </span><span class="p">});</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="n">zab</span><span class="o">::</span><span class="n">async_function</span><span class="o">&lt;&gt;</span><span class="w"></span>
+<span class="n">echo_server</span><span class="o">::</span><span class="n">run_stream</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">_connection_count</span><span class="p">,</span><span class="w"> </span><span class="n">zab</span><span class="o">::</span><span class="n">tcp_stream</span><span class="w"> </span><span class="n">_stream</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">kBufferSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">65534</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="cm">/* Lets load balance connections between available threads... */</span><span class="w"></span>
+<span class="w">    </span><span class="n">zab</span><span class="o">::</span><span class="n">thread_t</span><span class="w"> </span><span class="kr">thread</span><span class="p">{(</span><span class="n">std</span><span class="o">::</span><span class="kt">uint16_t</span><span class="p">)(</span><span class="n">_connection_count</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">engine_</span><span class="o">-&gt;</span><span class="n">number_of_workers</span><span class="p">())};</span><span class="w"></span>
+<span class="w">    </span><span class="k">co_await</span><span class="w"> </span><span class="n">yield</span><span class="p">(</span><span class="kr">thread</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">byte</span><span class="o">&gt;</span><span class="w">           </span><span class="n">buffer</span><span class="p">(</span><span class="n">kBufferSize</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">zab</span><span class="o">::</span><span class="n">tcp_stream</span><span class="o">::</span><span class="n">op_control</span><span class="w"> </span><span class="n">oc</span><span class="p">{.</span><span class="n">data_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">buffer</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="p">.</span><span class="n">size_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kBufferSize</span><span class="p">};</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_stream</span><span class="p">.</span><span class="n">get_reader</span><span class="p">(</span><span class="o">&amp;</span><span class="n">oc</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">writer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_stream</span><span class="p">.</span><span class="n">get_writer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">oc</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">_stream</span><span class="p">.</span><span class="n">last_error</span><span class="p">())</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">co_await</span><span class="w"> </span><span class="n">reader</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">oc</span><span class="p">.</span><span class="n">size_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">size</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">co_await</span><span class="w"> </span><span class="n">writer</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">oc</span><span class="p">.</span><span class="n">size_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kBufferSize</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<p>The server logic for asio looks like this (error checking removed):</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Asio Server</span><a class="headerlink" href="#id6" title="Permalink to this code"></a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"></span>
+<span class="nf">echo_server::do_accept</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">acceptor_</span><span class="p">.</span><span class="n">async_accept</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="p">[</span><span class="k">this</span><span class="p">](</span><span class="n">std</span><span class="o">::</span><span class="n">error_code</span><span class="w"> </span><span class="n">ec</span><span class="p">,</span><span class="w"> </span><span class="n">tcp</span><span class="o">::</span><span class="n">socket</span><span class="w"> </span><span class="n">socket</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">session</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">socket</span><span class="p">))</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">();</span><span class="w"></span>
+<span class="w">            </span><span class="n">do_accept</span><span class="p">();</span><span class="w"></span>
+<span class="w">        </span><span class="p">});</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"></span>
+<span class="nf">session::start</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">kBufferSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">65534</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">data_</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">kBufferSize</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">do_read</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"></span>
+<span class="nf">session::do_read</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">self</span><span class="p">(</span><span class="n">shared_from_this</span><span class="p">());</span><span class="w"></span>
+<span class="w">    </span><span class="n">socket_</span><span class="p">.</span><span class="n">async_read_some</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">asio</span><span class="o">::</span><span class="n">buffer</span><span class="p">(</span><span class="n">data_</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">data_</span><span class="p">.</span><span class="n">size</span><span class="p">()),</span><span class="w"></span>
+<span class="w">        </span><span class="p">[</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">self</span><span class="p">](</span><span class="n">std</span><span class="o">::</span><span class="n">error_code</span><span class="w"> </span><span class="n">ec</span><span class="p">,</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">length</span><span class="p">)</span><span class="w"> </span><span class="k">mutable</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">do_write</span><span class="p">(</span><span class="n">length</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">});</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"></span>
+<span class="nf">session::do_write</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">_length</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">self</span><span class="p">(</span><span class="n">shared_from_this</span><span class="p">());</span><span class="w"></span>
+<span class="w">    </span><span class="n">asio</span><span class="o">::</span><span class="n">async_write</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">socket_</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">asio</span><span class="o">::</span><span class="n">buffer</span><span class="p">(</span><span class="n">data_</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">_length</span><span class="p">),</span><span class="w"></span>
+<span class="w">        </span><span class="p">[</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">self</span><span class="p">](</span><span class="n">std</span><span class="o">::</span><span class="n">error_code</span><span class="w"> </span><span class="n">ec</span><span class="p">,</span><span class="w"> </span><span class="k">auto</span><span class="p">)</span><span class="w"> </span><span class="k">mutable</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">do_read</span><span class="p">();</span><span class="w"></span>
+<span class="w">        </span><span class="p">});</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<p>The code for each program is adapted from the example programs provided by each project. The application parts in each framework are similar and boil down to callback vs coroutine differences. The code was compiled with the same flags and optimisations and in Release mode.</p>
+<section id="results">
+<h5>Results<a class="headerlink" href="#results" title="Permalink to this headline"></a></h5>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Since we are running both client and server for each event loop the throughput could be doubled. For example, the 1Gb message is read and written by <em>both</em> the client and the server. So in practice 4Gb’s (where we say 2Gb) of data is processed. This does not affect the % difference.</p>
+</div>
+<p>We performed two ping-pong benchmarks on the code: One large message and 100 medium-sized messages.</p>
+<p><strong>One Large Message</strong></p>
+<p>In this benchmark, we sent a 1Gb message (2Gb in io per connection). This is more or less a baseline test as there is little concurrency and the connection is a one-off message. We performed this with connections increasing from 2 to 20 in increments of 2.</p>
+<a class="reference internal image-reference" href="../_images/1g.png"><img alt="../_images/1g.png" src="../_images/1g.png" style="width: 600px;" /></a>
+<p>The results show that ZAB overall performs better and the difference between the two is more obvious with fewer connections and as the connections count passes the number of available CPU cores (16).</p>
+<p><strong>Onehundred Medium Messages</strong></p>
+<p>In this benchmark, we sent 100 10Mb messages (2000Mb in io per connection). We performed this with connections increasing from 100 to 1000 in increments of 100.</p>
+<a class="reference internal image-reference" href="../_images/10mb.png"><img alt="../_images/10mb.png" src="../_images/10mb.png" style="width: 600px;" /></a>
+<p>Again, the results show that ZAB overall performs better. Mirroring the baseline, the difference is more obvious with fewer connections.</p>
+</section>
+</section>
+</section>
+<section id="requests-per-second">
+<h3>Requests per second<a class="headerlink" href="#requests-per-second" title="Permalink to this headline"></a></h3>
+<p>This benchmark utilises the same server code as the IO throughput but uses an external tool to measure the requests per second. This allows us to explicitly benchmark the server itself, where the client is acting under the same conditions. The tool we used is <a class="reference external" href="https://github.com/haraldh/rust_echo_bench">rust_echo_bench</a>.</p>
+<p>We ran the benchmarker for 30 seconds altering the number of connections and the size of the message sent. the test was run for 200 connections and 1000 connections for message sizes: 256, 512, 1024, 2048 and 4096.</p>
+<p><strong>200 connections</strong></p>
+<a class="reference internal image-reference" href="../_images/200con.png"><img alt="../_images/200con.png" src="../_images/200con.png" style="width: 600px;" /></a>
+<p>We can see that ZAB was consistently serving around  60% more requests per second.</p>
+<p><strong>1000 connections</strong></p>
+<a class="reference internal image-reference" href="../_images/1000con.png"><img alt="../_images/1000con.png" src="../_images/1000con.png" style="width: 600px;" /></a>
+<p>We can see that ZAB performed better for all message sizes. Although, the difference shrunk as the message size increased.</p>
+</section>
+</section>
+<section id="discussion">
+<h2>Discussion<a class="headerlink" href="#discussion" title="Permalink to this headline"></a></h2>
+<p>The original version of ZAB used to run this benchmark differed greatly from the final version. This benchmarking was as much an exercise of self-improvement and discovery, as a comparative work. The ZAB <a class="reference external" href="https://github.com/Donald-Rupin/zab/releases/tag/v0.0.0.1-alpha">alpha release</a> was fully epoll backed. It widely underperformed against the asio implementation. Additionally, asio has a backend implementation that utilises liburing too. Comparatively, this implementation was an entire order of magnitude slower than both asio epoll and ZAB liburing. So I did not include this in the comparison.</p>
+<p>Using profiling tools I was able to identify bottlenecks and chokepoints within the original ZAB epoll implementation. Iterating on the design I was able to get the performance to a similar level as asio, but with more variability. Going down the rabbit hole of asynchronous programming techniques led me to liburing and io_uring. This original implementation of liburing had a similar performance as asio.  Further profiling and some optimisations on the coroutine elements brought us to the current results.</p>
+<p>There are still some big improvements that can be made which I believe will further increase the frameworks speed. A big warning to potential users is that coroutines can be very slow. Particularly in hot paths. Against the backdrop of IO, it isn’t the operation of coroutines (resuming and suspending), it is the creation and deconstruction that impacts performance. As an example, changing from a <code class="docutils literal notranslate"><span class="pre">zab::simple_future&lt;&gt;</span></code> to a <code class="docutils literal notranslate"><span class="pre">zab::resuable_future&lt;&gt;</span></code> for accepting connections netted a 15% increase in requests per second. The next big improvement for ZAB is to favour reusable coroutines and focus on generic awaitable types in replacement to coroutine chaining.</p>
+<p>It is worth mentioning that asio has far greater QoL implementation details and more structured error reporting mechanisms. This comes with asio’s maturity as a library and the years of production experience it has. At this stage, ZAB only provides the coroutine executer and a very thin coroutine wrapper to liburing functionality. As ZAB matures the goal is to provide more robust QoL and error reporting mechanisms. The next big leap in testing and maturity will be its operation within production-like environments as a means of becoming more battle-hardened.</p>
+</section>
+</section>
+
+<hr>
+</hr>
+  
+<h2>
+   
+  03 March 2022 
+</h2>
+
+<ul>
+   
+<li id="author">
+  <span
+    >Author:</span
+  >
+   
+  <a href="../blog/author/donald-rupin.html">Donald Rupin</a>  
+</li>
+  
+<li id="language">
+  <span
+    >Language:</span
+  >
+   
+  <a href="../blog/language/english.html">English</a>  
+</li>
+ 
+<li id="category">
+  <span
+    >Category:</span
+  >
+   
+  <a href="../blog/category/benchmarking.html">benchmarking</a>  
+</li>
+  
+</ul>
+
+<p></p>
+
+
+
+<script async src="//static.getclicky.com/101353531.js"></script>
+<noscript>
+    <p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/101353531ns.gif" /></p>
+</noscript>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Donald Rupin.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

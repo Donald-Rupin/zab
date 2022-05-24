@@ -1,73 +1,34 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Signal Handling &mdash; ZAB 0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Coroutines" href="coroutines.html" />
     <link rel="prev" title="event_loop" href="event_loop.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> ZAB
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -75,19 +36,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Visit:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Visit:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="lib_root.html">ZAB Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html">Geting Started</a></li>
@@ -107,94 +57,50 @@
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../posts/blog_home.html">Recent Articles</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">ZAB</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="lib_root.html">ZAB Documentation</a> &raquo;</li>
-        
           <li><a href="core_library.html">Core Library</a> &raquo;</li>
-        
       <li>Signal Handling</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/lib/signal_handling.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
 
-<div class="section" id="signal-handling">
-<span id="id1"></span><h1>Signal Handling<a class="headerlink" href="#signal-handling" title="Permalink to this headline">¶</a></h1>
+<section id="signal-handling">
+<span id="id1"></span><h1>Signal Handling<a class="headerlink" href="#signal-handling" title="Permalink to this headline"></a></h1>
 <hr class="docutils" />
 <p>The <code class="docutils literal notranslate"><span class="pre">engine</span></code> provides rudimentary signal handling that utilises the “self-pipe trick”. Your class can access the <code class="docutils literal notranslate"><span class="pre">signal_handler</span></code> through <code class="docutils literal notranslate"><span class="pre">signal_handler&amp;</span> <span class="pre">engine::get_signal_handler()</span></code> and use this to register for notification every time a signal is caught.</p>
 <hr class="docutils" />
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab14signal_handlerE">
-<span id="_CPPv3N3zab14signal_handlerE"></span><span id="_CPPv2N3zab14signal_handlerE"></span><span id="zab::signal_handler"></span><span class="target" id="classzab_1_1signal__handler"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">signal_handler</span></span></span><a class="headerlink" href="#_CPPv4N3zab14signal_handlerE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab14signal_handlerE"></span><span id="_CPPv2N3zab14signal_handlerE"></span><span id="zab::signal_handler"></span><span class="target" id="classzab_1_1signal__handler"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">zab</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">signal_handler</span></span></span><a class="headerlink" href="#_CPPv4N3zab14signal_handlerE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>This class describes a signal handler for re-entrant signals. </p>
 <p>There can only be 1 <a class="reference internal" href="#classzab_1_1signal__handler"><span class="std std-ref">signal_handler</span></a> active at 1 time. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab14signal_handler7handlerE">
-<span id="_CPPv3N3zab14signal_handler7handlerE"></span><span id="_CPPv2N3zab14signal_handler7handlerE"></span><span class="target" id="classzab_1_1signal__handler_1a43bf789492554c19983f08183391fe4b"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">handler</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3zab14signal_handler7handlerE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab14signal_handler7handlerE"></span><span id="_CPPv2N3zab14signal_handler7handlerE"></span><span class="target" id="classzab_1_1signal__handler_1a43bf789492554c19983f08183391fe4b"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">handler</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3zab14signal_handler7handlerE" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -202,7 +108,7 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab14signal_handler14signal_handlerEP6engine">
-<span id="_CPPv3N3zab14signal_handler14signal_handlerEP6engine"></span><span id="_CPPv2N3zab14signal_handler14signal_handlerEP6engine"></span><span id="zab::signal_handler::signal_handler__engineP"></span><span class="target" id="classzab_1_1signal__handler_1aac84a022622ceb0fce7d01c214bd7f30"></span><span class="sig-name descname"><span class="n"><span class="pre">signal_handler</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab14signal_handler14signal_handlerEP6engine" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab14signal_handler14signal_handlerEP6engine"></span><span id="_CPPv2N3zab14signal_handler14signal_handlerEP6engine"></span><span id="zab::signal_handler::signal_handler__engineP"></span><span class="target" id="classzab_1_1signal__handler_1aac84a022622ceb0fce7d01c214bd7f30"></span><span class="sig-name descname"><span class="n"><span class="pre">signal_handler</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="engine.html#_CPPv4N3zab6engineE" title="zab::engine"><span class="n"><span class="pre">engine</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_engine</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab14signal_handler14signal_handlerEP6engine" title="Permalink to this definition"></a><br /></dt>
 <dd><p>initialise the handler with an engine to re-enter into. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -213,30 +119,30 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab14signal_handler14signal_handlerERR14signal_handler">
-<span id="_CPPv3N3zab14signal_handler14signal_handlerERR14signal_handler"></span><span id="_CPPv2N3zab14signal_handler14signal_handlerERR14signal_handler"></span><span id="zab::signal_handler::signal_handler__signal_handlerRR"></span><span class="target" id="classzab_1_1signal__handler_1a998fef73822815517be29e7d2b0f17bb"></span><span class="sig-name descname"><span class="n"><span class="pre">signal_handler</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab14signal_handler14signal_handlerERR14signal_handler" title="zab::signal_handler::signal_handler"><span class="n"><span class="pre">signal_handler</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_move</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3zab14signal_handler14signal_handlerERR14signal_handler" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab14signal_handler14signal_handlerERR14signal_handler"></span><span id="_CPPv2N3zab14signal_handler14signal_handlerERR14signal_handler"></span><span id="zab::signal_handler::signal_handler__signal_handlerRR"></span><span class="target" id="classzab_1_1signal__handler_1a998fef73822815517be29e7d2b0f17bb"></span><span class="sig-name descname"><span class="n"><span class="pre">signal_handler</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3zab14signal_handler14signal_handlerERR14signal_handler" title="zab::signal_handler::signal_handler"><span class="n"><span class="pre">signal_handler</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_move</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3zab14signal_handler14signal_handlerERR14signal_handler" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab14signal_handlerD0Ev">
-<span id="_CPPv3N3zab14signal_handlerD0Ev"></span><span id="_CPPv2N3zab14signal_handlerD0Ev"></span><span id="zab::signal_handler::~signal_handler"></span><span class="target" id="classzab_1_1signal__handler_1a9fa773983b5c7769b3fbb46cd6fb8060"></span><span class="sig-name descname"><span class="n"><span class="pre">~signal_handler</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab14signal_handlerD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab14signal_handlerD0Ev"></span><span id="_CPPv2N3zab14signal_handlerD0Ev"></span><span id="zab::signal_handler::~signal_handler"></span><span class="target" id="classzab_1_1signal__handler_1a9fa773983b5c7769b3fbb46cd6fb8060"></span><span class="sig-name descname"><span class="n"><span class="pre">~signal_handler</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab14signal_handlerD0Ev" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Destroys the <a class="reference internal" href="#classzab_1_1signal__handler"><span class="std std-ref">signal_handler</span></a> and resets the callbacks to default. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab14signal_handler3runEv">
-<span id="_CPPv3N3zab14signal_handler3runEv"></span><span id="_CPPv2N3zab14signal_handler3runEv"></span><span id="zab::signal_handler::run"></span><span class="target" id="classzab_1_1signal__handler_1a40fc6dc35d4d7b18f627a436d8e8e93f"></span><a class="reference internal" href="async_function.html#_CPPv4I_N7details9ExecutionEEN3zab14async_functionE" title="zab::async_function"><span class="n"><span class="pre">async_function</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">run</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab14signal_handler3runEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab14signal_handler3runEv"></span><span id="_CPPv2N3zab14signal_handler3runEv"></span><span id="zab::signal_handler::run"></span><span class="target" id="classzab_1_1signal__handler_1a40fc6dc35d4d7b18f627a436d8e8e93f"></span><a class="reference internal" href="async_function.html#_CPPv4I_N7details9ExecutionEEN3zab14async_functionE" title="zab::async_function"><span class="n"><span class="pre">async_function</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">run</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab14signal_handler3runEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>run the signal loop. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab14signal_handler4stopEv">
-<span id="_CPPv3N3zab14signal_handler4stopEv"></span><span id="_CPPv2N3zab14signal_handler4stopEv"></span><span id="zab::signal_handler::stop"></span><span class="target" id="classzab_1_1signal__handler_1ac2d23fcbed15dd09fc143f92b25faae8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">stop</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab14signal_handler4stopEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab14signal_handler4stopEv"></span><span id="_CPPv2N3zab14signal_handler4stopEv"></span><span id="zab::signal_handler::stop"></span><span class="target" id="classzab_1_1signal__handler_1ac2d23fcbed15dd09fc143f92b25faae8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">stop</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab14signal_handler4stopEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>stop the signal loop. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab14signal_handler6handleEi8thread_tRR7handler">
-<span id="_CPPv3N3zab14signal_handler6handleEi8thread_tRR7handler"></span><span id="_CPPv2N3zab14signal_handler6handleEi8thread_tRR7handler"></span><span id="zab::signal_handler::handle__i.thread_t.handlerRR"></span><span class="target" id="classzab_1_1signal__handler_1ae280134e323454b06dc385dc25910682"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">handle</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_sig</span></span>, <a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_thread</span></span>, <a class="reference internal" href="#_CPPv4N3zab14signal_handler7handlerE" title="zab::signal_handler::handler"><span class="n"><span class="pre">handler</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_function</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab14signal_handler6handleEi8thread_tRR7handler" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab14signal_handler6handleEi8thread_tRR7handler"></span><span id="_CPPv2N3zab14signal_handler6handleEi8thread_tRR7handler"></span><span id="zab::signal_handler::handle__i.thread_t.handlerRR"></span><span class="target" id="classzab_1_1signal__handler_1ae280134e323454b06dc385dc25910682"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">handle</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">_sig</span></span>, <a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">_thread</span></span>, <a class="reference internal" href="#_CPPv4N3zab14signal_handler7handlerE" title="zab::signal_handler::handler"><span class="n"><span class="pre">handler</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">_function</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3zab14signal_handler6handleEi8thread_tRR7handler" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Register a handler for a given signal. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -254,7 +160,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab14signal_handler9is_activeEv">
-<span id="_CPPv3N3zab14signal_handler9is_activeEv"></span><span id="_CPPv2N3zab14signal_handler9is_activeEv"></span><span id="zab::signal_handler::is_active"></span><span class="target" id="classzab_1_1signal__handler_1a625788bc7f3b107dccb5d4500f24bd47"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_active</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab14signal_handler9is_activeEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab14signal_handler9is_activeEv"></span><span id="_CPPv2N3zab14signal_handler9is_activeEv"></span><span id="zab::signal_handler::is_active"></span><span class="target" id="classzab_1_1signal__handler_1a625788bc7f3b107dccb5d4500f24bd47"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_active</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3zab14signal_handler9is_activeEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Determines if <a class="reference internal" href="#classzab_1_1signal__handler"><span class="std std-ref">signal_handler</span></a> this active. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -268,13 +174,13 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3zab14signal_handler13kSignalThreadE">
-<span id="_CPPv3N3zab14signal_handler13kSignalThreadE"></span><span id="_CPPv2N3zab14signal_handler13kSignalThreadE"></span><span id="zab::signal_handler::kSignalThread__thread_t"></span><span class="target" id="classzab_1_1signal__handler_1a7e0d778ab166ec350b3cb8bb12ef1f16"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kSignalThread</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3zab14signal_handler13kSignalThreadE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3zab14signal_handler13kSignalThreadE"></span><span id="_CPPv2N3zab14signal_handler13kSignalThreadE"></span><span id="zab::signal_handler::kSignalThread__thread_t"></span><span class="target" id="classzab_1_1signal__handler_1a7e0d778ab166ec350b3cb8bb12ef1f16"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kSignalThread</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="ordering_and_threads.html#_CPPv4N3zab8thread_tE" title="zab::thread_t"><span class="n"><span class="pre">thread_t</span></span></a><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3zab14signal_handler13kSignalThreadE" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
 </dd></dl>
 
-</div>
+</section>
 
 <hr>
 </hr>
@@ -290,50 +196,33 @@
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="coroutines.html" class="btn btn-neutral float-right" title="Coroutines" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="event_loop.html" class="btn btn-neutral float-left" title="event_loop" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="coroutines.html" class="btn btn-neutral float-right" title="Coroutines" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2022, Donald Rupin.
-
-    </p>
+    <p>&#169; Copyright 2022, Donald Rupin.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
