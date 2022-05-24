@@ -1,10 +1,10 @@
-# ZAB - A high performance coroutine executor and asynchronous io framework
+# ZAB - A high performance liburing backed coroutine executor and asynchronous io framework
 
-![example workflow](https://github.com/Donald-Rupin/zab/actions/workflows/cmake.yml/badge.svg)
+[![CMake](https://github.com/Donald-Rupin/zab/actions/workflows/cmake.yml/badge.svg)](https://github.com/Donald-Rupin/zab/actions/workflows/cmake.yml)
 
 [Home Page](https://donald-rupin.github.io/zab/html/index.html)
 
-A high-performance framework for building asynchronous and multi-threaded programs. 
+A high-performance [liburing](https://github.com/axboe/liburing) backed event loop for building asynchronous and multi-threaded programs. 
 
 The original goal of this library was to learn the [new coroutines TS](https://en.cppreference.com/w/cpp/coroutine) for C++. I found the most difficult part of the coroutine TS is when you want to develop an asynchronous architecture or "executer/runtime" that can handle re-entrant code across possibly different threads. Thus, **ZAB** was born. 
 
