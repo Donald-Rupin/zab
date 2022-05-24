@@ -15,7 +15,7 @@ The original goal of this library was to learn the new `coroutines TS <https://e
 
 ZAB uses io_uring and liburing as its back end to provide asynchronous system calls. ZAB so far does not try to provide QoL or improvements on the posix system call API's. However, C++ classes are provided to provide resource management and group similar function calls.
 
-`benchmarks can be found here <https://github.com/Donald-Rupin/zab_benchmark<`
+`benchmarks can be found here <https://github.com/Donald-Rupin/zab_benchmark>`_
 
 Contact: donald.rupin@pm.me
 
