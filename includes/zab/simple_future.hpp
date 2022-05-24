@@ -221,6 +221,12 @@ namespace zab {
                 handle_.resume();
             }
 
+            inline decltype(auto)
+            get_inline_result() noexcept
+            {
+                return handle_.promise().data();
+            }
+
             std::coroutine_handle<promise_type> handle_;
     };
 

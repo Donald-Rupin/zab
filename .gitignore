@@ -41,3 +41,4 @@ source/_template
 *.sublime*
 compile_commands.*
 .cache
+tags

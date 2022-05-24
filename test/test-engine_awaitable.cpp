@@ -171,20 +171,19 @@ namespace zab::test {
                         promise.inline_co_await(e);
                     });
 
-                failed_ = false;
+                if (promise.get_inline_result() == 42) { failed_ = false; }
 
                 engine_->stop();
 
                 co_return;
             }
 
-            simple_future<>
+            simple_future<int>
             do_promise()
             {
                 co_await yield();
 
-                std::cout << "Returning\n";
-                co_return;
+                co_return 42;
             }
 
             bool
