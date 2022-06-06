@@ -54,8 +54,6 @@
 
 #include "zab/strong_types.hpp"
 
-// delete
-#include "zab/engine.hpp"
 namespace zab {
 
     namespace {
@@ -375,22 +373,10 @@ namespace zab {
     event_loop::cancel_code(std::intptr_t _result) noexcept -> CancelResult
     {
         if (!_result) { return CancelResult::kDone; }
-        else if (_result == -ENOENT)
-        {
-            return CancelResult::kNotFound;
-        }
-        else if (_result == -EALREADY)
-        {
-            return CancelResult::kTried;
-        }
-        else if (_result == -ENOMEM)
-        {
-            return CancelResult::kFailed;
-        }
-        else
-        {
-            return CancelResult::kUnknown;
-        }
+        else if (_result == -ENOENT) { return CancelResult::kNotFound; }
+        else if (_result == -EALREADY) { return CancelResult::kTried; }
+        else if (_result == -ENOMEM) { return CancelResult::kFailed; }
+        else { return CancelResult::kUnknown; }
     }
 
     static const std::uint64_t item = 1;

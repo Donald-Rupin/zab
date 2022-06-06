@@ -62,7 +62,6 @@ namespace zab {
     /**
      * @brief      This class implements a coroutine wrapper for the liburing service.
      *
-     *             Investigate IORING_SETUP_ATTACH_WQ
      */
     class alignas(hardware_constructive_interference_size) event_loop {
 
@@ -137,10 +136,7 @@ namespace zab {
                             if (_cancel_token) { *_cancel_token = &ret; }
                             open_at(&ret, _dfd, _path, _flags, _mode);
                         }
-                        else if constexpr (is_resume<T>())
-                        {
-                            return ret.result_;
-                        }
+                        else if constexpr (is_resume<T>()) { return ret.result_; }
                     });
             }
 
@@ -191,10 +187,7 @@ namespace zab {
                             if (_cancel_token) { *_cancel_token = &ret; }
                             close(&ret, _fd);
                         }
-                        else if constexpr (is_resume<T>())
-                        {
-                            return ret.result_;
-                        }
+                        else if constexpr (is_resume<T>()) { return ret.result_; }
                     });
             }
 
@@ -243,10 +236,7 @@ namespace zab {
                             if (_cancel_token) { *_cancel_token = &ret; }
                             read(&ret, _fd, _buffer, _offset);
                         }
-                        else if constexpr (is_resume<T>())
-                        {
-                            return ret.result_;
-                        }
+                        else if constexpr (is_resume<T>()) { return ret.result_; }
                     });
             }
 
@@ -308,10 +298,7 @@ namespace zab {
                             if (_cancel_token) { *_cancel_token = &ret; }
                             fixed_read(&ret, _fd, _buffer, _offset, _buf_index);
                         }
-                        else if constexpr (is_resume<T>())
-                        {
-                            return ret.result_;
-                        }
+                        else if constexpr (is_resume<T>()) { return ret.result_; }
                     });
             }
 
@@ -375,10 +362,7 @@ namespace zab {
                             if (_cancel_token) { *_cancel_token = &ret; }
                             read_v(&ret, _fd, _iovecs, _nr_vecs, _offset);
                         }
-                        else if constexpr (is_resume<T>())
-                        {
-                            return ret.result_;
-                        }
+                        else if constexpr (is_resume<T>()) { return ret.result_; }
                     });
             }
 
@@ -435,10 +419,7 @@ namespace zab {
                             if (_cancel_token) { *_cancel_token = &ret; }
                             write(&ret, _fd, _buffer, _offset);
                         }
-                        else if constexpr (is_resume<T>())
-                        {
-                            return ret.result_;
-                        }
+                        else if constexpr (is_resume<T>()) { return ret.result_; }
                     });
             }
 
@@ -500,10 +481,7 @@ namespace zab {
                             if (_cancel_token) { *_cancel_token = &ret; }
                             fixed_write(&ret, _fd, _buffer, _offset, _buf_index);
                         }
-                        else if constexpr (is_resume<T>())
-                        {
-                            return ret.result_;
-                        }
+                        else if constexpr (is_resume<T>()) { return ret.result_; }
                     });
             }
 
@@ -567,10 +545,7 @@ namespace zab {
                             if (_cancel_token) { *_cancel_token = &ret; }
                             write_v(&ret, _fd, _iovecs, _nr_vecs, _offset);
                         }
-                        else if constexpr (is_resume<T>())
-                        {
-                            return ret.result_;
-                        }
+                        else if constexpr (is_resume<T>()) { return ret.result_; }
                     });
             }
 
@@ -628,10 +603,7 @@ namespace zab {
                             if (_cancel_token) { *_cancel_token = &ret; }
                             recv(&ret, _sockfd, _buffer, _flags);
                         }
-                        else if constexpr (is_resume<T>())
-                        {
-                            return ret.result_;
-                        }
+                        else if constexpr (is_resume<T>()) { return ret.result_; }
                     });
             }
 
@@ -686,10 +658,7 @@ namespace zab {
                             if (_cancel_token) { *_cancel_token = &ret; }
                             send(&ret, _sockfd, _buffer, _flags);
                         }
-                        else if constexpr (is_resume<T>())
-                        {
-                            return ret.result_;
-                        }
+                        else if constexpr (is_resume<T>()) { return ret.result_; }
                     });
             }
 
@@ -751,10 +720,7 @@ namespace zab {
                             if (_cancel_token) { *_cancel_token = &ret; }
                             accept(&ret, _sockfd, _addr, _addrlen, _flags);
                         }
-                        else if constexpr (is_resume<T>())
-                        {
-                            return ret.result_;
-                        }
+                        else if constexpr (is_resume<T>()) { return ret.result_; }
                     });
             }
 
@@ -811,10 +777,7 @@ namespace zab {
                             if (_cancel_token) { *_cancel_token = &ret; }
                             connect(&ret, _sockfd, _addr, _addrlen);
                         }
-                        else if constexpr (is_resume<T>())
-                        {
-                            return ret.result_;
-                        }
+                        else if constexpr (is_resume<T>()) { return ret.result_; }
                     });
             }
 
@@ -907,10 +870,7 @@ namespace zab {
 
                             cancel_event(&ret, _key);
                         }
-                        else if constexpr (is_resume<T>())
-                        {
-                            return cancel_code(ret.result_);
-                        }
+                        else if constexpr (is_resume<T>()) { return cancel_code(ret.result_); }
                     });
             }
 

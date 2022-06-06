@@ -151,31 +151,37 @@ namespace zab {
             generic_awaitable(Functor* _functor) : functor_(_functor) { }
 
             template <typename F = Functor, typename PromiseType>
-            decltype(auto)
+            auto
             await_suspend(std::coroutine_handle<PromiseType> _awaiter) noexcept
             {
-                auto handle = tagged_event{_awaiter};
+                return await_suspend(tagged_event{_awaiter});
+            }
+
+            template <typename F = Functor>
+            auto
+            await_suspend(tagged_event _event) noexcept
+            {
                 if constexpr (details::PassThroughSuspend<F>)
                 {
-                    if constexpr (std::is_same_v<void, decltype(functor_->await_suspend(handle))>)
+                    if constexpr (std::is_void_v<decltype(functor_->await_suspend(_event))>)
                     {
-                        functor_->await_suspend(handle);
+                        functor_->await_suspend(_event);
                     }
                     else
                     {
-                        auto result = functor_->await_suspend(handle);
+                        auto result = functor_->await_suspend(_event);
                         return handle_suspend(result);
                     }
                 }
                 else if constexpr (details::GenericSuspend<F>)
                 {
-                    if constexpr (std::is_same_v<void, decltype((*functor_)(handle))>)
+                    if constexpr (std::is_void_v<decltype((*functor_)(_event))>)
                     {
-                        (*functor_)(handle);
+                        (*functor_)(_event);
                     }
                     else
                     {
-                        auto result = (*functor_)(handle);
+                        auto result = (*functor_)(_event);
                         return handle_suspend(result);
                     }
                 }
@@ -185,6 +191,43 @@ namespace zab {
                         details::PassThroughSuspend<F> || details::GenericSuspend<F>,
                         "No await_suspend(std::coroutine_handle<PromiseType>) or "
                         "operator()(std::coroutine_handle<PromiseType>) provided.");
+                }
+            }
+
+            template <typename F = Functor>
+            void
+            inline_await_suspend(tagged_event _event) noexcept
+            {
+                if constexpr (std::is_void_v<decltype(await_suspend(_event))>)
+                {
+                    await_suspend(_event);
+                }
+                else
+                {
+                    auto result = await_suspend(_event);
+
+                    using result_t = decltype(result);
+
+                    if constexpr (std::is_same_v<result_t, bool>)
+                    {
+                        if (!result) { execute_event(_event); }
+                    }
+                    else if constexpr (std::is_same_v<result_t, tagged_event>)
+                    {
+                        execute_event(result);
+                    }
+                    else if constexpr (std::is_convertible_v<result_t, std::coroutine_handle<>>)
+                    {
+                        auto h = (std::coroutine_handle<>) result;
+                        h.resume();
+                    }
+                    else
+                    {
+                        static_assert(
+                            !sizeof(result),
+                            "Only return types of void, bool, std::coroutine_handle<P> and "
+                            "tagged_event are supported by await_suspend");
+                    }
                 }
             }
 
@@ -266,10 +309,7 @@ namespace zab {
                         {
                             handle = _data;
                         }
-                        else
-                        {
-                            execute_event(_data);
-                        }
+                        else { execute_event(_data); }
                     },
                     _result);
 
@@ -286,26 +326,45 @@ namespace zab {
 
         public:
 
-            suspension_point(const suspension_point& _copy) = default;
+            suspension_point(Functor&& _functor) : functor_(std::move(_functor)), at_(&functor_) { }
 
-            suspension_point(suspension_point&& _move) = default;
-
-            suspension_point&
-            operator=(suspension_point&& _move_op) = default;
-
-            suspension_point(Functor&& _functor) : functor_(std::move(_functor)) { }
-
-            suspension_point(const Functor& _functor) : functor_(_functor) { }
+            suspension_point(const Functor& _functor) : functor_(_functor), at_(&functor_) { }
 
             template <typename... Args>
-            suspension_point(Args&&... _args) : functor_(std::forward<Args>(_args)...)
+            suspension_point(Args&&... _args)
+                : functor_(std::forward<Args>(_args)...), at_(&functor_)
             { }
 
-            auto operator co_await() noexcept { return AwaitableType(&functor_); }
+            suspension_point(suspension_point&& _move)
+                : functor_(std::move(_move.functor_)), at_(&functor_)
+            { }
+
+            suspension_point&
+            operator=(suspension_point&& _move_op)
+            {
+                functor_ = std::move(_move_op.functor_);
+                at_      = AwaitableType(&functor_);
+            }
+
+            auto operator co_await() noexcept { return at_; }
+
+            void
+            inline_co_await(tagged_event _event) noexcept
+            {
+                if (!at_.await_ready()) { at_.inline_await_suspend(_event); }
+                else { execute_event(_event); }
+            }
+
+            decltype(auto)
+            get_inline_result() noexcept
+            {
+                return at_.await_resume();
+            }
 
         private:
 
-            Functor functor_;
+            Functor       functor_;
+            AwaitableType at_;
     };
 
 }   // namespace zab
