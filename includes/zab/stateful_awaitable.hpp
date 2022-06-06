@@ -101,12 +101,11 @@ namespace zab {
 
         public:
 
-            stateful_awaitable(const stateful_awaitable& _copy) = default;
+            stateful_awaitable(const stateful_awaitable& _copy)
+                : stateful_awaitable(_copy.functor())
+            { }
 
-            stateful_awaitable(stateful_awaitable&& _move) = default;
-
-            stateful_awaitable&
-            operator=(stateful_awaitable&& _move_op) = default;
+            stateful_awaitable(stateful_awaitable&& _move) : stateful_awaitable(_move.functor()) { }
 
             stateful_awaitable(Functor* _functor)
                 : generic_awaitable<Functor>(_functor),
@@ -133,7 +132,7 @@ namespace zab {
                         case notify_ctl::kSuspend:
                             using return_type = decltype(await_suspend());
 
-                            if constexpr (std::is_same_v<void, return_type>)
+                            if constexpr (std::is_void_v<return_type>)
                             {
                                 await_suspend();
                                 return;
@@ -144,10 +143,7 @@ namespace zab {
                                 {
                                     return;
                                 }
-                                else
-                                {
-                                    result = notify_ctl::kResume;
-                                }
+                                else { result = notify_ctl::kResume; }
                             }
 
                             break;
@@ -158,31 +154,29 @@ namespace zab {
 
                         case notify_ctl::kReady:
                             if (!await_ready()) { result = notify_ctl::kSuspend; }
-                            else
-                            {
-                                result = notify_ctl::kResume;
-                            }
+                            else { result = notify_ctl::kResume; }
                     }
                 }
             }
 
             template <details::StatefulAwaitable<NotifyType> F = Functor>
-            decltype(auto)
+            auto
             await_suspend(std::coroutine_handle<> _awaiter) noexcept
             {
+                std::cout << "Setting tag " << this << "\n";
                 underlying_ = tagged_event{_awaiter};
                 return await_suspend();
             }
 
             template <details::StatefulAwaitable<NotifyType> F = Functor>
-            decltype(auto)
+            auto
             await_suspend() noexcept
             {
                 if constexpr (details::PassThroughSuspend<F>)
                 {
                     using return_type =
                         decltype(generic_awaitable<Functor>::functor()->await_suspend(&context_));
-                    if constexpr (std::is_same_v<void, return_type>)
+                    if constexpr (std::is_void_v<return_type>)
                     {
                         generic_awaitable<Functor>::functor()->await_suspend(&context_);
                     }
@@ -193,7 +187,7 @@ namespace zab {
                     else
                     {
                         static_assert(
-                            std::is_same_v<void, return_type> || std::is_same_v<bool, return_type>,
+                            std::is_void_v<return_type> || std::is_same_v<bool, return_type>,
                             "stateful_awaitable await_suspend() or "
                             "operator()() does support non bool or void return types.");
                     }
@@ -202,7 +196,8 @@ namespace zab {
                 {
                     using return_type =
                         decltype((*generic_awaitable<Functor>::functor())(&context_));
-                    if constexpr (std::is_same_v<void, return_type>)
+
+                    if constexpr (std::is_void_v<return_type>)
                     {
                         (*generic_awaitable<Functor>::functor())(&context_);
                     }
@@ -213,7 +208,7 @@ namespace zab {
                     else
                     {
                         static_assert(
-                            std::is_same_v<void, return_type> || std::is_same_v<bool, return_type>,
+                            std::is_void_v<return_type> || std::is_same_v<bool, return_type>,
                             "stateful_awaitable await_suspend() or "
                             "operator()() does support non bool or void return types.");
                     }
@@ -239,6 +234,41 @@ namespace zab {
             await_resume() noexcept
             {
                 return generic_awaitable<Functor>::await_resume();
+            }
+
+            template <typename F = Functor>
+            void
+            inline_await_suspend(tagged_event _event) noexcept
+            {
+                underlying_ = _event;
+                if constexpr (std::is_void_v<decltype(await_suspend())>) { await_suspend(); }
+                else
+                {
+                    auto result = await_suspend();
+
+                    using result_t = decltype(result);
+
+                    if constexpr (std::is_same_v<result_t, bool>)
+                    {
+                        if (!result) { execute_event(_event); }
+                    }
+                    else if constexpr (std::is_same_v<result_t, tagged_event>)
+                    {
+                        execute_event(result);
+                    }
+                    else if constexpr (std::is_convertible_v<result_t, std::coroutine_handle<>>)
+                    {
+                        auto h = (std::coroutine_handle<>) result;
+                        h.resume();
+                    }
+                    else
+                    {
+                        static_assert(
+                            !sizeof(result),
+                            "Only return types of void, bool, std::coroutine_handle<P> and "
+                            "tagged_event are supported by await_suspend");
+                    }
+                }
             }
 
         private:

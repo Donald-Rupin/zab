@@ -325,7 +325,7 @@ namespace zab {
 
             wait_for(Promises&&... _args) const noexcept
             {
-                return zab::wait_for(engine_, std::forward<Promises>(_args)...);
+                return zab::wait_for(std::forward<Promises>(_args)...);
             }
 
             template <typename T>
@@ -475,10 +475,7 @@ namespace zab {
                         co_await yield(return_thread);
                     }
                     if (!generator.complete()) { co_yield result; }
-                    else
-                    {
-                        co_return result;
-                    }
+                    else { co_return result; }
                 }
             }
 
@@ -507,10 +504,7 @@ namespace zab {
                         co_await yield(return_thread);
                     }
                     if (!generator.complete()) { co_yield result; }
-                    else
-                    {
-                        co_return result;
-                    }
+                    else { co_return result; }
                 }
             }
 
