@@ -278,7 +278,7 @@ namespace zab {
             }
 
             Functor*
-            functor() noexcept
+            functor() const noexcept
             {
                 return functor_;
             }
