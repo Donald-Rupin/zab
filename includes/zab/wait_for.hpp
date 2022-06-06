@@ -203,7 +203,7 @@ namespace zab {
      */
     template <typename... Promises>
     auto
-    wait_for(engine* _engine, Promises&&... _args) noexcept
+    wait_for(Promises&&... _args) noexcept
     {
         if constexpr (sizeof...(_args))
         {
