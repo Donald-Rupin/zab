@@ -130,62 +130,6 @@ namespace zab {
                 using types = std::tuple<>;
         };
 
-        /**
-         * @brief      In order applies the elements from both tuples to the function.
-         *
-         * @param      _results   The first tuple.
-         * @param      _promises  The second tuple.
-         * @param[in]  function   The function to be applied.
-         * @param[in]  <unnamed>  Index sequence for folding.
-         *
-         * @tparam     Results    The first tuple types.
-         * @tparam     Promises   The second tuple types.
-         * @tparam     Function   The tupe of the function.
-         * @tparam     Is         The index sequence.
-         *
-         * @return     A tuple with the results of {f(t_1, t_2,), f(t_2, t_3),
-         * ...}
-         */
-        template <typename... Results, typename... Promises, typename Function, size_t... Is>
-        void
-        init_wait_imple(
-            std::tuple<Results...>&  _results,
-            std::tuple<Promises...>& _promises,
-            Function&                _function,
-            std::index_sequence<Is...>)
-        {
-            std::initializer_list<int>(
-                {_function(std::get<Is>(_results), std::get<Is>(_promises))...});
-        }
-
-        /**
-         * @brief      In order applies the elements from both tuples to the function.
-         *
-         * @param      _results   The first tuple.
-         * @param      _promises  The second tuple.
-         * @param[in]  function   The function to be applied.
-         *
-         * @tparam     Results    The first tuple types.
-         * @tparam     Promises   The second tuple types.
-         * @tparam     Function   The type of the function.
-         *
-         * @return     A tuple with the results of {f(t_1, t_2,), f(t_2, t_3),
-         * ...}
-         */
-        template <typename... Results, typename... Promises, typename Function>
-        auto
-        init_wait(
-            std::tuple<Results...>&  _results,
-            std::tuple<Promises...>& _promises,
-            Function&&               _function)
-        {
-            return init_wait_imple(
-                _results,
-                _promises,
-                _function,
-                std::make_index_sequence<sizeof...(Results)>{});
-        }
-
         template <typename... Promises, size_t... Is>
         auto
         inline_start_promise_imple(
@@ -299,7 +243,6 @@ namespace zab {
                     }
                     else if constexpr (is_suspend<T>())
                     {
-                        std::cout << "Doing inline start!\n";
                         wait_data.event_ = _handle;
 
                         details::inline_start_promise(
@@ -339,41 +282,6 @@ namespace zab {
                 });
         }
     }
-
-    // typename details::extract_promise_types<Promises...>::types result;
-    // /* Actually things to wait on */
-    // if constexpr (sizeof...(_args) > 0)
-    // {
-    //      async_latch latch(_engine, sizeof...(_args) + 1);
-
-    //      /* Convert promises to async_function<> the set the value and notify us
-    //       * when all is complete */
-    //      details::init_wait(
-    //          result,
-    //          functions,
-    //          [&latch](auto& _result, auto& _future) noexcept
-    //          {
-    //              [](auto& _latch, auto& _result, auto& _future) noexcept -> async_function<>
-    //              {
-    //                  if constexpr (std::is_same_v<promise_void,
-    //                  std::decay_t<decltype(_result)>>)
-    //                  {
-    //                      co_await _future;
-    //                  }
-    //                  else { _result = co_await _future; }
-
-    //                  _latch.count_down();
-    //              }(latch, _result, _future);
-
-    //              /* Helps it fold... */
-    //              return 0;
-    //          });
-
-    //      co_await latch.arrive_and_wait();
-    //  }
-
-    //  co_return result;
-    //}
 
     template <typename T>
     guaranteed_future<std::vector<typename simple_future<T>::return_value>>
