@@ -163,7 +163,6 @@ namespace zab {
             auto
             await_suspend(std::coroutine_handle<> _awaiter) noexcept
             {
-                std::cout << "Setting tag " << this << "\n";
                 underlying_ = tagged_event{_awaiter};
                 return await_suspend();
             }
